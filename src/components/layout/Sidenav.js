@@ -1,5 +1,17 @@
+/*!
+  =========================================================
+  * Muse Ant Design Dashboard - v1.0.0
+  =========================================================
+  * Product Page: https://www.creative-tim.com/product/muse-ant-design-dashboard
+  * Copyright 2021 Creative Tim (https://www.creative-tim.com)
+  * Licensed under MIT (https://github.com/creativetimofficial/muse-ant-design-dashboard/blob/main/LICENSE.md)
+  * Coded by Creative Tim
+  =========================================================
+  * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+*/
+
 // import { useState } from "react";
-import { Menu } from "antd";
+import { Menu, Button } from "antd";
 import { NavLink, useLocation } from "react-router-dom";
 import logo from "../../assets/images/medisure.png";
 
@@ -7,7 +19,7 @@ function Sidenav({ color }) {
   const { pathname } = useLocation();
   const page = pathname.replace("/", "");
 
-  const dashboard = [
+  const receipt = [
     <svg
       width="20"
       height="20"
@@ -30,7 +42,7 @@ function Sidenav({ color }) {
     </svg>,
   ];
 
-  const tables = [
+  const care = [
     <svg
       width="20"
       height="20"
@@ -52,7 +64,7 @@ function Sidenav({ color }) {
     </svg>,
   ];
 
-  const billing = [
+  const insertManual = [
     <svg
       width="20"
       height="20"
@@ -74,25 +86,7 @@ function Sidenav({ color }) {
     </svg>,
   ];
 
-  const rtl = [
-    <svg
-      width="20"
-      height="20"
-      viewBox="0 0 20 20"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-      key={0}
-    >
-      <path
-        fillRule="evenodd"
-        clipRule="evenodd"
-        d="M3 6C3 4.34315 4.34315 3 6 3H16C16.3788 3 16.725 3.214 16.8944 3.55279C17.0638 3.89157 17.0273 4.29698 16.8 4.6L14.25 8L16.8 11.4C17.0273 11.703 17.0638 12.1084 16.8944 12.4472C16.725 12.786 16.3788 13 16 13H6C5.44772 13 5 13.4477 5 14V17C5 17.5523 4.55228 18 4 18C3.44772 18 3 17.5523 3 17V6Z"
-        fill={color}
-      ></path>
-    </svg>,
-  ];
-
-  const profile = [
+  const spec = [
     <svg
       width="20"
       height="20"
@@ -109,26 +103,7 @@ function Sidenav({ color }) {
       ></path>
     </svg>,
   ];
-
-  const signin = [
-    <svg
-      width="20"
-      height="20"
-      viewBox="0 0 20 20"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-      key={0}
-    >
-      <path
-        fillRule="evenodd"
-        clipRule="evenodd"
-        d="M6 2C5.44772 2 5 2.44772 5 3V4H4C2.89543 4 2 4.89543 2 6V16C2 17.1046 2.89543 18 4 18H16C17.1046 18 18 17.1046 18 16V6C18 4.89543 17.1046 4 16 4H15V3C15 2.44772 14.5523 2 14 2C13.4477 2 13 2.44772 13 3V4H7V3C7 2.44772 6.55228 2 6 2ZM6 7C5.44772 7 5 7.44772 5 8C5 8.55228 5.44772 9 6 9H14C14.5523 9 15 8.55228 15 8C15 7.44772 14.5523 7 14 7H6Z"
-        fill={color}
-      ></path>
-    </svg>,
-  ];
-
-  const signup = [
+  const bill = [
     <svg
       xmlns="http://www.w3.org/2000/svg"
       width="14"
@@ -150,88 +125,69 @@ function Sidenav({ color }) {
 
   return (
     <>
-      <div className="brand">
+     <div className="brand">
         <img src={logo} alt="" />
       </div>
       <Menu theme="light" mode="inline">
         <Menu.Item key="1">
-          <NavLink to="/dashboard">
+          <NavLink to="/receipt">
             <span
               className="icon"
               style={{
-                background: page === "dashboard" ? color : "",
+                background: page === "receipt" ? color : "",
               }}
             >
-              {dashboard}
+              {receipt}
             </span>
-            <span className="label">Dashboard</span>
+            <span className="label">접수/수납</span>
           </NavLink>
         </Menu.Item>
         <Menu.Item key="2">
-          <NavLink to="/tables">
+          <NavLink to="/care">
             <span
               className="icon"
               style={{
-                background: page === "tables" ? color : "",
+                background: page === "care" ? color : "",
               }}
             >
-              {tables}
+              {care}
             </span>
-            <span className="label">Tables</span>
-          </NavLink>
-        </Menu.Item>
-        <Menu.Item key="3">
-          <NavLink to="/billing">
-            <span
-              className="icon"
-              style={{
-                background: page === "billing" ? color : "",
-              }}
-            >
-              {billing}
-            </span>
-            <span className="label">Billing</span>
-          </NavLink>
-        </Menu.Item>
-        <Menu.Item key="4">
-          <NavLink to="/rtl">
-            <span
-              className="icon"
-              style={{
-                background: page === "rtl" ? color : "",
-              }}
-            >
-              {rtl}
-            </span>
-            <span className="label">RTL</span>
+            <span className="label">진료</span>
           </NavLink>
         </Menu.Item>
         <Menu.Item className="menu-item-header" key="5">
-          Account Pages
+          보험심사
         </Menu.Item>
-        <Menu.Item key="6">
-          <NavLink to="/profile">
+        <Menu.Item key="3">
+          <NavLink to="/insertManual">
             <span
               className="icon"
               style={{
-                background: page === "profile" ? color : "",
+                background: page === "insertManual" ? color : "",
               }}
             >
-              {profile}
+              {insertManual}
             </span>
-            <span className="label">Profile</span>
+            <span className="label">수동생성</span>
+          </NavLink>
+        </Menu.Item>
+        <Menu.Item key="6">
+          <NavLink to="/spec">
+            <span
+              className="icon"
+              style={{
+                background: page === "spec" ? color : "",
+              }}
+            >
+              {spec}
+            </span>
+            <span className="label">심사</span>
           </NavLink>
         </Menu.Item>
         <Menu.Item key="7">
-          <NavLink to="/sign-in">
-            <span className="icon">{signin}</span>
-            <span className="label">Sign In</span>
-          </NavLink>
-        </Menu.Item>
-        <Menu.Item key="8">
-          <NavLink to="/sign-up">
-            <span className="icon">{signup}</span>
-            <span className="label">Sign Up</span>
+          <NavLink to="/bill">
+            <span className="icon">{bill}</span>
+            <span className="label">송신</span>
           </NavLink>
         </Menu.Item>
       </Menu>
