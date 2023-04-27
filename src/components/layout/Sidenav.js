@@ -1,11 +1,9 @@
 import { Menu } from "antd";
-import { NavLink, useLocation } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import logo from "../../assets/images/medisure.png";
 import "../../assets/styles/Sidenav.css";
 
 function Sidenav({ color }) {
-  const { pathname } = useLocation();
-  const page = pathname.replace("/", "");
 
   const receipt = [
     <svg
@@ -119,12 +117,7 @@ function Sidenav({ color }) {
       <Menu theme="light" mode="inline">
         <Menu.Item key="1">
           <NavLink to="/receipt">
-            <span
-              className="icon"
-              style={{
-                background: page === "receipt" ? color : "",
-              }}
-            >
+            <span className="icon">
               {receipt}
             </span>
             <span className="label">접수/수납</span>
@@ -132,12 +125,7 @@ function Sidenav({ color }) {
         </Menu.Item>
         <Menu.Item key="2">
           <NavLink to="/care">
-            <span
-              className="icon"
-              style={{
-                background: page === "care" ? color : "",
-              }}
-            >
+            <span className="icon">
               {care}
             </span>
             <span className="label">진료</span>
@@ -148,12 +136,7 @@ function Sidenav({ color }) {
         </Menu.Item>
         <Menu.Item key="3">
           <NavLink to="/insertManual">
-            <span
-              className="icon"
-              style={{
-                background: page === "insertManual" ? color : "",
-              }}
-            >
+            <span className="icon">
               {insertManual}
             </span>
             <span className="label">수동생성</span>
@@ -161,12 +144,7 @@ function Sidenav({ color }) {
         </Menu.Item>
         <Menu.Item key="6">
           <NavLink to="/spec">
-            <span
-              className="icon"
-              style={{
-                background: page === "spec" ? color : "",
-              }}
-            >
+            <span className="icon">
               {spec}
             </span>
             <span className="label">심사</span>
