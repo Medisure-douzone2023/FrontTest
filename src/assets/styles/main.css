@@ -8,242 +8,6 @@ body {
   font-weight: 400;
   font-family: open sans, Helvetica, Arial, sans-serif;
 }
-.ant-layout.ant-layout-has-sider {
-  flex-direction: row;
-}
-.layout-dashboard {
-  background: transparent;
-  text-align: left;
-  position: relative;
-  overflow-x: hidden;
-}
-@media (min-width: 992px) {
-  .layout-dashboard {
-    overflow: auto;
-  }
-}
-.layout-dashboard .ant-layout-sider.sider-primary {
-  width: 250px;
-  position: fixed;
-  left: 0;
-  z-index: 99;
-  height: 100vh;
-  overflow: auto;
-  margin: 0;
-  padding: 33px 20px;
-}
-.layout-dashboard .ant-layout-sider.sider-primary .brand img {
-  height: 60px;
-  vertical-align: middle;
-  margin-left: 3px;
-  margin-bottom: 20px;
-}
-
-.layout-dashboard .ant-layout-sider.sider-primary .ant-layout-sider-children {
-  width: auto;
-}
-
-.layout-dashboard .ant-layout-sider.sider-primary .ant-menu-inline {
-  border: none;
-}
-.layout-dashboard .ant-menu {
-  background: transparent;
-}
-
-.layout-dashboard
-  .ant-layout-sider.sider-primary
-  .ant-menu-inline
-  .ant-menu-item,
-.layout-dashboard
-  .ant-layout-sider.sider-primary
-  .ant-menu-inline
-  .ant-menu-submenu {
-  margin: 0;
-  overflow: visible;
-}
-
-.layout-dashboard .ant-layout-sider.sider-primary .ant-menu-item,
-.layout-dashboard .ant-layout-sider.sider-primary .ant-menu-submenu {
-  padding: 0 !important;
-  height: auto;
-  line-height: normal;
-}
-
-.layout-dashboard
-  .ant-layout-sider.sider-primary
-  .ant-menu-inline
-  .ant-menu-item:after,
-.layout-dashboard
-  .ant-layout-sider.sider-primary
-  .ant-menu-inline
-  .ant-menu-submenu:after {
-  display: none;
-}
-
-.layout-dashboard
-  .ant-layout-sider.sider-primary
-  .ant-menu-item.ant-menu-item-selected,
-.layout-dashboard
-  .ant-layout-sider.sider-primary
-  .ant-menu-item.ant-menu-item:active,
-.layout-dashboard
-  .ant-layout-sider.sider-primary
-  .ant-menu-item
-  .ant-menu-submenu-selected,
-.layout-dashboard
-  .ant-layout-sider.sider-primary
-  .ant-menu-item.ant-menu-submenu-title:active,
-.layout-dashboard
-  .ant-layout-sider.sider-primary
-  .ant-menu-item
-  .ant-menu-submenu:active,
-.layout-dashboard
-  .ant-layout-sider.sider-primary
-  .ant-menu-submenu.ant-menu-item-selected,
-.layout-dashboard
-  .ant-layout-sider.sider-primary
-  .ant-menu-submenu.ant-menu-item:active,
-.layout-dashboard
-  .ant-layout-sider.sider-primary
-  .ant-menu-submenu
-  .ant-menu-submenu-selected,
-.layout-dashboard
-  .ant-layout-sider.sider-primary
-  .ant-menu-submenu.ant-menu-submenu-title:active,
-.layout-dashboard
-  .ant-layout-sider.sider-primary
-  .ant-menu-submenu
-  .ant-menu-submenu:active {
-  background-color: transparent;
-}
-
-.layout-dashboard
-  .ant-layout-sider.sider-primary
-  .ant-menu-item.ant-menu-item-selected
-  .active,
-.layout-dashboard .ant-layout-sider.sider-primary .ant-menu-item .active,
-.layout-dashboard
-  .ant-layout-sider.sider-primary
-  .ant-menu-submenu.ant-menu-item-selected
-  .active,
-.layout-dashboard .ant-layout-sider.sider-primary .ant-menu-submenu .active {
-  background-color: #fff;
-  box-shadow: 0 20px 27px rgb(0 0 0 / 5%);
-  font-weight: 600;
-}
-.layout-dashboard .ant-layout-sider.sider-primary .ant-menu-item a,
-.layout-dashboard .ant-layout-sider.sider-primary .ant-menu-submenu a {
-  padding: 10px 16px;
-  color: #141414;
-  border-radius: 8px;
-  display: flex;
-  align-items: center;
-  white-space: nowrap;
-}
-
-.layout-dashboard
-  .ant-layout-sider.sider-primary.ant-layout-sider-primary
-  .ant-menu-item.ant-menu-item-selected
-  .active
-  .icon,
-.layout-dashboard
-  .ant-layout-sider.sider-primary.ant-layout-sider-primary
-  .ant-menu-item
-  .active
-  .icon {
-  background-color: #1890ff;
-}
-.layout-dashboard
-  .ant-layout-sider.sider-primary
-  .ant-menu-item.ant-menu-item-selected
-  .active
-  .icon,
-.layout-dashboard .ant-layout-sider.sider-primary .ant-menu-item .active .icon,
-.layout-dashboard
-  .ant-layout-sider.sider-primary
-  .ant-menu-submenu.ant-menu-item-selected
-  .active
-  .icon,
-.layout-dashboard
-  .ant-layout-sider.sider-primary
-  .ant-menu-submenu
-  .active
-  .icon {
-  background-color: #1890ff;
-}
-
-.layout-dashboard .ant-layout-sider.sider-primary .ant-menu-item .icon,
-.layout-dashboard .ant-layout-sider.sider-primary .ant-menu-submenu .icon {
-  display: inline-flex;
-  width: 32px;
-  height: 32px;
-  background-color: #fff;
-  box-shadow: 0 4px 6px rgb(0 0 0 / 12%);
-  border-radius: 6px;
-  justify-content: center;
-  align-items: center;
-  margin-right: 11px;
-  vertical-align: middle;
-}
-
-.layout-dashboard
-  .ant-layout-sider.sider-primary
-  .ant-menu-item.ant-menu-item-selected
-  .active
-  svg
-  path,
-.layout-dashboard
-  .ant-layout-sider.sider-primary
-  .ant-menu-item
-  .active
-  svg
-  path,
-.layout-dashboard
-  .ant-layout-sider.sider-primary
-  .ant-menu-submenu.ant-menu-item-selected
-  .active
-  svg
-  path,
-.layout-dashboard
-  .ant-layout-sider.sider-primary
-  .ant-menu-submenu
-  .active
-  svg
-  path {
-  fill: #fff;
-}
-.layout-dashboard .ant-layout-sider.sider-primary .ant-menu-item svg path,
-.layout-dashboard .ant-layout-sider.sider-primary .ant-menu-submenu svg path {
-  fill: #bfbfbf;
-}
-
-.layout-dashboard .ant-layout-sider.sider-primary .ant-menu-item a:hover,
-.layout-dashboard .ant-layout-sider.sider-primary .ant-menu-submenu a:hover {
-  color: #141414;
-}
-
-.layout-dashboard
-  .ant-layout-sider.sider-primary
-  .ant-menu-inline
-  .ant-menu-item.menu-item-header {
-  padding: 10px 16px !important;
-  color: #8c8c8c;
-  font-weight: 700;
-  font-size: 13px;
-  text-transform: uppercase;
-  display: block;
-}
-
-.menu-item-header:hover {
-  color: inherit;
-}
-
-.layout-dashboard .ant-layout-sider.sider-primary.ant-layout-sider-zero-width {
-  overflow-x: hidden;
-  width: 210px;
-  margin: 0;
-  padding: 33px 0;
-}
 
 .ant-btn,
 .ant-radio-group .ant-radio-button-wrapper {
@@ -255,10 +19,6 @@ body {
   display: block;
 }
 
-.ant-layout.ant-layout-has-sider > .ant-layout,
-.ant-layout.ant-layout-has-sider > .ant-layout-content {
-  overflow-x: hidden;
-}
 .layout-dashboard .ant-layout {
   background: transparent;
   position: relative;
@@ -510,24 +270,6 @@ h6 {
 
 header.ant-layout-header.subheader {
   background: transparent;
-}
-
-.sidemenu {
-  margin-top: 20px;
-  margin-left: 20px;
-}
-
-.logo img {
-  width: 32px;
-  margin-right: 10px;
-}
-
-.logo {
-  margin-bottom: 15px;
-}
-.logo span {
-  font-size: 16px;
-  font-weight: 600;
 }
 
 hr.horizontal.dark {
@@ -1425,11 +1167,7 @@ ul.ant-menu.ant-menu-root.ant-menu-inline.ant-menu-light.left-nav li svg path {
 .ant-radio-button-wrapper:last-child {
   border-radius: 0 4px 4px 0;
 }
-ul.ant-menu.ant-menu-root.ant-menu-inline.ant-menu-light.left-nav
-  li.ant-menu-item-selected
-  path {
-  color: #fff;
-}
+
 .ant-avatar-group .ant-avatar-square {
   border-radius: 4px;
 }
@@ -1840,49 +1578,6 @@ body {
   display: block;
 }
 
-.layout-default .ant-layout-footer .ant-menu-horizontal > .ant-menu-item,
-.layout-default .ant-layout-footer .ant-menu-horizontal > .ant-menu-item-active,
-.layout-default
-  .ant-layout-footer
-  .ant-menu-horizontal
-  > .ant-menu-item-selected,
-.layout-default .ant-layout-footer .ant-menu-horizontal > .ant-menu-item:hover,
-.layout-default .ant-layout-footer .ant-menu-horizontal > .ant-menu-submenu,
-.layout-default
-  .ant-layout-footer
-  .ant-menu-horizontal
-  > .ant-menu-submenu-active,
-.layout-default
-  .ant-layout-footer
-  .ant-menu-horizontal
-  > .ant-menu-submenu-selected,
-.layout-default
-  .ant-layout-footer
-  .ant-menu-horizontal
-  > .ant-menu-submenu:hover {
-  color: #8c8c8c;
-  border: none;
-}
-.layout-default .ant-layout-footer .ant-menu-horizontal > .ant-menu-item-active,
-.layout-default
-  .ant-layout-footer
-  .ant-menu-horizontal
-  > .ant-menu-item-selected,
-.layout-default .ant-layout-footer .ant-menu-horizontal > .ant-menu-item:hover,
-.layout-default
-  .ant-layout-footer
-  .ant-menu-horizontal
-  > .ant-menu-submenu-active,
-.layout-default
-  .ant-layout-footer
-  .ant-menu-horizontal
-  > .ant-menu-submenu-selected,
-.layout-default
-  .ant-layout-footer
-  .ant-menu-horizontal
-  > .ant-menu-submenu:hover {
-  color: #262626;
-}
 .layout-default.ant-layout.layout-sign-up .ant-layout-footer ul li:after {
   display: none;
 }
@@ -1935,57 +1630,6 @@ body {
   font-weight: 400;
 }
 
-.layout-default
-  .ant-layout-header
-  .header-nav
-  .ant-menu-horizontal
-  > .ant-menu-item,
-.layout-default
-  .ant-layout-header
-  .header-nav
-  .ant-menu-horizontal
-  > .ant-menu-item-active,
-.layout-default
-  .ant-layout-header
-  .header-nav
-  .ant-menu-horizontal
-  > .ant-menu-item-selected,
-.layout-default
-  .ant-layout-header
-  .header-nav
-  .ant-menu-horizontal
-  > .ant-menu-item:hover,
-.layout-default
-  .ant-layout-header
-  .header-nav
-  .ant-menu-horizontal
-  > .ant-menu-submenu,
-.layout-default
-  .ant-layout-header
-  .header-nav
-  .ant-menu-horizontal
-  > .ant-menu-submenu-active,
-.layout-default
-  .ant-layout-header
-  .header-nav
-  .ant-menu-horizontal
-  > .ant-menu-submenu-selected,
-.layout-default
-  .ant-layout-header
-  .header-nav
-  .ant-menu-horizontal
-  > .ant-menu-submenu:hover {
-  color: #8c8c8c;
-  font-weight: 600;
-  border: none;
-}
-.layout-default
-  .ant-layout-header
-  .header-nav
-  .ant-menu-horizontal
-  > .ant-menu-item {
-  padding: 0;
-}
 .sign-in {
   padding: 0 20px;
 }
