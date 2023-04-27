@@ -1,12 +1,11 @@
 import { Switch, Route, Redirect } from "react-router-dom";
-import Home from "./pages/Home";
-import Care from "./pages/Care";
-import InsertManual from "./pages/InsertManual";
-import Spec from "./pages/Spec";
-import Bill from "./pages/Bill";
-import Rtl from "./pages/Rtl";
-import SignUp from "./pages/Bill";
-import SignIn from "./pages/SignIn";
+import Receipt from "./pages/Receipt/Receipt";
+import Care from "./pages/Care/Care";
+import InsertManual from "./pages/InsertManual/InsertManual";
+import Spec from "./pages/Spec/Spec";
+import Bill from "./pages/Bill/Bill";
+import SignIn from "./pages/LogIn/SignIn";
+import CommonT from "./pages/CommonT/CommonT";
 import Main from "./components/layout/Main";
 import "antd/dist/antd.css";
 // import "./assets/styles/main.css";
@@ -16,15 +15,14 @@ function App() {
   return (
     <div className="App">
       <Switch>
-        <Route path="/sign-up" exact component={SignUp} />
         <Route path="/sign-in" exact component={SignIn} />
         <Main>
-          <Route exact path="/receipt" component={Home} />
+          <Route exact path="/receipt" component={Receipt} />
           <Route exact path="/care" component={Care} />
           <Route exact path="/insertManual" component={InsertManual} />
           <Route exact path="/spec" component={Spec} />
           <Route exact path="/bill" component={Bill} />
-          <Route exact path="/rtl" component={Rtl} />
+          <Route exact path="/commonT" component={CommonT} />
           <Redirect from="*" to="/receipt" />
         </Main>
       </Switch>

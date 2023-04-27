@@ -143,10 +143,23 @@ function Sidenav({ color }) {
             <span className="label">진료</span>
           </NavLink>
         </Menu.Item>
-        <Menu.Item className="menu-item-header" key="5">
+        <Menu.Item key="3">
+          <NavLink to="/commonT">
+            <span
+              className="icon"
+              style={{
+                background: page === "commonT" ? color : "",
+              }}
+            >
+              {care}
+            </span>
+            <span className="label">공통테이블</span>
+          </NavLink>
+        </Menu.Item>
+        <Menu.Item className="menu-item-header" key="4">
           보험심사
         </Menu.Item>
-        <Menu.Item key="3">
+        <Menu.Item key="5 ">
           <NavLink to="/insertManual">
             <span
               className="icon"
