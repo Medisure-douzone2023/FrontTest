@@ -1,7 +1,7 @@
-// import { useState } from "react";
-import { Menu, Button } from "antd";
+import { Menu } from "antd";
 import { NavLink, useLocation } from "react-router-dom";
 import logo from "../../assets/images/medisure.png";
+import "../../assets/styles/Sidenav.css";
 
 function Sidenav({ color }) {
   const { pathname } = useLocation();
