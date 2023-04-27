@@ -10,6 +10,12 @@
 .layout-dashboard .header-control .btn-sign-in svg {
   margin-right: 10px;
 }
+
+.layout-dashboard .header-control .btn-sign-in span {
+  font-weight: 600;
+  vertical-align: middle;
+  display: none;
+}
 /* 드롭다운, 종모양 */ 
 [header-notifications-dropdown]
 .ant-dropdown-menu.ant-dropdown-menu-split.header-notifications-dropdown {
