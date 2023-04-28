@@ -9,13 +9,15 @@ function Footer() {
       <Row className="just">
         <Col xs={24} md={12} lg={12}>
           <div className="copyright">
-            © 2023, made with
-            {<HeartFilled />} by
+            © 2023, made with Douzone__HealthCare 4 Team
+            {<HeartFilled />}
             <a href="#pablo" className="font-weight-bold" target="_blank">
-               Medisure
+            
             </a>
+            for a better Life
           </div>
         </Col>
+
       </Row>
     </AntFooter>
   );
