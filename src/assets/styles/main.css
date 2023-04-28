@@ -188,42 +188,6 @@ body {
 
 .layout-dashboard
   .ant-layout-sider.sider-primary
-  .ant-menu-item.ant-menu-item-selected
-  .active
-  svg
-  path,
-.layout-dashboard
-  .ant-layout-sider.sider-primary
-  .ant-menu-item
-  .active
-  svg
-  path,
-.layout-dashboard
-  .ant-layout-sider.sider-primary
-  .ant-menu-submenu.ant-menu-item-selected
-  .active
-  svg
-  path,
-.layout-dashboard
-  .ant-layout-sider.sider-primary
-  .ant-menu-submenu
-  .active
-  svg
-  path {
-  fill: #fff;
-}
-.layout-dashboard .ant-layout-sider.sider-primary .ant-menu-item svg path,
-.layout-dashboard .ant-layout-sider.sider-primary .ant-menu-submenu svg path {
-  fill: #bfbfbf;
-}
-
-.layout-dashboard .ant-layout-sider.sider-primary .ant-menu-item a:hover,
-.layout-dashboard .ant-layout-sider.sider-primary .ant-menu-submenu a:hover {
-  color: #141414;
-}
-
-.layout-dashboard
-  .ant-layout-sider.sider-primary
   .ant-menu-inline
   .ant-menu-item.menu-item-header {
   padding: 10px 16px !important;
@@ -292,19 +256,10 @@ body {
   line-height: 20px;
   margin-top: 4px;
 }
-.layout-dashboard .header-control {
-  display: flex;
-  flex-direction: row-reverse;
-  align-items: center;
-  margin-top: 10px;
-}
-
-
 
 .ant-dropdown.ant-dropdown-placement-bottomRight {
   min-width: inherit !important;
 }
-
 
 .h3,
 .h4,
@@ -326,55 +281,8 @@ h4 {
   line-height: 22px;
 }
 
-.layout-dashboard .header-control .ant-btn-link {
-  height: auto;
-  padding: 0 7px;
-  margin: 0;
-  box-shadow: none;
-  color: #8c8c8c;
-  line-height: normal;
-}
-
 .ant-btn svg {
   margin-right: 5px;
-}
-.layout-dashboard .header-control svg {
-  width: 20px;
-  height: 20px;
-}
-
-.layout-dashboard .header-control svg path {
-  fill: #141414;
-}
-
-.layout-dashboard .header-control .btn-sign-in {
-  height: auto;
-  padding: 0 7px;
-  margin: 0;
-  box-shadow: none;
-  color: #8c8c8c;
-}
-.layout-dashboard .header-control .btn-sign-in svg {
-  margin-right: 4px;
-}
-.layout-dashboard .header-control svg {
-  vertical-align: middle;
-}
-
-.layout-dashboard .header-control .header-search {
-  width: 213px;
-  margin: 0 7px 0 0;
-  border-radius: 6px;
-  height: 40px;
-  border: 1px solid #d9d9d9;
-}
-
-.layout-dashboard .header-control .anticon.anticon-search svg {
-  width: 16px;
-  height: 16px;
-}
-.layout-dashboard .header-control .header-search svg path {
-  fill: #8c8c8c;
 }
 
 .settings-drawer .drawer-content > hr {
@@ -409,20 +317,6 @@ h6 {
 
 .drawer-sidebar .ant-drawer-body {
   padding: 0px;
-}
-
-.layout-dashboard
-  .header-control
-  .header-search
-  .ant-input-suffix
-  .ant-input-search-icon.anticon-loading,
-.layout-dashboard .header-control .sidebar-toggler {
-  display: block;
-}
-.layout-dashboard .header-control .btn-sign-in span {
-  font-weight: 600;
-  vertical-align: middle;
-  display: none;
 }
 
 /* Old css start */
@@ -2629,10 +2523,10 @@ section.ant-layout.ant-layout-has-sider.layout-dashboard.layout-profile
   transform: translate(-50%, -50%);
 }
 
-.layout-dashboard-rtl .header-control .btn-sign-in svg {
+/* .layout-dashboard-rtl .header-control .btn-sign-in svg {
   margin-left: 4px;
   margin-right: 0px;
-}
+} */
 
 .layout-dashboard.layout-dashboard-rtl .header-control span.ant-badge {
   margin: 0px 7px;
