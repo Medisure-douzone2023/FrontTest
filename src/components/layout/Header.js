@@ -12,7 +12,7 @@ import {
  
 import { Link } from "react-router-dom";
 import avtar from "../../assets/images/team-2.jpg";
-import '../../assets/styles/header.css'
+import '../../assets/styles/Header.css'
 const bell = [
   <svg
     width="20"
