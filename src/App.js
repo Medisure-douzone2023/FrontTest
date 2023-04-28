@@ -8,8 +8,8 @@ import SignIn from "./pages/LogIn/SignIn";
 import CommonT from "./pages/CommonT/CommonT";
 import Main from "./components/layout/Main";
 import "antd/dist/antd.css";
-//import "./assets/styles/main.css";
-// import "./assets/styles/responsive.css";
+import "./assets/styles/Main.css";
+import "./assets/styles/Responsive.css";
  
 function App() { 
   return (
