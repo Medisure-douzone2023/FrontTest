@@ -9,7 +9,7 @@ import {
   Menu,
   List
 } from "antd";
-
+ 
 import { Link } from "react-router-dom";
 import avtar from "../../assets/images/team-2.jpg";
 import '../../assets/styles/header.css'
@@ -37,7 +37,7 @@ const data = [
   {
     title: "OOO 환자님 진료실 들어가십니다.",
     avatar: avtar,
-  }
+  } 
 ];
 const menu = () => (
   <Menu>
@@ -99,8 +99,8 @@ function Header() {
           </Badge>
           
           <Link to="/login" className="btn-sign-in">
-            {profile}
-            <span>Log out</span>
+            { profile }
+            <span>Log out</span> 
           </Link>
           <div>{username}님</div>
         </Col>
