@@ -134,11 +134,7 @@ function Sidenav({ color }) {
         <Menu.Item key="3">
           <NavLink to="/commonT">
             <span
-              className="icon"
-              style={{
-                background: page === "commonT" ? color : "",
-              }}
-            >
+              className="icon">
               {care}
             </span>
             <span className="label">공통테이블</span>
