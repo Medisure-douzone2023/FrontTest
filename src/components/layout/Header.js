@@ -8,7 +8,7 @@ import {
   Avatar,
   Menu,
   List
-} from "antd";
+} from "antd";  
  
 import { Link } from "react-router-dom";
 import avtar from "../../assets/images/team-2.jpg";
@@ -79,7 +79,7 @@ const profile = [
 function Header() {
 
   useEffect(() => window.scrollTo(0, 0));
-  const [username] = useState("조영인");
+  const [username] = useState("OOO"); 
 
 
   return (
