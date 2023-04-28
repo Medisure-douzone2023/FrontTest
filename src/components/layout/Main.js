@@ -121,7 +121,7 @@ function Main({ children }) {
           </AntHeader>
         )}
         <Content className="content-ant">{children}</Content>
-        <Footer />
+  
       </Layout>
     </Layout>
   );
