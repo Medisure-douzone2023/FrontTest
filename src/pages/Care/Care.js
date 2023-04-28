@@ -526,7 +526,8 @@ const dataproject = [
     ),
     completion: (
       <>
-        <div className="ant-progress-project">
+        <div className="ant-progress-p
+        roject">
           <Progress percent={80} size="small" />
           <span>
             <Link to="/">
