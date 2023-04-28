@@ -1,14 +1,3 @@
-/*!
-  =========================================================
-  * Muse Ant Design Dashboard - v1.0.0
-  =========================================================
-  * Product Page: https://www.creative-tim.com/product/muse-ant-design-dashboard
-  * Copyright 2021 Creative Tim (https://www.creative-tim.com)
-  * Licensed under MIT (https://github.com/creativetimofficial/muse-ant-design-dashboard/blob/main/LICENSE.md)
-  * Coded by Creative Tim
-  =========================================================
-  * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-*/
 import { useState } from "react";
 
 import {
@@ -31,20 +20,20 @@ import {
 } from "@ant-design/icons";
 import Paragraph from "antd/lib/typography/Paragraph";
 
-import Echart from "../components/chart/EChart";
-import LineChart from "../components/chart/LineChart";
+import Echart from "../../components/chart/EChart";
+import LineChart from "../../components/chart/LineChart";
 
-import ava1 from "../assets/images/logo-shopify.svg";
-import ava2 from "../assets/images/logo-atlassian.svg";
-import ava3 from "../assets/images/logo-slack.svg";
-import ava4 from "../assets/images/logo-spotify.svg";
-import ava5 from "../assets/images/logo-jira.svg";
-import ava6 from "../assets/images/logo-invision.svg";
-import team1 from "../assets/images/team-1.jpg";
-import team2 from "../assets/images/team-2.jpg";
-import team3 from "../assets/images/team-3.jpg";
-import team4 from "../assets/images/team-4.jpg";
-import card from "../assets/images/info-card-1.jpg";
+import ava1 from "../../assets/images/logo-shopify.svg";
+import ava2 from "../../assets/images/logo-atlassian.svg";
+import ava3 from "../../assets/images/logo-slack.svg";
+import ava4 from "../../assets/images/logo-spotify.svg";
+import ava5 from "../../assets/images/logo-jira.svg";
+import ava6 from "../../assets/images/logo-invision.svg";
+import team1 from "../../assets/images/team-1.jpg";
+import team2 from "../../assets/images/team-2.jpg";
+import team3 from "../../assets/images/team-3.jpg";
+import team4 from "../../assets/images/team-4.jpg";
+import card from "../../assets/images/info-card-1.jpg";
 
 function Home() {
   const { Title, Text } = Typography;
@@ -328,7 +317,6 @@ function Home() {
     headers: {
       authorization: "authorization-text",
     },
-
     onChange(info) {
       if (info.file.status !== "uploading") {
         console.log(info.file, info.fileList);
@@ -526,7 +514,7 @@ function Home() {
                   xl={10}
                   className="col-img"
                 >
-                  <div className="ant-cret" style={{ textAlign: "left" }}>
+                  <div className="ant-cret text-right">
                     <img src={card} alt="" className="border10" />
                   </div>
                 </Col>
