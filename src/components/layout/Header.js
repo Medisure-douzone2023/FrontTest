@@ -12,7 +12,7 @@ import {
  
 import { Link } from "react-router-dom";
 import avtar from "../../assets/images/team-2.jpg";
-import '../../assets/styles/header.css';
+import '../../assets/styles/Header.css';
 
 const bell = [
   <svg
@@ -99,7 +99,7 @@ function Header() {
             </Dropdown>
           </Badge>
           
-          <Link to="/login" className="btn-sign-in">
+          <Link to="/sign-in" className="btn-sign-in">
             { profile }
             <span>Log out</span>
           </Link>

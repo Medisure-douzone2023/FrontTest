@@ -18,6 +18,7 @@ import {
   InstagramOutlined,
   GithubOutlined,
 } from "@ant-design/icons";
+import '../../assets/styles/Header.css';
 function onChange(checked) {
   console.log(`switch to ${checked}`);
 }
@@ -170,16 +171,16 @@ export default class SignIn extends Component {
                 >
                   <Form.Item
                     className="username"
-                    label="Email"
-                    name="email"
+                    label="id"
+                    name="id"
                     rules={[
                       {
                         required: true,
-                        message: "Please input your email!",
+                        message: "Please input your id!",
                       },
                     ]}
                   >
-                    <Input placeholder="Email" />
+                    <Input placeholder="id" />
                   </Form.Item>
 
                   <Form.Item
