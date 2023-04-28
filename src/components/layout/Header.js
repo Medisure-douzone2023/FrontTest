@@ -9,10 +9,11 @@ import {
   Menu,
   List
 } from "antd";
-
+ 
 import { Link } from "react-router-dom";
 import avtar from "../../assets/images/team-2.jpg";
-import '../../assets/styles/Header.css'
+import '../../assets/styles/Header.css';
+
 const bell = [
   <svg
     width="20"
@@ -37,7 +38,7 @@ const data = [
   {
     title: "정성웅 환자님 진료실 들어가십니다.",
     avatar: avtar,
-  }
+  } 
 ];
 const menu = (props) => (
   <Menu>
@@ -99,8 +100,8 @@ function Header() {
           </Badge>
           
           <Link to="/login" className="btn-sign-in">
-            {profile}
-            <span>logout</span>
+            { profile }
+            <span>Log out</span>
           </Link>
           <div>{username}님</div>
         </Col>

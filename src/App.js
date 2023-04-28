@@ -10,8 +10,8 @@ import Main from "./components/layout/Main";
 import "antd/dist/antd.css";
 import "./assets/styles/main.css";
 // import "./assets/styles/responsive.css";
-
-function App() {
+ 
+function App() { 
   return (
     <div className="App">
       <Switch>
