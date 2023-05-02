@@ -65,7 +65,7 @@ function PatientList() {
                 const response = await axios.get(
                     '/api/receipt/list', {
                         headers: {
-                            "Authorization" : "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJlZWUiLCJwb3NpdGlvbiI6ImRvY3RvciIsImlhdCI6MTY4MjkwNzI2NCwiZXhwIjoxNjgzMjA3MjY0fQ.C7lmz-b6WriYhFCvC-xb6NOmJJuoNzcFuDXu4QdtAA4"
+                            "Authorization" : "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJlZWUiLCJwb3NpdGlvbiI6ImRvY3RvciIsImlhdCI6MTY4Mjk4NTIyNiwiZXhwIjoxNjgzMjg1MjI2fQ.2CpvMAsbnCssjovVWFDOeVpZ0Gy4fx22YYGHKzJ9i-Y"
                         }
                     }
                 );
