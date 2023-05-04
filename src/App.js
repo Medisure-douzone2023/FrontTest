@@ -24,7 +24,7 @@ function App() {
           <Route exact path="/spec" component={Spec} />
           <Route exact path="/bill" component={Bill} />
           <Route exact path="/commonT" component={CommonT} />
-          <Redirect from="*" to="/receipt" />
+          <Redirect from="*" to="/care" />
         </Main>
       </Switch>
     </div>

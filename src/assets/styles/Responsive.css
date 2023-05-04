@@ -1,4 +1,4 @@
-@media (min-width: 992px) {
+@media (min-width: 0px) {
   .layout-dashboard .ant-layout-footer {
     margin: 0 0 20px 20px;
   }
@@ -7,7 +7,7 @@
   }
 }
 
-@media (min-width: 768px) {
+@media (min-width: 0px) {
   .layout-dashboard .ant-layout-header {
     margin: 10px 20px;
   }
@@ -17,9 +17,7 @@
   .layout-dashboard .header-control .header-search {
     margin: 0 7px;
   }
-  .layout-dashboard .header-control .btn-sign-in span {
-    display: inline;
-  }
+
   .profile-nav-bg {
     margin-top: -87.8px;
   }
@@ -28,7 +26,7 @@
   }
 }
 
-@media (min-width: 992px) {
+@media (min-width: 0px) {
   .card-billing-info.ant-card .ant-card-body {
     display: flex;
   }
@@ -44,7 +42,7 @@
   }
 }
 
-@media (max-width: 768px) {
+@media (max-width: 0px) {
   .layout-dashboard.layout-dashboard-rtl .header-control {
     justify-content: flex-end;
   }

@@ -12,7 +12,8 @@ import {
  
 import { Link } from "react-router-dom";
 import avtar from "../../assets/images/team-2.jpg";
-import '../../assets/styles/Header.css'
+import '../../assets/styles/Header.css';
+
 const bell = [
   <svg
     width="20"
@@ -35,11 +36,11 @@ const bell = [
 
 const data = [
   {
-    title: "OOO 환자님 진료실 들어가십니다.",
+    title: "정성웅 환자님 진료실 들어가십니다.",
     avatar: avtar,
   } 
 ];
-const menu = () => (
+const menu = (props) => (
   <Menu>
   <Menu.Item key ={'/'}>
     <List
@@ -98,9 +99,9 @@ function Header() {
             </Dropdown>
           </Badge>
           
-          <Link to="/login" className="btn-sign-in">
+          <Link to="/sign-in" className="btn-sign-in">
             { profile }
-            <span>Log out</span> 
+            <span>Log out</span>
           </Link>
           <div>{username}님</div>
         </Col>
