@@ -24,6 +24,7 @@ import {
   FontSizeOutlined
 } from "@ant-design/icons";
 import SizeContext from 'antd/lib/config-provider/SizeContext';
+import "../../assets/styles/Receipt.css";
 
 
 
