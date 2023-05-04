@@ -1,0 +1,578 @@
+.ant-table-tbody>tr>td h5 {
+    font-size: 14px;
+    font-weight: 600;
+    color: #141414;
+    margin-bottom: 0px;
+}
+
+.ant-table-tbody>tr>td p {
+    font-size: 14px;
+    color: #8c8c8c;
+    margin: 0px;
+}
+
+.ant-table-tbody>tr>td,
+.ant-table-thead>tr>th {
+    padding: 16px 25px;
+}
+
+.ant-table.ant-table-middle .ant-table-title,
+.ant-table.ant-table-middle .ant-table-footer,
+.ant-table.ant-table-middle .ant-table-thead>tr>th,
+.ant-table.ant-table-middle .ant-table-tbody>tr>td,
+.ant-table.ant-table-middle tfoot>tr>th,
+.ant-table.ant-table-middle tfoot>tr>td {
+    padding: 16px 25px;
+}
+
+.ant-table-tbody>tr>td,
+.ant-table-thead>tr>th {
+    white-space: nowrap;
+}
+
+.ant-table-tbody>tr>td h6 {
+    font-size: 14px;
+    font-weight: 600;
+    color: #141414;
+}
+
+.ant-table-tbody > tr > td, .ant-table-thead > tr > th {
+    padding: 16px 25px !important;
+}
+/* ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡbtnㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ */
+
+.ant-btn-sm,
+.ant-radio-group-small .ant-radio-button-wrapper {
+    height: 34px;
+    font-size: 12px;
+    padding: 0 15px;
+}
+
+.ant-btn-sm {
+    border-radius: 4px;
+}
+
+.ant-btn-sm,
+.ant-radio-group-small .ant-radio-button-wrapper {
+    height: 34px;
+    font-size: 12px;
+    padding: 0 15px;
+}
+
+.ant-btn-sm {
+    border-radius: 4px;
+}
+
+.ant-btn,
+.ant-radio-group .ant-radio-button-wrapper {
+    font-weight: 600;
+}
+
+.layout-dashboard .header-control .ant-btn-link {
+    height: auto;
+    padding: 0 7px;
+    margin: 0;
+    box-shadow: none;
+    color: #8c8c8c;
+    line-height: normal;
+}
+
+.ant-btn svg {
+    margin-right: 5px;
+}
+
+.setting button.ant-btn {
+    padding: 0px;
+    line-height: normal;
+    background: transparent;
+    border: 0px;
+    box-shadow: none;
+}
+
+button.ant-btn.bell {
+    padding: 0px;
+    border: 0px;
+    background: transparent;
+    box-shadow: none;
+    position: relative;
+}
+
+button.ant-btn.bell strong {
+    position: absolute;
+    top: -1px;
+    right: -5px;
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    background: #f5222d;
+    border-radius: 100%;
+    text-align: center;
+    line-height: normal;
+    font-weight: normal;
+    color: #fff;
+}
+
+.card-signup .sign-up-gateways .ant-btn {
+    margin-right: 10px;
+    margin-left: 10px;
+    height: 60px;
+    width: 70px;
+    box-shadow: none;
+    border-radius: 6px;
+}
+
+.card-signup .sign-up-gateways .ant-btn img {
+    width: 20px;
+}
+
+.ant-btn,
+.ant-radio-group .ant-radio-button-wrapper {
+    font-weight: 600;
+    font-size: 12px;
+    height: 40px;
+    padding: 0 15px;
+    line-height: 40px;
+}
+
+.ant-btn {
+    box-shadow: 0 2px 4px rgb(0 0 0 / 7%);
+    border-radius: 6px;
+}
+
+@media (min-width: 768px) {
+    .sign-img img {
+        margin: 0;
+    }
+
+    .card-signup {
+        margin-bottom: 120px;
+    }
+
+    .card-signup .sign-up-gateways .ant-btn {
+        width: 100px;
+    }
+}
+
+button.ant-btn.bell strong {
+    position: absolute;
+    top: -1px;
+    right: -9px;
+    display: inline-block;
+    width: 18px;
+    height: 18px;
+    background: #f5222d;
+    border-radius: 100%;
+    text-align: center;
+    line-height: normal;
+    font-weight: normal;
+    color: #fff;
+}
+
+.payment-method-card.ant-card .ant-btn {
+    margin-right: -20px;
+}
+
+.ant-btn.ant-btn-link.ant-edit-link {
+    font-weight: 600;
+    font-size: 12px;
+    height: 40px;
+    padding: 0 15px;
+    box-shadow: none;
+}
+
+.ant-btn.ant-btn-link.ant-edit-link img {
+    width: 20px;
+}
+
+.payment-method-card.ant-card .ant-btn {
+    margin-right: -20px;
+}
+
+.invoice-list .ant-list-item-action .ant-btn,
+.transactions-list .ant-list-item-action .ant-btn {
+    font-weight: 600;
+    color: #141414;
+    box-shadow: none;
+}
+
+.ant-btn>svg,
+.ant-btn>svg+span {
+    vertical-align: middle;
+}
+
+.ant-btn-link {
+    box-shadow: none;
+}
+
+.layout-dashboard-rtl .ant-btn>.anticon+span,
+.ant-btn>span+.anticon {
+    margin-right: 8px;
+    margin-left: 0px;
+}
+
+.uploadfile.shadow-none .ant-upload.ant-upload-select.ant-upload-select-text .ant-btn.ant-full-box {
+    box-shadow: none;
+}
+
+.ant-btn-dashed {
+    color: rgba(0, 0, 0, 0.65);
+}
+
+button.ant-btn.ant-btn-dashed.ant-full-box svg {
+    width: 16px;
+    height: 16px;
+}
+
+.ant-btn-dashed.active,
+.ant-btn-dashed:active {
+    color: #096dd9;
+    background-color: #fff;
+    border-color: #096dd9;
+}
+
+/* ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡcardㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ */
+
+.ant-card.ant-card-bordered.documentation-card {
+    border: 0px;
+    box-shadow: 0px 20px 27px #0000000d;
+    border-radius: 8px;
+    background: #fff;
+}
+
+.ant-card.criclebox {
+    box-shadow: 0px 20px 27px #0000000d;
+    border-radius: 12px;
+}
+
+.ant-card-body {
+    padding: 16px;
+}
+
+.cardbody .ant-card-body {
+    padding-left: 0px;
+    padding-right: 0px;
+}
+
+.ant-card.criclebox .project-ant {
+    padding-left: 24px;
+    padding-right: 24px;
+}
+
+.ant-card.criclebox table th {
+    padding-left: 24px;
+    padding-right: 24px;
+    padding-top: 14px;
+    padding-bottom: 14px;
+}
+
+.ant-card.tablespace .ant-card-body {
+    padding: 0px;
+}
+
+.tablespace .ant-card-head-title {
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.card-info-2 .ant-card-body {
+    height: 100%;
+}
+
+.header-solid .ant-card-head {
+    border-bottom: 0;
+}
+
+.layout-dashboard .ant-card {
+    border-radius: 12px;
+    box-shadow: 0 20px 27px rgb(0 0 0 / 5%);
+}
+
+.ant-card-head-wrapper {
+    min-height: 72px;
+}
+
+.card-credit .ant-card-body {
+    padding-top: 15px;
+}
+
+.widget-2 .ant-card-body {
+    padding: 0;
+}
+
+.payment-method-card.ant-card {
+    box-shadow: none;
+    word-spacing: 10px;
+}
+
+.payment-method-card.ant-card img {
+    width: 40px;
+}
+
+.payment-method-card.ant-card .ant-card-body {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.payment-method-card.ant-card .ant-btn {
+    margin-right: -20px;
+}
+
+.payment-method-card.ant-card .ant-btn {
+    margin-right: -20px;
+}
+
+.payment-method-card.ant-card h6 {
+    font-weight: 600;
+    margin-bottom: 0;
+    color: #141414;
+}
+
+.ant-card.ant-card-bordered.payment-method-card .ant-card-body {
+    padding-top: 16px;
+}
+
+.header-solid .ant-card-head {
+    border-bottom: 0;
+}
+
+.ant-invoice-card .ant-card-body {
+    padding-top: 0px;
+}
+
+.card-billing-info.ant-card {
+    box-shadow: none;
+    background-color: #fafafa;
+    border: 1px solid #f5f5f5;
+}
+
+.card-billing-info.ant-card .darkbtn {
+    color: #8c8c8c;
+}
+
+.card-billing-info.ant-card .ant-descriptions-header {
+    margin-bottom: 0px;
+}
+
+.ant-card.ant-list-yes .ant-list-header {
+    border: 0px;
+}
+
+.ant-card.ant-list-yes .ant-list-header h6 {
+    font-size: 12px;
+    font-weight: 600;
+    color: #8c8c8c;
+    margin: 6px 0;
+}
+
+.card-profile-head .ant-card-head .ant-avatar {
+    box-shadow: 0 5px 10px rgb(0 0 0 / 12%);
+    border-radius: 8px;
+    margin: 0;
+}
+
+.card-profile-head .ant-card-head .avatar-info {
+    margin-left: 16px;
+}
+
+.ant-card-head-title p {
+    font-weight: 600;
+    color: #8c8c8c;
+    margin-bottom: 0;
+}
+
+.card-profile-head .ant-card-head .avatar-info h4 {
+    font-size: 24px;
+}
+
+.card-profile-head .ant-card-head .avatar-info h4 {
+    font-size: 24px;
+}
+
+.layout-profile .ant-card-head {
+    padding: 0 16px;
+}
+
+.ant-card-head-title p {
+    font-weight: 600;
+    color: #8c8c8c;
+    margin-bottom: 0;
+}
+
+.ant-card-head-title h6 {
+    margin-bottom: 0;
+}
+
+.card-project.ant-card {
+    box-shadow: none;
+    border: none;
+}
+
+.card-project.ant-card .ant-card-cover img {
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgb(0 0 0 / 12%);
+}
+
+.card-project.ant-card .card-tag,
+.card-project.ant-card p {
+    font-weight: 600;
+    color: #8c8c8c;
+    margin-bottom: 5px;
+}
+
+.card-project.ant-card h5 {
+    font-weight: 600;
+    font-size: 20px;
+}
+
+.card-project.ant-card .card-tag,
+.card-project.ant-card p {
+    font-weight: 600;
+    color: #8c8c8c;
+    margin-bottom: 5px;
+}
+
+.card-project.ant-card p {
+    margin-bottom: 0;
+}
+
+.card-project.ant-card .ant-card-body {
+    padding: 16px 0 0;
+}
+
+.card-project.ant-card .card-footer {
+    margin-top: 22px;
+}
+
+.ant-card.criclebox table th {
+    font-weight: 700;
+    background-color: #fff;
+    color: #8c8c8c;
+    font-size: 12px;
+}
+
+/* ㅡㅡㅡㅡㅡㅡㅡㅡㅡavatarㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ */
+.ant-dropdown-menu.ant-dropdown-menu-split.header-notifications-dropdown .ant-avatar {
+    width: 36px;
+    height: 36px;
+    background-color: #fafafa;
+    box-shadow: 0 4px 6px rgb(0 0 0 / 12%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.ant-dropdown-menu.ant-dropdown-menu-split.header-notifications-dropdown .ant-avatar .ant-avatar-string {
+    top: 6px;
+}
+
+.ant-dropdown-menu.ant-dropdown-menu-split.header-notifications-dropdown .ant-avatar .ant-avatar-string svg {
+    width: 22px;
+    height: 22px;
+}
+
+.signin span.ant-avatar {
+    margin-right: 9px;
+}
+
+.list-notifaction ul span.ant-avatar.ant-avatar-image {
+    width: 48px;
+    height: 48px;
+    border-radius: 0.75rem;
+}
+
+.list-notifaction .ant-avatar.ant-avatar-circle {
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.list-notifaction ul li a span.ant-avatar-string {
+    line-height: normal;
+}
+
+.avatar-group .tootip-img+.tootip-img {
+    margin-left: -10px;
+}
+
+.ant-avatar-group .ant-avatar-square {
+    border-radius: 4px;
+    margin-right: 20px;
+}
+
+.shape-avatar {
+    margin-right: 20px;
+}
+
+.shape-avatar img {
+    border-radius: 4px;
+}
+
+.avatar-info h5 {
+    font-weight: bold;
+    font-size: 14px;
+    line-height: 14px;
+    margin-bottom: 3px;
+}
+
+.avatar-info p {
+    font-size: 14px;
+    font-weight: 400;
+    color: #8c8c8c;
+    margin: 0px;
+}
+
+.ant-avatar-group {
+    align-items: center;
+}
+
+.avatar-sm {
+    width: 25px;
+}
+
+.card-profile-head .ant-card-head .ant-avatar {
+    box-shadow: 0 5px 10px rgb(0 0 0 / 12%);
+    border-radius: 8px;
+    margin: 0;
+}
+
+.card-profile-head .ant-card-head .avatar-info {
+    margin-left: 16px;
+}
+
+.card-profile-head .ant-card-head .avatar-info h4 {
+    font-size: 24px;
+}
+
+.card-profile-head .ant-card-head .avatar-info h4 {
+    font-size: 24px;
+}
+
+.conversations-list .ant-avatar {
+    border-radius: 10.5px;
+    box-shadow: 0 4px 6px rgb(0 0 0 / 12%);
+}
+
+.avatar-chips .ant-avatar-image {
+    border: 1px solid #fff;
+}
+
+.avatar-chips .ant-avatar-image:hover,
+.avatar-chips .ant-space-item:hover {
+    z-index: 1;
+}
+
+.layout-dashboard-rtl .avatar-group.mt-2 {
+    direction: ltr;
+}
+
+/* ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡshapeㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ */
+.shape-avatar {
+    margin-right: 20px;
+}
+
+.shape-avatar img {
+    border-radius: 4px;
+}

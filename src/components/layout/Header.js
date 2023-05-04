@@ -42,7 +42,7 @@ const data = [
 ];
 const menu = (props) => (
   <Menu>
-  <Menu.Item key="/">
+  <Menu.Item key ={'/'}>
     <List
       min-width="100%"
       className="header-notifications-dropdown "

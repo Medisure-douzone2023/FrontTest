@@ -3,8 +3,7 @@ import { Row } from 'antd';
 import '../../assets/styles/Spec.css';
 import Specsearch from './Specsearch';
 
-
-function Spec(props) {
+const Spec = () => {
   return (
     <div>
       <Row gutter={[24, 16]} >
@@ -13,5 +12,4 @@ function Spec(props) {
     </div>
   );
 }
-
 export default Spec;
