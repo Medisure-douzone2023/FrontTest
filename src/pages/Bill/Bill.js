@@ -117,12 +117,18 @@ function Home() {
       <h4>청구서 검색</h4>
       <br />
       <Row>
-        <Col xs={{ span: 5, offset: 1 }} lg={{ span: 6, offset: 2 }}>
+      <Col  lg={{ span: 1, offset: 1 }}>
+          진료년월
+        </Col>
+        <Col xs={{ span: 1, offset: 1 }} lg={{ span: 5, offset: 1 }}>
           <Space direction="vertical" size={12}>
             <DatePicker picker="month" onChange={search} />
           </Space>
         </Col>
-        <Col xs={{ span: 1, offset: 1 }} lg={{ span: 6, offset: 2 }}>
+        <Col xs={{ span: 1, offset: 1 }} lg={{ span: 1, offset: 1 }}>
+         상태
+        </Col>
+        <Col xs={{ span: 1, offset: 1 }} lg={{ span: 1, offset: 1 }}>
           <Space
             direction="vertical"
             style={{
