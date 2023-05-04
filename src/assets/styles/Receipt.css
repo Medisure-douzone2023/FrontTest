@@ -17,11 +17,9 @@
 
 
 /* 테이블 컬럼 CSS           뒷 배경 색상. (테이블 thead의 table cell 이라는 뜻.)*/
-.ant-table-thead .ant-table-cell {
+.tablecss {
     background-color: #EFF5FF;
     font-weight: bolder;
-     
-
 }
 .ant-table-thead .ant-table-content {
     color: rgb(0, 0, 0); /* 칼라 먹이니까 더 진해짐(그래서 먹임.) */

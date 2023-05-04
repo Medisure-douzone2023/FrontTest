@@ -357,7 +357,7 @@ function Receipt(props) {
                 columns={receiptcolumn}
                 dataSource={receiptData}
                 pagination={false}
-              // className="ant-border-space"
+                className=".tablecss" 
               />
             </div>
           </Card>
