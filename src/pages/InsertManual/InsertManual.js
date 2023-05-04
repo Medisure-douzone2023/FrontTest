@@ -1,74 +1,136 @@
-import {
-  Row,
-  Col,
-  Card,
-  Radio,
-  Table,
-  Upload,
-  message,
-  Progress,
-  Button,
-  Avatar,
-  Typography,
-} from "antd";
+import { Table, DatePicker, Space, Button } from "antd";
 import axios from 'axios'
-
-import { ToTopOutlined } from "@ant-design/icons";
-import { Link } from "react-router-dom";
-
-import '../../assets/styles/InsertManual.css';
 import { useState } from "react";
-const dataSource = [
-  {
-    key: '1',
-    name: 'Mike',
-    age: 32,
-    address: '10 Downing Street',
-  },
-  {
-    key: '2',
-    name: 'John',
-    age: 42,
-    address: '10 Downing Street',
-  },
-];
+import '../../assets/styles/InsertManual.css';
 
-const columns1 = [
+function Billing() {
+  const { RangePicker } = DatePicker;
+  let [dataSource, setDataSource] = useState([]);
+  let apiArray = {};
+
+  const apiParam = () => {
+    let apiParameters = [];
+    for (let i = 0; i < apiArray.length; i++) {
+      apiParameters.push([apiArray[i].rno, apiArray[i].pno ])
+    }
+    let token = 'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0IiwicG9zaXRpb24iOiJvZmZpY2UiLCJpYXQiOjE2ODMwOTE0ODQsImV4cCI6MTY4MzM5MTQ4NH0.VBOmn56ymefWwXA9QgQpVr6Nqv0khmzeJ4393RG0nNk';
+    axios.post("/api/bill/manualInsert",apiParameters, {
+      headers: {
+        "Authorization": token,
+      },
+    })
+    .then((response) => {
+      const result = dataSource.filter(data => !apiArray.some(apry => data.key === apry.key));
+      setDataSource(result)
+      alert("수동생성이 완료되었습니다.")
+    }).catch((error) => {});
+  }
+
+const [selectedRowKeys, setSelectedRowKeys] = useState([]);
+const [loading, setLoading] = useState(false);
+const columns = [
   {
-    title: 'Name',
-    dataIndex: 'name',
-    key: 'name',
+    title: '환자명',
+    dataIndex: 'pname',
+    key: 'pname',
   },
   {
-    title: 'Age',
+    title: '나이',
     dataIndex: 'age',
     key: 'age',
   },
   {
-    title: 'Address',
-    dataIndex: 'address',
-    key: 'address',
+    title: '성별',
+    dataIndex: 'gender',
+    key: 'gender',
   },
+  {
+    title: '보험유형',
+    dataIndex: 'insurance',
+    key: 'insurance',
+  },
+  {
+    title: '진료기간',
+    dataIndex: 'rdate',
+    key: 'rdate',
+  },
+  {
+    title: '본인부담금',
+    dataIndex: 'fprice',
+    key: 'fprice',
+  },
+  {
+    title: '청구금액',
+    dataIndex: 'totalprice',
+    key: 'totalprice',
+  },
+  {
+    title: '초진여부',
+    dataIndex: 'visit',
+    key: 'visit',
+  }, {
+    title: '상태',
+    dataIndex: 'status',
+    key: 'status',
+  }
 ];
 
-function Billing() {
-  return (
-    
-    <div>
-      <Table dataSource={dataSource} columns={columns1} />
-      <button onClick={()=>{
-        const param = {startDate:'20230401', endDate:'20230430'};
+  const start = () => {
+    setLoading(true);
+    setTimeout(() => {
+      setSelectedRowKeys([]);
+      setLoading(false);
+    }, 1000);
+  };
 
-      axios.get('/api/receipt/insertManual',param).then((결과)=>{
-        console.log(결과);
-        
-      })
-      .catch(()=>{
-        console.log('실패함')
-      })
-    }}>버튼</button>
+  const rowSelection = {
+    onChange: (selectedRowKeys, selectedRows) => {
+      apiArray = selectedRows;
+      },
+    getCheckboxProps: (record) => ({
+      disabled: record.name === 'Disabled User',
+      name: record.name,
+    }),
+  };
+  const hasSelected = selectedRowKeys.length > 0;
+
+  return (
+    <div>
+      <h4> 진료 검색 </h4>
+      <Space direction="vertical" size={12}>
+        <RangePicker onChange={(value, dateString) => {
+          const param = { startDate: dateString[0], endDate: dateString[1] };
+          let token = 'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0IiwicG9zaXRpb24iOiJvZmZpY2UiLCJpYXQiOjE2ODMwOTE0ODQsImV4cCI6MTY4MzM5MTQ4NH0.VBOmn56ymefWwXA9QgQpVr6Nqv0khmzeJ4393RG0nNk';
+          axios.get("/api/receipt/insertManual", { headers: { "Authorization": token }, params: param }
+          ).then((response) => {
+            const result = response.data.data;
+            for (let i = 0; i < result.length; i++) {
+              result[i].key = i;
+            }
+            setDataSource(result);
+          }).catch((error) => {});
+        }} />
+      </Space>
+      <br />
+      <br />
+      <h4> 결과 조회 </h4>
+      <br />
+      <div>
+        <div
+          style={{ marginBottom: 16}}>
+          <Button type="primary" onClick={start} disabled={!hasSelected} loading={loading}>
+            Reload
+          </Button>
+          <span
+            style={{marginLeft: 8}}>
+            {hasSelected ? `Selected ${selectedRowKeys.length} items` : ''}
+          </span>
+        </div>
+        <Table rowSelection={rowSelection} columns={columns} dataSource={dataSource} />
+      </div>
+      <Button type="primary" ghost onClick={apiParam}>수동생성</Button>
     </div>
   );
 }
-
+//분할,css
 export default Billing;
