@@ -8,10 +8,18 @@
     padding-top: 40px;
     padding-right: 10px;
     margin: unset;
+    width: 50%;
+    height: 50%;
+}
+.ant-picker-suffix{
+    margin: auto;
 }
 .picker{
     height: 40px;
-    width: 50%;
+    width: 70%;
+}
+.anticon .anticon-ellipsis{
+    margin: auto;
 }
 .ant-input{
     border-radius: 6px;
@@ -22,10 +30,68 @@
 }
 
 .ant-border-space{
-    width: 80%;
+    width: 90%;
     text-align: center;
 }
-
-span{
+.ant-border-spac-billdisease{
+    width: 90%;
+    text-align: center;
+}
+.ant-border-spac-bill{
+    width: 100%;
+    text-align: center;
+}
+.description{
+    border: 1px solid;
+    background-color: white;
+    padding: 15px;
+    text-align: center;
+}
+.span{
     margin-right: 15px;
 }
+
+.disease-btn{
+    margin-right: 30px;
+    margin-top: 20px;
+    float: right;
+}
+
+.treatment-btn {
+    margin-right: 20px;
+    margin-top: 20px;
+    float: right;
+}
+
+.tmodal {
+    text-align: center;
+    width: 800px;
+    height: 600px;
+}
+
+.p{
+    float: left;
+    margin-top: 30px;
+}
+
+.treatment-table{
+    margin-bottom: 30px;
+}
+
+.psearch .ant-input {
+    height : 40px;
+}
+
+  .ant-input-wrapper.ant-input-group .ant-input {
+    margin-left: 10px;
+    height: 33px;
+    width: 160px;
+  }
+  .ant-btn .ant-btn-default .ant-btn-icon-only .ant-input-search-button{
+    margin-left: 10px;
+    height: 33px;
+  }
+  .psearch{
+    text-align: left;
+    line-height: 2;
+  }
