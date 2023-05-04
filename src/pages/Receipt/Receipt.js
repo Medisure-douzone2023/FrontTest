@@ -28,7 +28,6 @@ import '../../assets/styles/Receipt.css';
   
 
 
->>>>>>> 78bb69bd2cd65df25ae5adfe5cad40212a202d3d
 /*이건 정확히 먼지 찾아보기*/
 const { Title } = Typography;
 /* 접수 현황 테이블 컬럼 */
