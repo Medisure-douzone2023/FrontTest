@@ -50,7 +50,7 @@ function Specsearch(props) {
         try {
           const response = await axios.get('/api/spec', {
             headers:{
-                "Authorization": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0IiwicG9zaXRpb24iOiJvZmZpY2UiLCJpYXQiOjE2ODMwMTQyNjMsImV4cCI6MTY4MzMxNDI2M30.nXZxC462KpBw55kG6jIXS8Sp1BApkRDU6soJ6OH1aX0"
+                "Authorization": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0IiwicG9zaXRpb24iOiJvZmZpY2UiLCJpYXQiOjE2ODMxODk2ODgsImV4cCI6MTY4MzQ4OTY4OH0.SrnWSdk3NLb2Y4XsNbMIr91mmrdTUJ5PPqf04XTI-_w"
             },
             params: {
               startDate: startDate,
@@ -68,7 +68,7 @@ function Specsearch(props) {
         try {
           const response = await axios.get('/api/bill/info', {
             headers:{
-                "Authorization": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0IiwicG9zaXRpb24iOiJvZmZpY2UiLCJpYXQiOjE2ODMwMTQyNjMsImV4cCI6MTY4MzMxNDI2M30.nXZxC462KpBw55kG6jIXS8Sp1BApkRDU6soJ6OH1aX0"
+                "Authorization": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0IiwicG9zaXRpb24iOiJvZmZpY2UiLCJpYXQiOjE2ODMxODk2ODgsImV4cCI6MTY4MzQ4OTY4OH0.SrnWSdk3NLb2Y4XsNbMIr91mmrdTUJ5PPqf04XTI-_w"
             },
             params: {
               bno: bbno,
@@ -85,7 +85,7 @@ function Specsearch(props) {
         try {
           const response = await axios.get('/api/common/care', {
             headers:{
-                "Authorization": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0IiwicG9zaXRpb24iOiJvZmZpY2UiLCJpYXQiOjE2ODMwMTQyNjMsImV4cCI6MTY4MzMxNDI2M30.nXZxC462KpBw55kG6jIXS8Sp1BApkRDU6soJ6OH1aX0"
+                "Authorization": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0IiwicG9zaXRpb24iOiJvZmZpY2UiLCJpYXQiOjE2ODMxODk2ODgsImV4cCI6MTY4MzQ4OTY4OH0.SrnWSdk3NLb2Y4XsNbMIr91mmrdTUJ5PPqf04XTI-_w"
             },
             params: {
               keyword: keyword,

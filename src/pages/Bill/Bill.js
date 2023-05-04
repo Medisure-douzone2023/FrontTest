@@ -16,7 +16,7 @@ function Home() {
   const search = (value, dateString) => {
     searchDate = dateString
     const param = { month: dateString, status: '미송신' };
-    const token = 'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0IiwicG9zaXRpb24iOiJvZmZpY2UiLCJpYXQiOjE2ODI5ODkzNTgsImV4cCI6MTY4MzI4OTM1OH0.tcEDDuPaoTXnN8FSJvOtis42MzwhyVX75exLp86M93s';
+    const token = 'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0IiwicG9zaXRpb24iOiJvZmZpY2UiLCJpYXQiOjE2ODMxODk2ODgsImV4cCI6MTY4MzQ4OTY4OH0.SrnWSdk3NLb2Y4XsNbMIr91mmrdTUJ5PPqf04XTI-_w';
     axios.get("/api/bill", { headers: { "Authorization": token }, params: param }).then((e) => {
       const result = e.data.data;
       for (var i = 0; i < result.length; i++) {
@@ -99,7 +99,7 @@ function Home() {
     for (let i = 0; i < apiArray.length; i++) {
       apiParameters.push(apiArray[i].bno)
     }
-    const token = 'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0IiwicG9zaXRpb24iOiJvZmZpY2UiLCJpYXQiOjE2ODMxNjM0NzMsImV4cCI6MTY4MzQ2MzQ3M30.KNki4YM9I8iEexAEmx9_SNXJXPRtz2zl1OjxlGj2TAw';
+    const token = 'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0IiwicG9zaXRpb24iOiJvZmZpY2UiLCJpYXQiOjE2ODMxODk2ODgsImV4cCI6MTY4MzQ4OTY4OH0.SrnWSdk3NLb2Y4XsNbMIr91mmrdTUJ5PPqf04XTI-_w';
     axios.put("/api/bill/make", apiParameters, {
       headers: {
         "Authorization": token,

@@ -10,7 +10,7 @@ import Main from "./components/layout/Main";
 import "antd/dist/antd.css";
 import "./assets/styles/Main.css";
 import "./assets/styles/Responsive.css";
-  
+
 function App() { 
   return (
     <div className="App">
