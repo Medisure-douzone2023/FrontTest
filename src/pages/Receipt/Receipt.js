@@ -27,6 +27,8 @@ import SizeContext from 'antd/lib/config-provider/SizeContext';
 
 
 
+import "../../assets/styles/Receipt.css";
+
 /*이건 정확히 먼지 찾아보기*/
 const { Title } = Typography;
 /* 접수 현황 테이블 컬럼 */

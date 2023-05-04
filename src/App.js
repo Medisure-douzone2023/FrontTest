@@ -10,7 +10,6 @@ import Main from "./components/layout/Main";
 import "antd/dist/antd.css";
 import "./assets/styles/Main.css";
 import "./assets/styles/Responsive.css";
-import "./assets/styles/Receipt.css";
  
 function App() { 
   return (
