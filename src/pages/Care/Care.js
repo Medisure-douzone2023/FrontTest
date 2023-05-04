@@ -1,14 +1,13 @@
 
-import {Row, Col, Button} from 'antd';
+import {Row, Col} from 'antd';
 import React, { useState, useEffect } from 'react';
 import PatientList from './PatientList';
 import CareNote from './CareNote';
 import PatientInfo from './PatientInfo';
 
 function Care() {
-  const onButtonClick = () => {
-    console.log("진료완료")
-}
+  const [pno, setPno] = useState(0);
+  const [rno, setRno] = useState(0);
   const [patient, setPatient] = useState({});
   const fetchPatientInfo = async (pno) => {
     const response = await fetch(`/api/care/${pno}`,{
@@ -19,15 +18,16 @@ function Care() {
         }
     });
     const json = await response.json();
-    console.log(json.data);
+    // console.log(json.data);
     if(json.result !== 'success') {
         throw new Error(`${json.result} ${json.message}`)
     }
+
     setPatient(json.data);
 }
   useEffect(() => {
-      fetchPatientInfo(1);
-  },[]);
+      fetchPatientInfo(pno);
+  },[pno]);
 
   return (
     <>
@@ -35,13 +35,11 @@ function Care() {
         <Row gutter = {[24,0]} >
           <Col span={6}>
             <h1>진료 대기 환자 목록</h1>
-            <PatientList />
+            <PatientList setPno={setPno} setRno={setRno}/>
           </Col>
           <Col span={9}>
             <h1>진료메모, 상병, 처방</h1>
-            <CareNote />
-            <Button type="primary" ghost onClick={onButtonClick}>진료 완료</Button>
-            <Button danger onClick={onButtonClick}>진료 취소</Button>
+            <CareNote rno={rno}/>
           </Col>
           <Col span={9} >
             <h1>환자정보, 진료 기록</h1>

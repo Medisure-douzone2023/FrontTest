@@ -3,6 +3,7 @@ import { Card, Descriptions, Table} from 'antd';
 const { Column} = Table;
 
 function PatientInfo({patient}) {
+    //진료기록 데이터 파티션이나 다른거 생각해보기 *
     return (
         <>
             <Card style={{width: '90%'}}>   
@@ -16,15 +17,15 @@ function PatientInfo({patient}) {
                 </Descriptions>
             }
             </Card>
-            <Table dataSource={patient.carevo} pagination={false} style={{width: '90%'}}>
+            <Table dataSource={patient.carevo} pagination={false} style={{width: '90%'}} rowKey="rno">
                 <Column title="진료날짜" dataIndex="cdate" key="cdate" />
                 <Column title="진료메모" dataIndex="memo" key="memo" />
             </Table>
-            <Table dataSource={patient.treatmentvo} pagination={false} style={{width: '90%'}}>
+            <Table dataSource={patient.treatmentvo} pagination={false} style={{width: '90%'}} rowKey="tno">
                 <Column title="처방명" dataIndex="tname" key="tname" />
                 <Column title="처방코드" dataIndex="tcode" key="tcode" />
             </Table>
-            <Table dataSource={patient.diseasevo} pagination={false} style={{width: '90%'}}>
+            <Table dataSource={patient.diseasevo} pagination={false} style={{width: '90%'}} rowKey="dno">
                 <Column title="상병명" dataIndex="dname" key="dname" />
                 <Column title="상병코드" dataIndex="dcode" key="dcode" />
             </Table>
