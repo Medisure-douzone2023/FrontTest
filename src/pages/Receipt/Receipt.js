@@ -24,9 +24,9 @@ import {
   FontSizeOutlined
 } from "@ant-design/icons";
 import SizeContext from 'antd/lib/config-provider/SizeContext';
-
-
-
+import '../../assets/styles/Receipt.css';
+  
+ 
 /*이건 정확히 먼지 찾아보기*/
 const { Title } = Typography;
 /* 접수 현황 테이블 컬럼 */
@@ -258,7 +258,7 @@ function Receipt(props) {
         placeholder=" 이름 입력 "
         value={pname}
         onChange={(e) => setPname(e.target.value)}
-        prefix={<SearchOutlined />}
+        prefix={<SearchOutlined />} 
       />
       <Space>
         <Button type="primary" onClick={() => { showModalPatient(); submitData(); }} >
@@ -322,6 +322,7 @@ function Receipt(props) {
             <div style={{ marginBottom: 18, fontWeight: 'lighter', fontSize: 20, textAlign: 'center' }}>환자 목록 리스트 </div>
             <div /* className="table-responsive" */ >
               <Table
+                className="tablecss"
                 columns={patientcolumn}
                 dataSource={patientData}
               // pagination={false}
@@ -354,10 +355,10 @@ function Receipt(props) {
           >
             <div /* className="table-responsive" */ >
               <Table
+                className="tablecss"
                 columns={receiptcolumn}
                 dataSource={receiptData}
                 pagination={false}
-                className=".tablecss" 
               />
             </div>
           </Card>
@@ -376,6 +377,7 @@ function Receipt(props) {
 
               <Table
                 columns={feecolumn}
+                className="tablecss"
                 // dataSource={data().data[0]}
                 pagination={false}
               // className="ant-border-space"
