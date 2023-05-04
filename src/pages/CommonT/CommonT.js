@@ -255,7 +255,7 @@ function Home() {
         </div>
       ),
     },
-
+ 
     {
       img: ava6,
       Title: "Redesign Online Store",
