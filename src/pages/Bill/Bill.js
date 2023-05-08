@@ -1,23 +1,30 @@
 import { useState } from "react";
 import { Button, Table, DatePicker, Space, Select, Row, Col } from 'antd';
 import axios from 'axios'
-const options = [{ value: '미송신', labe: '미송신' }, { value: '변환', labe: '변환' }];
-let thisdata;
-const handleChange = (value, option) => {
-  thisdata = value
-};
-let apiArray = {};
+
+const token = 'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0IiwicG9zaXRpb24iOiJvZmZpY2UiLCJpYXQiOjE2ODM1MDg3NzQsImV4cCI6MTY4MzgwODc3NH0.TvJFxxZR_3ALICx94iaFFQY6tglxfAO2-rySDxq049g';
 let searchDate = '';
+let searchOption = '미송신';
+let apiArray = {};
+
 function Home() {
   const [size, setSize] = useState('middle');
-  const { RangePicker } = DatePicker;
   let [data, setData] = useState([]);
+  const setDate = (value, dateString) => {
+    searchDate = dateString
+
+  }
+
+  const options = [{ value: '미송신', labe: '미송신' }, { value: '변환', labe: '변환' }];
+  const setOption = (value, option) => {
+    searchOption = value;
+  };
+
 
   const search = (value, dateString) => {
-    searchDate = dateString
-    const param = { month: dateString, status: '미송신' };
-    const token = 'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0IiwicG9zaXRpb24iOiJvZmZpY2UiLCJpYXQiOjE2ODI5ODkzNTgsImV4cCI6MTY4MzI4OTM1OH0.tcEDDuPaoTXnN8FSJvOtis42MzwhyVX75exLp86M93s';
-    axios.get("/api/bill", { headers: { "Authorization": token }, params: param }).then((e) => {
+
+    const param = { month: searchDate, status: searchOption };
+      axios.get("/api/bill", { headers: { "Authorization": token }, params: param }).then((e) => {
       const result = e.data.data;
       for (var i = 0; i < result.length; i++) {
         result[i].key = i;
@@ -99,7 +106,6 @@ function Home() {
     for (let i = 0; i < apiArray.length; i++) {
       apiParameters.push(apiArray[i].bno)
     }
-    const token = 'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0IiwicG9zaXRpb24iOiJvZmZpY2UiLCJpYXQiOjE2ODMxNjM0NzMsImV4cCI6MTY4MzQ2MzQ3M30.KNki4YM9I8iEexAEmx9_SNXJXPRtz2zl1OjxlGj2TAw';
     axios.put("/api/bill/make", apiParameters, {
       headers: {
         "Authorization": token,
@@ -111,22 +117,41 @@ function Home() {
     });
   }
 
+  const cancel = () =>{
+    console.log("송신취소 apiArray",apiArray)
+    let apiParams =[];
+    for (let i = 0; i < apiArray.length; i++) {
+      apiParams.push(apiArray[i].bno)
+    }
+    console.log(apiParams)
+    axios.put("/api/bill/delete", apiParams, {
+      headers: {
+        "Authorization": token,
+      },
+    }).then((response) => {
+      search(searchDate, searchDate)
+      alert("sam 파일 삭제가 완료되었습니다.")
+    }).catch((error) => {
+    });
+
+
+  }
   return (
     <div>
       <br />
       <h4>청구서 검색</h4>
       <br />
       <Row>
-      <Col  lg={{ span: 1, offset: 1 }}>
+        <Col lg={{ span: 1, offset: 1 }}>
           진료년월
         </Col>
         <Col xs={{ span: 1, offset: 1 }} lg={{ span: 5, offset: 1 }}>
           <Space direction="vertical" size={12}>
-            <DatePicker picker="month" onChange={search} />
+            <DatePicker picker="month" onChange={setDate} />
           </Space>
         </Col>
         <Col xs={{ span: 1, offset: 1 }} lg={{ span: 1, offset: 1 }}>
-         상태
+          상태
         </Col>
         <Col xs={{ span: 1, offset: 1 }} lg={{ span: 1, offset: 1 }}>
           <Space
@@ -138,7 +163,7 @@ function Home() {
             <Select
               size={size}
               defaultValue="미송신"
-              onChange={handleChange}
+              onChange={setOption}
               style={{
                 width: 200,
               }}
@@ -168,7 +193,8 @@ function Home() {
         </span>
       </div>
       <Table rowSelection={rowSelection} columns={columns} dataSource={data} />
-      <Button type="primary" ghost onClick={send}>송신</Button>
+      <Button type="primary" ghost onClick={send}> 송신 변환 </Button>
+      <Button danger onClick={cancel}>송신 취소</Button>
     </div>
   );
 }

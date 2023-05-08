@@ -13,7 +13,7 @@ function Billing() {
     for (let i = 0; i < apiArray.length; i++) {
       apiParameters.push([apiArray[i].rno, apiArray[i].pno ])
     }
-    let token = 'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0IiwicG9zaXRpb24iOiJvZmZpY2UiLCJpYXQiOjE2ODMwOTE0ODQsImV4cCI6MTY4MzM5MTQ4NH0.VBOmn56ymefWwXA9QgQpVr6Nqv0khmzeJ4393RG0nNk';
+    let token = 'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0IiwicG9zaXRpb24iOiJvZmZpY2UiLCJpYXQiOjE2ODM1MDQ2MjQsImV4cCI6MTY4MzgwNDYyNH0.ishfC37fiyigb6H59LfHmUpgsMQnzV9JT18hccoVFVU';
     axios.post("/api/bill/manualInsert",apiParameters, {
       headers: {
         "Authorization": token,
@@ -100,7 +100,7 @@ const columns = [
       <Space direction="vertical" size={12}>
         <RangePicker onChange={(value, dateString) => {
           const param = { startDate: dateString[0], endDate: dateString[1] };
-          let token = 'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0IiwicG9zaXRpb24iOiJvZmZpY2UiLCJpYXQiOjE2ODMwOTE0ODQsImV4cCI6MTY4MzM5MTQ4NH0.VBOmn56ymefWwXA9QgQpVr6Nqv0khmzeJ4393RG0nNk';
+          let token = 'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0IiwicG9zaXRpb24iOiJvZmZpY2UiLCJpYXQiOjE2ODMxOTAzMTMsImV4cCI6MTY4MzQ5MDMxM30.eTGjLxJITDxQ_L38jY2WpsF_lSy_rST3t1ikFsuNRAc';
           axios.get("/api/receipt/insertManual", { headers: { "Authorization": token }, params: param }
           ).then((response) => {
             const result = response.data.data;
