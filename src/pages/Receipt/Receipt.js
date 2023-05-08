@@ -66,7 +66,7 @@ const receiptcolumn = [
     title: "취소",
     dataIndex: "cancel",
     key: "cancel"
-  }
+  } 
 ]
 
 /* 환자 테이블 컬럼 */
@@ -190,7 +190,7 @@ function Receipt(props) {
     const response = await axios.get('/api/patient', {
 
       header : {
-        "Authorization": " eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJlZWUiLCJwb3NpdGlvbiI6ImRvY3RvciIsImlhdCI6MTY4MzUwNTE4OSwiZXhwIjoxNjgzODA1MTg5fQ._lGEJX_7lY8nkBLLHmp8qyRLVCj61WmK4jZxXHXfMZg"
+        "Authorization": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0IiwicG9zaXRpb24iOiJvZmZpY2UiLCJpYXQiOjE2ODM1MDU4MzYsImV4cCI6MTY4MzgwNTgzNn0.eQ8Ywub9b5t1RC6q2j2yi5BWrofXvPx0x50IKG4YXc4"
       }
     });
 
@@ -225,7 +225,7 @@ function Receipt(props) {
     axios.get('/api/patient/' + pname, {
       
       header: {
-        "Authorization": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJlZWUiLCJwb3NpdGlvbiI6ImRvY3RvciIsImlhdCI6MTY4MzUwNTE4OSwiZXhwIjoxNjgzODA1MTg5fQ._lGEJX_7lY8nkBLLHmp8qyRLVCj61WmK4jZxXHXfMZg"
+        "Authorization": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0IiwicG9zaXRpb24iOiJvZmZpY2UiLCJpYXQiOjE2ODM1MDU4MzYsImV4cCI6MTY4MzgwNTgzNn0.eQ8Ywub9b5t1RC6q2j2yi5BWrofXvPx0x50IKG4YXc4"
       },
       
       params: {
@@ -246,7 +246,7 @@ function Receipt(props) {
 
     axios.get('/api/receipt/status', {
       header: {
-        "Authorization": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJlZWUiLCJwb3NpdGlvbiI6ImRvY3RvciIsImlhdCI6MTY4MzUwNTE4OSwiZXhwIjoxNjgzODA1MTg5fQ._lGEJX_7lY8nkBLLHmp8qyRLVCj61WmK4jZxXHXfMZg"
+        "Authorization": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0IiwicG9zaXRpb24iOiJvZmZpY2UiLCJpYXQiOjE2ODM1MDU4MzYsImV4cCI6MTY4MzgwNTgzNn0.eQ8Ywub9b5t1RC6q2j2yi5BWrofXvPx0x50IKG4YXc4"
       },
       params: {
         status: status
@@ -402,7 +402,7 @@ function Receipt(props) {
           </Card>
         </Col>
       </Row>
-    </> 
+    </>
   );
 }
 
