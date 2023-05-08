@@ -4,11 +4,11 @@ import axios from 'axios';
 import Column from 'antd/lib/table/Column';
 
 const columns = [
-    {title: '환자명', dataIndex: 'pname', key: 'pname'}
-    , {title: '성별', dataIndex: 'gender',key: 'gender'}
-    , {title: '나이', dataIndex: 'age', key: 'age'}
-    , {title: '증상', dataIndex: 'rcondition', key: 'rcondition'}
-    , {title: '상태', dataIndex: 'status', key: 'status'}
+    {title: '환자명', dataIndex: 'pname', key: 'pname', width: 30}
+    , {title: '성별', dataIndex: 'gender',key: 'gender', width: 15}
+    , {title: '나이', dataIndex: 'age', key: 'age', width: 15}
+    , {title: '증상', dataIndex: 'rcondition', key: 'rcondition', width: 30}
+    , {title: '상태', dataIndex: 'status', key: 'status', width: 30}
     , {title: '환자번호', dataIndex: 'pno', key: 'pno', hidden: 'true'}
     , {title: '접수번호', dataIndex: 'rno', key: 'rno', hidden: 'true'}
 ].filter(column => !column.hidden);
@@ -18,8 +18,8 @@ function PatientList(props) {
     const [selectedRowKeys, setSelectedRowKeys] = useState();
     const [selectedRowPno, setSelectedRowPno] = useState();
     const onSelectChange = (newSelectedRowKeys, newSelectedRows) => {
-        // console.log('selectedRowKeys changed: ', newSelectedRowKeys);
-        // console.log('newSelectedRows',newSelectedRows[0].pno);
+        console.log('selectedRowKeys changed: ', newSelectedRowKeys);
+        console.log('newSelectedRows',newSelectedRows[0].pno);
         setSelectedRowKeys(newSelectedRowKeys);
         setSelectedRowPno(newSelectedRows[0].pno);
     };
@@ -37,7 +37,7 @@ function PatientList(props) {
                     const response = await fetch(`/api/receipt/${selectedRowKeys}/진료중`,{
                         method: 'put',
                         headers: {
-                                "Authorization" : "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJlZWUiLCJwb3NpdGlvbiI6ImRvY3RvciIsImlhdCI6MTY4MzE4OTMyNSwiZXhwIjoxNjgzNDg5MzI1fQ.olDzzZ4Ipo8zQHGGw10doh7LB03ZV4iY6tR5LEgXo6k",
+                                "Authorization" : "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJlZWUiLCJwb3NpdGlvbiI6ImRvY3RvciIsImlhdCI6MTY4MzUwNDgyMiwiZXhwIjoxNjgzODA0ODIyfQ.Ot5n4Y_Gq2TkpwxXHhWVrUYFg1CDdSjJAVorT9KtCVE",
                                 'Accept': 'application/json'
                             }
                     })
@@ -66,13 +66,13 @@ function PatientList(props) {
             const response = await axios.get(
                 '/api/receipt/list', {
                     headers: {
-                        "Authorization" : "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJlZWUiLCJwb3NpdGlvbiI6ImRvY3RvciIsImlhdCI6MTY4MzE4OTMyNSwiZXhwIjoxNjgzNDg5MzI1fQ.olDzzZ4Ipo8zQHGGw10doh7LB03ZV4iY6tR5LEgXo6k"
+                        "Authorization" : "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJlZWUiLCJwb3NpdGlvbiI6ImRvY3RvciIsImlhdCI6MTY4MzUwNDgyMiwiZXhwIjoxNjgzODA0ODIyfQ.Ot5n4Y_Gq2TkpwxXHhWVrUYFg1CDdSjJAVorT9KtCVE"
                     }
                 }
             );
             if(response.data.result === "success") {
                 setPatient(response.data.data);
-                // console.log(response.data.data);
+                console.log(response.data.data);
             }
         } catch (e) {
             console.log(e);
@@ -83,15 +83,15 @@ function PatientList(props) {
     },[]);
     return (
         <div>
-            <Table rowSelection={rowSelection} rowKey="rno" pagination={false} dataSource={patient} columns={columns} >
-                <Column title="pno" dataIndex="pno" key="pno"/>
-                <Column title="rno" dataIndex="rno" key="rno"/>
-                <Column title="환자명" dataIndex="pname" key="pname" />
+            {/* <Table rowSelection={rowSelection} rowKey="rno" pagination={false} dataSource={patient} width="390px" columns={columns}> */}
+                {/* <Column hidden="true" title="pno" dataIndex="pno" key="pno" />
+                <Column hidden="true" title="rno" dataIndex="rno" key="rno"/> 
+                <Column title="환자명" dataIndex="pname" key="pname" width='10px'/>
                 <Column title="성별" dataIndex="gender" key="gender" />
                 <Column title="나이" dataIndex="age" key="age" />
-                <Column title="증상" dataIndex="rcondition" key="rcondition" />
-                <Column title="접수상태" dataIndex="status" key="status" />
-            </Table>
+                <Column title="증상" dataIndex="rcondition" key="rcondition"/>
+    <Column title="접수상태" dataIndex="status" key="status"/> */}
+            {/* </Table> */}
             <Space
                 direction="vertical"
                 style={{

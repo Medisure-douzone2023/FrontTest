@@ -3,7 +3,6 @@ import React, { useState, useEffect } from 'react';
 import PatientList from './PatientList';
 import CareNote from './CareNote';
 import PatientInfo from './PatientInfo';
-
 function Care() {
   const [pno, setPno] = useState(0);
   const [rno, setRno] = useState(0);
@@ -12,12 +11,12 @@ function Care() {
     const response = await fetch(`/api/care/${pno}`, {
       method: 'get',
       headers: {
-        "Authorization": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJlZWUiLCJwb3NpdGlvbiI6ImRvY3RvciIsImlhdCI6MTY4MzE4OTMyNSwiZXhwIjoxNjgzNDg5MzI1fQ.olDzzZ4Ipo8zQHGGw10doh7LB03ZV4iY6tR5LEgXo6k",
+        "Authorization": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJlZWUiLCJwb3NpdGlvbiI6ImRvY3RvciIsImlhdCI6MTY4MzUwNDgyMiwiZXhwIjoxNjgzODA0ODIyfQ.Ot5n4Y_Gq2TkpwxXHhWVrUYFg1CDdSjJAVorT9KtCVE",
         'Accept': 'application/json'
       }
     });
     const json = await response.json();
-    // console.log(json.data);
+    console.log(json.data);
     if (json.result !== 'success') {
       throw new Error(`${json.result} ${json.message}`)
     }
@@ -31,7 +30,7 @@ function Care() {
     <>
       <div className="tabled">
         <Row gutter={[24, 0]} >
-          <Col span={6}>
+          <Col span={6} >
             <h1>진료 대기 환자 목록</h1>
             <PatientList setPno={setPno} setRno={setRno} />
           </Col>
