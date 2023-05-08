@@ -187,7 +187,13 @@ function Receipt(props) {
   const [patientData, setpatientData] = useState([]);
   const [visible, setVisible] = useState(false);
   const fetchData = async () => {
-    const response = await axios.get('/api/patient');
+    const response = await axios.get('/api/patient', {
+
+      header : {
+        "Authorization": " eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJlZWUiLCJwb3NpdGlvbiI6ImRvY3RvciIsImlhdCI6MTY4MzUwNTE4OSwiZXhwIjoxNjgzODA1MTg5fQ._lGEJX_7lY8nkBLLHmp8qyRLVCj61WmK4jZxXHXfMZg"
+      }
+    });
+
     setpatientData(response.data.data);
     //console.log("patientData", patientData);
     setVisible(true);
@@ -217,6 +223,11 @@ function Receipt(props) {
   const submitData = () => {
 
     axios.get('/api/patient/' + pname, {
+      
+      header: {
+        "Authorization": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJlZWUiLCJwb3NpdGlvbiI6ImRvY3RvciIsImlhdCI6MTY4MzUwNTE4OSwiZXhwIjoxNjgzODA1MTg5fQ._lGEJX_7lY8nkBLLHmp8qyRLVCj61WmK4jZxXHXfMZg"
+      },
+      
       params: {
         pname: pname
       }
@@ -234,6 +245,9 @@ function Receipt(props) {
   const submitData2 = () => {
 
     axios.get('/api/receipt/status', {
+      header: {
+        "Authorization": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJlZWUiLCJwb3NpdGlvbiI6ImRvY3RvciIsImlhdCI6MTY4MzUwNTE4OSwiZXhwIjoxNjgzODA1MTg5fQ._lGEJX_7lY8nkBLLHmp8qyRLVCj61WmK4jZxXHXfMZg"
+      },
       params: {
         status: status
       }
@@ -388,7 +402,7 @@ function Receipt(props) {
           </Card>
         </Col>
       </Row>
-    </>
+    </> 
   );
 }
 
