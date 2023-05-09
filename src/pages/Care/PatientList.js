@@ -19,9 +19,11 @@ function PatientList(props) {
     const [selectedRowPno, setSelectedRowPno] = useState();
     const onSelectChange = (newSelectedRowKeys, newSelectedRows) => {
         console.log('selectedRowKeys changed: ', newSelectedRowKeys);
-        console.log('newSelectedRows',newSelectedRows[0].pno);
         setSelectedRowKeys(newSelectedRowKeys);
-        setSelectedRowPno(newSelectedRows[0].pno);
+        if(newSelectedRowKeys.length !==0){
+            console.log('newSelectedRows',newSelectedRows[0].pno);
+            setSelectedRowPno(newSelectedRows[0].pno);
+        }
     };
     const rowSelection = {
         selectedRowKeys,
@@ -51,6 +53,7 @@ function PatientList(props) {
                     // props.setPno(selectedRowKeys);
                     props.setRno(selectedRowKeys);
                     props.setPno(selectedRowPno);
+                    setSelectedRowKeys();
                 }else{
                     alert("환자 호출 취소");
                 }
@@ -80,7 +83,7 @@ function PatientList(props) {
     }
     useEffect(() => {
         fetchUsers();
-    },[]);
+    },[props.patient]);
     return (
         <div>
             <Table rowSelection={rowSelection} rowKey="rno" pagination={false} dataSource={patient} width="390px" columns={columns}>

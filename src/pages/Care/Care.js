@@ -32,11 +32,11 @@ function Care() {
         <Row gutter={[24, 0]} >
           <Col span={6} >
             <h1>진료 대기 환자 목록</h1>
-            <PatientList setPno={setPno} setRno={setRno} />
+            <PatientList setPno={setPno} setRno={setRno} patient={patient}/>
           </Col>
           <Col span={9}>
             <h1>진료메모, 상병, 처방</h1>
-            <CareNote rno={rno} />
+            <CareNote rno={rno} setPatient={setPatient}/>
           </Col>
           <Col span={9} >
             <h1>환자정보, 진료 기록</h1>

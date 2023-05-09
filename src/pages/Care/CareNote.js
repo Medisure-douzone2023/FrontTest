@@ -1,5 +1,5 @@
 import { Input,  Select, Space, Button, Radio, Table, Dropdown, Menu} from 'antd';
-import React, { useState} from 'react';
+import React, { useState, useRef} from 'react';
 import axios from 'axios';
 import Column from 'antd/lib/table/Column';
 const { Option } = Select;
@@ -9,31 +9,59 @@ const { TextArea } = Input;
 
 function CareNote(props) {
   const [options, setOptions] = useState([]);
-  const [DKeyword, setDKeyword] = useState();
   const [treats, setTreats] = useState([]);
-  const [TKeyword, setTKeyword] = useState();
   const [selectDD, setSelectDD] = useState([]);
   const [selectTT, setSelectTT] = useState([]);
   //진료데이터: memo(상태관리), rno(props), cuserid(나중에 토큰에서 가져오기)
   const [memo, setMemo] = useState("");
   const onMemoChange = (e) => {
-    // console.log('Change:', e.target.value);
     setMemo(e.target.value);
   }
+
+  const resetForm = () => {
+    setOptions([]);
+    setTreats([]);
+    setSelectDD([]);
+    onMemoChange({ target: { value: '' } }); //진료 메모 초기화
+    handleDDChange([]);                     //Table 초기화
+    handleTTChange([]);
+    props.setPatient({});
+  }
+  const onClickCancel = async() =>{
+    if(props.rno === 0){
+      alert('진료중인 환자가 없습니다. 환자를 호출하세요');
+      return;
+    }
+    if(!window.confirm("진료를 취소하시겠습니까?")){
+      return;
+    }
+    //진료 상태 업데이트(진료중 -> 접수)
+    const responseUpdateRnoStatus = await axios({
+      method: 'PUT',
+      url: `/api/receipt/${props.rno}/접수`,
+      headers: {
+        "Authorization" : "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJlZWUiLCJwb3NpdGlvbiI6ImRvY3RvciIsImlhdCI6MTY4MzUwNDgyMiwiZXhwIjoxNjgzODA0ODIyfQ.Ot5n4Y_Gq2TkpwxXHhWVrUYFg1CDdSjJAVorT9KtCVE",
+        'Accept': 'application/json'
+      }
+    })
+    console.log(responseUpdateRnoStatus.data.result);
+    if(responseUpdateRnoStatus.data.result !== 'success') {
+      console.error(responseUpdateRnoStatus.data.message);
+    }
+    //상태 리셋
+    resetForm();
+  }
   const onButtonClick = async() => {
-    console.log(selectDD);
-    console.log(selectTT);
-    // console.log("진료완료 rno 0이면 진료하고 있는 환자 없는거");
-    // if(props.rno === 0){
-      // alert("진료중인 환자가 없습니다. 환자를 호출하세요.");
-    // }
-    console.log(memo);
+    if(props.rno === 0){
+      alert("진료중인 환자가 없습니다. 환자를 호출하세요.");
+      return;
+    }
     if(memo === ''){
       if(!window.confirm("진료메모 비었음. 진료를 완료하시겠습니까?")){
         return;
       }
     }
-    // 진료추가 #{rno }, #{memo }, #{cuserid } 진료 추가해서 cno 리턴받고 상병,처방 추가
+    // 진료추가 #{rno }, #{memo }, #{cuserid } 진료 추가 후,cno(진료번호) 리턴받고 상병,처방 추가
     const data = {
       'rno': Number(props.rno),
       'memo': memo,
@@ -49,20 +77,62 @@ function CareNote(props) {
         'Accept': 'application/json'
       }
     });
-    console.log(response.data.data);
+    //진료번호 null 또는 response.data.result success인 지 확인 필요
+    if(response.data.result !== 'success'){
+      alert("오류 발생");
+      return;
+    }
     const cno = response.data.data.cno;
-    console.log(cno);
-    console.log('상병데이터',selectDD);
-    console.log('처방데이터',selectTT);
-    alert("진료 완료");
-    // post 추가하기
+    console.log('cno: ',cno);
     // 상병추가 #{cno }, #{dname }, #{dcode }, #{dmain }
+    const DDData ={
+      'cno': Number(cno),
+      'diseasevo': selectDD
+    }
+
+    const responseDD = await axios({
+      method: 'POST',
+      url: `/api/disease`,
+      data: DDData,
+      headers: {
+        "Authorization" : "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJlZWUiLCJwb3NpdGlvbiI6ImRvY3RvciIsImlhdCI6MTY4MzUwNDgyMiwiZXhwIjoxNjgzODA0ODIyfQ.Ot5n4Y_Gq2TkpwxXHhWVrUYFg1CDdSjJAVorT9KtCVE",
+        'Accept': 'application/json'
+      }
+    })
+    console.log("ddresponse: ",responseDD.data.result);
     // 처방추가 #{cno }, #{tname }, #{tcode }, #{tprice }
+    const TTData = {
+      'cno': Number(cno),
+      'treatmentvo': selectTT
+    }
+    const responseTT = await axios({
+      method: 'POST',
+      url: `/api/treat`,
+      data: TTData,
+      headers: {
+        "Authorization" : "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJlZWUiLCJwb3NpdGlvbiI6ImRvY3RvciIsImlhdCI6MTY4MzUwNDgyMiwiZXhwIjoxNjgzODA0ODIyfQ.Ot5n4Y_Gq2TkpwxXHhWVrUYFg1CDdSjJAVorT9KtCVE",
+        'Accept': 'application/json'
+      }
+    })
+    console.log("ttresponse: ",responseTT.data.result);
+    if(responseDD.data.result === 'success' && responseTT.data.result === 'success'){
+      alert("진료 완료");
+      //환자 status 변경, 값들 초기화 
+      const responseUpdateRnoStatus = await axios({
+        method: 'PUT',
+        url: `/api/receipt/${props.rno}/수납대기`,
+        headers: {
+          "Authorization" : "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJlZWUiLCJwb3NpdGlvbiI6ImRvY3RvciIsImlhdCI6MTY4MzUwNDgyMiwiZXhwIjoxNjgzODA0ODIyfQ.Ot5n4Y_Gq2TkpwxXHhWVrUYFg1CDdSjJAVorT9KtCVE",
+          'Accept': 'application/json'
+        }
+      })
+      console.log(responseUpdateRnoStatus.data.result);
+      resetForm();
+    }
    }
     const onDDKeywordChange = async(e) => {
       setOptions([]);
       if(e.key ==='Enter'){
-        setDKeyword(e.target.value);
         setOptions([]);
         const keyword = e.target.value;
         const response = await axios({
@@ -75,14 +145,12 @@ function CareNote(props) {
         });
         setOptions(response.data.data);
         console.log(response.data.data);
-        setDKeyword();
       }
     }
     const onTTKeywordChange = async (e) => {
+      setTreats([]);
       if(e.key ==='Enter'){
-        e.preventDefault();
         const keyword = e.target.value;
-        setTKeyword(e.target.value);
         const response = await axios.get(
           '/api/common/care', {
             headers: {
@@ -95,7 +163,6 @@ function CareNote(props) {
           }
         )
         setTreats(response.data.data);
-        setTKeyword();
         console.log(response.data.data);
         }
     }
@@ -106,6 +173,7 @@ function CareNote(props) {
     };
     
     const handleDDSelect = (value, option) => {
+      console.log(`selected 상병  ${value} ${option.label}`);
       const updatedSelectDD = [...selectDD, { dcode: value, dname: option.label, dmain: '부'}];
       setSelectDD(updatedSelectDD);
     };
@@ -122,7 +190,6 @@ function CareNote(props) {
 
     const handleMainChange = (value, record) => {
       console.log('Selected 주/부:', value, 'Record:', record);
-      // 선택한 값과 레코드를 처리하는 로직을 구현하세요.
       const updateSelectDD = selectDD.map(dd => {
         if(dd.dcode === record.dcode && dd.dmain !== value) {
           return {
@@ -136,16 +203,19 @@ function CareNote(props) {
     return (
         <>
             <h1>상병</h1>
-            <Select mode="multiple" style={{width: '100%'}} 
+            <Select 
+                    notFoundContent={null}
+                    mode="multiple" style={{width: '100%'}} 
                     optionLabelProp="label" placeholder="상병 검색" 
-                    placement="bottomLeft" dropdownMatchSelectWidth={false} 
-                    searchValue={DKeyword}
+                    placement="bottomLeft"
                     onChange={handleDDChange}
                     onInputKeyDown ={onDDKeywordChange}
                     onSelect={handleDDSelect}
                     optionFilterProp="label"
+                    autoClearSearchValue='true'
+                    value ={selectDD.map(option => option.dcode)}
                     >
-                {(options).map((option,index) => (
+                {options !== [] && (options).map((option,index) => (
                   <Option value={option.gcode} label={option.codename} key={index} style={{width: '100%'}}>
                       <Space>
                         <span role="img" aria-label={option.gcode}>
@@ -169,14 +239,17 @@ function CareNote(props) {
 
 
             <h1>처방</h1>
-            <Select mode="multiple" style={{width: '100%'}} 
-                  optionLabelProp="label" placeholder="상병 검색" 
-                  placement="bottomLeft" dropdownMatchSelectWidth={false} 
-                  searchValue={TKeyword}
+            <Select
+                  notFoundContent={null} 
+                  mode="multiple" style={{width: '100%'}} 
+                  optionLabelProp="label" placeholder="처방 검색" 
+                  placement="bottomLeft"
                   onChange={handleTTChange} 
                   onInputKeyDown ={onTTKeywordChange}
                   onSelect={handleTTSelect}
                   optionFilterProp="label"
+                  autoClearSearchValue='true'
+                  value ={selectTT.map((option) => option.tcode)}
                   >
                   {treats !== [] && treats.map((treat,index) => 
                     <Option value={treat.gcode} label={treat.codename} key={index} style={{width: '100%'}} data={treat}>
@@ -190,9 +263,9 @@ function CareNote(props) {
                   }
             </Select>
             <h1>진료메모</h1>
-            <TextArea showCount maxLength={100} onChange={onMemoChange} style={{width: '100%', height: '200px'}} />
+            <TextArea showCount maxLength={100} onChange={onMemoChange} style={{width: '100%', height: '200px'}} value={memo}/>
             <Button type="primary" ghost onClick={onButtonClick}>진료 완료</Button>
-            <Button danger onClick={onButtonClick}>진료 취소</Button>
+            <Button danger onClick={onClickCancel}>진료 취소</Button>
         </>
     );
 }
