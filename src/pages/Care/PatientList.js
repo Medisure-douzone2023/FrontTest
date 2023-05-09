@@ -83,15 +83,15 @@ function PatientList(props) {
     },[]);
     return (
         <div>
-            {/* <Table rowSelection={rowSelection} rowKey="rno" pagination={false} dataSource={patient} width="390px" columns={columns}> */}
-                {/* <Column hidden="true" title="pno" dataIndex="pno" key="pno" />
+            <Table rowSelection={rowSelection} rowKey="rno" pagination={false} dataSource={patient} width="390px" columns={columns}>
+                <Column hidden="true" title="pno" dataIndex="pno" key="pno" />
                 <Column hidden="true" title="rno" dataIndex="rno" key="rno"/> 
                 <Column title="환자명" dataIndex="pname" key="pname" width='10px'/>
                 <Column title="성별" dataIndex="gender" key="gender" />
                 <Column title="나이" dataIndex="age" key="age" />
                 <Column title="증상" dataIndex="rcondition" key="rcondition"/>
-    <Column title="접수상태" dataIndex="status" key="status"/> */}
-            {/* </Table> */}
+                <Column title="접수상태" dataIndex="status" key="status"/>
+            </Table>
             <Space
                 direction="vertical"
                 style={{
