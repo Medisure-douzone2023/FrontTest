@@ -10,7 +10,6 @@ import Main from "./components/layout/Main";
 import "antd/dist/antd.css";
 import "./assets/styles/Main.css";
 import "./assets/styles/Responsive.css";
-import "./assets/styles/Receipt.css";
  
 function App() { 
   return (
@@ -24,7 +23,7 @@ function App() {
           <Route exact path="/spec" component={Spec} />
           <Route exact path="/bill" component={Bill} />
           <Route exact path="/commonT" component={CommonT} />
-          <Redirect from="*" to="/care" />
+          <Redirect from="*" to="/spec" />
         </Main>
       </Switch>
     </div>
