@@ -23,7 +23,11 @@ function App() {
           <Route exact path="/spec" component={Spec} />
           <Route exact path="/bill" component={Bill} />
           <Route exact path="/commonT" component={CommonT} />
+<<<<<<< HEAD
           <Redirect from="*" to="/commonT" />
+=======
+          <Redirect from="*" to="/spec" />
+>>>>>>> fa09a9b5ef83fdc8505f36d716bbaff488331933
         </Main>
       </Switch>
     </div>

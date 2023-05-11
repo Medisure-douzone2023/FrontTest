@@ -95,3 +95,7 @@
     text-align: left;
     line-height: 2;
   }
+
+  .ant-modal-content{
+    width: 1000px;
+  }
