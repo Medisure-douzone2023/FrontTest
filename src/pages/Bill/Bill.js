@@ -132,7 +132,6 @@ function Bill() {
   const cancel = () => {
     if (selectedRows.length > 0) {
       let apiParameters = [];
-      console.log("apiParameters1", apiParameters);
       for (let i = 0; i < selectedRows.length; i++) {
         apiParameters.push(selectedRows[i].bno)
       }
@@ -202,8 +201,8 @@ function Bill() {
         </span>
       </div>
       <Table rowSelection={rowSelection} columns={columns} dataSource={data} />
-      <Button type="primary" ghost onClick={send}> 송신 변환 </Button>
-      <Button danger onClick={cancel}>송신 취소</Button>
+      <Button type="primary" ghost onClick={send} disabled={status==='변환'}> 송신 변환 </Button>
+      <Button danger onClick={cancel} disabled={status==='미송신'}>송신 취소</Button>
     </div>
   );
 }

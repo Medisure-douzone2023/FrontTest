@@ -28,8 +28,7 @@ const EditableCell = ({
       inputRef.current.focus();
     }
   }, [editing]);
-  const toggleEdit = (e) => {
-    console.log("e",e)
+  const toggleEdit = () => {
     setEditing(!editing);
     form.setFieldsValue({
       [dataIndex]: record[dataIndex],
@@ -108,12 +107,10 @@ const App = () => {
     {
       title: 'age',
       dataIndex: 'age',
-      editable: true,
     },
     {
       title: 'address',
       dataIndex: 'address',
-      editable: true,
     },
     {
       title: 'operation',
@@ -126,7 +123,7 @@ const App = () => {
         ) : null,
     },
   ];
-  const handleAdd = (e) => {
+  const handleAdd = () => {
     const newData = {
       key: count,
       name: `Edward King ${count}`,
@@ -167,7 +164,6 @@ const App = () => {
       }),
     };
   });
-  
   return (
     <div>
       <Button

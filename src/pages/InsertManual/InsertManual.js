@@ -81,7 +81,9 @@ function InsertManual() {
         result[i].key = i;
       }
       setDataSource(result);
-    }).catch((e) => { console.log("error", e); });
+    }).catch((e) => {
+      console.log("error", e);
+    });
   }
 
   const start = () => {
@@ -105,13 +107,15 @@ function InsertManual() {
   const apiParam = () => {
     if (selectedRows.length > 0) {
       let apiParameters = [];
-      const result = dataSource.filter(data => !selectedRows.some(apry => data.key === apry.key));
-      setDataSource(result)
-      for (let i = 0; i < selectedRows.length; i++) {
-        apiParameters.push([selectedRows[i].rno, selectedRows[i].pno])
-      }
+      let copy = selectedRows;
       setSelectedRows('');
       setSelectedRowKeys('');
+
+      const result = dataSource.filter(data => !copy.some(apry => data.key === apry.key));
+      setDataSource(result)
+      for (let i = 0; i < copy.length; i++) {
+        apiParameters.push([copy[i].rno, copy[i].pno])
+      }
       axios.post("/api/bill/manualInsert", apiParameters, {
         headers: {
           "Authorization": token,
@@ -119,7 +123,11 @@ function InsertManual() {
       })
         .then((response) => {
           alert("수동생성이 완료되었습니다.")
-        }).catch((e) => { console.log("error", e); });
+        }).catch((e) => {
+          console.log("error", e);
+          alert("올바르지 않은 요청입니다. 다시 시도해 주시기 바랍니다.");
+          setDataSource(copy);
+        });
     }
   }
 

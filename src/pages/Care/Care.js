@@ -12,7 +12,7 @@ function Care() {
     const response = await fetch(`/api/care/${pno}`, {
       method: 'get',
       headers: {
-        "Authorization": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJlZWUiLCJwb3NpdGlvbiI6ImRvY3RvciIsImlhdCI6MTY4MzUwNDY4MywiZXhwIjoxNjgzODA0NjgzfQ.3FpVF63qckMjfyIY0J-uz4Y7VVAXud6-XXoKzo6uaCY",
+        "Authorization": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJlZWUiLCJwb3NpdGlvbiI6ImRvY3RvciIsImlhdCI6MTY4MzYxMDU2MSwiZXhwIjoxNjgzOTEwNTYxfQ.dLYAao54mmhbGZHh3cR8zdAqvY5WhTdSkm-Q52i8GDA",
         'Accept': 'application/json'
       }
     });
