@@ -7,6 +7,7 @@ function Care() {
   const [pno, setPno] = useState(0);
   const [rno, setRno] = useState(0);
   const [patient, setPatient] = useState({});
+  const [isVisited, setIsVisited] = useState();
   const fetchPatientInfo = async (pno) => {
     const response = await fetch(`/api/care/${pno}`, {
       method: 'get',
@@ -21,6 +22,7 @@ function Care() {
       throw new Error(`${json.result} ${json.message}`)
     }
     setPatient(json.data);
+    console.log('patient:', json.data);
   }
   useEffect(() => {
     fetchPatientInfo(pno);
@@ -32,11 +34,11 @@ function Care() {
         <Row gutter={[24, 0]} >
           <Col span={6} >
             <h1>진료 대기 환자 목록</h1>
-            <PatientList setPno={setPno} setRno={setRno} patient={patient}/>
+            <PatientList setPno={setPno} setRno={setRno} patient={patient} setIsVisited={setIsVisited}/>
           </Col>
           <Col span={9}>
             <h1>진료메모, 상병, 처방</h1>
-            <CareNote rno={rno} setPatient={setPatient}/>
+            <CareNote rno={rno} setPatient={setPatient} isVisited={isVisited} setIsVisited={setIsVisited}/>
           </Col>
           <Col span={9} >
             <h1>환자정보, 진료 기록</h1>

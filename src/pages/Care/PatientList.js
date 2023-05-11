@@ -1,28 +1,28 @@
 import { Button, Space, Table } from 'antd';
 import React, {useState, useEffect} from 'react';
 import axios from 'axios';
-import Column from 'antd/lib/table/Column';
 
 const columns = [
-    {title: '환자명', dataIndex: 'pname', key: 'pname', width: 30}
-    , {title: '성별', dataIndex: 'gender',key: 'gender', width: 15}
-    , {title: '나이', dataIndex: 'age', key: 'age', width: 15}
-    , {title: '증상', dataIndex: 'rcondition', key: 'rcondition', width: 30}
-    , {title: '상태', dataIndex: 'status', key: 'status', width: 30}
+    {title: '환자명', dataIndex: 'pname', key: 'pname'}
+    , {title: '성별', dataIndex: 'gender',key: 'gender'}
+    , {title: '나이', dataIndex: 'age', key: 'age'}
+    , {title: '증상', dataIndex: 'rcondition', key: 'rcondition'}
+    , {title: '상태', dataIndex: 'status', key: 'status'}
     , {title: '환자번호', dataIndex: 'pno', key: 'pno', hidden: 'true'}
     , {title: '접수번호', dataIndex: 'rno', key: 'rno', hidden: 'true'}
+    , {tilte: 'visit', dataIndex: 'visit', key: 'visit', hidden: 'true'}
 ].filter(column => !column.hidden);
 
 function PatientList(props) {
     const [patient, setPatient] = useState(null);
     const [selectedRowKeys, setSelectedRowKeys] = useState();
-    const [selectedRowPno, setSelectedRowPno] = useState();
+    const [selectedRow, setSelectedRow] = useState();
     const onSelectChange = (newSelectedRowKeys, newSelectedRows) => {
-        console.log('selectedRowKeys changed: ', newSelectedRowKeys);
+        console.log('newSelectedRowKeys changed: ', newSelectedRowKeys);
         setSelectedRowKeys(newSelectedRowKeys);
         if(newSelectedRowKeys.length !==0){
-            console.log('newSelectedRows',newSelectedRows[0].pno);
-            setSelectedRowPno(newSelectedRows[0].pno);
+            console.log('newSelectedRow',newSelectedRows[0]);
+            setSelectedRow(newSelectedRows[0]);
         }
     };
     const rowSelection = {
@@ -49,10 +49,13 @@ function PatientList(props) {
                     }
                     const newPatient = patient.filter((p) => p.rno !== json.data);
                     setPatient(newPatient);
+                    console.log('newPatient: ',newPatient);
                     //진료중인 환자 상태 관리 만들어서 json.data 로 변경하고 데이터 가져오기~~
                     // props.setPno(selectedRowKeys);
                     props.setRno(selectedRowKeys);
-                    props.setPno(selectedRowPno);
+                    props.setPno(selectedRow.pno);
+                    props.setIsVisited(selectedRow.visit);
+                    console.log('병원 온 적 있?',selectedRow.visit)
                     setSelectedRowKeys();
                 }else{
                     alert("환자 호출 취소");
@@ -75,7 +78,7 @@ function PatientList(props) {
             );
             if(response.data.result === "success") {
                 setPatient(response.data.data);
-                console.log(response.data.data);
+                console.log("진료 대기 환자: ",response.data.data);
             }
         } catch (e) {
             console.log(e);
@@ -86,15 +89,7 @@ function PatientList(props) {
     },[props.patient]);
     return (
         <div>
-            <Table rowSelection={rowSelection} rowKey="rno" pagination={false} dataSource={patient} width="390px" columns={columns}>
-                <Column hidden="true" title="pno" dataIndex="pno" key="pno" />
-                <Column hidden="true" title="rno" dataIndex="rno" key="rno"/> 
-                <Column title="환자명" dataIndex="pname" key="pname" width='10px'/>
-                <Column title="성별" dataIndex="gender" key="gender" />
-                <Column title="나이" dataIndex="age" key="age" />
-                <Column title="증상" dataIndex="rcondition" key="rcondition"/>
-                <Column title="접수상태" dataIndex="status" key="status"/>
-            </Table>
+            <Table rowSelection={rowSelection} rowKey="rno" pagination={false} dataSource={patient} columns={columns} />
             <Space
                 direction="vertical"
                 style={{
