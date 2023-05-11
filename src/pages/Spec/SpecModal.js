@@ -116,6 +116,7 @@ function SpecModal(props) {
         setDmain(dmain1);
      }, [dmain1]);  
      const handleMainChange = (e, i) => {
+      console.log("handleManiChange",e,i)
        setDmain((prevDmain) => ({ ...prevDmain, [i]: e }));
      };
 
