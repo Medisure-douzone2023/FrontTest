@@ -98,7 +98,7 @@ function Specsearch(props) {
           alert('진료기간을 선택해주세요.');
           return;
         } else if(!pno) {
-          alert('환자번호를 입력해주세요.')
+          alert('등록번호를 입력해주세요.')
           return;
         }
         try {
@@ -214,9 +214,7 @@ function Specsearch(props) {
             tname : <div>{item.tname}</div>,
             tprice: <div>{item.tprice}</div>
            }));
-
            setBillcareData(diseasecareData2);
-        
           } catch(error){
           console.error(error);
         }
