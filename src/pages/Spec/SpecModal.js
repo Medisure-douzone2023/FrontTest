@@ -71,11 +71,12 @@ function SpecModal(props) {
             const dname = row.disease ? row.disease.props.children : null;
             const key = row.key;
             const currentDmain = dmain1[key] !== undefined ? dmain1[key] : "부";
+            console.log("dmain 키값: ", dmain1[key])
             const dmain = currentDmain === "주" ? "주" : "부";
             const bno = props.billdiseaseData[0].bno;
             const pno = props.billdiseaseData[0].pno;
             const rno = props.billdiseaseData[0].rno;
-            return {bno, pno, rno, dmain, dcode, dname };
+            return { bno, pno, rno, dmain, dcode, dname };
       });
       const newDmain1 = { ...dmain1 };
       selectedRows.forEach(row => {
@@ -117,6 +118,7 @@ function SpecModal(props) {
      }, [dmain1]);  
      const handleMainChange = (e, i) => {
        setDmain((prevDmain) => ({ ...prevDmain, [i]: e }));
+       console.log(e,i);
      };
 
      // modal 컬럼
