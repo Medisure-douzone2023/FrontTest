@@ -17,7 +17,7 @@ function Care() {
       }
     });
     const json = await response.json();
-    // console.log(json.data);
+    console.log(json.data);
     if (json.result !== 'success') {
       throw new Error(`${json.result} ${json.message}`)
     }
