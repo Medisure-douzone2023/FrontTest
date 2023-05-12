@@ -104,6 +104,7 @@ function Specsearch(props) {
           try {
             const data = await specificationData();
             const specificaiondata = data.data.map((item,i) => ({
+              key: i,
               bno: item.bno,
               rno: item.rno,
               pno: item.pno,
@@ -138,6 +139,7 @@ function Specsearch(props) {
         try {
           const data = await fetchData(startDate, endDate, insurance, pno);
           const searchData = data.data.map((item, i) => ({
+            key: i,
             bno: item.bno,
             rno: item.rno,
             pno: item.pno,
@@ -308,6 +310,7 @@ function Specsearch(props) {
           setIsModalOpen={setIsModalOpen}
           billcareData={billcareData}
           handleSearch={handleSearch}
+          specificationData={specificationData}
           handleCancel={handleCancel}
                     />
       </Row>

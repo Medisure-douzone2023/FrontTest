@@ -17,6 +17,7 @@ function Specbillcare(props) {
       });
       alert("심사가 취소 되었습니다.");
       await props.handleSearch();
+      const specificationData = await props.specificationData();
     } catch(error) {
       console.error(error);
     }
@@ -36,6 +37,7 @@ function Specbillcare(props) {
       });
       alert("심사가 완료 되었습니다.");
       await props.handleSearch();
+      const specificationData = await props.specificationData();
     } catch(error) {
       console.error(error);
     }

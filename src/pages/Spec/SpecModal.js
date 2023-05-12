@@ -5,7 +5,6 @@ import axios from 'axios';
 function SpecModal(props) {
     const [dmain1, setDmain] = useState({});
     const [selectDatas, setSelectDatas] = useState([]);
-    const [selectedRowKeys, setSelectedRowKeys] = useState([]);
     const { Search } = Input;
 
     //청구 상병 추가 통신
@@ -52,7 +51,7 @@ function SpecModal(props) {
         props.setModalOpen(false);
         props.setSearchValue('');
         props.setCommondata([]);
-        setSelectedRowKeys([]);
+        diseaserowSelection.onChange([], []);
         setDmain({});
       };
 
@@ -61,6 +60,7 @@ function SpecModal(props) {
         props.setModalOpen(false);
         props.setSearchValue('');
         props.setCommondata([]);
+        diseaserowSelection.onChange([], []);
         setDmain({});
       };
       const handleOk = () => {
@@ -71,11 +71,11 @@ function SpecModal(props) {
     const diseaserowSelection = {
         onChange: (selectedRowKeys, selectedRows) => {
           const newSelectDatas = selectedRows.map((row, i) => {
+            console.log("선택 값:", selectedRows)
             const dcode = row.dcode ? row.dcode.props.children : null;
             const dname = row.disease ? row.disease.props.children : null;
             const key = row.key;
             const currentDmain = dmain1[key] !== undefined ? dmain1[key] : "부";
-            console.log("dmain 키값: ", dmain1[key])
             const dmain = currentDmain === "주" ? "주" : "부";
             const bno = props.billdiseaseData[0].bno;
             const pno = props.billdiseaseData[0].pno;
@@ -104,7 +104,7 @@ function SpecModal(props) {
             dcode: <>{item.gcode}</>,
             disease: <>{item.codename}</>,
             dmain:  
-            <Radio.Group onChange={(e) => handleMainChange(e.target.value, item.gcode)} defaultValue={'부'}>
+            <Radio.Group onChange={(e) => handleMainChange(e.target.value, item.gcode, data.data)} defaultValue={'부'}>
                  <Radio.Button value="주" checked={dmain1[item.gcode] === '주'}>주</Radio.Button>
                  <Radio.Button value="부" checked={dmain1[item.gcode] === '부'}>부</Radio.Button>
                </Radio.Group>
@@ -128,6 +128,8 @@ function SpecModal(props) {
      }, [dmain1]);  
      const handleMainChange = (e, i) => {
        setDmain((prevDmain) => ({ ...prevDmain, [i]: e }));
+       console.log("selectdata:", selectDatas)
+       //diseaserowSelection.onChange([], [selectDatas])
        console.log(e,i);
      };
 
@@ -245,6 +247,7 @@ function SpecModal(props) {
         columns={diseaseModalColumns}
         dataSource={props.commondata}
         pagination={false}
+        rowKey="key"
       /> 
       </Modal>
       </>
