@@ -1,17 +1,50 @@
-import { Table, Space, Button, Select, Row, Col,Form, Input, Modal,Typography,Popconfirm } from "antd";
+import { Table, Space, Button, Select, Row, Col, Form, Input, Modal, Typography, Popconfirm } from "antd";
 import axios from 'axios'
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 let token = 'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhYWEiLCJwb3NpdGlvbiI6ImFkbWluIiwiaWF0IjoxNjgzNjEzOTA2LCJleHAiOjE2ODM5MTM5MDZ9.lpN8FdqrNtbhWRIXPzP_GPftVvLI9TZgEr0A7rWqGaU';
 
 function CommonT() {
-
+  const EditableCell = ({
+    editing,
+    dataIndex,
+    title,
+    inputType,
+    record,
+    index,
+    children,
+    ...restProps
+  }) => {
+    const inputNode = <Input />;
+    return (
+      <td {...restProps}>
+        {editing ? (
+          <Form.Item
+            name={dataIndex}
+            style={{
+              margin: 0,
+            }}
+            rules={[
+              {
+                required: true,
+                message: `Please Input ${title}!`,
+              },
+            ]}
+          >
+            {inputNode}
+          </Form.Item>
+        ) : (
+          children
+        )}
+      </td>
+    );
+  };
   const options = [{ value: 'RR', label: '접수' }, { value: 'PP', label: '환자' }, { value: 'DD', label: '상병' }, { value: 'TT', label: '처방' }];
   const [keyname, setKeyname] = useState('접수');
   const [size, setSize] = useState('middle');
   const [gcode, setGCode] = useState('')
   const [codename, setCodename] = useState('')
-  
+
   const columns = [
     {
       title: '구분',
@@ -28,12 +61,12 @@ function CommonT() {
       title: '공통코드',
       dataIndex: 'gcode',
       key: 'gcode',
-      render: (text) => <a onClick ={test}>{text}</a>,
     },
     {
       title: '코드명',
       dataIndex: 'codename',
       key: 'codename',
+      editable: true,
     },
     {
       title: '금액',
@@ -73,9 +106,6 @@ function CommonT() {
   const [selectedRowKeys, setSelectedRowKeys] = useState([]);
   const [selectedRows, setSelectedRows] = useState([]);
 
-  const test = (e) =>{
-    console.log("ho",e.target.text)
-  }
   const search = () => {
     const param = { gkey: keyname, gcode: gcode, codename: codename };
     axios.get("/api/common", { headers: { "Authorization": token }, params: param }
@@ -85,6 +115,7 @@ function CommonT() {
         result[i].key = i;
       }
       setDataSource(result);
+      setEditingKey('');
     }).catch((e) => {
       console.log("error", e);
     });
@@ -114,7 +145,7 @@ function CommonT() {
       let copy = [...selectedRows];
       setSelectedRows('');
       setSelectedRowKeys('');
-  
+
       const result = dataSource.filter(data => !copy.some(apry => data.key === apry.key));
       setDataSource(result)
 
@@ -168,94 +199,77 @@ function CommonT() {
     setInsertCodename("");
     setInsertPrice("");
   }
-//ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
-const [form] = Form.useForm();
-const [editingKey, setEditingKey] = useState('');
-const isEditing = (record) => record.key === editingKey;
-const edit = (record) => {
-  form.setFieldsValue({
-    name: '',
-    age: '',
-    address: '',
-    ...record,
-  });
-  setEditingKey(record.key);
-};
-const cancel = () => {
-  setEditingKey('');
-};
-const save = async (key) => {
-  try {
-    const row = await form.validateFields();
-    const newData = [...dataSource];
-    const index = newData.findIndex((item) => key === item.key);
-    if (index > -1) {
-      const item = newData[index];
-      newData.splice(index, 1, {
-        ...item,
-        ...row,
-      });
-      setDataSource(newData);
-      setEditingKey('');
-    } else {
-      newData.push(row);
-      setDataSource(newData);
-      setEditingKey('');
-    }
-  } catch (errInfo) {
-    console.log('Validate Failed:', errInfo);
-  }
-};
-const EditableCell = ({
-  editing,
-  dataIndex,
-  title,
-  inputType,
-  record,
-  index,
-  children,
-  ...restProps
-}) => {
-  console.log("ho editableCell",restProps)
-  const inputNode = <Input />;
-  return (
-    <td {...restProps}>
-      {editing ? (
-        <Form.Item
-          name={dataIndex}
-          style={{
-            margin: 0,
-          }}
-          rules={[
-            {
-              required: true,
-              message: `Please Input ${title}!`,
-            },
-          ]}
-        >
-          {inputNode}
-        </Form.Item>
-      ) : (
-        children
-      )}
-    </td>
-  );
-};
-const mergedColumns = columns.map((col) => {
-  if (!col.editable) {
-    return col;
-  }
-  return {
-    ...col,
-    onCell: (record) => ({
-      record,
-      inputType: col.dataIndex === 'age' ? 'number' : 'text',
-      dataIndex: col.dataIndex,
-      title: col.title,
-      editing: isEditing(record),
-    }),
+  //ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+  const [form] = Form.useForm();
+  const [editingKey, setEditingKey] = useState('');
+  const isEditing = (record) => record.key === editingKey;
+  const edit = (record) => {
+    console.log("edit, record", record)
+    form.setFieldsValue({
+      name: '',
+      age: '',
+      address: '',
+      ...record,
+    });
+    setEditingKey(record.key);
   };
-});
+  const cancel = () => {
+    setEditingKey('');
+  };
+
+  useEffect(() => {
+    console.log('editingKey has changed:', editingKey);
+  }, [editingKey]);
+
+
+  const save = async (key) => {
+    try {
+      const row = await form.validateFields();
+      const newData = [...dataSource];
+      const index = newData.findIndex((item) => key === item.key);
+      if (index > -1) {
+        const item = newData[index];
+        newData.splice(index, 1, {
+          ...item,
+          ...row,
+        });
+        setDataSource(newData);
+        setEditingKey('');
+      } else {
+        newData.push(row);
+        setDataSource(newData);
+        setEditingKey('');
+      }
+      const updatedItem = newData.find((item) => key === item.key);
+      axios.put("/api/common", updatedItem, {
+        headers: {
+          "Authorization": token,
+        },
+      }).then((response) => {
+        alert("수정이 완료되었습니다.")
+      }).catch((e) => {
+        console.log("error", e);
+      });
+    } catch (errInfo) {
+      console.log('Validate Failed:', errInfo);
+    }
+  };
+
+  const mergedColumns = columns.map((col) => {
+    if (!col.editable) {
+      return col;
+    }
+    return {
+      ...col,
+      onCell: (record) => ({
+        record,
+        inputType: col.dataIndex === 'age' ? 'number' : 'text',
+        dataIndex: col.dataIndex,
+        title: col.title,
+        editing: isEditing(record),
+      }),
+    };
+  });
 
   return (
     <div>
@@ -306,13 +320,13 @@ const mergedColumns = columns.map((col) => {
           </span>
         </div>
         <Form form={form} component={false}>
-        <Table  components={{
-          body: {
-            cell: EditableCell,
-          },
-        }}  bordered rowSelection={rowSelection} rowClassName="editable-row"  pagination={{
-          onChange: cancel,
-        }} columns={mergedColumns} dataSource={dataSource} />
+          <Table components={{
+            body: {
+              cell: EditableCell,
+            },
+          }} bordered rowSelection={rowSelection} rowClassName="editable-row" pagination={{
+            onChange: cancel,
+          }} columns={mergedColumns} dataSource={dataSource} />
         </Form>
       </div>
       <Button type="primary" ghost onClick={deleteCode} disabled={!hasSelected}>삭제</Button>
