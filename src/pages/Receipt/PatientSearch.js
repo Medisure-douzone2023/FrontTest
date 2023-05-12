@@ -112,7 +112,7 @@ function PatientSearch(props) {
                     pno: selectedPatientRow.pno
                 },
                 headers: {
-                    "Authorization": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0IiwicG9zaXRpb24iOiJvZmZpY2UiLCJpYXQiOjE2ODM4NTM1ODEsImV4cCI6MTY4NDE1MzU4MX0.g_KIAtjrpejmzinNeV7qACDOwciWP66XYrvnddmug1U"
+                    "Authorization": props.token
                 }
             })
             .then((response) => {
@@ -142,7 +142,7 @@ function PatientSearch(props) {
             iscreated: 'N'
         }, {
             headers: {
-                "Authorization": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0IiwicG9zaXRpb24iOiJvZmZpY2UiLCJpYXQiOjE2ODM4NTM1ODEsImV4cCI6MTY4NDE1MzU4MX0.g_KIAtjrpejmzinNeV7qACDOwciWP66XYrvnddmug1U"
+                "Authorization": props.token
             }
         })
             .then((response) => {
@@ -169,7 +169,7 @@ function PatientSearch(props) {
     const fetchPatientData = () => {
         axios.get(`/api/patient/${pname}`, {
             headers: {
-                "Authorization": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0IiwicG9zaXRpb24iOiJvZmZpY2UiLCJpYXQiOjE2ODM4NTM1ODEsImV4cCI6MTY4NDE1MzU4MX0.g_KIAtjrpejmzinNeV7qACDOwciWP66XYrvnddmug1U"
+                "Authorization": props.token
             }
         })
             .then((response) => {
@@ -189,7 +189,7 @@ function PatientSearch(props) {
             ...values
         }, {
             headers: {
-                "Authorization": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0IiwicG9zaXRpb24iOiJvZmZpY2UiLCJpYXQiOjE2ODM4NTM1ODEsImV4cCI6MTY4NDE1MzU4MX0.g_KIAtjrpejmzinNeV7qACDOwciWP66XYrvnddmug1U"
+                "Authorization": props.token
             }
         }).then(() => {
             newPatientForm.resetFields(); // input 박스 rest

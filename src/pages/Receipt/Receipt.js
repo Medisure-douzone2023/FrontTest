@@ -27,16 +27,16 @@ import FeeList from './FeeList';
 
 const { Title } = Typography;
 
-function Receipt() {
+function Receipt(props) {
 
-
+  let token = props.token;
   return (
     <>
 
       {/* 1행 검색창 및 환자 목록 리스트 */}
       <Row>
         <Col xs={14} sm={16} md={18} lg={20} xl={24}>
-          <PatientSearch />
+          <PatientSearch token={token} />
         </Col>
       </Row>
 
@@ -44,11 +44,11 @@ function Receipt() {
       {/* 2행 접수현황 테이블 & 수납 테이블*/}
       <Row gutter={[40, 0]}> {/* 두 테이블 사이 간격 조절 가능... 나머지 오른쪽 패딩은 나중에.*/}
         <Col xs={12} sm={12} md={12} lg={12} xl={12} >
-          <ReceiptStatus />
+          <ReceiptStatus token={token}/>
         </Col>
 
         <Col xs={12} sm={12} md={12} lg={12} xl={12} >
-          <FeeList />
+          <FeeList token={token}/>
         </Col>
       </Row>
     </>
