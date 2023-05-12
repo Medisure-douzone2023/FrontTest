@@ -204,7 +204,6 @@ function CommonT() {
   const [editingKey, setEditingKey] = useState('');
   const isEditing = (record) => record.key === editingKey;
   const edit = (record) => {
-    console.log("edit, record", record)
     form.setFieldsValue({
       name: '',
       age: '',
@@ -216,11 +215,6 @@ function CommonT() {
   const cancel = () => {
     setEditingKey('');
   };
-
-  useEffect(() => {
-    console.log('editingKey has changed:', editingKey);
-  }, [editingKey]);
-
 
   const save = async (key) => {
     try {
