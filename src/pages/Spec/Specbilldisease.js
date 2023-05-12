@@ -4,6 +4,7 @@ import axios from 'axios';
 
 function Specbilldisease(props) {
   const [nos, setNos] = useState([]);
+  const [selectedRowKeys, setSelectedRowKeys] = useState([]);
 
   // 청구 상병 삭제 통신
   const billdiseasedelete = async (nos) => {
@@ -26,6 +27,7 @@ function Specbilldisease(props) {
     try{
       await billdiseasedelete(nos);
       await props.handleRowClick(props.record);
+      setSelectedRowKeys([]);
     } catch(error){
       console.error(error);
     }
@@ -33,11 +35,13 @@ function Specbilldisease(props) {
 
   // 명세서 상병 데이터에서 선택 된 데이터 정보 삭제할때 사용
   const rowSelection = {
+    selectedRowKeys,
     onChange: (selectedRowKeys, selectedRows) => {
       const newSelectDatas = selectedRows.map((row,i) => {
         const pno = row.pno;
         const rno = row.rno;
         const dno = row.dno;
+        setSelectedRowKeys(selectedRowKeys);
         return {pno, rno, dno}
       })
       setNos(newSelectDatas)
