@@ -176,6 +176,7 @@ function CommonT() {
     setIsModalOpen(false);
 
     const insertParameters = { gkey: insertKey.value, keyname: insertKey.label, gcode: insertGcode, codename: insertCodename, price: insertPrice }
+    setDataSource([insertParameters, ...dataSource])
     axios.post("/api/common", insertParameters, {
       headers: {
         "Authorization": token,
