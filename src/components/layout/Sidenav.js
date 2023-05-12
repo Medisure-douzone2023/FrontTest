@@ -4,7 +4,7 @@ import logo from "../../assets/images/medisure.png";
 import "../../assets/styles/Sidenav.css";
 
 function Sidenav({ color }) {
-
+ 
   const receipt = [
     <svg
       width="20"
@@ -56,7 +56,7 @@ function Sidenav({ color }) {
       height="20"
       viewBox="0 0 20 20"
       fill="none"
-      xmlns="http://www.w3.org/2000/svg"
+      xmlns="http://www.w3.org/2000/svg" 
       key={0}
     >
       <path

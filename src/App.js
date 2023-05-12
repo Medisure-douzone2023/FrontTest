@@ -17,18 +17,6 @@ function App() {
   return (
     <div className="App">
       <Switch>
-
-        <Route path="/sign-in" exact component={SignIn} />
-        <Main>
-          <Route exact path="/receipt" component={Receipt} />
-          <Route exact path="/care" component={Care} />
-          <Route exact path="/insertManual" component={InsertManual} />
-          <Route exact path="/spec" component={Spec} />
-          <Route exact path="/bill" component={Bill} />
-          <Route exact path="/commonT" component={CommonT} />
-          <Redirect from="*" to="/receipt" />
-        </Main>
-
           {token !== null ?(
             <Main>
               {position === 'doctor' && (
