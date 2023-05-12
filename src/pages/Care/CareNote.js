@@ -40,7 +40,7 @@ function CareNote(props) {
       method: 'PUT',
       url: `/api/receipt/${props.rno}/접수`,
       headers: {
-        "Authorization" : "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJlZWUiLCJwb3NpdGlvbiI6ImRvY3RvciIsImlhdCI6MTY4MzUwNDgyMiwiZXhwIjoxNjgzODA0ODIyfQ.Ot5n4Y_Gq2TkpwxXHhWVrUYFg1CDdSjJAVorT9KtCVE",
+        "Authorization" : "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJlZWUiLCJwb3NpdGlvbiI6ImRvY3RvciIsImlhdCI6MTY4Mzg1NzI2MSwiZXhwIjoxNjg0MTU3MjYxfQ.XgI-WFtWiXvTPPoYHpQ7AUNvWzPbDHGLvBZuepwTFP4",
         'Accept': 'application/json'
       }
     })
@@ -71,7 +71,7 @@ function CareNote(props) {
       url: `/api/care`,
       data: data,
       headers: {
-        "Authorization" : "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJlZWUiLCJwb3NpdGlvbiI6ImRvY3RvciIsImlhdCI6MTY4MzUwNDgyMiwiZXhwIjoxNjgzODA0ODIyfQ.Ot5n4Y_Gq2TkpwxXHhWVrUYFg1CDdSjJAVorT9KtCVE",
+        "Authorization" : "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJlZWUiLCJwb3NpdGlvbiI6ImRvY3RvciIsImlhdCI6MTY4Mzg1NzI2MSwiZXhwIjoxNjg0MTU3MjYxfQ.XgI-WFtWiXvTPPoYHpQ7AUNvWzPbDHGLvBZuepwTFP4",
         'Accept': 'application/json'
       }
     });
@@ -91,7 +91,7 @@ function CareNote(props) {
       url: `/api/disease`,
       data: DDData,
       headers: {
-        "Authorization" : "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJlZWUiLCJwb3NpdGlvbiI6ImRvY3RvciIsImlhdCI6MTY4MzUwNDgyMiwiZXhwIjoxNjgzODA0ODIyfQ.Ot5n4Y_Gq2TkpwxXHhWVrUYFg1CDdSjJAVorT9KtCVE",
+        "Authorization" : "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJlZWUiLCJwb3NpdGlvbiI6ImRvY3RvciIsImlhdCI6MTY4Mzg1NzI2MSwiZXhwIjoxNjg0MTU3MjYxfQ.XgI-WFtWiXvTPPoYHpQ7AUNvWzPbDHGLvBZuepwTFP4",
         'Accept': 'application/json'
       }
     })
@@ -106,7 +106,7 @@ function CareNote(props) {
       url: `/api/treat`,
       data: TTData,
       headers: {
-        "Authorization" : "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJlZWUiLCJwb3NpdGlvbiI6ImRvY3RvciIsImlhdCI6MTY4MzUwNDgyMiwiZXhwIjoxNjgzODA0ODIyfQ.Ot5n4Y_Gq2TkpwxXHhWVrUYFg1CDdSjJAVorT9KtCVE",
+        "Authorization" : "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJlZWUiLCJwb3NpdGlvbiI6ImRvY3RvciIsImlhdCI6MTY4Mzg1NzI2MSwiZXhwIjoxNjg0MTU3MjYxfQ.XgI-WFtWiXvTPPoYHpQ7AUNvWzPbDHGLvBZuepwTFP4",
         'Accept': 'application/json'
       }
     })
@@ -118,7 +118,7 @@ function CareNote(props) {
         method: 'PUT',
         url: `/api/receipt/${props.rno}/수납대기`,
         headers: {
-          "Authorization" : "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJlZWUiLCJwb3NpdGlvbiI6ImRvY3RvciIsImlhdCI6MTY4MzUwNDgyMiwiZXhwIjoxNjgzODA0ODIyfQ.Ot5n4Y_Gq2TkpwxXHhWVrUYFg1CDdSjJAVorT9KtCVE",
+          "Authorization" : "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJlZWUiLCJwb3NpdGlvbiI6ImRvY3RvciIsImlhdCI6MTY4Mzg1NzI2MSwiZXhwIjoxNjg0MTU3MjYxfQ.XgI-WFtWiXvTPPoYHpQ7AUNvWzPbDHGLvBZuepwTFP4",
           'Accept': 'application/json'
         }
       })
@@ -134,7 +134,7 @@ function CareNote(props) {
           method: 'get',
           url: `/api/common/care?keyword=${keyword}&gkey=DD`,
           headers: {
-            "Authorization" : "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJlZWUiLCJwb3NpdGlvbiI6ImRvY3RvciIsImlhdCI6MTY4MzUwNDgyMiwiZXhwIjoxNjgzODA0ODIyfQ.Ot5n4Y_Gq2TkpwxXHhWVrUYFg1CDdSjJAVorT9KtCVE",
+            "Authorization" : "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJlZWUiLCJwb3NpdGlvbiI6ImRvY3RvciIsImlhdCI6MTY4Mzg1NzI2MSwiZXhwIjoxNjg0MTU3MjYxfQ.XgI-WFtWiXvTPPoYHpQ7AUNvWzPbDHGLvBZuepwTFP4",
             'Accept': 'application/json'
           }
         });
@@ -149,7 +149,7 @@ function CareNote(props) {
         const response = await axios.get(
           '/api/common/care', {
             headers: {
-                "Authorization" : "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJlZWUiLCJwb3NpdGlvbiI6ImRvY3RvciIsImlhdCI6MTY4MzUwNDgyMiwiZXhwIjoxNjgzODA0ODIyfQ.Ot5n4Y_Gq2TkpwxXHhWVrUYFg1CDdSjJAVorT9KtCVE"
+                "Authorization" : "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJlZWUiLCJwb3NpdGlvbiI6ImRvY3RvciIsImlhdCI6MTY4Mzg1NzI2MSwiZXhwIjoxNjg0MTU3MjYxfQ.XgI-WFtWiXvTPPoYHpQ7AUNvWzPbDHGLvBZuepwTFP4"
             }
             , params: {
               "gkey" : 'TT',

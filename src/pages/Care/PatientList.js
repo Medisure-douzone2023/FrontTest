@@ -39,7 +39,7 @@ function PatientList(props) {
                     const response = await fetch(`/api/receipt/${selectedRowKeys}/진료중`,{
                         method: 'put',
                         headers: {
-                                "Authorization" : "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJlZWUiLCJwb3NpdGlvbiI6ImRvY3RvciIsImlhdCI6MTY4MzUwNDgyMiwiZXhwIjoxNjgzODA0ODIyfQ.Ot5n4Y_Gq2TkpwxXHhWVrUYFg1CDdSjJAVorT9KtCVE",
+                                "Authorization" : "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJlZWUiLCJwb3NpdGlvbiI6ImRvY3RvciIsImlhdCI6MTY4Mzg1NzI2MSwiZXhwIjoxNjg0MTU3MjYxfQ.XgI-WFtWiXvTPPoYHpQ7AUNvWzPbDHGLvBZuepwTFP4",
                                 'Accept': 'application/json'
                             }
                     })
