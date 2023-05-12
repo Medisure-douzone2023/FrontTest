@@ -52,8 +52,8 @@ function SpecModal(props) {
         props.setModalOpen(false);
         props.setSearchValue('');
         props.setCommondata([]);
-        setDmain({});
         setSelectedRowKeys([]);
+        setDmain({});
       };
 
     // 모달 창 취소 버튼 클릭 시 모달창 안의 내용 초기화
@@ -62,7 +62,6 @@ function SpecModal(props) {
         props.setSearchValue('');
         props.setCommondata([]);
         setDmain({});
-        setSelectedRowKeys([]);
       };
       const handleOk = () => {
         props.setIsModalOpen(false);
@@ -70,7 +69,6 @@ function SpecModal(props) {
 
     //모달창 상병검색에서 선택 된 데이터 정보
     const diseaserowSelection = {
-        selectedRowKeys,
         onChange: (selectedRowKeys, selectedRows) => {
           const newSelectDatas = selectedRows.map((row, i) => {
             const dcode = row.dcode ? row.dcode.props.children : null;
@@ -82,7 +80,6 @@ function SpecModal(props) {
             const bno = props.billdiseaseData[0].bno;
             const pno = props.billdiseaseData[0].pno;
             const rno = props.billdiseaseData[0].rno;
-            setSelectedRowKeys(selectedRowKeys)
             return { bno, pno, rno, dmain, dcode, dname };
       });
       const newDmain1 = { ...dmain1 };
