@@ -5,6 +5,7 @@ import axios from 'axios';
 function SpecModal(props) {
     const [dmain1, setDmain] = useState({});
     const [selectDatas, setSelectDatas] = useState([]);
+    const [selectedRowKeys, setSelectedRowKeys] = useState([]);
     const { Search } = Input;
 
     //청구 상병 추가 통신
@@ -51,6 +52,8 @@ function SpecModal(props) {
         props.setModalOpen(false);
         props.setSearchValue('');
         props.setCommondata([]);
+        setDmain({});
+        setSelectedRowKeys([]);
       };
 
     // 모달 창 취소 버튼 클릭 시 모달창 안의 내용 초기화
@@ -58,6 +61,8 @@ function SpecModal(props) {
         props.setModalOpen(false);
         props.setSearchValue('');
         props.setCommondata([]);
+        setDmain({});
+        setSelectedRowKeys([]);
       };
       const handleOk = () => {
         props.setIsModalOpen(false);
@@ -65,6 +70,7 @@ function SpecModal(props) {
 
     //모달창 상병검색에서 선택 된 데이터 정보
     const diseaserowSelection = {
+        selectedRowKeys,
         onChange: (selectedRowKeys, selectedRows) => {
           const newSelectDatas = selectedRows.map((row, i) => {
             const dcode = row.dcode ? row.dcode.props.children : null;
@@ -76,6 +82,7 @@ function SpecModal(props) {
             const bno = props.billdiseaseData[0].bno;
             const pno = props.billdiseaseData[0].pno;
             const rno = props.billdiseaseData[0].rno;
+            setSelectedRowKeys(selectedRowKeys)
             return { bno, pno, rno, dmain, dcode, dname };
       });
       const newDmain1 = { ...dmain1 };
@@ -120,10 +127,16 @@ function SpecModal(props) {
                </Radio.Group>
            }));
            props.setCommondata(commondata);
+           console.log("commondata: ", commondata);
+           if(commondata.length === 0){
+            alert("검색 결과가 없습니다.")
+            return;
+           }
          } catch(error){
-           console.error(error);
+          console.error(error);
          }
         diseaseData(value);
+        
       }
 
       // 주/부 라디오 버튼 dmain 값 저장

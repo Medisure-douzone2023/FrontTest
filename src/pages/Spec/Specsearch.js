@@ -44,6 +44,20 @@ function Specsearch(props) {
     const [commondata, setCommondata] = useState([null]);
     const { RangePicker } = DatePicker;
     
+    // 상태가 미심사인 명세서를 가져온다.(기본 테이블)
+    const specificationData = async () => {
+      try {
+        const response = await axios.get('/api/spec/info', {
+          headers:{
+            "Authorization": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0IiwicG9zaXRpb24iOiJvZmZpY2UiLCJpYXQiOjE2ODM3MDI4MDQsImV4cCI6MTY4NDAwMjgwNH0.sydph7T5v4Wv_8WZ90G7DWsXP4xYyceMJz37wQ9fFyY"
+          }
+          });
+          return response.data;
+        } catch (error) {
+          console.error(error);
+        }
+      };
+
     // 검색에 맞는 명세서 조회
     const fetchData = async (startDate, endDate, insurance, pno) => {
       try {
@@ -85,6 +99,26 @@ function Specsearch(props) {
         }
       };
 
+      useEffect(() => {
+        async function fetchSpecificationData() {
+          try {
+            const data = await specificationData();
+            const specificaiondata = data.data.map((item,i) => ({
+              bno: item.bno,
+              rno: item.rno,
+              pno: item.pno,
+              no: <div>{i+1}</div>,
+              name: <div className="author-info">{item.pname}</div>,
+              insurance: <div>{item.insurance}</div>,
+              status: <div className="ant-employed">{item.sstatus}</div>,
+            }))
+            setSearchData(specificaiondata);
+          } catch (error) {
+            console.error(error)
+          }
+        }
+        fetchSpecificationData();
+      }, []);
       // 검색기능에서 키값을 통해 건강보험인지 의료급여인지
       const handleMenuClick = (e) => {
         // eslint-disable-next-line eqeqeq
@@ -98,7 +132,7 @@ function Specsearch(props) {
           alert('진료기간을 선택해주세요.');
           return;
         } else if(!pno) {
-          alert('환자번호를 입력해주세요.')
+          alert('등록번호를 입력해주세요.')
           return;
         }
         try {
@@ -214,9 +248,7 @@ function Specsearch(props) {
             tname : <div>{item.tname}</div>,
             tprice: <div>{item.tprice}</div>
            }));
-
            setBillcareData(diseasecareData2);
-        
           } catch(error){
           console.error(error);
         }
