@@ -4,7 +4,7 @@ import logo from "../../assets/images/medisure.png";
 import "../../assets/styles/Sidenav.css";
 
 function Sidenav({ color }) {
-
+ 
   const receipt = [
     <svg
       width="20"
@@ -56,7 +56,7 @@ function Sidenav({ color }) {
       height="20"
       viewBox="0 0 20 20"
       fill="none"
-      xmlns="http://www.w3.org/2000/svg"
+      xmlns="http://www.w3.org/2000/svg" 
       key={0}
     >
       <path
@@ -109,62 +109,72 @@ function Sidenav({ color }) {
     </svg>,
   ];
 
+  const position = localStorage.getItem("position");
   return (
     <>
      <div className="brand">
         <img src={logo} alt="" />
       </div>
       <Menu theme="light" mode="inline">
-        <Menu.Item key="1">
-          <NavLink to="/receipt">
-            <span className="icon">
-              {receipt}
-            </span>
-            <span className="label">접수/수납</span>
-          </NavLink>
+        {position === 'doctor' && (
+          <Menu.Item key="2">
+            <NavLink to="/care">
+              <span className="icon">
+                {care}
+              </span>
+              <span className="label">진료</span>
+            </NavLink>
         </Menu.Item>
-        <Menu.Item key="2">
-          <NavLink to="/care">
-            <span className="icon">
-              {care}
-            </span>
-            <span className="label">진료</span>
-          </NavLink>
-        </Menu.Item>
-        <Menu.Item key="3">
-          <NavLink to="/commonT">
-            <span
-              className="icon">
-              {care}
-            </span>
-            <span className="label">공통테이블</span>
-          </NavLink>
-        </Menu.Item>
-        <Menu.Item className="menu-item-header" key="4">
-          보험심사
-        </Menu.Item>
-        <Menu.Item key="5 ">
-          <NavLink to="/insertManual">
-            <span className="icon">
-              {insertManual}
-            </span>
-            <span className="label">수동생성</span>
-          </NavLink>
-        </Menu.Item>
-        <Menu.Item key="6">
-          <NavLink to="/spec">
-            <span className="icon">
-              {spec}
-            </span>
-            <span className="label">심사</span>
-          </NavLink>
-        </Menu.Item>
-        <Menu.Item key="7">
-          <NavLink to="/bill">
-            <span className="icon">{bill}</span>
-            <span className="label">송신</span>
-          </NavLink>
-        </Menu.Item>
+        )}
+        {position === 'admin' && (
+          <Menu.Item key="3">
+            <NavLink to="/commonT">
+              <span
+                className="icon">
+                {care}
+              </span>
+              <span className="label">공통테이블</span>
+            </NavLink>
+          </Menu.Item>
+        )}
+        {position === 'office' && (
+          <>
+          
+            <Menu.Item key="1">
+              <NavLink to="/receipt">
+                <span className="icon">
+                  {receipt}
+                </span>
+                <span className="label">접수/수납</span>
+              </NavLink>
+            </Menu.Item>
+            <Menu.Item className="menu-item-header" key="4">
+              보험심사
+            </Menu.Item>
+            <Menu.Item key="5 ">
+              <NavLink to="/insertManual">
+                <span className="icon">
+                  {insertManual}
+                </span>
+                <span className="label">수동생성</span>
+              </NavLink>
+            </Menu.Item>
+            <Menu.Item key="6">
+              <NavLink to="/spec">
+                <span className="icon">
+                  {spec}
+                </span>
+                <span className="label">심사</span>
+              </NavLink>
+            </Menu.Item>
+            <Menu.Item key="7">
+              <NavLink to="/bill">
+                <span className="icon">{bill}</span>
+                <span className="label">송신</span>
+              </NavLink>
+            </Menu.Item>
+          </>
+        )}
       </Menu>
     </>
   );

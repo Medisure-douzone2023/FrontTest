@@ -3,10 +3,9 @@ import axios from 'axios'
 import { useState } from "react";
 import '../../assets/styles/InsertManual.css';
 
-let token = 'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0IiwicG9zaXRpb24iOiJvZmZpY2UiLCJpYXQiOjE2ODM1MTAwNTksImV4cCI6MTY4MzgxMDA1OX0.4jXsvwp3Kfw-JFE3-chMiNKZtlQxXXoOR7VHDST5KH4';
 
-function InsertManual() {
-
+function InsertManual(props) {
+  let token = props.token;
   const options = [{ value: '건강보험', labe: '건강보험' }, { value: '의료급여', labe: '의료급여' }];
   const { RangePicker } = DatePicker;
   const [date, setDate] = useState('');

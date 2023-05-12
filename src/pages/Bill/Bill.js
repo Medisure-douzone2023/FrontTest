@@ -2,10 +2,8 @@ import { useState } from "react";
 import { Button, Table, DatePicker, Space, Select, Row, Col } from 'antd';
 import axios from 'axios'
 
-const token = 'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0IiwicG9zaXRpb24iOiJvZmZpY2UiLCJpYXQiOjE2ODM1MDg3NzQsImV4cCI6MTY4MzgwODc3NH0.TvJFxxZR_3ALICx94iaFFQY6tglxfAO2-rySDxq049g';
-
-function Bill() {
-
+function Bill(props) {
+  let token = props.token;
   const statusOptions = [{ value: '미송신', labe: '미송신' }, { value: '변환', labe: '변환' }];
   const insuranceOptions = [{ value: '건강보험', labe: '건강보험' }, { value: '의료급여', labe: '의료급여' }];
 
@@ -207,4 +205,3 @@ function Bill() {
   );
 }
 export default Bill;
-

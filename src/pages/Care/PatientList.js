@@ -1,7 +1,6 @@
 import { Button, Space, Table } from 'antd';
 import React, {useState, useEffect} from 'react';
 import axios from 'axios';
-import Column from 'antd/lib/table/Column';
 
 const columns = [
     {title: '환자명', dataIndex: 'pname', key: 'pname'}
@@ -11,17 +10,21 @@ const columns = [
     , {title: '상태', dataIndex: 'status', key: 'status'}
     , {title: '환자번호', dataIndex: 'pno', key: 'pno', hidden: 'true'}
     , {title: '접수번호', dataIndex: 'rno', key: 'rno', hidden: 'true'}
+    , {tilte: 'visit', dataIndex: 'visit', key: 'visit', hidden: 'true'}
 ].filter(column => !column.hidden);
 
 function PatientList(props) {
+    let token = props.token;
     const [patient, setPatient] = useState(null);
     const [selectedRowKeys, setSelectedRowKeys] = useState();
-    const [selectedRowPno, setSelectedRowPno] = useState();
+    const [selectedRow, setSelectedRow] = useState();
     const onSelectChange = (newSelectedRowKeys, newSelectedRows) => {
-        // console.log('selectedRowKeys changed: ', newSelectedRowKeys);
-        // console.log('newSelectedRows',newSelectedRows[0].pno);
+        console.log('newSelectedRowKeys changed: ', newSelectedRowKeys);
         setSelectedRowKeys(newSelectedRowKeys);
-        setSelectedRowPno(newSelectedRows[0].pno);
+        if(newSelectedRowKeys.length !==0){
+            console.log('newSelectedRow',newSelectedRows[0]);
+            setSelectedRow(newSelectedRows[0]);
+        }
     };
     const rowSelection = {
         selectedRowKeys,
@@ -37,7 +40,7 @@ function PatientList(props) {
                     const response = await fetch(`/api/receipt/${selectedRowKeys}/진료중`,{
                         method: 'put',
                         headers: {
-                                "Authorization" : "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJlZWUiLCJwb3NpdGlvbiI6ImRvY3RvciIsImlhdCI6MTY4MzYxMDU2MSwiZXhwIjoxNjgzOTEwNTYxfQ.dLYAao54mmhbGZHh3cR8zdAqvY5WhTdSkm-Q52i8GDA",
+                                'Authorization': token,
                                 'Accept': 'application/json'
                             }
                     })
@@ -47,10 +50,14 @@ function PatientList(props) {
                     }
                     const newPatient = patient.filter((p) => p.rno !== json.data);
                     setPatient(newPatient);
+                    console.log('newPatient: ',newPatient);
                     //진료중인 환자 상태 관리 만들어서 json.data 로 변경하고 데이터 가져오기~~
                     // props.setPno(selectedRowKeys);
                     props.setRno(selectedRowKeys);
-                    props.setPno(selectedRowPno);
+                    props.setPno(selectedRow.pno);
+                    props.setIsVisited(selectedRow.visit);
+                    console.log('병원 온 적 있?',selectedRow.visit)
+                    setSelectedRowKeys();
                 }else{
                     alert("환자 호출 취소");
                 }
@@ -66,13 +73,13 @@ function PatientList(props) {
             const response = await axios.get(
                 '/api/receipt/list', {
                     headers: {
-                        "Authorization" : "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJlZWUiLCJwb3NpdGlvbiI6ImRvY3RvciIsImlhdCI6MTY4Mjk4NTIyNiwiZXhwIjoxNjgzMjg1MjI2fQ.2CpvMAsbnCssjovVWFDOeVpZ0Gy4fx22YYGHKzJ9i-Y"
+                        'Authorization': token,
                     }
                 }
             );
             if(response.data.result === "success") {
                 setPatient(response.data.data);
-                // console.log(response.data.data);
+                console.log("진료 대기 환자: ",response.data.data);
             }
         } catch (e) {
             console.log(e);
@@ -80,18 +87,11 @@ function PatientList(props) {
     }
     useEffect(() => {
         fetchUsers();
-    },[]);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    },[props.patient]);
     return (
         <div>
-            <Table rowSelection={rowSelection} rowKey="rno" pagination={false} dataSource={patient} columns={columns} >
-                <Column title="pno" dataIndex="pno" key="pno"/>
-                <Column title="rno" dataIndex="rno" key="rno"/>
-                <Column title="환자명" dataIndex="pname" key="pname" />
-                <Column title="성별" dataIndex="gender" key="gender" />
-                <Column title="나이" dataIndex="age" key="age" />
-                <Column title="증상" dataIndex="rcondition" key="rcondition" />
-                <Column title="접수상태" dataIndex="status" key="status" />
-            </Table>
+            <Table rowSelection={rowSelection} rowKey="rno" pagination={false} dataSource={patient} columns={columns} />
             <Space
                 direction="vertical"
                 style={{
