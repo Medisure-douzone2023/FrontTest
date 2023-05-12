@@ -4,7 +4,7 @@
     margin: 0px 7px 7px 7px;
     height: 47px;
 }
- 
+  
   
 /*이건 아직*/
 .table-responsive {
@@ -14,8 +14,9 @@
 
 
 /* 테이블 컬럼 CSS           뒷 배경 색상. (테이블 thead의 table cell 이라는 뜻.)*/
+
 .tablecss .ant-table-thead .ant-table-cell {
-    background-color: #EFF5FF;
+    background-color: #EFF5FF; 
     font-weight: bolder;
 }
 .tablecss .ant-table-thead .ant-table-content {

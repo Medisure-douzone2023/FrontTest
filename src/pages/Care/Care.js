@@ -2,26 +2,30 @@ import { Row, Col } from 'antd';
 import React, { useState, useEffect } from 'react';
 import PatientList from './PatientList';
 import CareNote from './CareNote';
+import axios from 'axios';
 import PatientInfo from './PatientInfo';
 
-function Care() {
+function Care(props) {
   const [pno, setPno] = useState(0);
   const [rno, setRno] = useState(0);
   const [patient, setPatient] = useState({});
+  let token = props.token;
   const fetchPatientInfo = async (pno) => {
-    const response = await fetch(`/api/care/${pno}`, {
-      method: 'get',
+    if(pno ===0){ 
+      return;
+    }
+    const response = await axios({
+      method: 'GET',
+      url: `/api/care/${pno}`,
       headers: {
-        "Authorization": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJlZWUiLCJwb3NpdGlvbiI6ImRvY3RvciIsImlhdCI6MTY4MzE4OTMyNSwiZXhwIjoxNjgzNDg5MzI1fQ.olDzzZ4Ipo8zQHGGw10doh7LB03ZV4iY6tR5LEgXo6k",
+        'Authorization': token,
         'Accept': 'application/json'
       }
     });
-    const json = await response.json();
-    console.log(json.data);
-    if (json.result !== 'success') {
-      throw new Error(`${json.result} ${json.message}`)
+    if (response.data.result !== 'success') {
+      throw new Error(`${response.data.result} ${response.data.message}`)
     }
-    setPatient(json.data);
+    setPatient(response.data.data);
   }
   useEffect(() => {
     fetchPatientInfo(pno);
@@ -31,17 +35,17 @@ function Care() {
     <>
       <div className="tabled">
         <Row gutter={[24, 0]} >
-          <Col span={6}>
+          <Col span={8} >
             <h1>진료 대기 환자 목록</h1>
-            <PatientList setPno={setPno} setRno={setRno} />
+            <PatientList setPno={setPno} setRno={setRno} patient={patient} token={token}/>
           </Col>
-          <Col span={9}>
+          <Col span={8}>
             <h1>진료메모, 상병, 처방</h1>
-            <CareNote rno={rno} />
+            <CareNote rno={rno} setPatient={setPatient} token={token}/>
           </Col>
-          <Col span={9} >
+          <Col span={8} >
             <h1>환자정보, 진료 기록</h1>
-            <PatientInfo patient={patient} />
+            <PatientInfo patient={patient} token={token}/>
           </Col>
         </Row>
       </div>
