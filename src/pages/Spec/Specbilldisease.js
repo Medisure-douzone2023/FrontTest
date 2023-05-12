@@ -38,7 +38,7 @@ function Specbilldisease(props) {
         const pno = row.pno;
         const rno = row.rno;
         const dno = row.dno;
-        return {pno, rno, dno}
+        return {key:pno, pno, rno, dno}
       })
       setNos(newSelectDatas)
     }
