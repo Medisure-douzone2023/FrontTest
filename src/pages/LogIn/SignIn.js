@@ -38,16 +38,13 @@ class SignIn extends Component {
 
       switch (decoded.position) {
         case 'doctor':
-          // this.props.history.push('/care');
           document.location.href = '/care'
           break;
-          case 'office':
-            // this.props.history.push('/receipt');
-            document.location.href = '/receipt'
-            break;
-            case 'admin':
-              // this.props.history.push('/commonT');
-              document.location.href = '/commonT'
+        case 'office':
+          document.location.href = '/receipt'
+          break;
+        case 'admin':
+          document.location.href = '/commonT'
           break;
         default:
           break;
