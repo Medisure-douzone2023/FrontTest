@@ -8,6 +8,7 @@ const { TextArea } = Input;
 
 
 function CareNote(props) {
+  let token = props.token;
   const [options, setOptions] = useState([]);
   const [treats, setTreats] = useState([]);
   const [selectDD, setSelectDD] = useState([]);
@@ -40,7 +41,7 @@ function CareNote(props) {
       method: 'PUT',
       url: `/api/receipt/${props.rno}/접수`,
       headers: {
-        "Authorization" : "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJlZWUiLCJwb3NpdGlvbiI6ImRvY3RvciIsImlhdCI6MTY4Mzg1NzI2MSwiZXhwIjoxNjg0MTU3MjYxfQ.XgI-WFtWiXvTPPoYHpQ7AUNvWzPbDHGLvBZuepwTFP4",
+        'Authorization': token,
         'Accept': 'application/json'
       }
     })
@@ -71,7 +72,7 @@ function CareNote(props) {
       url: `/api/care`,
       data: data,
       headers: {
-        "Authorization" : "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJlZWUiLCJwb3NpdGlvbiI6ImRvY3RvciIsImlhdCI6MTY4Mzg1NzI2MSwiZXhwIjoxNjg0MTU3MjYxfQ.XgI-WFtWiXvTPPoYHpQ7AUNvWzPbDHGLvBZuepwTFP4",
+        'Authorization': token,
         'Accept': 'application/json'
       }
     });
@@ -91,7 +92,7 @@ function CareNote(props) {
       url: `/api/disease`,
       data: DDData,
       headers: {
-        "Authorization" : "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJlZWUiLCJwb3NpdGlvbiI6ImRvY3RvciIsImlhdCI6MTY4Mzg1NzI2MSwiZXhwIjoxNjg0MTU3MjYxfQ.XgI-WFtWiXvTPPoYHpQ7AUNvWzPbDHGLvBZuepwTFP4",
+        'Authorization': token,
         'Accept': 'application/json'
       }
     })
@@ -106,7 +107,7 @@ function CareNote(props) {
       url: `/api/treat`,
       data: TTData,
       headers: {
-        "Authorization" : "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJlZWUiLCJwb3NpdGlvbiI6ImRvY3RvciIsImlhdCI6MTY4Mzg1NzI2MSwiZXhwIjoxNjg0MTU3MjYxfQ.XgI-WFtWiXvTPPoYHpQ7AUNvWzPbDHGLvBZuepwTFP4",
+        'Authorization': token,
         'Accept': 'application/json'
       }
     })
@@ -118,7 +119,7 @@ function CareNote(props) {
         method: 'PUT',
         url: `/api/receipt/${props.rno}/수납대기`,
         headers: {
-          "Authorization" : "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJlZWUiLCJwb3NpdGlvbiI6ImRvY3RvciIsImlhdCI6MTY4Mzg1NzI2MSwiZXhwIjoxNjg0MTU3MjYxfQ.XgI-WFtWiXvTPPoYHpQ7AUNvWzPbDHGLvBZuepwTFP4",
+          'Authorization': token,
           'Accept': 'application/json'
         }
       })
@@ -128,13 +129,17 @@ function CareNote(props) {
    }
     const onDDKeywordChange = async(e) => {       //상병 검색 키워드 변경 시 호출
       setOptions([]);
-      if(e.key ==='Enter'){                       //Enter 눌렀을 때 검색
+      if(e.key ==='Enter'){
         const keyword = e.target.value;
         const response = await axios({
           method: 'get',
-          url: `/api/common/care?keyword=${keyword}&gkey=DD`,
+          url: `/api/common/care`, 
+          params: {
+              keyword: keyword,
+              gkey: 'DD'
+          },
           headers: {
-            "Authorization" : "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJlZWUiLCJwb3NpdGlvbiI6ImRvY3RvciIsImlhdCI6MTY4Mzg1NzI2MSwiZXhwIjoxNjg0MTU3MjYxfQ.XgI-WFtWiXvTPPoYHpQ7AUNvWzPbDHGLvBZuepwTFP4",
+            'Authorization': token,
             'Accept': 'application/json'
           }
         });
@@ -149,7 +154,8 @@ function CareNote(props) {
         const response = await axios.get(
           '/api/common/care', {
             headers: {
-                "Authorization" : "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJlZWUiLCJwb3NpdGlvbiI6ImRvY3RvciIsImlhdCI6MTY4Mzg1NzI2MSwiZXhwIjoxNjg0MTU3MjYxfQ.XgI-WFtWiXvTPPoYHpQ7AUNvWzPbDHGLvBZuepwTFP4"
+              'Authorization': token,
+              'Accept': 'application/json'
             }
             , params: {
               "gkey" : 'TT',

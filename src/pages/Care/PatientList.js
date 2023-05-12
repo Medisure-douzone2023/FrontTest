@@ -14,6 +14,7 @@ const columns = [
 ].filter(column => !column.hidden);
 
 function PatientList(props) {
+    let token = props.token;
     const [patient, setPatient] = useState(null);
     const [selectedRowKeys, setSelectedRowKeys] = useState();
     const [selectedRow, setSelectedRow] = useState();
@@ -39,7 +40,7 @@ function PatientList(props) {
                     const response = await fetch(`/api/receipt/${selectedRowKeys}/진료중`,{
                         method: 'put',
                         headers: {
-                                "Authorization" : "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJlZWUiLCJwb3NpdGlvbiI6ImRvY3RvciIsImlhdCI6MTY4Mzg1NzI2MSwiZXhwIjoxNjg0MTU3MjYxfQ.XgI-WFtWiXvTPPoYHpQ7AUNvWzPbDHGLvBZuepwTFP4",
+                                'Authorization': token,
                                 'Accept': 'application/json'
                             }
                     })
@@ -72,7 +73,7 @@ function PatientList(props) {
             const response = await axios.get(
                 '/api/receipt/list', {
                     headers: {
-                        "Authorization" : "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJlZWUiLCJwb3NpdGlvbiI6ImRvY3RvciIsImlhdCI6MTY4MzUwNDgyMiwiZXhwIjoxNjgzODA0ODIyfQ.Ot5n4Y_Gq2TkpwxXHhWVrUYFg1CDdSjJAVorT9KtCVE"
+                        'Authorization': token,
                     }
                 }
             );
@@ -86,6 +87,7 @@ function PatientList(props) {
     }
     useEffect(() => {
         fetchUsers();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     },[props.patient]);
     return (
         <div>

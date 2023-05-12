@@ -77,12 +77,17 @@ const profile = [
   </svg>,
 ];
 
-function Header() {
-
+function Header(props) {
+  const name = localStorage.getItem("name");
   useEffect(() => window.scrollTo(0, 0));
-  const [username] = useState("OOO"); 
+  const [username] = useState(name); 
 
-
+  const handleLogout = () => {
+    localStorage.removeItem('accessToken');
+    localStorage.removeItem('userid');
+    localStorage.removeItem('position');
+    document.location.href = '/'
+  }
   return (
     <>
       <Row gutter={[24, 0]}>
@@ -99,7 +104,7 @@ function Header() {
             </Dropdown>
           </Badge>
           
-          <Link to="/sign-in" className="btn-sign-in">
+          <Link onClick={handleLogout} className="btn-sign-in">
             { profile }
             <span>Log out</span>
           </Link>
