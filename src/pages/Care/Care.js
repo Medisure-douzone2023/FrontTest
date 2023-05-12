@@ -12,12 +12,11 @@ function Care() {
     const response = await fetch(`/api/care/${pno}`, {
       method: 'get',
       headers: {
-        "Authorization": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJlZWUiLCJwb3NpdGlvbiI6ImRvY3RvciIsImlhdCI6MTY4MzUwNDkzNCwiZXhwIjoxNjgzODA0OTM0fQ.LogSE1AAHWwivZylbMOzlAaOyx6QsSX20Za0B3qKlSs",
+        "Authorization": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJlZWUiLCJwb3NpdGlvbiI6ImRvY3RvciIsImlhdCI6MTY4MzYxMDU2MSwiZXhwIjoxNjgzOTEwNTYxfQ.dLYAao54mmhbGZHh3cR8zdAqvY5WhTdSkm-Q52i8GDA",
         'Accept': 'application/json'
       }
     });
     const json = await response.json();
-    // console.log(json.data);
     if (json.result !== 'success') {
       throw new Error(`${json.result} ${json.message}`)
     }

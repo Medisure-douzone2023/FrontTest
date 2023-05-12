@@ -1,34 +1,19 @@
 import { useState } from "react";
 import { Button, Table, DatePicker, Space, Select, Row, Col } from 'antd';
 import axios from 'axios'
-const options = [{ value: '미송신', labe: '미송신' }, { value: '변환', labe: '변환' }];
-let thisdata;
-const handleChange = (value, option) => {
-  thisdata = value
-};
-let apiArray = {};
-let searchDate = '';
-function Home() {
+
+const token = 'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0IiwicG9zaXRpb24iOiJvZmZpY2UiLCJpYXQiOjE2ODM1MDg3NzQsImV4cCI6MTY4MzgwODc3NH0.TvJFxxZR_3ALICx94iaFFQY6tglxfAO2-rySDxq049g';
+
+function Bill() {
+
+  const statusOptions = [{ value: '미송신', labe: '미송신' }, { value: '변환', labe: '변환' }];
+  const insuranceOptions = [{ value: '건강보험', labe: '건강보험' }, { value: '의료급여', labe: '의료급여' }];
+
+  const [date, setDate] = useState('');
+  const [insurance, setInsurance] = useState('건강보험');
+  const [status, setStatus] = useState('미송신');
   const [size, setSize] = useState('middle');
-  const { RangePicker } = DatePicker;
-  let [data, setData] = useState([]);
 
-  const search = (value, dateString) => {
-    searchDate = dateString
-    const param = { month: dateString, status: '미송신' };
-    const token = 'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0IiwicG9zaXRpb24iOiJvZmZpY2UiLCJpYXQiOjE2ODI5ODkzNTgsImV4cCI6MTY4MzI4OTM1OH0.tcEDDuPaoTXnN8FSJvOtis42MzwhyVX75exLp86M93s';
-    axios.get("/api/bill", { headers: { "Authorization": token }, params: param }).then((e) => {
-      const result = e.data.data;
-      for (var i = 0; i < result.length; i++) {
-        result[i].key = i;
-      }
-      setData(result)
-    }).catch(() => {
-    })
-  }
-
-  const [selectedRowKeys, setSelectedRowKeys] = useState([]);
-  const [loading, setLoading] = useState(false);
   const columns = [
     {
       title: '청구번호',
@@ -76,6 +61,33 @@ function Home() {
       key: 'week',
     }
   ];
+  let [data, setData] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [selectedRowKeys, setSelectedRowKeys] = useState([]);
+  const [selectedRows, setSelectedRows] = useState([]);
+
+  const selectDate = (value, dateString) => {
+    setDate(dateString);
+  }
+  const selectStatus = (value, option) => {
+    setStatus(value);
+  };
+  const setInsuranceOption = (value, option) => {
+    setInsurance(value);
+  };
+
+  const search = () => {
+    const param = { month: date, insurance: insurance, status: status };
+    axios.get("/api/bill", { headers: { "Authorization": token }, params: param }).then((e) => {
+      const result = e.data.data;
+      for (var i = 0; i < result.length; i++) {
+        result[i].key = i;
+      }
+      setData(result)
+    }).catch((e) => {
+      console.log("error", e);
+    })
+  }
 
   const start = () => {
     setLoading(true);
@@ -85,7 +97,7 @@ function Home() {
     }, 1000);
   };
   const onSelectChange = (newSelectedRowKeys, selectedRows) => {
-    apiArray = selectedRows;
+    setSelectedRows(selectedRows)
     setSelectedRowKeys(newSelectedRowKeys);
   };
   const rowSelection = {
@@ -95,53 +107,80 @@ function Home() {
   const hasSelected = selectedRowKeys.length > 0;
 
   const send = () => {
-    let apiParameters = [];
-    for (let i = 0; i < apiArray.length; i++) {
-      apiParameters.push(apiArray[i].bno)
+    if (selectedRows.length > 0) {
+      let apiParameters = [];
+      for (let i = 0; i < selectedRows.length; i++) {
+        apiParameters.push(selectedRows[i].bno)
+      }
+      const result = data.filter(d => !selectedRows.some(s => d.key === s.key));
+      setData(result)
+      setSelectedRows('');
+      setSelectedRowKeys('');
+
+      axios.put("/api/bill/make", apiParameters, {
+        headers: {
+          "Authorization": token,
+        },
+      }).then((response) => {
+        alert("sam 파일 생성이 완료되었습니다.")
+      }).catch((e) => {
+        console.log("error", e);
+      });
     }
-    const token = 'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0IiwicG9zaXRpb24iOiJvZmZpY2UiLCJpYXQiOjE2ODMxNjM0NzMsImV4cCI6MTY4MzQ2MzQ3M30.KNki4YM9I8iEexAEmx9_SNXJXPRtz2zl1OjxlGj2TAw';
-    axios.put("/api/bill/make", apiParameters, {
-      headers: {
-        "Authorization": token,
-      },
-    }).then((response) => {
-      search(searchDate, searchDate)
-      alert("sam 파일 생성이 완료되었습니다.")
-    }).catch((error) => {
-    });
   }
 
+  const cancel = () => {
+    if (selectedRows.length > 0) {
+      let apiParameters = [];
+      for (let i = 0; i < selectedRows.length; i++) {
+        apiParameters.push(selectedRows[i].bno)
+      }
+
+      const result = data.filter(d => !selectedRows.some(s => d.key === s.key));
+      setData(result)
+      setSelectedRows('');
+      setSelectedRowKeys('')
+
+      axios.put("/api/bill/delete", apiParameters, {
+        headers: {
+          "Authorization": token,
+        },
+      }).then((response) => {
+        alert("sam 파일 삭제가 완료되었습니다.")
+      }).catch((e) => {
+        console.log("error", e);
+      });
+    }
+  }
   return (
     <div>
       <br />
       <h4>청구서 검색</h4>
       <br />
       <Row>
-        <Col xs={{ span: 5, offset: 1 }} lg={{ span: 6, offset: 2 }}>
-          <Space direction="vertical" size={12}>
-            <DatePicker picker="month" onChange={search} />
-          </Space>
-        </Col>
-        <Col xs={{ span: 1, offset: 1 }} lg={{ span: 6, offset: 2 }}>
-          <Space
-            direction="vertical"
-            style={{
-              width: '100%',
-            }}
-          >
+        <Col>
+          <Space direction="horizontal" size={12}>
+            <DatePicker picker="month" onChange={selectDate} />
             <Select
               size={size}
-              defaultValue="미송신"
-              onChange={handleChange}
+              defaultValue="건강보험"
+              onChange={setInsuranceOption}
               style={{
                 width: 200,
               }}
-              options={options}
+              options={insuranceOptions}
             />
+            <Select
+              size={size}
+              defaultValue="미송신"
+              onChange={selectStatus}
+              style={{
+                width: 200,
+              }}
+              options={statusOptions}
+            />
+            <Button type="primary" ghost onClick={search}>검색</Button>
           </Space>
-        </Col>
-        <Col xs={{ span: 1, offset: 1 }} lg={{ span: 6, offset: 2 }}>
-          <Button type="primary" ghost onClick={search}>검색</Button>
         </Col>
       </Row>
       <br />
@@ -162,9 +201,10 @@ function Home() {
         </span>
       </div>
       <Table rowSelection={rowSelection} columns={columns} dataSource={data} />
-      <Button type="primary" ghost onClick={send}>송신</Button>
+      <Button type="primary" ghost onClick={send} disabled={status==='변환'}> 송신 변환 </Button>
+      <Button danger onClick={cancel} disabled={status==='미송신'}>송신 취소</Button>
     </div>
   );
 }
-export default Home;
+export default Bill;
 
