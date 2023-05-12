@@ -4,6 +4,7 @@ import PatientList from './PatientList';
 import CareNote from './CareNote';
 import axios from 'axios';
 import PatientInfo from './PatientInfo';
+
 function Care(props) {
   const [pno, setPno] = useState(0);
   const [rno, setRno] = useState(0);

@@ -70,6 +70,7 @@ function PatientList(props) {
             const response = await axios.get(
                 '/api/receipt/list', {
                     headers: {
+                        'Authorization': token,
                     }
                 }
             );

@@ -33,16 +33,21 @@ class SignIn extends Component {
       const decoded = jwtDecode(response.data.data);
       localStorage.setItem("userid", decoded.sub);
       localStorage.setItem("position", decoded.position);
+      localStorage.setItem("name", decoded.name);
+      console.log("token name:", decoded.name);
 
       switch (decoded.position) {
         case 'doctor':
-          this.props.history.push('/care');
+          // this.props.history.push('/care');
+          document.location.href = '/care'
           break;
-        case 'office':
-          this.props.history.push('/receipt');
-          break;
-        case 'admin':
-          this.props.history.push('/commonT');
+          case 'office':
+            // this.props.history.push('/receipt');
+            document.location.href = '/receipt'
+            break;
+            case 'admin':
+              // this.props.history.push('/commonT');
+              document.location.href = '/commonT'
           break;
         default:
           break;
@@ -55,7 +60,7 @@ class SignIn extends Component {
     return (
       <>
         <Layout className="layout-default layout-signin">
-          <Content className="signin">
+          <Content>
             <Row gutter={[24, 0]} justify="space-around">
               <Col
                 lg={{ span: 6, offset: 2 }}

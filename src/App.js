@@ -10,7 +10,6 @@ import Main from "./components/layout/Main";
 import "antd/dist/antd.css";
 import "./assets/styles/Main.css";
 import "./assets/styles/Responsive.css";
-import { useState, useEffect } from "react";
 
  
 function App() { 
@@ -51,7 +50,6 @@ function App() {
               )
             }
       </Switch>
-            <Route exact path="/sign-in" ><SignIn /></Route>
     </div>
   );
 }

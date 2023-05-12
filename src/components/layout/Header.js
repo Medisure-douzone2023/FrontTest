@@ -78,13 +78,15 @@ const profile = [
 ];
 
 function Header(props) {
+  const name = localStorage.getItem("name");
   useEffect(() => window.scrollTo(0, 0));
-  const [username] = useState("OOO"); 
+  const [username] = useState(name); 
 
   const handleLogout = () => {
     localStorage.removeItem('accessToken');
     localStorage.removeItem('userid');
     localStorage.removeItem('position');
+    document.location.href = '/'
   }
   return (
     <>
