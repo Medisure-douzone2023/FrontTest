@@ -13,7 +13,7 @@ function Main({ children }) {
 
   let { pathname } = useLocation();
   pathname = pathname.replace("/", "");
-
+  
 
   return (
     <Layout className={`layout-dashboard`}>

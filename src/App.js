@@ -12,19 +12,42 @@ import "./assets/styles/Main.css";
 import "./assets/styles/Responsive.css";
  
 function App() { 
+  let token = localStorage.getItem("accessToken");
+  const position = localStorage.getItem("position");
   return (
     <div className="App">
       <Switch>
-        <Route path="/sign-in" exact component={SignIn} />
-        <Main>
-          <Route exact path="/receipt" component={Receipt} />
-          <Route exact path="/care" component={Care} />
-          <Route exact path="/insertManual" component={InsertManual} />
-          <Route exact path="/spec" component={Spec} />
-          <Route exact path="/bill" component={Bill} />
-          <Route exact path="/commonT" component={CommonT} />
-          <Redirect from="*" to="/commonT" />
-        </Main>
+          {token !== null ?(
+            <Main>
+              {position === 'doctor' && (
+                <>
+                  <Route exact path="/care" render={() => <Care token={token}/>}  />
+                  <Redirect from="*" to="/care" />
+                </>
+              )}
+              {position === 'office' && (
+                <>
+                  <Route exact path="/receipt" render={() => <Receipt token={token}/>} />
+                  <Route exact path="/insertManual" render={() => <InsertManual token={token}/>} />
+                  <Route exact path="/spec" render={() => <Spec token={token}/>} />
+                  <Route exact path="/bill" render={() => <Bill token={token}/>}  />
+                  <Redirect from="*" to="/receipt" />
+                </>
+              )}
+              {position === 'admin' && (
+                <>
+                  <Route exact path="/commonT" render={() => <CommonT token={token}/>} />
+                  <Redirect from="*" to="/commonT" />
+                </>
+              )}
+            </Main>
+            ) :(
+              <>
+                <Redirect to="/sign-in"/>
+                <Route exact path="/sign-in" component={SignIn} />
+              </>
+              )
+            }
       </Switch>
     </div>
   );
