@@ -97,20 +97,6 @@ function SpecModal(props) {
     };
 
   
-    const handleMainChange = (e, i, selectedRow) => {
-      setDmain((prevDmain) => ({ ...prevDmain, [i]: e }));
-      console.log(e,i,selectedRow);
-    
-      const newData = selectedRow.map(item => {
-        if (item.gcode === i) {
-          return item.dmain=e;
-        }
-        return item;
-      });
-      
-      diseaserowSelection.onChange([selectedRow.key], [newData]);
-    }
-
     // 청구 상병 추가 시 모달 창 정보
     const onSearch = async (value) => {
         try{
@@ -121,7 +107,7 @@ function SpecModal(props) {
             dcode: <>{item.gcode}</>,
             disease: <>{item.codename}</>,
             dmain:  
-            <Radio.Group onChange={(e) => handleMainChange(e.target.value, item.gcode,data.data)} defaultValue={'부'}>
+            <Radio.Group onChange={(e) => handleMainChange(e.target.value, item.gcode)} defaultValue={'부'}>
                  <Radio.Button value="주" checked={dmain1[item.gcode] === '주'}>주</Radio.Button>
                  <Radio.Button value="부" checked={dmain1[item.gcode] === '부'}>부</Radio.Button>
                </Radio.Group>
@@ -143,7 +129,11 @@ function SpecModal(props) {
       useEffect(() => {
         setDmain(dmain1);
      }, [dmain1]);  
-  
+     const handleMainChange = (e, i) => {
+       setDmain((prevDmain) => ({ ...prevDmain, [i]: e }));
+       console.log(e,i);
+     };
+
      // modal 컬럼
     const diseaseColumns = [
         {

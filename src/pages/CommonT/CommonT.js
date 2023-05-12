@@ -1,206 +1,200 @@
-import { Button, Form, Input, Popconfirm, Table } from 'antd';
-import React, { useContext, useEffect, useRef, useState } from 'react';
-const EditableContext = React.createContext(null);
-const EditableRow = ({ index, ...props }) => {
-  const [form] = Form.useForm();
-  return (
-    <Form form={form} component={false}>
-      <EditableContext.Provider value={form}>
-        <tr {...props} />
-      </EditableContext.Provider>
-    </Form>
-  );
-};
-const EditableCell = ({
-  title,
-  editable,
-  children,
-  dataIndex,
-  record,
-  handleSave,
-  ...restProps
-}) => {
-  const [editing, setEditing] = useState(false);
-  const inputRef = useRef(null);
-  const form = useContext(EditableContext);
-  useEffect(() => {
-    if (editing) {
-      inputRef.current.focus();
-    }
-  }, [editing]);
-  const toggleEdit = (e) => {
-    console.log("e",e)
-    setEditing(!editing);
-    form.setFieldsValue({
-      [dataIndex]: record[dataIndex],
-    });
-  };
-  const save = async () => {
-    try {
-      const values = await form.validateFields();
-      toggleEdit();
-      handleSave({
-        ...record,
-        ...values,
-      });
-    } catch (errInfo) {
-      console.log('Save failed:', errInfo);
-    }
-  };
-  let childNode = children;
-  if (editable) {
-    childNode = editing ? (
-      <Form.Item
-        style={{
-          margin: 0,
-        }}
-        name={dataIndex}
-        rules={[
-          {
-            required: true,
-            message: `${title} is required.`,
-          },
-        ]}
-      >
-        <Input ref={inputRef} onPressEnter={save} onBlur={save} />
-      </Form.Item>
-    ) : (
-      <div
-        className="editable-cell-value-wrap"
-        style={{
-          paddingRight: 24,
-        }}
-        onClick={toggleEdit}
-      >
-        {children}
-      </div>
-    );
-  }
-  return <td {...restProps}>{childNode}</td>;
-};
-const App = () => {
-  const [dataSource, setDataSource] = useState([
-    {
-      key: '0',
-      name: 'Edward King 0',
-      age: '32',
-      address: 'London, Park Lane no. 0',
-    },
-    {
-      key: '1',
-      name: 'Edward King 1',
-      age: '32',
-      address: 'London, Park Lane no. 1',
-    },
-  ]);
-  const [count, setCount] = useState(2);
-  const handleDelete = (key) => {
-    const newData = dataSource.filter((item) => item.key !== key);
-    setDataSource(newData);
-  };
-  const defaultColumns = [
-    {
-      title: 'name',
-      dataIndex: 'name',
-      width: '30%',
-      editable: true,
-    },
-    {
-      title: 'age',
-      dataIndex: 'age',
-      editable: true,
-    },
-    {
-      title: 'address',
-      dataIndex: 'address',
-      editable: true,
-    },
-    {
-      title: 'operation',
-      dataIndex: 'operation',
-      render: (_, record) =>
-        dataSource.length >= 1 ? (
-          <Popconfirm title="Sure to delete?" onConfirm={() => handleDelete(record.key)}>
-            <a>Delete</a>
-          </Popconfirm>
-        ) : null,
-    },
-  ];
-  const handleAdd = (e) => {
-    const newData = {
-      key: count,
-      name: `Edward King ${count}`,
-      age: '32',
-      address: `London, Park Lane no. ${count}`,
-    };
-    setDataSource([...dataSource, newData]);
-    setCount(count + 1);
-  };
-  const handleSave = (row) => {
-    const newData = [...dataSource];
-    const index = newData.findIndex((item) => row.key === item.key);
-    const item = newData[index];
-    newData.splice(index, 1, {
-      ...item,
-      ...row,
-    });
-    setDataSource(newData);
-  };
-  const components = {
-    body: {
-      row: EditableRow,
-      cell: EditableCell,
-    },
-  };
-  const columns = defaultColumns.map((col) => {
-    if (!col.editable) {
-      return col;
-    }
-    return {
-      ...col,
-      onCell: (record) => ({
-        record,
-        editable: col.editable,
-        dataIndex: col.dataIndex,
-        title: col.title,
-        handleSave,
-      }),
-    };
-  });
+import { Table, Space, Button, Select, Row, Col, Input, Modal } from "antd";
+import axios from 'axios'
+import { useState } from "react";
+
+let token = 'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhYWEiLCJwb3NpdGlvbiI6ImFkbWluIiwiaWF0IjoxNjgzNjEzOTA2LCJleHAiOjE2ODM5MTM5MDZ9.lpN8FdqrNtbhWRIXPzP_GPftVvLI9TZgEr0A7rWqGaU';
+
+function CommonT() {
+
+  const options = [{ value: 'RR', label: '접수' }, { value: 'PP', label: '환자' }, { value: 'DD', label: '상병' }, { value: 'TT', label: '처방' }];
+  const [keyname, setKeyname] = useState('접수');
+  const [size, setSize] = useState('middle');
+  const [gcode, setGCode] = useState('')
+  const [codename, setCodename] = useState('')
   
+  const columns = [
+    {
+      title: '구분',
+      dataIndex: 'gkey',
+      key: 'gkey',
+      hidden: 'true'
+    },
+    {
+      title: '구분명',
+      dataIndex: 'keyname',
+      key: 'keyname',
+    },
+    {
+      title: '공통코드',
+      dataIndex: 'gcode',
+      key: 'gcode',
+      render: (text) => <a onClick ={test}>{text}</a>,
+    },
+    {
+      title: '코드명',
+      dataIndex: 'codename',
+      key: 'codename',
+    },
+    {
+      title: '금액',
+      dataIndex: 'gprice',
+      key: 'gprice',
+    }
+  ];
+
+  let [dataSource, setDataSource] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [selectedRowKeys, setSelectedRowKeys] = useState([]);
+  const [selectedRows, setSelectedRows] = useState([]);
+
+  const test = (e) =>{
+    console.log("ho",e.target.text)
+  }
+  const search = () => {
+    const param = { gkey: keyname, gcode: gcode, codename: codename };
+    axios.get("/api/common", { headers: { "Authorization": token }, params: param }
+    ).then((response) => {
+      const result = response.data.data;
+      for (let i = 0; i < result.length; i++) {
+        result[i].key = i;
+      }
+      setDataSource(result);
+    }).catch((e) => {
+      console.log("error", e);
+    });
+  }
+
+  const start = () => {
+    setLoading(true);
+    setTimeout(() => {
+      setSelectedRowKeys([]);
+      setLoading(false);
+    }, 1000);
+  };
+
+  const onSelectChange = (newSelectedRowKeys, selectedRows) => {
+    setSelectedRowKeys(newSelectedRowKeys);
+    setSelectedRows(selectedRows);
+  };
+  const rowSelection = {
+    selectedRowKeys,
+    onChange: onSelectChange,
+  };
+  const hasSelected = selectedRowKeys.length > 0;
+
+  const deleteCode = () => {
+    if (selectedRows.length > 0) {
+      let apiParameters = [];
+      let copy = [...selectedRows];
+      setSelectedRows('');
+      setSelectedRowKeys('');
+  
+      const result = dataSource.filter(data => !copy.some(apry => data.key === apry.key));
+      setDataSource(result)
+
+      for (let i = 0; i < copy.length; i++) {
+        apiParameters.push({ gkey: copy[i].gkey, gcode: copy[i].gcode });
+      }
+      axios.delete("/api/common", { data: apiParameters, headers: { "Authorization": token } })
+        .then((response) => {
+          alert("삭제가 완료되었습니다.")
+        }).catch((e) => {
+          console.log("error", e);
+          alert("올바르지 않은 요청입니다. 다시 시도해 주시기 바랍니다.");
+          setDataSource(copy);
+        });
+    }
+  }
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const showModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const [insertKey, setInsertKey] = useState(null);
+  const [insertGcode, setInsertGcode] = useState('');
+  const [insertCodename, setInsertCodename] = useState('');
+  const [insertPrice, setInsertPrice] = useState('');
+
+  const handleOk = () => {
+    setIsModalOpen(false);
+
+    const insertParameters = { gkey: insertKey.value, keyname: insertKey.label, gcode: insertGcode, codename: insertCodename, price: insertPrice }
+    axios.post("/api/common", insertParameters, {
+      headers: {
+        "Authorization": token,
+      },
+    })
+      .then((response) => {
+        alert("공통코드 생성이 완료되었습니다.")
+        clearInputs()
+      }).catch((e) => {
+        console.log("error", e);
+        alert("올바르지 않은 요청입니다. 다시 시도해 주시기 바랍니다.");
+      });
+  };
+  const handleCancel = () => {
+    setIsModalOpen(false);
+  };
+
+  const clearInputs = () => {
+    setInsertKey(null)
+    setInsertGcode("");
+    setInsertCodename("");
+    setInsertPrice("");
+  }
+
   return (
     <div>
-      <Button
-        onClick={handleAdd}
-        type="primary"
-        style={{
-          marginBottom: 16,
-        }}
-      >
-        Add a row
-      </Button>
-      <Table
-        components={components}
-        rowClassName={() => 'editable-row'}
-        bordered
-        dataSource={dataSource}
-        columns={columns}
-      />
+      <h4> 공통테이블 검색 </h4>
+      <Row>
+        <Col>
+          <Space direction="horizontal" size={12}>
+            <Select
+              size={size}
+              placeholder="구분명을 선택해주세요"
+              onChange={(e) => { setKeyname(e) }}
+              style={{ width: 200 }}
+              options={options}
+            />
+            <Input placeholder="구분코드를 입력해주세요" onChange={(e) => { setGCode(e.target.value) }} />
+            <Input placeholder="코드명을 입력해주세요" onChange={(e) => { setCodename(e.target.value) }} />
+            <Button type="primary" ghost onClick={search}>검색</Button>
+            <Button type="primary" onClick={showModal}>신규등록</Button>
+            <Modal title="신규등록" visible={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
+              <Select
+                size={size}
+                placeholder="구분명을 선택하여주세요"
+                onChange={(label, value) => { setInsertKey(value) }}
+                style={{ width: '100%' }}
+                options={options}
+                value={insertKey}
+              />
+              <Input placeholder="구분코드를 입력해주세요" value={insertGcode} onChange={(e) => { setInsertGcode(e.target.value) }} />
+              <Input placeholder="구분명을 입력해주세요" value={insertCodename} onChange={(e) => { setInsertCodename(e.target.value) }} />
+              <Input placeholder="금액을 입력해주세요" value={insertPrice} onChange={(e) => { setInsertPrice(e.target.value) }} />
+            </Modal>
+          </Space>
+        </Col>
+      </Row>
+      <br />
+      <br />
+      <h4> 공통테이블 조회 </h4>
+      <br />
+      <div>
+        <div
+          style={{ marginBottom: 16 }}>
+          <Button type="primary" onClick={start} disabled={!hasSelected} loading={loading}>
+            Reload
+          </Button>
+          <span
+            style={{ marginLeft: 8 }}>
+            {hasSelected ? `Selected ${selectedRowKeys.length} items` : ''}
+          </span>
+        </div>
+        <Table rowSelection={rowSelection} columns={columns} dataSource={dataSource} />
+      </div>
+      <Button type="primary" ghost onClick={deleteCode} disabled={!hasSelected}>삭제</Button>
     </div>
   );
-};
-export default App;
-// .editable-cell {
-//   position: relative;
-// }
-
-// .editable-cell-value-wrap {
-//   padding: 5px 12px;
-//   cursor: pointer;
-// }
-
-// .editable-row:hover .editable-cell-value-wrap {
-//   padding: 4px 11px;
-//   border: 1px solid #d9d9d9;
-//   border-radius: 2px;
-// }
+}
+export default CommonT;
