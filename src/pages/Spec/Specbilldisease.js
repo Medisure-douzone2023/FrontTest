@@ -4,13 +4,14 @@ import axios from 'axios';
 
 function Specbilldisease(props) {
   const [nos, setNos] = useState([]);
+  let token = localStorage.getItem("accessToken");
 
   // 청구 상병 삭제 통신
   const billdiseasedelete = async (nos) => {
     try {
       const response = await axios.delete('/api/billdisease/delete', {
         headers: {
-          "Authorization": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0IiwicG9zaXRpb24iOiJvZmZpY2UiLCJpYXQiOjE2ODM3MDI4MDQsImV4cCI6MTY4NDAwMjgwNH0.sydph7T5v4Wv_8WZ90G7DWsXP4xYyceMJz37wQ9fFyY",
+          "Authorization": token,
           "Content-Type": "application/json"
         },
         data: nos

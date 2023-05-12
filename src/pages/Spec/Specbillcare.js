@@ -3,6 +3,7 @@ import { Col, Table, Button } from 'antd';
 import axios from 'axios';
 
 function Specbillcare(props) {
+  let token = localStorage.getItem("accessToken");
   // 취소 버튼 시 명세서의 status를 미심사로 변경
   const updateCancle = async() => {
     try {
@@ -11,13 +12,17 @@ function Specbillcare(props) {
         status: "미심사"
       }, {
         headers: {
-          "Authorization": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0IiwicG9zaXRpb24iOiJvZmZpY2UiLCJpYXQiOjE2ODM3MDI4MDQsImV4cCI6MTY4NDAwMjgwNH0.sydph7T5v4Wv_8WZ90G7DWsXP4xYyceMJz37wQ9fFyY",
+          "Authorization": token,
           "Content-Type": "application/json"
         }
       });
       alert("심사가 취소 되었습니다.");
-      await props.handleSearch();
-      const specificationData = await props.specificationData();
+      
+      if (props.startDate && props.endDate && props.insurance && props.pno) {
+        await props.handleSearch();
+      } else {
+        await props.fetchSpecificationData();
+      }
     } catch(error) {
       console.error(error);
     }
@@ -31,13 +36,16 @@ function Specbillcare(props) {
         status: "완료"
       }, {
         headers: {
-          "Authorization": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0IiwicG9zaXRpb24iOiJvZmZpY2UiLCJpYXQiOjE2ODM3MDI4MDQsImV4cCI6MTY4NDAwMjgwNH0.sydph7T5v4Wv_8WZ90G7DWsXP4xYyceMJz37wQ9fFyY",
+          "Authorization": token,
           "Content-Type": "application/json"
         }
       });
       alert("심사가 완료 되었습니다.");
-      await props.handleSearch();
-      const specificationData = await props.specificationData();
+      if (props.startDate && props.endDate && props.insurance && props.pno) {
+        await props.handleSearch();
+      } else {
+        await props.fetchSpecificationData();
+      }
     } catch(error) {
       console.error(error);
     }
