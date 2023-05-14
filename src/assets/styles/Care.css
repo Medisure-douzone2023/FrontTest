@@ -1,0 +1,44 @@
+.tabled {
+  padding: 15px;
+  background-color: white;
+  box-shadow: 0 5px 10px -5px;
+  margin: 5px;
+  border-radius: 10px;
+}
+h1 {
+  font-weight: 700;
+  font-size: 20px;
+}
+
+.patientList .ant-table-thead .ant-table-cell {
+  background-color: #eff5ff;
+  font-weight: 700;
+  font-size: 15px;
+}
+
+.careDone.ant-btn-background-ghost.ant-btn-primary {
+  width: 100%;
+  height: 40px;
+}
+
+.careCancel.ant-btn-default.ant-btn-dangerous {
+  width: 100%;
+  height: 40px;
+  margin-top: 5px;
+}
+.diseaseTable {
+  margin-top: 10px;
+}
+.diseaseTable .ant-table-thead .ant-table-cell {
+  background-color: #eff5ff;
+  font-weight: 600;
+}
+
+.callPatient {
+  margin-top: 10px;
+}
+
+.patientInfo {
+  width: 90%;
+  font-size: 12px;
+}

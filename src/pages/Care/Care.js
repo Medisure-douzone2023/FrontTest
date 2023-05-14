@@ -1,32 +1,38 @@
-import { Row, Col } from 'antd';
-import React, { useState, useEffect } from 'react';
-import PatientList from './PatientList';
-import CareNote from './CareNote';
-import axios from 'axios';
-import PatientInfo from './PatientInfo';
-
+import { Row, Col } from "antd";
+import React, { useState, useEffect } from "react";
+import PatientList from "./PatientList";
+import CareNote from "./CareNote";
+import axios from "axios";
+import PatientInfo from "./PatientInfo";
+import "../../assets/styles/Care.css";
 function Care(props) {
   const [pno, setPno] = useState(0);
   const [rno, setRno] = useState(0);
   const [patient, setPatient] = useState({});
+  const [isVisited, setIsVisited] = useState();
   let token = props.token;
   const fetchPatientInfo = async (pno) => {
+<<<<<<< Updated upstream
     if(pno ===0){
+=======
+    if (pno === 0) {
+>>>>>>> Stashed changes
       return;
     }
     const response = await axios({
-      method: 'GET',
+      method: "GET",
       url: `/api/care/${pno}`,
       headers: {
-        'Authorization': token,
-        'Accept': 'application/json'
-      }
+        Authorization: token,
+        Accept: "application/json",
+      },
     });
-    if (response.data.result !== 'success') {
-      throw new Error(`${response.data.result} ${response.data.message}`)
+    if (response.data.result !== "success") {
+      throw new Error(`${response.data.result} ${response.data.message}`);
     }
+    console.log("patient info", response.data.data);
     setPatient(response.data.data);
-  }
+  };
   useEffect(() => {
     fetchPatientInfo(pno);
   }, [pno]);
@@ -34,18 +40,28 @@ function Care(props) {
   return (
     <>
       <div className="tabled">
-        <Row gutter={[24, 0]} >
-          <Col span={8} >
+        <Row gutter={[24, 0]}>
+          <Col span={8}>
             <h1>진료 대기 환자 목록</h1>
-            <PatientList setPno={setPno} setRno={setRno} patient={patient} token={token}/>
+            <PatientList
+              setPno={setPno}
+              setRno={setRno}
+              patient={patient}
+              setIsVisited={setIsVisited}
+              token={token}
+            />
           </Col>
           <Col span={8}>
-            <h1>진료메모, 상병, 처방</h1>
-            <CareNote rno={rno} setPatient={setPatient} token={token}/>
+            <CareNote
+              rno={rno}
+              setPatient={setPatient}
+              isVisited={isVisited}
+              setIsVisited={setIsVisited}
+              token={token}
+            />
           </Col>
-          <Col span={8} >
-            <h1>환자정보, 진료 기록</h1>
-            <PatientInfo patient={patient} token={token}/>
+          <Col span={8}>
+            <PatientInfo patient={patient} token={token} />
           </Col>
         </Row>
       </div>
