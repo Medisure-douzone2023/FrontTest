@@ -1,19 +1,17 @@
-.tabled {
-  padding: 15px;
+.care {
+  padding: 30px;
   background-color: white;
   box-shadow: 0 5px 10px -5px;
-  margin: 5px;
+  margin: 10px;
   border-radius: 10px;
 }
-h1 {
+.care h1 {
   font-weight: 700;
   font-size: 20px;
 }
 
 .patientList .ant-table-thead .ant-table-cell {
-  background-color: #eff5ff;
-  font-weight: 700;
-  font-size: 15px;
+  /* background-color: #eff5ff; */
 }
 
 .careDone.ant-btn-background-ghost.ant-btn-primary {
@@ -30,7 +28,7 @@ h1 {
   margin-top: 10px;
 }
 .diseaseTable .ant-table-thead .ant-table-cell {
-  background-color: #eff5ff;
+  /* background-color: #eff5ff; */
   font-weight: 600;
 }
 

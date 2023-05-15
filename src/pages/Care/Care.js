@@ -12,11 +12,7 @@ function Care(props) {
   const [isVisited, setIsVisited] = useState();
   let token = props.token;
   const fetchPatientInfo = async (pno) => {
-<<<<<<< Updated upstream
-    if(pno ===0){
-=======
     if (pno === 0) {
->>>>>>> Stashed changes
       return;
     }
     const response = await axios({
@@ -39,7 +35,7 @@ function Care(props) {
 
   return (
     <>
-      <div className="tabled">
+      <div className="care">
         <Row gutter={[24, 0]}>
           <Col span={8}>
             <h1>진료 대기 환자 목록</h1>
