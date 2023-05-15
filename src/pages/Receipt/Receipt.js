@@ -76,7 +76,7 @@ function Receipt(props) {
         setReceiptData(response.data.data);
       //  console.log("receiptData", receiptData);
       })
-      .catch((error) => {
+      .catch((error) => { 
         console.log(error);
       });
   };
