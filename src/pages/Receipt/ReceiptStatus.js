@@ -58,10 +58,10 @@ function ReceiptStatus(props) {
     }
   ]
 
-  const [status, setStatus] = useState('전체');
-  const onChange = (e) => setStatus(e.target.value);
+  // const [status, setStatus] = useState('전체');
+  const onChange = (e) => props.setStatus(e.target.value);
 
-  const [receiptData, setReceiptData] = useState([]);
+  // const [receiptData, setReceiptData] = useState([]);
 
   const [treatmentData, setTreatmentData] = useState([]);
 
@@ -70,29 +70,11 @@ function ReceiptStatus(props) {
 
   const [currentReceiptPage, setCurrentReceiptPage] = useState(1);
   useEffect(() => {
-    submitData2();
-  }, [status]);
+    props.fetchReceiptData(props.status);
+  }, [props.status]);
 
 
-  // 환자 상태에 따른, 접수 테이블 데이터 가져오기 
-  const submitData2 = () => {
-
-    axios.get('/api/receipt/status', {
-      headers: {
-        "Authorization": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0IiwicG9zaXRpb24iOiJvZmZpY2UiLCJpYXQiOjE2ODM4NTM1ODEsImV4cCI6MTY4NDE1MzU4MX0.g_KIAtjrpejmzinNeV7qACDOwciWP66XYrvnddmug1U"
-      },
-      params: {
-        status: status
-      }
-    })
-      .then((response) => {
-        setReceiptData(response.data.data);
-        console.log("receiptData", receiptData);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  };
+ 
 
   return (
     <>
@@ -100,22 +82,23 @@ function ReceiptStatus(props) {
       <Card
         bordered={true} // 일단 true 
         title="접수 현황"
-        extra={
-          /* <Segmented options={['전체', '접수', '진료중', '수납대기', '완료']} value={value} onChange={setValue} />*/
-          <Radio.Group onClick={submitData2} onChange={onChange} defaultValue="전체">
+        // extra={
+        //   /* <Segmented options={['전체', '접수', '진료중', '수납대기', '완료']} value={value} onChange={setValue} />*/
+          
+        // }
+      >
+        <div>
+          <Radio.Group onClick={props.fetchReceiptData} onChange={onChange} defaultValue="전체">
             <Radio.Button value="전체">전체</Radio.Button>
             <Radio.Button value="접수">접수</Radio.Button>
             <Radio.Button value="진료중">진료중</Radio.Button>
             <Radio.Button value="수납대기">수납대기</Radio.Button>
             <Radio.Button value="완료">완료</Radio.Button>
           </Radio.Group>
-        }
-      >
-        <div>
           <Table
             className="tablecss"
             columns={receiptcolumn}
-            dataSource={receiptData}
+            dataSource={props.receiptData}
             pagination={{
               pageSize: 5,
               current: currentReceiptPage,

@@ -84,6 +84,7 @@ function FeeList(props) {
                 setFeeModalVisible(false);
                 console.log("------ 변경전 fee 데이터 확인 ------", props.feeTableData);
                 props.fetchFeeTableData(); 
+                props.fetchReceiptData(props.status);
                 console.log("----- fetctfee 호출됨 ------");
                 console.log("------ 변경후 fee 데이터 확인 ------", props.feeTableData);
             })

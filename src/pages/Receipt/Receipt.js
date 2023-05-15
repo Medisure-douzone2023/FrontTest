@@ -31,8 +31,15 @@ function Receipt(props) {
 
   let token = props.token;
   
-  const [feeTableData, setFeeTableData] = useState([]);
 
+
+
+
+
+
+
+
+  const [feeTableData, setFeeTableData] = useState([]);
   // 수납 테이블 리스트 데이터 가져오는 함수
   const fetchFeeTableData = () => {
 
@@ -51,6 +58,41 @@ function Receipt(props) {
   }
 
 
+
+  const [receiptData, setReceiptData] = useState([]);
+  const [status, setStatus] = useState('전체');
+  // 환자 상태에 따른, 접수 테이블 데이터 가져오기 
+  const fetchReceiptData = (status) => {
+
+    axios.get('/api/receipt/status', {
+      headers: {
+        "Authorization": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0IiwicG9zaXRpb24iOiJvZmZpY2UiLCJpYXQiOjE2ODM4NTM1ODEsImV4cCI6MTY4NDE1MzU4MX0.g_KIAtjrpejmzinNeV7qACDOwciWP66XYrvnddmug1U"
+      },
+      params: {
+        status: status
+      }
+    })
+      .then((response) => {
+        setReceiptData(response.data.data);
+        console.log("receiptData", receiptData);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+
+
+
+
+
+
+
+
+
+
+
+  
   return (
     <>
 
@@ -65,11 +107,22 @@ function Receipt(props) {
       {/* 2행 접수현황 테이블 & 수납 테이블*/}
       <Row gutter={[40, 0]}> {/* 두 테이블 사이 간격 조절 가능... 나머지 오른쪽 패딩은 나중에.*/}
         <Col xs={12} sm={12} md={12} lg={12} xl={12} >
-          <ReceiptStatus token={token} />
+          <ReceiptStatus token={token} 
+          status={status}
+          setStatus={setStatus}
+          receiptData={receiptData}
+          fetchReceiptData={fetchReceiptData}
+           />
         </Col>
 
         <Col xs={12} sm={12} md={12} lg={12} xl={12} >
-          <FeeList token={token} fetchFeeTableData={fetchFeeTableData} feeTableData={feeTableData}  />
+          <FeeList token={token} 
+          fetchFeeTableData={fetchFeeTableData} 
+          feeTableData={feeTableData}
+          
+
+          status={status}
+          fetchReceiptData={fetchReceiptData}/>
         </Col>
       </Row>
     </>
