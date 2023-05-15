@@ -7,7 +7,7 @@ function Specbillcare(props) {
   // 취소 버튼 시 명세서의 status를 미심사로 변경
   const updateCancle = async() => {
     try {
-      const response = await axios.put(`/api/spec/${props.bno}`, {
+      await axios.put(`/api/spec/${props.bno}`, {
         rno: props.rno,
         status: "미심사"
       }, {
@@ -31,7 +31,7 @@ function Specbillcare(props) {
   // 완료 버튼 시 명세서의 status를 완료로 변경
   const updateOk = async () => {
     try {
-      const response = await axios.put(`/api/spec/${props.bno}`, {
+      await axios.put(`/api/spec/${props.bno}`, {
         rno: props.rno,
         status: "완료"
       }, {

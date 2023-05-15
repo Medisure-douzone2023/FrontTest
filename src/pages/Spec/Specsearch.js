@@ -103,7 +103,7 @@ function Specsearch(props) {
         }
       };
 
-      // 처음 미심사 명세서를 모두 불러오기
+      // 처음 명세서를 모두 불러오기
       const fetchSpecificationData = async () => {
         try {
           const data = await specificationData();
@@ -151,6 +151,7 @@ function Specsearch(props) {
       };
       useEffect(() => {
         fetchSpecificationData();
+      // eslint-disable-next-line react-hooks/exhaustive-deps
       }, []);
       
       // 검색기능에서 키값을 통해 건강보험인지 의료급여인지
