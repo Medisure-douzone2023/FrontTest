@@ -16,8 +16,6 @@ import '../../assets/styles/Receipt.css';
 import TextArea from 'antd/lib/input/TextArea';
 import { useForm } from 'antd/lib/form/Form';
 
-
-
 function PatientSearch(props) {
     const [pname, setPname] = useState();
     const [patientData, setPatientData] = useState([]); // 환자 이름으로 검색한 데이터.
@@ -122,10 +120,10 @@ function PatientSearch(props) {
 
                 console.log("패치방문데이터 안에서, selectedPateintRow.pno: ", selectedPatientRow.pno);
                 // console.log("visitData", visitData);
-
             })
             .catch((error) => {
-                console.log("fetchVisitError:", error);
+                
+                
             });
     }
     // 상세 검색에서, [접수하기]
