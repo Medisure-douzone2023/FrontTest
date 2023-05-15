@@ -150,26 +150,8 @@ function Bill(props) {
       });
     }
   }
-  const 송신변환끄기 = () => {
-    const isUnSent = selectedRows.map((item) => item.bstatus === '변환');
-    const isSent = selectedRows.map((item) => item.bstatus === '미송신');
-    console.log("isUnSent",isUnSent)
-    if (isUnSent) {
-      return true;
-    } 
-    else {
-      return false;
-    }
-  };
-
-  const 송신취소끄기 = () => {
-    const isUnSent = selectedRows.map((item) => item.bstatus === '변환');
-    const isSent = selectedRows.map((item) => item.bstatus === '미송신');
-    console.log("isSent",isSent)
-    if (isSent) {
-      return true;
-    } 
-    else {
+  const checkButtonDisabled = (status) => {
+    if (selectedRows.length > 0 && selectedRows.every((item) => item.bstatus === status)) {
       return false;
     }
   };
@@ -219,8 +201,8 @@ function Bill(props) {
         </span>
       </div>
       <Table rowSelection={rowSelection} columns={columns} dataSource={data} />
-      <Button type="primary" ghost onClick={send} disabled={ 송신변환끄기()}> 송신 변환 </Button>
-      <Button danger onClick={cancel} disabled={송신취소끄기()}>송신 취소</Button>
+      <Button type="primary" ghost onClick={send} disabled={checkButtonDisabled('미송신')}> 송신 변환 </Button>
+      <Button danger onClick={cancel} disabled={checkButtonDisabled('변환')}>송신 취소</Button>
     </div>
   );
 }
