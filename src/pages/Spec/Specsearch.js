@@ -128,9 +128,6 @@ function Specsearch(props) {
         if (!startDate || !endDate) {
           alert("진료기간을 선택해주세요.");
           return;
-        } else if (!pno) {
-          alert("등록번호를 입력해주세요.");
-          return;
         }
         try {
           const data = await fetchData(startDate, endDate, insurance, pno);
@@ -144,7 +141,12 @@ function Specsearch(props) {
             insurance: <div>{item.insurance}</div>,
             status: <div className="ant-employed">{item.sstatus}</div>,
           }));
-          setSearchData(searchData);
+            if(searchData.length === 0){
+              alert("검색 결과가 없습니다.");
+              return;
+            } else {
+              setSearchData(searchData);
+            }
         } catch (error) {
           alert("검색 결과가 없습니다.");
         }
