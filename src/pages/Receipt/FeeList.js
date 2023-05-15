@@ -24,18 +24,17 @@ import TextArea from 'antd/lib/input/TextArea';
 
 
 function FeeList(props) {
-
+    useEffect(() => {
+        props.fetchFeeTableData();
+      }, []);
     // 수납 데이터
     const [feeData, setFeeData] = useState([]);
 
     // 수납 모달 관련
     const [feeModalVisible, setFeeModalVisible] = useState(false);
 
-    const [feeTableData, setFeeTableData] = useState([]);
-
     const [currentFeePage, setCurrentFeePage] = useState(1);
 
- 
     // 수납 테이블 컬럼
     const feeTableColumn = [
 
@@ -43,7 +42,7 @@ function FeeList(props) {
             title: 'no',
             dataIndex: '',
             key: 'index',
-            render: (text, record, index) => (currentFeePage - 1) * 10 + index + 1,
+            render: (text, record, index) => (currentFeePage - 1) * 5 + index + 1,
         },
         {
             title: "접수번호",
@@ -71,7 +70,7 @@ function FeeList(props) {
     ]
     // 수납한 환자 수납상태 변경 ('Y')
     const updatePayData = (feeData) => {
-        console.log("feeData", feeData);
+       // console.log("feeData", feeData);
         axios.put('/api/receipt/updatepay/' + feeData.rno, {}, {
             headers: {
                 "Authorization": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0IiwicG9zaXRpb24iOiJvZmZpY2UiLCJpYXQiOjE2ODM4NTM1ODEsImV4cCI6MTY4NDE1MzU4MX0.g_KIAtjrpejmzinNeV7qACDOwciWP66XYrvnddmug1U"
@@ -79,19 +78,21 @@ function FeeList(props) {
         })
             .then(() => {
                 // submitData2();
-                fetchFeeTableData();
+
+
                 alert("수납이 완료되었습니다.");
                 setFeeModalVisible(false);
+               // console.log("------ 변경전 fee 데이터 확인 ------", props.feeTableData);
+                props.fetchFeeTableData(); 
+                props.fetchReceiptData(props.status);
+               // console.log("----- fetctfee 호출됨 ------");
+                //console.log("------ 변경후 fee 데이터 확인 ------", props.feeTableData);
             })
             .catch((error) => {
                 console.log(error);
             });
     }
-
-    useEffect(() => {
-        fetchFeeTableData();
-    }, [])
-
+ 
     // 진짜 수납 데이터 가져오는 함수.
     const fetchFeeData = (record) => {
         axios.get('/api/fee/' + record.rno, {
@@ -101,32 +102,13 @@ function FeeList(props) {
         })
             .then((response) => {
                 setFeeData(response.data.data);
-                console.log("FeeData", feeData);
-            })
-            .catch((error) => {
-                console.log(error);
-            });
-    }
-    // 수납 테이블 리스트 데이터 가져오는 함수
-    const fetchFeeTableData = () => {
-
-        axios.get('/api/fee/list', {
-            headers: {
-                "Authorization": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0IiwicG9zaXRpb24iOiJvZmZpY2UiLCJpYXQiOjE2ODM4NTM1ODEsImV4cCI6MTY4NDE1MzU4MX0.g_KIAtjrpejmzinNeV7qACDOwciWP66XYrvnddmug1U"
-            }
-        })
-            .then((response) => {
-                setFeeTableData(response.data.data);
-                console.log("feeTableData", response.data.data);
+               // console.log("FeeData", feeData);
             })
             .catch((error) => {
                 console.log(error);
             });
     }
 
-    useEffect(() => {
-        fetchFeeTableData();
-      }, [])
 
 
     return (
@@ -156,8 +138,9 @@ function FeeList(props) {
                     <Table
                         columns={feeTableColumn}
                         className="tablecss"
-                        dataSource={feeTableData}
+                        dataSource={props.feeTableData}
                         pagination={{
+                            pageSize: 5,
                             current: currentFeePage,
                             onChange: (page) => setCurrentFeePage(page),
                         }}

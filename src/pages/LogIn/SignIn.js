@@ -50,7 +50,7 @@ class SignIn extends Component {
           break;
       }
     };
-
+ 
     const onFinishFailed = (errorInfo) => {
       console.log("Failed:", errorInfo);
     };

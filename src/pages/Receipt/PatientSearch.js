@@ -16,8 +16,6 @@ import '../../assets/styles/Receipt.css';
 import TextArea from 'antd/lib/input/TextArea';
 import { useForm } from 'antd/lib/form/Form';
 
-
-
 function PatientSearch(props) {
     const [pname, setPname] = useState();
     const [patientData, setPatientData] = useState([]); // 환자 이름으로 검색한 데이터.
@@ -34,19 +32,19 @@ function PatientSearch(props) {
     // 환자 리스트에서 클릭했을 때 state 설정시켜주는 함수
     const handlePatientRowClick = (record) => {
         setSelectedPatientRow(record);
-        console.log('selectedPatientRow:', record);
+       // console.log('selectedPatientRow:', record);
     };
 
     //페이지넘기기 위한 state
     const [currentPatientPage, setCurrentPatientPage] = useState(1);
-
+      
     /* 환자 테이블 컬럼 */
     const patientcolumn = [
         {
             title: 'no',
             dataIndex: '',
             key: 'index',
-            render: (text, record, index) => (currentPatientPage - 1) * 10 + index + 1,
+            render: (text, record, index) => (currentPatientPage - 1) * 5 + index + 1,
         },
 
         {
@@ -105,51 +103,52 @@ function PatientSearch(props) {
     const [visitData, setVisitData] = useState({});
 
     const fetchVisitData = () => {
-        console.log("패치방문함수 바로 처음에서, selectedPateintRow.pno: ", selectedPatientRow.pno);
+       // console.log("패치방문함수 바로 처음에서, selectedPateintRow.pno: ", selectedPatientRow.pno);
         axios.get('/api/receipt/visit',
             {
                 params: {
                     pno: selectedPatientRow.pno
                 },
                 headers: {
-                    "Authorization": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0IiwicG9zaXRpb24iOiJvZmZpY2UiLCJpYXQiOjE2ODM4NTM1ODEsImV4cCI6MTY4NDE1MzU4MX0.g_KIAtjrpejmzinNeV7qACDOwciWP66XYrvnddmug1U"
+                    "Authorization": props.token
                 }
             })
             .then((response) => {
-                console.log("response.data.data", response.data.data);
+               // console.log("response.data.data", response.data.data);
                 // setVisitData(response.data.data);
                 response.data.data === null ? insertReceiptData("N") : insertReceiptData("Y");
 
-                console.log("패치방문데이터 안에서, selectedPateintRow.pno: ", selectedPatientRow.pno);
+                //console.log("패치방문데이터 안에서, selectedPateintRow.pno: ", selectedPatientRow.pno);
                 // console.log("visitData", visitData);
-
             })
             .catch((error) => {
-                console.log("fetchVisitError:", error);
+                
+                
             });
     }
     // 상세 검색에서, [접수하기]
     const insertReceiptData = (visitD) => {
-        console.log(" ===== insertReceiptData 실행 =====")
+       // console.log(" ===== insertReceiptData 실행 =====")
         axios.post('/api/receipt', {
             rno: null,
             pno: selectedPatientRow.pno,
             rdate: null,
             rcondition: condition,
-            status: '접수',
+            status: '접수', 
             visit: visitD,
             pay: 'N',
             iscreated: 'N'
         }, {
             headers: {
-                "Authorization": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0IiwicG9zaXRpb24iOiJvZmZpY2UiLCJpYXQiOjE2ODM4NTM1ODEsImV4cCI6MTY4NDE1MzU4MX0.g_KIAtjrpejmzinNeV7qACDOwciWP66XYrvnddmug1U"
+                "Authorization": props.token
             }
         })
             .then((response) => {
-                console.log("insertresponse", response)
+              //  console.log("insertresponse", response)
                 alert("접수 되었습니다.")
                 textAreaRef.current.value = '';
                 setConditionModalVisible(false);
+                props.fetchFeeTableData();
             })
             .catch((error) => {
                 console.error("insertReceipt error: ", error);
@@ -169,12 +168,12 @@ function PatientSearch(props) {
     const fetchPatientData = () => {
         axios.get(`/api/patient/${pname}`, {
             headers: {
-                "Authorization": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0IiwicG9zaXRpb24iOiJvZmZpY2UiLCJpYXQiOjE2ODM4NTM1ODEsImV4cCI6MTY4NDE1MzU4MX0.g_KIAtjrpejmzinNeV7qACDOwciWP66XYrvnddmug1U"
+                "Authorization": props.token
             }
         })
             .then((response) => {
                 setPatientData(response.data.data);
-                console.log("patientData", response.data.data);
+               // console.log("patientData", response.data.data);
             })
             .catch((error) => {
                 console.log(error);
@@ -189,7 +188,7 @@ function PatientSearch(props) {
             ...values
         }, {
             headers: {
-                "Authorization": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0IiwicG9zaXRpb24iOiJvZmZpY2UiLCJpYXQiOjE2ODM4NTM1ODEsImV4cCI6MTY4NDE1MzU4MX0.g_KIAtjrpejmzinNeV7qACDOwciWP66XYrvnddmug1U"
+                "Authorization": props.token
             }
         }).then(() => {
             newPatientForm.resetFields(); // input 박스 rest
@@ -286,6 +285,7 @@ function PatientSearch(props) {
                         columns={patientcolumn}
                         dataSource={patientData}
                         pagination={{
+                            pageSize: 5,
                             current: currentPatientPage,
                             onChange: (page) => setCurrentPatientPage(page),
                         }}
