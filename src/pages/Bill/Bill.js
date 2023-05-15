@@ -156,6 +156,12 @@ function Bill(props) {
     }
   }
   const checkButtonDisabled = (status) => {
+    const has미송신 = selectedRows.some((item) => item.bstatus === '미송신');
+    const has변환 = selectedRows.some((item) => item.bstatus === '변환');
+  
+    if (has미송신 && has변환) {
+      return true;
+    }
     return selectedRows.length > 0 && !selectedRows.every((item) => item.bstatus === status);
   };
 
