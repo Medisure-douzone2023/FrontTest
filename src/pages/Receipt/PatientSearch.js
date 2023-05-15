@@ -46,13 +46,11 @@ function PatientSearch(props) {
             key: 'index',
             render: (text, record, index) => (currentPatientPage - 1) * 5 + index + 1,
         },
-
         {
             title: "환자명",
             dataIndex: "pname",
             key: "pname",
         },
-
         {
             title: "나이",
             key: "age",

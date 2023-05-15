@@ -69,8 +69,7 @@ function FeeList(props) {
         }
     ]
     // 수납한 환자 수납상태 변경 ('Y')
-    const updatePayData = (feeData) => {
-       // console.log("feeData", feeData);
+    const updatePayData = () => {
         axios.put('/api/receipt/updatepay/' + feeData.rno, {}, {
             headers: {
                 "Authorization": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0IiwicG9zaXRpb24iOiJvZmZpY2UiLCJpYXQiOjE2ODM4NTM1ODEsImV4cCI6MTY4NDE1MzU4MX0.g_KIAtjrpejmzinNeV7qACDOwciWP66XYrvnddmug1U"
@@ -78,21 +77,45 @@ function FeeList(props) {
         })
             .then(() => {
                 // submitData2();
-
-
                 alert("수납이 완료되었습니다.");
                 setFeeModalVisible(false);
                // console.log("------ 변경전 fee 데이터 확인 ------", props.feeTableData);
-                props.fetchFeeTableData(); 
+                props.fetchFeeTableData();
+
+                submitFeeData(); // fee 테이블에 데이터 넣기.
+
                 props.fetchReceiptData(props.status);
-               // console.log("----- fetctfee 호출됨 ------");
+               // console.log("----- fetctfee 호출됨 ------"); 
                 //console.log("------ 변경후 fee 데이터 확인 ------", props.feeTableData);
             })
             .catch((error) => {
                 console.log(error);
             });
+
     }
- 
+    // fee테이블에 데이터 넣기.
+    const submitFeeData = () =>{
+        
+        axios.post('/api/fee/' + feeData.rno, {
+            
+             fno: null,
+             cno: feeData.treatment[0].cno,
+             fprice: feeData.fprice,
+             totalprice : feeData.totalprice,
+             fdate : null,
+
+            
+        }, {
+            headers: {
+                "Authorization": props.token
+            }
+        }).then(() => {
+            console.log("submitFeeData", feeData);
+        }).catch((error) => {
+            console.log(error);
+        })
+    }
+
     // 진짜 수납 데이터 가져오는 함수.
     const fetchFeeData = (record) => {
         axios.get('/api/fee/' + record.rno, {
@@ -102,14 +125,13 @@ function FeeList(props) {
         })
             .then((response) => {
                 setFeeData(response.data.data);
+                
                // console.log("FeeData", feeData);
             })
             .catch((error) => {
                 console.log(error);
             });
     }
-
-
 
     return (
         <>

@@ -10,7 +10,7 @@ import '../../assets/styles/Receipt.css';
 
 
 function ReceiptStatus(props) {
-  const receiptcolumn = [
+  const receiptColumn = [
     {
       title: 'no',
       dataIndex: '',
@@ -48,7 +48,7 @@ function ReceiptStatus(props) {
       key: "cancel"
     }
   ]
-  const AllColumn = [
+  const allColumn = [
     {
       title: 'no',
       dataIndex: '',
@@ -112,7 +112,7 @@ function ReceiptStatus(props) {
         <div>  
           <Table
             className="tablecss"
-            columns={receiptcolumn}
+            columns={props.status == "접수" ? receiptColumn : allColumn}
             dataSource={props.receiptData}
             pagination={{
               pageSize: 5,
