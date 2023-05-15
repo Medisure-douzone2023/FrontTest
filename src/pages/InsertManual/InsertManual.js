@@ -1,4 +1,4 @@
-import { Table, DatePicker, Space, Button, Select, Row, Col } from "antd";
+import { Table, DatePicker, Space, Button, Select, Row, Col,Card  } from "antd";
 import axios from 'axios'
 import { useState } from "react";
 import '../../assets/styles/InsertManual.css';
@@ -132,7 +132,9 @@ function InsertManual(props) {
 
   return (
     <div>
-      <h4> 진료 검색 </h4>
+       <Card style={{ width: '100%' }}>
+      <h4 style={{ marginTop: 16 }}> 진료 검색 </h4>
+      <br></br>
       <Row>
         <Col>
           <Space direction="horizontal" size={12}>
@@ -152,7 +154,7 @@ function InsertManual(props) {
       <br />
       <h4> 진료 조회 </h4>
       <br />
-      <div>
+      <div style={{ marginBottom: 30 }}>
         <div
           style={{ marginBottom: 16 }}>
           <Button type="primary" onClick={start} disabled={!hasSelected} loading={loading}>
@@ -166,6 +168,7 @@ function InsertManual(props) {
         <Table rowSelection={rowSelection} columns={columns} dataSource={dataSource} />
       </div>
       <Button type="primary" ghost onClick={apiParam} disabled={!hasSelected}>수동생성</Button>
+      </Card>
     </div>
   );
 }
