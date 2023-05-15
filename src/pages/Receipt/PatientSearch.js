@@ -116,7 +116,7 @@ function PatientSearch(props) {
             .then((response) => {
                 console.log("response.data.data", response.data.data);
                 // setVisitData(response.data.data);
-                response.data.data ? insertReceiptData("N") : insertReceiptData("Y");
+                response.data.data == "" ? insertReceiptData("N") : insertReceiptData("Y");
 
                 //console.log("패치방문데이터 안에서, selectedPateintRow.pno: ", selectedPatientRow.pno);
                 // console.log("visitData", visitData);
@@ -180,7 +180,7 @@ function PatientSearch(props) {
             });
     };
 
-
+ 
     // 신규 환자 데이터 insert 하기
     const submitNewPatientData = (values) => {
         axios.post('/api/patient', {
