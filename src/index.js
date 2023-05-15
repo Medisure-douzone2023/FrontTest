@@ -1,6 +1,6 @@
 /*!
 =========================================================
-* Muse Ant Design Dashboard - v1.0.0
+* Muse Ant Design Dashboard - v1.0.0 
 =========================================================
 * Product Page: https://www.creative-tim.com/product/muse-ant-design-dashboard
 * Copyright 2021 Creative Tim (https://www.creative-tim.com)
@@ -11,7 +11,7 @@
 */
 import React from "react";
 import ReactDOM from "react-dom";
-import { BrowserRouter } from "react-router-dom";
+import { BrowserRouter } from "react-router-dom";  
 import App from "./App";
 
 ReactDOM.render(
