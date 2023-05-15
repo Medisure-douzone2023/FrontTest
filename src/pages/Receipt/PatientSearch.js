@@ -114,9 +114,9 @@ function PatientSearch(props) {
                 }
             })
             .then((response) => {
-               // console.log("response.data.data", response.data.data);
+                console.log("response.data.data", response.data.data);
                 // setVisitData(response.data.data);
-                response.data.data === null ? insertReceiptData("N") : insertReceiptData("Y");
+                response.data.data ? insertReceiptData("N") : insertReceiptData("Y");
 
                 //console.log("패치방문데이터 안에서, selectedPateintRow.pno: ", selectedPatientRow.pno);
                 // console.log("visitData", visitData);
