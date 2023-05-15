@@ -239,7 +239,7 @@ function Specsearch(props) {
              no: <div>{i+1}</div>,
              dmain: <div className="author-info">{item.dmain}</div>,
              dcode: <div>{item.dcode}</div>,
-             disease: <div className="ant-employed">{item.dname}</div>, 
+             disease: <div className="ant-employed" data-content={item.dname}>{item.dname}</div>, 
            }));
            setBilldiseaseData(diseasecareData1);
 
