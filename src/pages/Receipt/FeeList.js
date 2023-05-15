@@ -31,11 +31,8 @@ function FeeList(props) {
     // 수납 모달 관련
     const [feeModalVisible, setFeeModalVisible] = useState(false);
 
-    const [feeTableData, setFeeTableData] = useState([]);
-
     const [currentFeePage, setCurrentFeePage] = useState(1);
 
- 
     // 수납 테이블 컬럼
     const feeTableColumn = [
 
@@ -43,7 +40,7 @@ function FeeList(props) {
             title: 'no',
             dataIndex: '',
             key: 'index',
-            render: (text, record, index) => (currentFeePage - 1) * 10 + index + 1,
+            render: (text, record, index) => (currentFeePage - 1) * 5 + index + 1,
         },
         {
             title: "접수번호",
@@ -79,7 +76,7 @@ function FeeList(props) {
         })
             .then(() => {
                 // submitData2();
-                fetchFeeTableData();
+                props.fetchFeeTableData();
                 alert("수납이 완료되었습니다.");
                 setFeeModalVisible(false);
             })
@@ -87,10 +84,6 @@ function FeeList(props) {
                 console.log(error);
             });
     }
-
-    useEffect(() => {
-        fetchFeeTableData();
-    }, [])
 
     // 진짜 수납 데이터 가져오는 함수.
     const fetchFeeData = (record) => {
@@ -107,26 +100,7 @@ function FeeList(props) {
                 console.log(error);
             });
     }
-    // 수납 테이블 리스트 데이터 가져오는 함수
-    const fetchFeeTableData = () => {
 
-        axios.get('/api/fee/list', {
-            headers: {
-                "Authorization": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0IiwicG9zaXRpb24iOiJvZmZpY2UiLCJpYXQiOjE2ODM4NTM1ODEsImV4cCI6MTY4NDE1MzU4MX0.g_KIAtjrpejmzinNeV7qACDOwciWP66XYrvnddmug1U"
-            }
-        })
-            .then((response) => {
-                setFeeTableData(response.data.data);
-                console.log("feeTableData", response.data.data);
-            })
-            .catch((error) => {
-                console.log(error);
-            });
-    }
-
-    useEffect(() => {
-        fetchFeeTableData();
-      }, [])
 
 
     return (
@@ -156,8 +130,9 @@ function FeeList(props) {
                     <Table
                         columns={feeTableColumn}
                         className="tablecss"
-                        dataSource={feeTableData}
+                        dataSource={props.feeTableData}
                         pagination={{
+                            pageSize: 5,
                             current: currentFeePage,
                             onChange: (page) => setCurrentFeePage(page),
                         }}

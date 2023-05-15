@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios'
-import { 
+import {
   Row,    // grid 나누기
   Col,    // grid 나누기
   Card,   // 여러 테이블을 Card 느낌으로 임포트해서 구성할 것이다.
@@ -13,7 +13,7 @@ import {
   Avatar,    // 검색해봐야함.
   Segmented, // 전체,진료,수납 토글 용도.
   Typography, // 검색해봐야함.
-  Modal, 
+  Modal,
   Form,
   Descriptions// 환자상세, 기타 모달창에 쓰려고.
 } from "antd";
@@ -30,6 +30,40 @@ const { Title } = Typography;
 function Receipt(props) {
 
   let token = props.token;
+  
+  const [feeTableData, setFeeTableData] = useState([]);
+
+  // 수납 테이블 리스트 데이터 가져오는 함수
+  const fetchFeeTableData = () => {
+
+    axios.get('/api/fee/list', {
+      headers: {
+        "Authorization": props.token
+      }
+    })
+      .then((response) => {
+        setFeeTableData(response.data.data);
+        console.log("feeTableData", response.data.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
+useEffect(()=>{
+  fetchFeeTableData();
+}, [] )
+
+
+
+
+
+
+
+
+
+
+
+
   return (
     <>
 
@@ -44,11 +78,11 @@ function Receipt(props) {
       {/* 2행 접수현황 테이블 & 수납 테이블*/}
       <Row gutter={[40, 0]}> {/* 두 테이블 사이 간격 조절 가능... 나머지 오른쪽 패딩은 나중에.*/}
         <Col xs={12} sm={12} md={12} lg={12} xl={12} >
-          <ReceiptStatus token={token}/>
+          <ReceiptStatus token={token} />
         </Col>
 
         <Col xs={12} sm={12} md={12} lg={12} xl={12} >
-          <FeeList token={token}/>
+          <FeeList token={token} />
         </Col>
       </Row>
     </>

@@ -39,14 +39,14 @@ function PatientSearch(props) {
 
     //페이지넘기기 위한 state
     const [currentPatientPage, setCurrentPatientPage] = useState(1);
-
+      
     /* 환자 테이블 컬럼 */
     const patientcolumn = [
         {
             title: 'no',
             dataIndex: '',
             key: 'index',
-            render: (text, record, index) => (currentPatientPage - 1) * 10 + index + 1,
+            render: (text, record, index) => (currentPatientPage - 1) * 5 + index + 1,
         },
 
         {
@@ -136,7 +136,7 @@ function PatientSearch(props) {
             pno: selectedPatientRow.pno,
             rdate: null,
             rcondition: condition,
-            status: '접수',
+            status: '접수', 
             visit: visitD,
             pay: 'N',
             iscreated: 'N'
@@ -150,6 +150,7 @@ function PatientSearch(props) {
                 alert("접수 되었습니다.")
                 textAreaRef.current.value = '';
                 setConditionModalVisible(false);
+                props.fetchFeeTableData();
             })
             .catch((error) => {
                 console.error("insertReceipt error: ", error);
@@ -286,6 +287,7 @@ function PatientSearch(props) {
                         columns={patientcolumn}
                         dataSource={patientData}
                         pagination={{
+                            pageSize: 5,
                             current: currentPatientPage,
                             onChange: (page) => setCurrentPatientPage(page),
                         }}
