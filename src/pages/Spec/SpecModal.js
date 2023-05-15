@@ -57,7 +57,6 @@ function SpecModal(props) {
         props.setSubsearchValue('');
         props.setMaincommondata([]);
         props.setSubcommondata([]);
-        console.log("키값:", MaindiseaserowSelection.selectedRowKeys)
         setMainSelectedRowKeys([]);
         setSubSelectedRowKeys([]);
       };
@@ -72,32 +71,34 @@ function SpecModal(props) {
         setMainSelectedRowKeys([]);
         setSubSelectedRowKeys([]);
       };
-
+    const handlechecklist = (value) => {
+      console.log("value: "+value)
+    }
     const handleOk = () => {
       props.setIsModalOpen(false);
     };
 
       //모달창 주상병검색에서 선택 된 데이터 정보
       const MaindiseaserowSelection = {
-        selectedRowKeys: mainSelectedRowKeys,
+        selectedRowKeys : mainSelectedRowKeys,
         onChange: (selectedRowKeys, selectedRows) => {
           const newSelectDatas = selectedRows.map((row, i) => {
-            const dcode = row.dcode ? row.dcode.props.children : null;
-            const dname = row.disease ? row.disease.props.children : null;
-            const bno = props.billdiseaseData[0].bno;
-            const pno = props.billdiseaseData[0].pno;
-            const rno = props.billdiseaseData[0].rno;
-            const dmain = "주"
-            setMainSelectedRowKeys(selectedRowKeys);
-            return { bno, pno, rno, dmain, dcode, dname };
+          const dcode = row.dcode ? row.dcode.props.children : null;
+          const dname = row.disease ? row.disease.props.children : null;
+          const bno = props.billdiseaseData[0].bno;
+          const pno = props.billdiseaseData[0].pno;
+          const rno = props.billdiseaseData[0].rno;
+          const dmain = "주"
+          return { bno, pno, rno, dmain, dcode, dname };
       },);
       setMainSelectDatas(newSelectDatas);
+      setMainSelectedRowKeys(selectedRowKeys);
       }
     };
 
     //모달창 주상병검색에서 선택 된 데이터 정보
     const SubdiseaserowSelection = {
-      selectedRowKeys: subSelectedRowKeys,
+      selectedRowKeys : subSelectedRowKeys,
       onChange: (selectedRowKeys, selectedRows) => {
         const newSelectDatas = selectedRows.map((row, i) => {
           const dcode = row.dcode ? row.dcode.props.children : null;
@@ -106,10 +107,10 @@ function SpecModal(props) {
           const pno = props.billdiseaseData[0].pno;
           const rno = props.billdiseaseData[0].rno;
           const dmain = "부"
-          setSubSelectedRowKeys(selectedRowKeys);
           return { bno, pno, rno, dmain, dcode, dname };
     },);
     setSubSelectDatas(newSelectDatas);
+    setSubSelectedRowKeys(selectedRowKeys);
     }
   };
   
@@ -124,7 +125,6 @@ function SpecModal(props) {
             disease: <>{item.codename}</>,
            }));
            props.setMaincommondata(commondata);
-           console.log("commondata: ", commondata);
            if(commondata.length === 0){
             alert("검색 결과가 없습니다.")
             return;
@@ -263,6 +263,7 @@ function SpecModal(props) {
           type: props.selectionType,
            ...MaindiseaserowSelection,
          }}
+        onChange={handlechecklist}
         columns={diseaseModalColumns}
         dataSource={props.maincommondata}
         pagination={{
