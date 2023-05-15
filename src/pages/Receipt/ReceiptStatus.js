@@ -32,6 +32,11 @@ function ReceiptStatus(props) {
       render: (text, record, index) => (currentReceiptPage - 1) * 5 + index + 1,
     },
     {
+      title: "환자명",
+      dataIndex: "pname",
+      key: "pname"
+    },
+    {
       title: "접수시간",
       dataIndex: "rdate",
       key: "rdate"
