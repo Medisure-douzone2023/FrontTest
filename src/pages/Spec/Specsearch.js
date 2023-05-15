@@ -32,7 +32,8 @@ function Specsearch(props) {
     const [userinsurance, setUserinsurance] = useState();
     const [record, setRecord] = useState();
     
-    const [searchValue, setSearchValue] = useState('');
+    const [mainsearchValue, setMainsearchValue] = useState('');
+    const [subsearchValue, setSubsearchValue] = useState('');
 
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [ModalOpen, setModalOpen] = useState(false);
@@ -41,15 +42,18 @@ function Specsearch(props) {
     const [searchData, setSearchData] = useState([null]);
     const [billdiseaseData, setBilldiseaseData] = useState([null]);
     const [billcareData, setBillcareData] = useState([null]);
-    const [commondata, setCommondata] = useState([null]);
+    const [maincommondata, setMaincommondata] = useState([null]);
+    const [subcommondata, setSubcommondata] = useState([null]);
     const { RangePicker } = DatePicker;
+    
+    let token = localStorage.getItem("accessToken");
     
     // 상태가 미심사인 명세서를 가져온다.(기본 테이블)
     const specificationData = async () => {
       try {
         const response = await axios.get('/api/spec/info', {
           headers:{
-            "Authorization": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0IiwicG9zaXRpb24iOiJvZmZpY2UiLCJpYXQiOjE2ODM3MDI4MDQsImV4cCI6MTY4NDAwMjgwNH0.sydph7T5v4Wv_8WZ90G7DWsXP4xYyceMJz37wQ9fFyY"
+            "Authorization": token
           }
           });
           return response.data;
@@ -63,7 +67,7 @@ function Specsearch(props) {
       try {
         const response = await axios.get('/api/spec', {
           headers:{
-            "Authorization": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0IiwicG9zaXRpb24iOiJvZmZpY2UiLCJpYXQiOjE2ODM3MDI4MDQsImV4cCI6MTY4NDAwMjgwNH0.sydph7T5v4Wv_8WZ90G7DWsXP4xYyceMJz37wQ9fFyY"
+            "Authorization": token
           },
           params: {
             startDate: startDate,
@@ -83,7 +87,7 @@ function Specsearch(props) {
         try {
           const response = await axios.get('/api/bill/info', {
             headers:{
-                "Authorization": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0IiwicG9zaXRpb24iOiJvZmZpY2UiLCJpYXQiOjE2ODM3MDI4MDQsImV4cCI6MTY4NDAwMjgwNH0.sydph7T5v4Wv_8WZ90G7DWsXP4xYyceMJz37wQ9fFyY"
+                "Authorization": token
             },
             params: {
               bno: bno,
@@ -99,41 +103,30 @@ function Specsearch(props) {
         }
       };
 
-      useEffect(() => {
-        async function fetchSpecificationData() {
-          try {
-            const data = await specificationData();
-            const specificaiondata = data.data.map((item,i) => ({
-              key: i,
-              bno: item.bno,
-              rno: item.rno,
-              pno: item.pno,
-              no: <div>{i+1}</div>,
-              name: <div className="author-info">{item.pname}</div>,
-              insurance: <div>{item.insurance}</div>,
-              status: <div className="ant-employed">{item.sstatus}</div>,
-            }))
-            setSearchData(specificaiondata);
-          } catch (error) {
-            console.error(error)
-          }
+      // 처음 명세서를 모두 불러오기
+      const fetchSpecificationData = async () => {
+        try {
+          const data = await specificationData();
+          const specificaiondata = data.data.map((item, i) => ({
+            key: i,
+            bno: item.bno,
+            rno: item.rno,
+            pno: item.pno,
+            no: <div>{i + 1}</div>,
+            name: <div className="author-info">{item.pname}</div>,
+            insurance: <div>{item.insurance}</div>,
+            status: <div className="ant-employed">{item.sstatus}</div>,
+          }));
+          setSearchData(specificaiondata);
+        } catch (error) {
+          console.error(error);
         }
-        fetchSpecificationData();
-      }, []);
-      // 검색기능에서 키값을 통해 건강보험인지 의료급여인지
-      const handleMenuClick = (e) => {
-        // eslint-disable-next-line eqeqeq
-        const key = e.key == 1 ? '건강보험' : '의료급여';
-        setInsurance(key);
       };
 
-      // 검색한 값의 명세서 테이블 정보
+      // 검색으로 명세서 데이터 찾아오기
       const handleSearch = async () => {
         if (!startDate || !endDate) {
-          alert('진료기간을 선택해주세요.');
-          return;
-        } else if(!pno) {
-          alert('등록번호를 입력해주세요.')
+          alert("진료기간을 선택해주세요.");
           return;
         }
         try {
@@ -143,16 +136,31 @@ function Specsearch(props) {
             bno: item.bno,
             rno: item.rno,
             pno: item.pno,
-            no: <div>{i+1}</div>,
+            no: <div>{i + 1}</div>,
             name: <div className="author-info">{item.pname}</div>,
             insurance: <div>{item.insurance}</div>,
             status: <div className="ant-employed">{item.sstatus}</div>,
           }));
-          // searchData 상태 업데이트 또는 다른 작업 수행
-          setSearchData(searchData);
+            if(searchData.length === 0){
+              alert("검색 결과가 없습니다.");
+              return;
+            } else {
+              setSearchData(searchData);
+            }
         } catch (error) {
-          alert("검색 결과가 없습니다.")
+          alert("검색 결과가 없습니다.");
         }
+      };
+      useEffect(() => {
+        fetchSpecificationData();
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+      }, []);
+      
+      // 검색기능에서 키값을 통해 건강보험인지 의료급여인지
+      const handleMenuClick = (e) => {
+        // eslint-disable-next-line eqeqeq
+        const key = e.key == 1 ? '건강보험' : '의료급여';
+        setInsurance(key);
       };
 
     // 검색 시 날짜 데이터 포맷
@@ -173,8 +181,10 @@ function Specsearch(props) {
     // 모달 창 취소 버튼 클릭 시 모달창 안의 내용 초기화
     const diseasehandleCancel = () => {
       setModalOpen(false);
-      setSearchValue('');
-      setCommondata([]);
+      setMainsearchValue('');
+      setSubsearchValue('');
+      setMaincommondata([]);
+      setSubcommondata([]);
     };
 
     // 테이블 컬럼
@@ -310,7 +320,11 @@ function Specsearch(props) {
           setIsModalOpen={setIsModalOpen}
           billcareData={billcareData}
           handleSearch={handleSearch}
-          specificationData={specificationData}
+          fetchSpecificationData={fetchSpecificationData}
+          startDate={startDate}
+          endDate={endDate}
+          insurance={insurance}
+          pno={pno}
           handleCancel={handleCancel}
                     />
       </Row>
@@ -324,11 +338,15 @@ function Specsearch(props) {
           ModalOpen={ModalOpen}
           handleRowClick={handleRowClick}
           diseasehandleCancel={diseasehandleCancel}
-          searchValue={searchValue}
-          setSearchValue={setSearchValue}
+          mainsearchValue={mainsearchValue}
+          subsearchValue={subsearchValue}
+          setMainsearchValue={setMainsearchValue}
+          setSubsearchValue={setSubsearchValue}
           selectionType={selectionType}
-          commondata={commondata}
-          setCommondata={setCommondata}
+          maincommondata={maincommondata}
+          setMaincommondata={setMaincommondata}
+          subcommondata={subcommondata}
+          setSubcommondata={setSubcommondata}
           record={record}
           setModalOpen={setModalOpen}
 
