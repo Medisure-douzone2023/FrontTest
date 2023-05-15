@@ -50,7 +50,7 @@ function Receipt(props) {
     })
       .then((response) => {
         setFeeTableData(response.data.data);
-        console.log("feeTableData", response.data.data);
+       // console.log("feeTableData", response.data.data);
       })
       .catch((error) => {
         console.log(error);
@@ -74,7 +74,7 @@ function Receipt(props) {
     })
       .then((response) => {
         setReceiptData(response.data.data);
-        console.log("receiptData", receiptData);
+      //  console.log("receiptData", receiptData);
       })
       .catch((error) => {
         console.log(error);

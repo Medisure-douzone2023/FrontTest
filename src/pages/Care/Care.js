@@ -29,8 +29,32 @@ function Care(props) {
     console.log("patient info", response.data.data);
     setPatient(response.data.data);
   };
+  const fetchCarePatient = async() => {
+    const response = await axios({
+      method: 'GET',
+      url: `/api/receipt/status`,
+      headers: {
+          "Authorization": token
+      },
+      params: {
+        status: '진료중'
+      }
+    })
+    if(response.data.result !== 'success') {
+      alert('진료중 환자 가져오는데 오류 발생');
+      return;
+    }
+    console.log('진료중인 환자', response.data.data[0]);
+    if(response.data.data.length === 0) {
+      alert('진료중인 환자가 없습니다. 환자를 호출하세요.');
+      return;
+    }
+    fetchPatientInfo(response.data.data[0].pno);
+    setRno(response.data.data[0].rno);
+  }
   useEffect(() => {
     fetchPatientInfo(pno);
+    fetchCarePatient();
   }, [pno]);
 
   return (

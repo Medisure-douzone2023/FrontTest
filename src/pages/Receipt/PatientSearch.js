@@ -32,7 +32,7 @@ function PatientSearch(props) {
     // 환자 리스트에서 클릭했을 때 state 설정시켜주는 함수
     const handlePatientRowClick = (record) => {
         setSelectedPatientRow(record);
-        console.log('selectedPatientRow:', record);
+       // console.log('selectedPatientRow:', record);
     };
 
     //페이지넘기기 위한 state
@@ -103,7 +103,7 @@ function PatientSearch(props) {
     const [visitData, setVisitData] = useState({});
 
     const fetchVisitData = () => {
-        console.log("패치방문함수 바로 처음에서, selectedPateintRow.pno: ", selectedPatientRow.pno);
+       // console.log("패치방문함수 바로 처음에서, selectedPateintRow.pno: ", selectedPatientRow.pno);
         axios.get('/api/receipt/visit',
             {
                 params: {
@@ -114,11 +114,11 @@ function PatientSearch(props) {
                 }
             })
             .then((response) => {
-                console.log("response.data.data", response.data.data);
+               // console.log("response.data.data", response.data.data);
                 // setVisitData(response.data.data);
                 response.data.data === null ? insertReceiptData("N") : insertReceiptData("Y");
 
-                console.log("패치방문데이터 안에서, selectedPateintRow.pno: ", selectedPatientRow.pno);
+                //console.log("패치방문데이터 안에서, selectedPateintRow.pno: ", selectedPatientRow.pno);
                 // console.log("visitData", visitData);
             })
             .catch((error) => {
@@ -128,7 +128,7 @@ function PatientSearch(props) {
     }
     // 상세 검색에서, [접수하기]
     const insertReceiptData = (visitD) => {
-        console.log(" ===== insertReceiptData 실행 =====")
+       // console.log(" ===== insertReceiptData 실행 =====")
         axios.post('/api/receipt', {
             rno: null,
             pno: selectedPatientRow.pno,
@@ -144,7 +144,7 @@ function PatientSearch(props) {
             }
         })
             .then((response) => {
-                console.log("insertresponse", response)
+              //  console.log("insertresponse", response)
                 alert("접수 되었습니다.")
                 textAreaRef.current.value = '';
                 setConditionModalVisible(false);
@@ -173,7 +173,7 @@ function PatientSearch(props) {
         })
             .then((response) => {
                 setPatientData(response.data.data);
-                console.log("patientData", response.data.data);
+               // console.log("patientData", response.data.data);
             })
             .catch((error) => {
                 console.log(error);

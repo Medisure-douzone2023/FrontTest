@@ -70,7 +70,7 @@ function FeeList(props) {
     ]
     // 수납한 환자 수납상태 변경 ('Y')
     const updatePayData = (feeData) => {
-        console.log("feeData", feeData);
+       // console.log("feeData", feeData);
         axios.put('/api/receipt/updatepay/' + feeData.rno, {}, {
             headers: {
                 "Authorization": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0IiwicG9zaXRpb24iOiJvZmZpY2UiLCJpYXQiOjE2ODM4NTM1ODEsImV4cCI6MTY4NDE1MzU4MX0.g_KIAtjrpejmzinNeV7qACDOwciWP66XYrvnddmug1U"
@@ -82,11 +82,11 @@ function FeeList(props) {
 
                 alert("수납이 완료되었습니다.");
                 setFeeModalVisible(false);
-                console.log("------ 변경전 fee 데이터 확인 ------", props.feeTableData);
+               // console.log("------ 변경전 fee 데이터 확인 ------", props.feeTableData);
                 props.fetchFeeTableData(); 
                 props.fetchReceiptData(props.status);
-                console.log("----- fetctfee 호출됨 ------");
-                console.log("------ 변경후 fee 데이터 확인 ------", props.feeTableData);
+               // console.log("----- fetctfee 호출됨 ------");
+                //console.log("------ 변경후 fee 데이터 확인 ------", props.feeTableData);
             })
             .catch((error) => {
                 console.log(error);
@@ -102,7 +102,7 @@ function FeeList(props) {
         })
             .then((response) => {
                 setFeeData(response.data.data);
-                console.log("FeeData", feeData);
+               // console.log("FeeData", feeData);
             })
             .catch((error) => {
                 console.log(error);
