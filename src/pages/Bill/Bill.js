@@ -1,15 +1,19 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Button, Table, DatePicker, Space, Select, Row, Col } from 'antd';
 import axios from 'axios'
 
 function Bill(props) {
-  let token = props.token;
-  const statusOptions = [{ value: '미송신', labe: '미송신' }, { value: '변환', labe: '변환' }];
-  const insuranceOptions = [{ value: '건강보험', labe: '건강보험' }, { value: '의료급여', labe: '의료급여' }];
+  useEffect(() => {
+    search();
+  }, []);
 
-  const [date, setDate] = useState('');
-  const [insurance, setInsurance] = useState('건강보험');
-  const [status, setStatus] = useState('미송신');
+  let token = props.token;
+  const statusOptions = [{ value: null, label: '미선택' },{ value: '미송신', labe: '미송신' }, { value: '변환', labe: '변환' }];
+  const insuranceOptions = [{ value: null, label: '미선택' },{ value: '건강보험', labe: '건강보험' }, { value: '의료급여', labe: '의료급여' }];
+
+  const [date, setDate] = useState();
+  const [insurance, setInsurance] = useState();
+  const [status, setStatus] = useState();
   const [size, setSize] = useState('middle');
 
   const columns = [
@@ -76,6 +80,7 @@ function Bill(props) {
 
   const search = () => {
     const param = { month: date, insurance: insurance, status: status };
+    console.log("param",param)
     axios.get("/api/bill", { headers: { "Authorization": token }, params: param }).then((e) => {
       const result = e.data.data;
       for (var i = 0; i < result.length; i++) {
@@ -151,9 +156,7 @@ function Bill(props) {
     }
   }
   const checkButtonDisabled = (status) => {
-    if (selectedRows.length > 0 && selectedRows.every((item) => item.bstatus === status)) {
-      return false;
-    }
+    return selectedRows.length > 0 && !selectedRows.every((item) => item.bstatus === status);
   };
 
   return (
@@ -167,7 +170,7 @@ function Bill(props) {
             <DatePicker picker="month" onChange={selectDate} />
             <Select
               size={size}
-              defaultValue="건강보험"
+              defaultValue="미선택"
               onChange={setInsuranceOption}
               style={{
                 width: 200,
@@ -176,7 +179,7 @@ function Bill(props) {
             />
             <Select
               size={size}
-              defaultValue="미송신"
+              defaultValue="미선택"
               onChange={selectStatus}
               style={{
                 width: 200,

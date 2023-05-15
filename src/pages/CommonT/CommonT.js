@@ -2,9 +2,12 @@ import { Table, Space, Button, Select, Row, Col, Form, Input, Modal, Typography,
 import axios from 'axios'
 import { useEffect, useState } from "react";
 
-let token = 'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhYWEiLCJwb3NpdGlvbiI6ImFkbWluIiwiaWF0IjoxNjgzNjEzOTA2LCJleHAiOjE2ODM5MTM5MDZ9.lpN8FdqrNtbhWRIXPzP_GPftVvLI9TZgEr0A7rWqGaU';
+function CommonT(props) {
+  useEffect(() => {
+    search();
+  }, []);
 
-function CommonT() {
+  let token = props.token
   const EditableCell = ({
     editing,
     dataIndex,
@@ -39,11 +42,11 @@ function CommonT() {
       </td>
     );
   };
-  const options = [{ value: 'RR', label: '접수' }, { value: 'PP', label: '환자' }, { value: 'DD', label: '상병' }, { value: 'TT', label: '처방' }];
-  const [keyname, setKeyname] = useState('접수');
+  const options = [{ value: null, label: '미선택' },{ value: 'RR', label: '접수' }, { value: 'PP', label: '환자' }, { value: 'DD', label: '상병' }, { value: 'TT', label: '처방' }];
+  const [keyname, setKeyname] = useState();
   const [size, setSize] = useState('middle');
-  const [gcode, setGCode] = useState('')
-  const [codename, setCodename] = useState('')
+  const [gcode, setGCode] = useState()
+  const [codename, setCodename] = useState()
 
   const columns = [
     {
@@ -107,7 +110,9 @@ function CommonT() {
   const [selectedRows, setSelectedRows] = useState([]);
 
   const search = () => {
+    console.log("search")
     const param = { gkey: keyname, gcode: gcode, codename: codename };
+    console.log(param)
     axios.get("/api/common", { headers: { "Authorization": token }, params: param }
     ).then((response) => {
       const result = response.data.data;
@@ -200,7 +205,6 @@ function CommonT() {
     setInsertCodename("");
     setInsertPrice("");
   }
-  //ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
   const [form] = Form.useForm();
   const [editingKey, setEditingKey] = useState('');
   const isEditing = (record) => record.key === editingKey;
