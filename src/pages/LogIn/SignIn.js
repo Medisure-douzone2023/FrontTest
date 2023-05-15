@@ -20,7 +20,7 @@ class SignIn extends Component {
         url: `/api/user`,
         data: data,
         headers: {
-          'Accept': 'application/json'
+          'Accept': 'application/json' 
         }
       });
       if(response.data.result !== 'success'){

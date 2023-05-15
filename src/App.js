@@ -11,7 +11,6 @@ import "antd/dist/antd.css";
 import "./assets/styles/Main.css";
 import "./assets/styles/Responsive.css";
 
- 
 function App() { 
   let token = localStorage.getItem("accessToken");
   const position = localStorage.getItem("position");
@@ -42,7 +41,7 @@ function App() {
                 </>
               )}
             </Main>
-            ) :(
+            ) :( 
               <>
                 <Redirect to="/sign-in"/>
                 <Route exact path="/sign-in" component={SignIn} />
@@ -50,7 +49,7 @@ function App() {
               )
             }
       </Switch>
-    </div>
+    </div> 
   );
 }
 
