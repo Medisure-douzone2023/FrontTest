@@ -47,7 +47,7 @@ function Receipt(props) {
       headers: {
         "Authorization": props.token
       }
-    })
+    }) 
       .then((response) => {
         setFeeTableData(response.data.data);
        // console.log("feeTableData", response.data.data);
@@ -66,13 +66,18 @@ function Receipt(props) {
 
     axios.get('/api/receipt/status', {
       headers: {
-        "Authorization": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0IiwicG9zaXRpb24iOiJvZmZpY2UiLCJpYXQiOjE2ODM4NTM1ODEsImV4cCI6MTY4NDE1MzU4MX0.g_KIAtjrpejmzinNeV7qACDOwciWP66XYrvnddmug1U"
+        "Authorization": props.token
       },
       params: {
         status: status
       }
     })
       .then((response) => {
+        response.data.data.map((data) => {
+          const date = new Date(data.rdate);
+          const localDate = date.toLocaleString().split(".")[3].slice(0, date.toLocaleString().split(".")[3].length-3);
+          return data.rdate= localDate;
+        }) 
         setReceiptData(response.data.data);
       //  console.log("receiptData", receiptData);
       })
@@ -114,7 +119,7 @@ function Receipt(props) {
           fetchReceiptData={fetchReceiptData}
            />
         </Col>
-
+ 
         <Col xs={12} sm={12} md={12} lg={12} xl={12} >
           <FeeList token={token} 
           fetchFeeTableData={fetchFeeTableData} 

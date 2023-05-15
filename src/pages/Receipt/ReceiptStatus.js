@@ -48,6 +48,39 @@ function ReceiptStatus(props) {
       key: "cancel"
     }
   ]
+  const AllColumn = [
+    {
+      title: 'no',
+      dataIndex: '',
+      key: 'index',
+      render: (text, record, index) => (currentReceiptPage - 1) * 5 + index + 1,
+    },
+    {
+      title: "환자명",
+      dataIndex: "pname",
+      key: "pname"
+    },
+    {
+      title: "접수시간",
+      dataIndex: "rdate",
+      key: "rdate"
+    },
+    {
+      title: "증상",
+      dataIndex: "rcondition",
+      key: "rcondition"
+    },
+    {
+      title: "초진/재진",
+      dataIndex: "visit",
+      key: "visit"
+    },
+    {
+      title: "수납여부",
+      dataIndex: "pay",
+      key: "pay"
+    }
+  ]
 
   const onChange = (e) => props.setStatus(e.target.value);
 
@@ -58,8 +91,6 @@ function ReceiptStatus(props) {
     props.fetchReceiptData(props.status);
   }, [props.status]);
 
-
- 
 
   return (
     <>
@@ -78,7 +109,7 @@ function ReceiptStatus(props) {
           </Radio.Group>
         }
       >
-        <div> 
+        <div>  
           <Table
             className="tablecss"
             columns={receiptcolumn}
