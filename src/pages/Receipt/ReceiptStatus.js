@@ -16,6 +16,7 @@ import {
     Modal,
     Form,
     Descriptions// 환자상세, 기타 모달창에 쓰려고.
+
 } from "antd";
 // 아이콘 임포트 
 import { SearchOutlined, } from "@ant-design/icons";
@@ -38,6 +39,12 @@ function ReceiptStatus(props) {
           key: "rdate"
         },
         {
+          title: "환자명",
+          dataIndex: "pname",
+          key: "pname",
+          render: (record) => record
+        },
+        {
           title: "증상",
           dataIndex: "rcondition",
           key: "rcondition"
@@ -55,7 +62,6 @@ function ReceiptStatus(props) {
         { // 이부분 이렇게 하는게 의미가 없다. >>> 없는데 나중에 확인. (토글버튼 만들면서 확인.) key값, dataIndex값도 고치기.
           title: "취소",
           dataIndex: "cancel",
-          key: "cancel"
         }
       ]
     const [status, setStatus] = useState('전체');
@@ -86,8 +92,13 @@ function ReceiptStatus(props) {
       }
     })
       .then((response) => {
+        response.data.data.map((data) => {
+          const date = new Date(data.rdate);
+          const localDate = date.toLocaleString().split(".")[3].slice(0, date.toLocaleString().split(".")[3].length-3);
+          return data.rdate= localDate;
+        })
         setReceiptData(response.data.data);
-        console.log("receiptData", receiptData);
+        console.log("receiptData",response.data.data);
       })
       .catch((error) => {
         console.log(error);
