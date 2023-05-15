@@ -49,19 +49,6 @@ function Receipt(props) {
         console.log(error);
       });
   }
-useEffect(()=>{
-  fetchFeeTableData();
-}, [] )
-
-
-
-
-
-
-
-
-
-
 
 
   return (
@@ -82,7 +69,7 @@ useEffect(()=>{
         </Col>
 
         <Col xs={12} sm={12} md={12} lg={12} xl={12} >
-          <FeeList token={token} />
+          <FeeList token={token} fetchFeeTableData={fetchFeeTableData} feeTableData={feeTableData}  />
         </Col>
       </Row>
     </>

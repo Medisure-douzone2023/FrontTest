@@ -24,7 +24,9 @@ import TextArea from 'antd/lib/input/TextArea';
 
 
 function FeeList(props) {
-
+    useEffect(() => {
+        props.fetchFeeTableData();
+      }, []);
     // 수납 데이터
     const [feeData, setFeeData] = useState([]);
 
@@ -76,15 +78,20 @@ function FeeList(props) {
         })
             .then(() => {
                 // submitData2();
-                props.fetchFeeTableData();
+
+
                 alert("수납이 완료되었습니다.");
                 setFeeModalVisible(false);
+                console.log("------ 변경전 fee 데이터 확인 ------", props.feeTableData);
+                props.fetchFeeTableData(); 
+                console.log("----- fetctfee 호출됨 ------");
+                console.log("------ 변경후 fee 데이터 확인 ------", props.feeTableData);
             })
             .catch((error) => {
                 console.log(error);
             });
     }
-
+ 
     // 진짜 수납 데이터 가져오는 함수.
     const fetchFeeData = (record) => {
         axios.get('/api/fee/' + record.rno, {
