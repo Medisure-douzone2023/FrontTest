@@ -57,6 +57,9 @@ function SpecModal(props) {
         props.setSubsearchValue('');
         props.setMaincommondata([]);
         props.setSubcommondata([]);
+        console.log("키값:", MaindiseaserowSelection.selectedRowKeys)
+        MaindiseaserowSelection.selectedRowKeys = [];
+        SubdiseaserowSelection.selectedRowKeys = [];
       };
 
     // 모달 창 취소 버튼 클릭 시 모달창 안의 내용 초기화
@@ -66,6 +69,8 @@ function SpecModal(props) {
         props.setSubsearchValue('');
         props.setMaincommondata([]);
         props.setSubcommondata([]);
+        MaindiseaserowSelection.selectedRowKeys = [];
+        SubdiseaserowSelection.selectedRowKeys = [];
       };
 
     const handleOk = () => {
@@ -75,6 +80,7 @@ function SpecModal(props) {
       //모달창 주상병검색에서 선택 된 데이터 정보
       const MaindiseaserowSelection = {
         onChange: (selectedRowKeys, selectedRows) => {
+          console.log("키값:", selectedRowKeys);
           const newSelectDatas = selectedRows.map((row, i) => {
             const dcode = row.dcode ? row.dcode.props.children : null;
             const dname = row.disease ? row.disease.props.children : null;
@@ -82,6 +88,8 @@ function SpecModal(props) {
             const pno = props.billdiseaseData[0].pno;
             const rno = props.billdiseaseData[0].rno;
             const dmain = "주"
+            selectedRowKeys= "";
+            console.log("초기화된 키 값:", selectedRowKeys);
             return { bno, pno, rno, dmain, dcode, dname };
       },);
       setMainSelectDatas(newSelectDatas);
