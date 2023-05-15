@@ -66,7 +66,7 @@ function PatientList(props) {
           alert("환자 호출 취소");
         }
       } else {
-        alert("환자 한 명만 선택");
+        alert("환자를 한 명만 선택하세요");
       }
     } else {
       alert("진료하실 환자를 선택하세요");

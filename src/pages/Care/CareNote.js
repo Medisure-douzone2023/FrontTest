@@ -279,6 +279,7 @@ function CareNote(props) {
       </Select>
       <Table className="diseaseTable" rowKey="rno" pagination={false} dataSource={selectDD}>
         <Column
+          className="dmain"
           title="주/부"
           key="main"
           dataIndex="dmain"
@@ -294,7 +295,7 @@ function CareNote(props) {
           )}
         />
         <Column title="코드명" dataIndex="dcode" key="dcode" />
-        <Column title="상병이름" dataIndex="dname" key="dname" />
+        <Column title="상병이름" dataIndex="dname" key="dname" className="diseaseColumn" />
       </Table>
 
       <h1>처방</h1>
