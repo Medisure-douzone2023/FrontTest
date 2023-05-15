@@ -36,16 +36,16 @@ function Specbilldisease(props) {
 
   // 명세서 상병 데이터에서 선택 된 데이터 정보 삭제할때 사용
   const rowSelection = {
-    selectedRowKeys: SelectedRowKeys,
+    selectedRowKeys : SelectedRowKeys,
     onChange: (selectedRowKeys, selectedRows) => {
       const newSelectDatas = selectedRows.map((row,i) => {
         const pno = row.pno;
         const rno = row.rno;
         const dno = row.dno;
-        setSelectedRowKeys(selectedRowKeys);
-        return {key:pno, pno, rno, dno}
+        return {pno, rno, dno}
       })
       setNos(newSelectDatas)
+      setSelectedRowKeys(selectedRowKeys)
     }
   };
   // 모달 창 열기
