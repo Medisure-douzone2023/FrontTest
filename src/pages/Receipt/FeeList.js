@@ -64,15 +64,15 @@ function FeeList(props) {
         })
             .then(() => {
                 // submitData2();
-                alert("수납이 완료되었습니다.");
+                alert("수납이 완료되었습니다.");      
                 setFeeModalVisible(false);
                // console.log("------ 변경전 fee 데이터 확인 ------", props.feeTableData);
-                props.fetchFeeTableData();
-
+                props.fetchFeeTableData(); 
+                
                 submitFeeData(); // fee 테이블에 데이터 넣기.
 
                 props.fetchReceiptData(props.status);
-               // console.log("----- fetctfee 호출됨 ------"); 
+               // console.log("----- fetctfee 호출됨 ------");
                 //console.log("------ 변경후 fee 데이터 확인 ------", props.feeTableData);
             })
             .catch((error) => {
@@ -101,8 +101,8 @@ function FeeList(props) {
         })
     }
 
-    // 진짜 수납 데이터 가져오는 함수.
-    const fetchFeeData = (record) => {
+     // 진짜 수납 데이터 가져오는 함수.
+     const fetchFeeData = (record) => {
         axios.get('/api/fee/' + record.rno, {
             headers: {
                 "Authorization": props.token

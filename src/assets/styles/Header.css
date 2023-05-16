@@ -155,51 +155,12 @@
   border-radius: 12px;
   transition: 0.2s;
 }
-  .layout-dashboard .header-control .btn-sign-in {
-    height: auto;
-    padding: 0 7px;
-    margin: 0; 
-    box-shadow: none;
-    color: #8c8c8c; 
-  }
-  .layout-dashboard .header-control .btn-sign-in svg {
-    margin: auto;
-    
-  }
-  .layout-dashboard .header-control svg {
-    width: 20px;
-    height: 20px;
-  }
-  .layout-dashboard .header-control svg path {
-    fill: #141414;
-  }
-  .layout-dashboard .header-control .btn-sign-in span {
-    font-weight: 600;
-    vertical-align: top;
-    display: none;
-  }
-  .layout-dashboard .header-control .btn-sign-in span {
-    display: inline;
-  }
-  
-  /* 드롭다운, 종모양 */ 
-  [header-notifications-dropdown]
-  .ant-dropdown-menu.ant-dropdown-menu-split.header-notifications-dropdown {
-    background: #fff;
-    box-shadow: 0 20px 27px rgb(0 0 0 / 5%);
-    border-radius: 12px;
-    min-width: 276px;
-    padding: 16px 8px;
-  }
+
   
   .ant-dropdown-menu.ant-dropdown-menu-split.header-notifications-dropdown
     ul.ant-dropdown-menu-items {
     margin: 0px;
     padding: 0px;
-  }
-  
-  .ant-dropdown.ant-dropdown-placement-bottomRight {
-    min-width: inherit !important;
   }
   
   .ant-dropdown-menu.ant-dropdown-menu-split.header-notifications-dropdown
@@ -262,38 +223,4 @@
     width: 22px;
     height: 22px;
   }
-  .layout-dashboard
-    .ant-layout-sider.sider-primary
-    .ant-menu-item.ant-menu-item-selected
-    .active
-    svg
-    path,
-  .layout-dashboard
-    .ant-layout-sider.sider-primary
-    .ant-menu-item
-    .active
-    svg
-    path,
-  .layout-dashboard
-    .ant-layout-sider.sider-primary
-    .ant-menu-submenu.ant-menu-item-selected
-    .active
-    svg
-    path,
-  .layout-dashboard
-    .ant-layout-sider.sider-primary
-    .ant-menu-submenu
-    .active
-    svg
-    path {
-    fill: #fff;
-  }
-  .layout-dashboard .ant-layout-sider.sider-primary .ant-menu-item svg path,
-  .layout-dashboard .ant-layout-sider.sider-primary .ant-menu-submenu svg path {
-    fill: #bfbfbf;
-  }
   
-  .layout-dashboard .ant-layout-sider.sider-primary .ant-menu-item a:hover,
-  .layout-dashboard .ant-layout-sider.sider-primary .ant-menu-submenu a:hover {
-    color: #141414;
-  }

@@ -5,7 +5,7 @@ function Specuser(props) {
     
     return (
         <>
-        <Descriptions title="환자 정보" className='description'>
+        <Descriptions title="환자 정보" className='description custom-descriptions'>
         <Descriptions.Item label="환자등록번호">{props.userno}</Descriptions.Item>
         <Descriptions.Item label="성별">{props.gender}</Descriptions.Item>
         <Descriptions.Item label="나이">{props.age}</Descriptions.Item>
