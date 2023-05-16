@@ -6,6 +6,7 @@ import { Col,
     Table, 
     Menu,
     Row,
+    Card
  } from 'antd';
 import { useState, React, useEffect} from 'react';
 import axios from 'axios';
@@ -277,15 +278,18 @@ function Specsearch(props) {
     return (
       <>
         <Col span={6} className='Col1' style={{paddingRight: "0px"}}>
+          <Card style={{ width: '100%', height: '500px' }}>
             <span className='span'>진료기간</span><RangePicker className='picker' picker="week" onChange={handleDateChange}></RangePicker><br/><br/>
             <div>
             </div>
             <span className='span'>보험유형</span><Dropdown.Button overlay={menu}>{insurance}</Dropdown.Button><br/><br/>
             <span className='span'>등록번호</span><Input placeholder="등록번호" style={{width: '70%'}} onChange={(e) => setPno(e.target.value)} /><br/><br/>
-            <Button type="primary" block style={{width: "90%", margin: '0px 0px'}} onClick={handleSearch}>
-                조회
-            </Button>
-        <Table
+            <div style={{ display: 'flex', justifyContent: 'center' }}>
+              <Button type="primary" block style={{ width: "100%", margin: '0px 0px' }} onClick={handleSearch}>
+                  조회
+              </Button>
+            </div>
+        <Table    
                   columns={searchColumns}
                   dataSource={searchData}
                   pagination={false}
@@ -294,9 +298,11 @@ function Specsearch(props) {
                     onClick: () => handleRowClick(record),
                   })}
                 />
+          </Card>
       </Col>
       
       <Col span={17} className='Col2'>
+      <Card style={{ width: '100%', height: '500px' }}>
         <Specuser 
               userno={userno}
               gender={gender}
@@ -328,6 +334,7 @@ function Specsearch(props) {
           handleCancel={handleCancel}
                     />
       </Row>
+      </Card>
       </Col>
       <SpecModal 
           isModalOpen={isModalOpen}
