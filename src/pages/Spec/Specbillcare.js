@@ -9,7 +9,7 @@ function Specbillcare(props) {
     try {
       await axios.put(`/api/spec/${props.bno}`, {
         rno: props.rno,
-        status: "미심사"
+        status: "취소"
       }, {
         headers: {
           "Authorization": token,

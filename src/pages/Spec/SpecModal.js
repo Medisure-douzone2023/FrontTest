@@ -71,9 +71,7 @@ function SpecModal(props) {
         setMainSelectedRowKeys([]);
         setSubSelectedRowKeys([]);
       };
-    const handlechecklist = (value) => {
-      console.log("value: "+value)
-    }
+
     const handleOk = () => {
       props.setIsModalOpen(false);
     };
@@ -263,7 +261,6 @@ function SpecModal(props) {
           type: props.selectionType,
            ...MaindiseaserowSelection,
          }}
-        onChange={handlechecklist}
         columns={diseaseModalColumns}
         dataSource={props.maincommondata}
         pagination={{
