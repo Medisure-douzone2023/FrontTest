@@ -115,7 +115,7 @@ function Specsearch(props) {
             no: <div>{i + 1}</div>,
             name: <div className="author-info">{item.pname}</div>,
             insurance: <div>{item.insurance}</div>,
-            status: <div className="ant-employed">{item.sstatus}</div>,
+            status: <div>{item.sstatus}</div>,
           }));
           setSearchData(specificaiondata);
         } catch (error) {
@@ -239,7 +239,7 @@ function Specsearch(props) {
              no: <div>{i+1}</div>,
              dmain: <div className="author-info">{item.dmain}</div>,
              dcode: <div>{item.dcode}</div>,
-             disease: <div className="ant-employed">{item.dname}</div>, 
+             disease: <div className="ant-employed billdiseasetable" data-content={item.dname}>{item.dname}</div>, 
            }));
            setBilldiseaseData(diseasecareData1);
 
@@ -349,7 +349,6 @@ function Specsearch(props) {
           setSubcommondata={setSubcommondata}
           record={record}
           setModalOpen={setModalOpen}
-
           />
       </>
     );

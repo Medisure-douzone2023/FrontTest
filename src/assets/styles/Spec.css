@@ -99,3 +99,24 @@
   .ant-modal-content{
     width: 1000px;
   }
+
+  .ant-employed {
+    white-space: nowrap; /* 텍스트 줄바꿈 방지 */
+    overflow: hidden; /* 넘치는 부분 숨김 */
+    text-overflow: ellipsis; /* 넘칠 경우 "..."으로 표시 */
+    max-width: 100px; /* 최대 너비 지정 (원하는 글자수에 맞게 조정) */
+  }
+
+  .ant-employed:hover::after {
+    content: attr(data-content); /* 말풍선 내용 설정 */
+    position: absolute; /* 절대적인 위치 설정 */
+    top: -20px; /* 말풍선 상단 위치 조정 */
+    left: 0; /* 말풍선 좌측 위치 조정 */
+    background-color: #f9f9f9; /* 말풍선 배경색 설정 */
+    padding: 5px; /* 말풍선 여백 설정 */
+    border: 1px solid #ddd; /* 말풍선 테두리 설정 */
+    border-radius: 4px; /* 말풍선 테두리 둥글기 설정 */
+    font-size: 12px; /* 말풍선 텍스트 크기 설정 */
+    white-space: nowrap; /* 텍스트 줄바꿈 방지 */
+    z-index: 9999; /* 말풍선의 쌓임 순서 지정 */
+  }
