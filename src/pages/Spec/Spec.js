@@ -6,7 +6,7 @@ import Specsearch from './Specsearch';
 const Spec = (props) => {
   return (
     <div>
-      <Row gutter={[24, 16]} >
+      <Row gutter={[28, 16]} >
         <Specsearch />
       </Row>
     </div>

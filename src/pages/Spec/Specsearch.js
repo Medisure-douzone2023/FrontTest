@@ -117,7 +117,11 @@ function Specsearch(props) {
             name: <div className="author-info">{item.pname}</div>,
             insurance: <div>{item.insurance}</div>,
             status: <div>{item.sstatus}</div>,
+            delete: <Button danger ghost size={'middle'} onClick={() => specdeletebutton(item)} >
+            삭제
+          </Button>
           }));
+          setBno(bno);
           setSearchData(specificaiondata);
         } catch (error) {
           console.error(error);
@@ -137,10 +141,12 @@ function Specsearch(props) {
             bno: item.bno,
             rno: item.rno,
             pno: item.pno,
-            no: <div>{i + 1}</div>,
             name: <div className="author-info">{item.pname}</div>,
             insurance: <div>{item.insurance}</div>,
             status: <div className="ant-employed">{item.sstatus}</div>,
+            delete: <Button danger ghost size={'middle'} onClick={() => specdeletebutton(item)}>
+                  삭제
+                </Button>
           }));
             if(searchData.length === 0){
               alert("검색 결과가 없습니다.");
@@ -153,10 +159,65 @@ function Specsearch(props) {
         }
       };
       useEffect(() => {
+        let isMounted = true;
+
+        const fetchSpecificationData = async () => {
+          try {
+            const data = await specificationData();
+            const specificaiondata = data.data.map((item, i) => ({
+              key: i,
+              bno: item.bno,
+              rno: item.rno,
+              pno: item.pno,
+              no: <div>{i + 1}</div>,
+              name: <div className="author-info">{item.pname}</div>,
+              insurance: <div>{item.insurance}</div>,
+              status: <div>{item.sstatus}</div>,
+              delete: (
+                <Button danger ghost size={'middle'} onClick={() => specdeletebutton(item)}>
+                  삭제
+                </Button>
+              )
+            }));
+      
+            if (isMounted) {
+              setBno(bno);
+              setSearchData(specificaiondata);
+            }
+          } catch (error) {
+            console.error(error);
+          }
+        };
+      
         fetchSpecificationData();
+      
+        return () => {
+          isMounted = false;
+        };
       // eslint-disable-next-line react-hooks/exhaustive-deps
       }, []);
-      
+
+      const specdeletebutton = async (record) =>{
+        try {
+          await axios.put(`/api/spec/${record.bno}`, {
+          rno: record.rno,
+          status: "삭제"
+      }, {
+        headers: {
+          "Authorization": token,
+          "Content-Type": "application/json"
+        }
+      });
+      alert("명세서 삭제가 완료되었습니다.");
+      if (props.startDate && props.endDate && props.insurance && props.pno) {
+        await handleSearch();
+      } else {
+        await fetchSpecificationData();
+      }
+    } catch(error) {
+      console.error(error);
+    }
+  }
       // 검색기능에서 키값을 통해 건강보험인지 의료급여인지
       const handleMenuClick = (e) => {
         // eslint-disable-next-line eqeqeq
@@ -191,11 +252,6 @@ function Specsearch(props) {
     // 테이블 컬럼
     const searchColumns = [
         {
-          title: "no",
-          dataIndex: "no",
-          key: "no"
-        },
-        {
           title: "이름",
           dataIndex: "name",
           key: "name",
@@ -211,6 +267,11 @@ function Specsearch(props) {
           key: "status",
           dataIndex: "status",
         },
+        {
+          title: "삭제",
+          key: "delete",
+          dataIndex: "delete",
+        },
       ];
       
       const items = [
@@ -223,8 +284,6 @@ function Specsearch(props) {
           key: '2'
         }
       ];
-      useEffect(() => {
-      }, [billdiseaseData]);
       
       // 검색된 명세서를 클릭 시 환자 정보 테이블, 명세서 상병 정보, 처방 정보 테이블 관리
       const handleRowClick = async (record) => {
@@ -243,7 +302,7 @@ function Specsearch(props) {
              disease: <div className="ant-employed billdiseasetable" data-content={item.dname}>{item.dname}</div>, 
            }));
            setBilldiseaseData(diseasecareData1);
-
+           
             const userData1 = diseasecareDatas.data.patient
             setUserno(userData1.pno)
             // eslint-disable-next-line eqeqeq
@@ -258,8 +317,8 @@ function Specsearch(props) {
             key : i,
             no : <div key={item.tno}>{i+1}</div>,
             tcode : <div className="author-info">{item.tcode}</div>,
-            tname : <div>{item.tname}</div>,
-            tprice: <div>{item.tprice}</div>
+            tname : <div className="ant-employed billdiseasetable" data-content={item.tname}>{item.tname}</div>,
+            tprice: <div >{item.tprice}</div>
            }));
            setBillcareData(diseasecareData2);
           } catch(error){
@@ -277,15 +336,15 @@ function Specsearch(props) {
      
     return (
       <>
-        <Col span={6} className='Col1' style={{paddingRight: "0px"}}>
-          <Card style={{ width: '100%', height: '500px' }}>
+        <Col span={6.5} className='Col1' style={{paddingRight: "0px"}}>
+          <Card style={{ width: '100%', height: '100%' }}>
             <span className='span'>진료기간</span><RangePicker className='picker' picker="week" onChange={handleDateChange}></RangePicker><br/><br/>
             <div>
             </div>
             <span className='span'>보험유형</span><Dropdown.Button overlay={menu}>{insurance}</Dropdown.Button><br/><br/>
             <span className='span'>등록번호</span><Input placeholder="등록번호" style={{width: '70%'}} onChange={(e) => setPno(e.target.value)} /><br/><br/>
             <div style={{ display: 'flex', justifyContent: 'center' }}>
-              <Button type="primary" block style={{ width: "100%", margin: '0px 0px' }} onClick={handleSearch}>
+              <Button type="primary" ghost block style={{ width: "100%", margin: '0px 0px' }} onClick={handleSearch}>
                   조회
               </Button>
             </div>
@@ -302,7 +361,7 @@ function Specsearch(props) {
       </Col>
       
       <Col span={17} className='Col2'>
-      <Card style={{ width: '100%', height: '500px' }}>
+      <Card style={{ width: '98%', height: '100%' }}>
         <Specuser 
               userno={userno}
               gender={gender}

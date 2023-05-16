@@ -86,10 +86,10 @@ function Specbilldisease(props) {
         dataSource={props.billdiseaseData}
         pagination={false}
       /> 
-      <Button type="primary" size={'middle'} onClick={deletebutton}className='disease-btn'>
+      <Button danger ghost size={'middle'} onClick={deletebutton}className='disease-btn'>
             삭제
           </Button>
-      <Button type="primary" size={'middle'} onClick={diseaseModal} onCancel={props.diseasehandleCancel} className='disease-btn'>
+      <Button type="primary" ghost size={'middle'} onClick={diseaseModal} onCancel={props.diseasehandleCancel} className='disease-btn'>
             추가
           </Button>
       </Col>

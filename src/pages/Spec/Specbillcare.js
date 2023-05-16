@@ -9,7 +9,7 @@ function Specbillcare(props) {
     try {
       await axios.put(`/api/spec/${props.bno}`, {
         rno: props.rno,
-        status: "취소"
+        status: "미심사"
       }, {
         headers: {
           "Authorization": token,
@@ -17,7 +17,6 @@ function Specbillcare(props) {
         }
       });
       alert("심사가 취소 되었습니다.");
-      
       if (props.startDate && props.endDate && props.insurance && props.pno) {
         await props.handleSearch();
       } else {
@@ -87,13 +86,14 @@ function Specbillcare(props) {
                   dataSource={props.billcareData}
                   pagination={false}
                 />
-      <Button type="primary" size={'middle'} onClick={updateCancle} className='treatment-btn'>
-            취소
-          </Button>
-      <Button type="primary" size={'middle'} onClick={updateOk} className='treatment-btn'>
+                
+      <Button danger ghost size={'middle'} onClick={updateCancle} className='treatment-btn'>
+          취소
+        </Button>
+      <Button type="primary" ghost size={'middle'} onClick={updateOk} className='treatment-btn'>
             완료
           </Button>
-      <Button type="primary" size={'middle'} className='treatment-btn' onClick={showModal} onCancel={props.handleCancel}>
+      <Button type="primary" ghost size={'middle'} className='treatment-btn' onClick={showModal} onCancel={props.handleCancel}>
             처방내역
           </Button>
       
