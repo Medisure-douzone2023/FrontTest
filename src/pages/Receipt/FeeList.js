@@ -1,26 +1,13 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios'
 import {
-    Row,    // grid 나누기
-    Col,    // grid 나누기
     Card,   // 여러 테이블을 Card 느낌으로 임포트해서 구성할 것이다.
-    Radio,  // 
     Table,  // 테이블
-    Space,  // 버튼 둥글게(일단은 그 용도로.)
-    Input,  // 입력창
-    InputNumber, // 나이 입력창
     Button, // 버튼
-    Avatar,    // 검색해봐야함.
-    Segmented, // 전체,진료,수납 토글 용도.
-    Typography, // 검색해봐야함.
     Modal,
-    Form,
-    Descriptions// 환자상세, 기타 모달창에 쓰려고.
 } from "antd";
 // 아이콘 임포트 
-import { SearchOutlined, } from "@ant-design/icons";
 import '../../assets/styles/Receipt.css';
-import TextArea from 'antd/lib/input/TextArea';
 
 
 function FeeList(props) {
@@ -103,14 +90,12 @@ function FeeList(props) {
              fprice: feeData.fprice,
              totalprice : feeData.totalprice,
              fdate : null,
-
-            
         }, {
             headers: {
                 "Authorization": props.token
             }
         }).then(() => {
-            console.log("submitFeeData", feeData);
+            // console.log("submitFeeData", feeData);
         }).catch((error) => {
             console.log(error);
         })
@@ -126,13 +111,13 @@ function FeeList(props) {
             .then((response) => {
                 setFeeData(response.data.data);
                 
-               console.log("FeeData", feeData);
+              // console.log("FeeData", feeData);
             })
             .catch((error) => {
                 console.log(error);
             });
     }
- 
+
     return (
         <>
             {/* 수납모달 */}

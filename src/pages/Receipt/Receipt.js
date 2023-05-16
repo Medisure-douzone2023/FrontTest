@@ -43,10 +43,10 @@ function Receipt(props) {
     }) 
       .then((response) => {
         setFeeTableData(response.data.data);
-        console.log("feeTableData", response.data.data);
+        // console.log("feeTableData", response.data.data);
       })
       .catch((error) => {
-        console.log("feeTableData is here : ", feeTableData);
+        // console.log("feeTableData is here : ", feeTableData);
         console.log(error);
       });
   }
@@ -61,9 +61,9 @@ function Receipt(props) {
     fetchReceiptData(status);
   }, [status]);
  
-  // useEffect(() => {
-  //   setReceiptData(receiptData);
-  // }, [receiptData]);
+   useEffect(() => {
+     setReceiptData(receiptData);
+   }, [receiptData]);
  
  
   // 환자 상태에 따른, 접수 테이블 데이터 가져오기 
@@ -84,19 +84,12 @@ function Receipt(props) {
           return data.rdate= localDate;
         }) 
       setReceiptData(response.data.data);
-      console.log("receiptData", receiptData);
+      // console.log("receiptData", receiptData); 
       })
       .catch((error) => { 
         console.log(error);
       });
   };
-
-
-
-
-
-
-
 
 
   return (
@@ -122,6 +115,10 @@ function Receipt(props) {
           receiptData={receiptData}
           setReceiptData={setReceiptData}
           fetchReceiptData={fetchReceiptData}
+
+          fetchFeeTableData={fetchFeeTableData} 
+          feeTableData={feeTableData}
+
            />
         </Col>
  

@@ -1,8 +1,6 @@
 import { React, useState, useEffect, useRef } from 'react';
 import axios from 'axios'
 import {
-    Row,    // grid 나누기
-    Col,    // grid 나누기
     Card,   // 여러 테이블을 Card 느낌으로 임포트해서 구성할 것이다.
     Table,  // 테이블
     Space,  // 버튼 둥글게(일단은 그 용도로.)
@@ -12,14 +10,10 @@ import {
     Form,
     Radio,
     Select,
-    DatePicker,
-    InputNumber,
-
 } from "antd";
 import { SearchOutlined, } from "@ant-design/icons";
 import '../../assets/styles/Receipt.css';
 import TextArea from 'antd/lib/input/TextArea';
-import { useForm } from 'antd/lib/form/Form';
 
 
 function PatientSearch(props) {
@@ -162,7 +156,7 @@ function PatientSearch(props) {
                 alert("접수 되었습니다.")
                 textAreaRef.current.value = '';
                 setConditionModalVisible(false);
-                props.fetchFeeTableData(props.status);
+                props.fetchFeeTableData(props.status); 
             })
             .catch((error) => {
                 console.error("insertReceipt error: ", error);
@@ -237,7 +231,7 @@ function PatientSearch(props) {
         }).then(() => {
             newPatientForm.resetFields(); // input 박스 rest
         }).catch((error) => {
-            console.log("submitNewPatient error :", error);
+            console.log(error);
         })
     };
 
