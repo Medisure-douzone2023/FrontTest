@@ -72,7 +72,7 @@ function FeeList(props) {
     const updatePayData = () => {
         axios.put('/api/receipt/updatepay/' + feeData.rno, {}, {
             headers: {
-                "Authorization": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0IiwicG9zaXRpb24iOiJvZmZpY2UiLCJpYXQiOjE2ODM4NTM1ODEsImV4cCI6MTY4NDE1MzU4MX0.g_KIAtjrpejmzinNeV7qACDOwciWP66XYrvnddmug1U"
+                "Authorization": props.token
             },
         })
             .then(() => {

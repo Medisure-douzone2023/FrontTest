@@ -4,12 +4,13 @@
   box-shadow: 0 5px 10px -5px;
   margin: 10px;
   border-radius: 10px;
+  height: 820px;
 }
 .care h1 {
-  font-weight: 700;
-  font-size: 20px;
+  font-weight: 400;
+  font-size: 18px;
 }
-
+/* 진료 대기 환자 목록 */
 .patientList .ant-table-thead .ant-table-cell {
   background-color: #eff5ff;
 }
@@ -24,9 +25,22 @@
   height: 40px;
   margin-top: 5px;
 }
+/* 상병 */
+.diseaseSelect{
+  width: 100%;
+}
+.diseaseOption{
+  width: 100%;
+}
+
 .diseaseTable {
   margin-top: 10px;
   width: 100%;
+  table-layout: fixed;
+}
+.diseaseColumn.ant-table-cell{
+  white-space: normal; 
+  max-width: 100px; /* 최대 너비 지정 (원하는 글자수에 맞게 조정) */
 }
 
 .diseaseTable .ant-table-thead {
@@ -38,16 +52,45 @@
   text-align: center;
 }
 
-.diseaseTable .ant-table-cell.dmain .ant-radio-group.ant-radio-group-outline{
-  width: 10px;
+.dcode.ant-table-cell{
+  white-space: nowrap;
+  width: 30px;
 }
+.dmain.ant-table-cell{
+  white-space: nowrap;
+  width: 30px;
+}
+
+/* 처방*/
+.treatSelect {
+  width: 100%;
+}
+.treatOption {
+  width: 100%;
+}
+/*진료메모*/
+.careNote > textarea.ant-input.ant-input {
+  width: 100%;
+  height: 200px;
+}
+
 /* */
-.callPatient {
+button.callPatient {
   margin-top: 10px;
+  height: 42px;
 }
 
 /* 환자 정보 */
 .patientInfo {
   width: 100%;
-  font-size: 12px;
+  font-size: 10px;
+}
+
+.patientInfoTreatment {
+  white-space: pre-line
+}
+
+/* 진료 기록 */
+.patientCareInfo {
+  margin-top: 15px;
 }

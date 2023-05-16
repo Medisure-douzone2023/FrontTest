@@ -9,31 +9,25 @@ function PatientInfo({ patient }) {
   };
   return (
     <>
-      <Card className="patientInfo">
-        {patient.patientvo && (
-          <Descriptions title="환자 정보">
-            <Descriptions.Item label="이름">{patient.patientvo.pname}</Descriptions.Item>
-            <Descriptions.Item label="주민등록번호">
-              {patient.patientvo.birthdate}
-            </Descriptions.Item>
-            <br />
-            <Descriptions.Item label="성별">
-              {patient.patientvo.gender === "m" ? "남자" : "여자"}
-            </Descriptions.Item>
-            <Descriptions.Item label="나이">{patient.patientvo.age}</Descriptions.Item>
-            <br />
+      <Card className="patientInfo" hoverable="true" bordered layout="vertical">
+        <Descriptions title="환자 정보" >
+          {patient.patientvo ? (
+            <>
+            <Descriptions.Item label="이름" span={3}>{patient.patientvo.pname}</Descriptions.Item>
+            <Descriptions.Item label="주민등록번호" span={3}>{patient.patientvo.birthdate} ({patient.patientvo.age}세, {patient.patientvo.gender === "m" ? "남자" : "여자"})</Descriptions.Item>
             <Descriptions.Item label="보험유형">{patient.patientvo.insurance}</Descriptions.Item>
             <Descriptions.Item label="비고">{patient.patientvo.etc}</Descriptions.Item>
-          </Descriptions>
-        )}
+            </>
+            ) : <p>진료 중인 환자가 없습니다.</p>}
+        </Descriptions>
       </Card>
-      <h1>진료기록</h1>
-      <Collapse onChange={onChange} defaultActiveKey={0}>
+      <h1 className="patientCareInfo">진료기록</h1>
+      <Collapse onChange={onChange} defaultActiveKey={0} ghost>
         {patient &&
           patient.carevo &&
           patient.carevo.map((vo, index) => (
             <Panel header={vo.rdate} key={index}>
-              <Card>
+              <Card bordered="false"> 
                 <p>진료 메모: {vo.memo}</p>
                 <p>
                   처방 :
@@ -52,7 +46,7 @@ function PatientInfo({ patient }) {
                       )
                     )}
                 </p>
-                <p>
+                <p className="patientInfoTreatment">
                   상병 :
                   {patient.treatmentvo
                     .filter((treat) => vo.rno === treat.rno)

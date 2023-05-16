@@ -101,16 +101,12 @@ function PatientList(props) {
         dataSource={patient}
         columns={columns}
       />
-      <Space
-        direction="vertical"
-        style={{
-          width: "100%",
-        }}
-      >
-        <Button className="callPatient" block onClick={onButtonClick}>
+      <Button 
+        block
+        shape="round"
+        className="callPatient" onClick={onButtonClick}>
           환자 호출
-        </Button>
-      </Space>
+      </Button>
     </div>
   );
 }
