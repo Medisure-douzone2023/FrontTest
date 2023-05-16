@@ -32,13 +32,6 @@ function Receipt(props) {
   let token = props.token;
   
 
-
-
-
-
-
-
-
   const [feeTableData, setFeeTableData] = useState([]);
   // 수납 테이블 리스트 데이터 가져오는 함수
   const fetchFeeTableData = () => {
@@ -50,9 +43,10 @@ function Receipt(props) {
     }) 
       .then((response) => {
         setFeeTableData(response.data.data);
-       // console.log("feeTableData", response.data.data);
+        console.log("feeTableData", response.data.data);
       })
       .catch((error) => {
+        console.log("feeTableData is here : ", feeTableData);
         console.log(error);
       });
   }
@@ -79,12 +73,12 @@ function Receipt(props) {
           return data.rdate= localDate;
         }) 
         setReceiptData(response.data.data);
-      //  console.log("receiptData", receiptData);
+      console.log("receiptData", receiptData);
       })
       .catch((error) => { 
         console.log(error);
       });
-  };
+  };    
 
 
 
@@ -92,19 +86,16 @@ function Receipt(props) {
 
 
 
-
-
-
-
-
-  
   return (
     <>
 
       {/* 1행 검색창 및 환자 목록 리스트 */}
       <Row>
         <Col xs={14} sm={16} md={18} lg={20} xl={24}>
-          <PatientSearch token={token} />
+          <PatientSearch token={token} 
+          status={status}
+          receiptData={receiptData} 
+          fetchReceiptData={fetchReceiptData} />
         </Col>
       </Row>
 
@@ -124,8 +115,6 @@ function Receipt(props) {
           <FeeList token={token} 
           fetchFeeTableData={fetchFeeTableData} 
           feeTableData={feeTableData}
-          
-
           status={status}
           fetchReceiptData={fetchReceiptData}/>
         </Col>
