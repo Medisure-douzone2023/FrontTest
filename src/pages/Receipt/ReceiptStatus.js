@@ -1,12 +1,14 @@
 import { useState, useEffect } from 'react';
+import axios from 'axios';
 import {
   Card,   // 여러 테이블을 Card 느낌으로 임포트해서 구성할 것이다.
   Radio,  // 
   Table,  // 테이블
-
+  Button,
 } from "antd";
 // 아이콘 임포트  
 import '../../assets/styles/Receipt.css';
+import Q from 'q';
 
 
 function ReceiptStatus(props) {
@@ -43,9 +45,12 @@ function ReceiptStatus(props) {
       key: "pay"
     },
     { // 이부분 이렇게 하는게 의미가 없다. >>> 없는데 나중에 확인. (토글버튼 만들면서 확인.) key값, dataIndex값도 고치기.
-      title: "취소", 
+      title: "취소",  
       dataIndex: "cancel",
-      key: "cancel"
+      key: "cancel",
+      render: (text, record) => ( 
+        <Button type="primary" danger onClick={() => { cancelReceipt(record) }}>취소</Button>
+      )
     }
   ]
   const allColumn = [
@@ -83,14 +88,26 @@ function ReceiptStatus(props) {
   ]
 
   const onChange = (e) => props.setStatus(e.target.value);
-
-  
-
   const [currentReceiptPage, setCurrentReceiptPage] = useState(1);
   useEffect(() => {
     props.fetchReceiptData(props.status);
   }, [props.status]);
 
+  const cancelReceipt = (record)=> {
+    axios.delete(`/api/receipt/${record.rno}`, {
+      
+      headers: {
+          "Authorization": props.token
+      },
+  }) 
+      .then(() => {
+        alert("접수가 취소되었습니다");
+        props.fetchReceiptData(props.status);
+      })
+      .catch((error) => {
+          console.log(error);
+      });
+  } 
 
   return (
     <>
