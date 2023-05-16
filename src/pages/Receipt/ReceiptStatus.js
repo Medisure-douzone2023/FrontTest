@@ -89,9 +89,15 @@ function ReceiptStatus(props) {
 
   const onChange = (e) => props.setStatus(e.target.value);
   const [currentReceiptPage, setCurrentReceiptPage] = useState(1);
-  useEffect(() => {
-    props.fetchReceiptData(props.status);
-  }, [props.status]);
+  // useEffect(() => {
+  //   props.fetchReceiptData(props.status);
+  // }, [props.status]);
+
+  // useEffect(() => {
+  //   props.setReceiptData(props.receiptData);
+  // }, [props.receiptData]);
+
+
 
   const cancelReceipt = (record)=> {
     axios.delete(`/api/receipt/${record.rno}`, {
@@ -129,7 +135,8 @@ function ReceiptStatus(props) {
         <div>  
           <Table
             className="tablecss"
-            columns={props.status == "접수" ? receiptColumn : allColumn}
+            columns={props.status === "접수" ? receiptColumn : allColumn}
+            
             dataSource={props.receiptData}
             pagination={{
               pageSize: 5,

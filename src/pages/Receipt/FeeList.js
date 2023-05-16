@@ -72,7 +72,7 @@ function FeeList(props) {
     const updatePayData = () => {
         axios.put('/api/receipt/updatepay/' + feeData.rno, {}, {
             headers: {
-                "Authorization": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0IiwicG9zaXRpb24iOiJvZmZpY2UiLCJpYXQiOjE2ODM4NTM1ODEsImV4cCI6MTY4NDE1MzU4MX0.g_KIAtjrpejmzinNeV7qACDOwciWP66XYrvnddmug1U"
+                "Authorization": props.token
             },
         })
             .then(() => {
@@ -126,13 +126,13 @@ function FeeList(props) {
             .then((response) => {
                 setFeeData(response.data.data);
                 
-               // console.log("FeeData", feeData);
+               console.log("FeeData", feeData);
             })
             .catch((error) => {
                 console.log(error);
             });
     }
-
+ 
     return (
         <>
             {/* 수납모달 */}
@@ -147,7 +147,7 @@ function FeeList(props) {
                 <p> 접수 번호 : {feeData.rno}</p>
                 <p> 환자 정보 : </p>
                 <p> 총 가격 : {feeData.totalprice}</p>
-                <p> 처방내역 :</p>
+                <p> 처방내역 : </p>
                 <p> 가격 : {feeData.fprice}</p>
 
             </Modal>

@@ -55,9 +55,20 @@ function Receipt(props) {
 
   const [receiptData, setReceiptData] = useState([]);
   const [status, setStatus] = useState('전체');
+ 
+ 
+  useEffect(() => {
+    fetchReceiptData(status);
+  }, [status]);
+ 
+  // useEffect(() => {
+  //   setReceiptData(receiptData);
+  // }, [receiptData]);
+ 
+ 
   // 환자 상태에 따른, 접수 테이블 데이터 가져오기 
   const fetchReceiptData = (status) => {
-
+    setReceiptData([]);
     axios.get('/api/receipt/status', {
       headers: {
         "Authorization": props.token
@@ -72,13 +83,15 @@ function Receipt(props) {
           const localDate = date.toLocaleString().split(".")[3].slice(0, date.toLocaleString().split(".")[3].length-3);
           return data.rdate= localDate;
         }) 
-        setReceiptData(response.data.data);
+      setReceiptData(response.data.data);
       console.log("receiptData", receiptData);
       })
       .catch((error) => { 
         console.log(error);
       });
-  };    
+  };
+
+
 
 
 
@@ -107,6 +120,7 @@ function Receipt(props) {
           status={status}
           setStatus={setStatus}
           receiptData={receiptData}
+          setReceiptData={setReceiptData}
           fetchReceiptData={fetchReceiptData}
            />
         </Col>
