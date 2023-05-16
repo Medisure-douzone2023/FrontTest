@@ -51,6 +51,7 @@ function Care(props) {
     }
     fetchPatientInfo(response.data.data[0].pno);
     setRno(response.data.data[0].rno);
+    setIsVisited(response.data.data[0].visit);
   }
   useEffect(() => {
     fetchPatientInfo(pno);
