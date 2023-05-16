@@ -248,9 +248,9 @@ function CareNote(props) {
     <>
       <h1>상병</h1>
       <Select
+        className="diseaseSelect"
         notFoundContent={null}
         mode="multiple"
-        style={{ width: "100%" }}
         optionLabelProp="label"
         placeholder="상병 검색"
         placement="bottomLeft"
@@ -265,10 +265,10 @@ function CareNote(props) {
         {options !== [] &&
           options.map((option, index) => (
             <Option
+              className="diseaseOption"
               value={option.gcode}
               label={option.codename}
               key={index}
-              style={{ width: "100%" }}
             >
               <Space>
                 <span aria-label={option.gcode}>{option.gcode}</span>
@@ -279,6 +279,7 @@ function CareNote(props) {
       </Select>
       <Table className="diseaseTable" rowKey="rno" pagination={false} dataSource={selectDD}>
         <Column
+          className="dmain"
           title="주/부"
           key="main"
           dataIndex="dmain"
@@ -293,15 +294,15 @@ function CareNote(props) {
             </Radio.Group>
           )}
         />
-        <Column title="코드명" dataIndex="dcode" key="dcode" />
-        <Column title="상병이름" dataIndex="dname" key="dname" />
+        <Column className="dcode" title="코드명" dataIndex="dcode" key="dcode" />
+        <Column title="상병이름" dataIndex="dname" key="dname" className="diseaseColumn" />
       </Table>
 
       <h1>처방</h1>
       <Select
+        className="treatSelect"
         notFoundContent={null} //옵션 비어있으면 내용 표시 안함
-        mode="multiple"
-        style={{ width: "100%" }} //multiple: 여러 옵션 표시
+        mode="multiple"        //multiple: 여러 옵션 표시
         optionLabelProp="value"
         placeholder="처방 검색" //옵션 렌더링시 option.label을 레이블로 사용
         placement="bottomLeft"
@@ -315,10 +316,10 @@ function CareNote(props) {
         {treats !== [] &&
           treats.map((treat, index) => (
             <Option
+              className="treatOption"
               value={treat.codename}
               label={treat.gcode}
               key={index}
-              style={{ width: "100%" }}
               data={treat}
             >
               <Space>
@@ -330,16 +331,16 @@ function CareNote(props) {
       </Select>
       <h1>진료메모</h1>
       <TextArea
+        className="careNote"
         showCount
         maxLength={100}
         onChange={onMemoChange}
-        style={{ width: "100%", height: "200px" }}
         value={memo}
       />
-      <Button className="careDone" type="primary" ghost onClick={onButtonClick}>
+      <Button className="careDone" type="primary" ghost shape="round" onClick={onButtonClick}>
         진료 완료
       </Button>
-      <Button className="careCancel" danger onClick={onClickCancel}>
+      <Button className="careCancel" danger shape="round" onClick={onClickCancel}>
         진료 취소
       </Button>
     </>

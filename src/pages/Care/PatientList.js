@@ -32,22 +32,26 @@ function PatientList(props) {
   };
 
   const onButtonClick = async () => {
+    if(patient.length > 1){
+      alert('진료 중인 환자가 있습니다. 진료완료/취소 후 환자를 선택해주세요');
+    }
     if (selectedRowKeys && selectedRowKeys.length !== 0) {
       if (selectedRowKeys.length === 1) {
+        console.log('환자호출 patient:.', patient);
         if (window.confirm("환자 호출하기")) {
           alert("환자 호출");
-          const response = await fetch(`/api/receipt/${selectedRowKeys}/진료중`, {
-            method: "put",
+          const response = await axios({
+            method: 'PUT',
+            url: `/api/receipt/${selectedRowKeys}/진료중`,
             headers: {
               Authorization: token,
-              Accept: "application/json",
-            },
+              Accept: "application/json"
+            }
           });
-          const json = await response.json();
-          if (json.result !== "success") {
-            throw new Error(`${json.result} ${json.message}`);
+          if (response.data.result !== "success") {
+            throw new Error(`${response.data.result} ${response.message}`);
           }
-          const newPatient = patient.filter((p) => p.rno !== json.data);
+          const newPatient = patient.filter((p) => p.rno !== response.data);
           setPatient(newPatient);
           console.log("newPatient: ", newPatient);
           //진료중인 환자 상태 관리 만들어서 json.data 로 변경하고 데이터 가져오기~~
@@ -62,7 +66,7 @@ function PatientList(props) {
           alert("환자 호출 취소");
         }
       } else {
-        alert("환자 한 명만 선택");
+        alert("환자를 한 명만 선택하세요");
       }
     } else {
       alert("진료하실 환자를 선택하세요");
@@ -97,16 +101,12 @@ function PatientList(props) {
         dataSource={patient}
         columns={columns}
       />
-      <Space
-        direction="vertical"
-        style={{
-          width: "100%",
-        }}
-      >
-        <Button className="callPatient" block onClick={onButtonClick}>
+      <Button 
+        block
+        shape="round"
+        className="callPatient" onClick={onButtonClick}>
           환자 호출
-        </Button>
-      </Space>
+      </Button>
     </div>
   );
 }
