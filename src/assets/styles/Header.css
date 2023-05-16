@@ -1,34 +1,53 @@
+/* header css*/
+.layout-dashboard .ant-layout-header {
+  padding: 16px;
+  margin: 10px;
+  background: white;
+  height: auto;
+  box-shadow: 0 5px 5px -3px gainsboro;
+  border-radius: 12px;
+  line-height: inherit; /* 줄높이: 부모의 속성값을 상속*/
+  transition: 0.2s;
+}
 .layout-dashboard .header-control {
   display: flex;
   flex-direction: row-reverse;
   align-items: center;
-  margin-top: 10px;
 }
+/* 사용자 안녕하세요 */
+.layout-dashboard .header-control .headerUser {
+  margin-right: 10px;
+  font-weight: 600;
+}
+/* logout */
 .layout-dashboard .header-control .btn-sign-in {
   height: auto;
   padding: 0 7px;
-  margin: 0;
-  box-shadow: none;
   color: #8c8c8c;
+  text-align: center;
+  display: table;
 }
+/* 로그아웃 아이콘 */
 .layout-dashboard .header-control .btn-sign-in svg {
-  margin: auto;
+  margin-right: 5px;
 }
-.layout-dashboard .header-control svg {
-  width: 20px;
-  height: 20px;
+/* 로그아웃 아이콘 색상*/
+.layout-dashboard .header-control .btn-sign-in svg path {
+  fill: #8c8c8c;
+}
+/* 로그아웃 span*/
+.layout-dashboard .header-control .btn-sign-in span {
+  margin-right: 10px;
+  font-weight: 600;
+  vertical-align: middle;
+  display: table-cell;
 }
 .layout-dashboard .header-control svg path {
   fill: #141414;
 }
-.layout-dashboard .header-control .btn-sign-in span {
-  margin-right: 10px;
-  font-weight: 600;
-  vertical-align: center;
-  display: none;
-}
-.layout-dashboard .header-control .btn-sign-in span {
-  display: inline;
+.layout-dashboard .header-control svg {
+  width: 25px;
+  height: 25px;
 }
 
 /* 드롭다운, 종모양 */
@@ -132,15 +151,6 @@
 .layout-dashboard .ant-layout-sider.sider-primary .ant-menu-item a:hover,
 .layout-dashboard .ant-layout-sider.sider-primary .ant-menu-submenu a:hover {
   color: #141414;
-}
-.layout-dashboard .ant-layout-header {
-  background: transparent;
-  height: auto;
-  padding: 16px;
-  margin: 10px 4px;
-  line-height: inherit;
-  border-radius: 12px;
-  transition: 0.2s;
 }
 
 .ant-dropdown-menu.ant-dropdown-menu-split.header-notifications-dropdown
