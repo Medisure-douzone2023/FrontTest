@@ -1,88 +1,110 @@
-.sign-in {
-  padding: 0 20px;
-}
-.layout-default .ant-layout-content {
-  padding-top: 40px;
-}
-.font-regular {
-  font-weight: 400;
-}
-.signin h1 {
-  font-size: 60px;
-  font-weight: 700;
-  color: #141414;
-}
-h1.ant-typography {
-  font-size: 60px !important;
-  font-weight: 700 !important;
-  color: #141414 !important;
+.ant-layout .container {
+  position: relative;
+  min-height: 100vh;
+  overflow: hidden;
 }
 
-.signin h5 {
-  font-weight: 400;
-  color: #8c8c8c;
-  font-size: 20px;
-  white-space: normal;
-}
-.ant-row.ant-form-item.username {
-  display: block;
+.container .row {
+  display: flex;
+  flex-wrap: wrap;
+  height: 100vh;
 }
 
-.ant-row.ant-form-item.username
-  .ant-col.ant-form-item-label
-  .ant-form-item-required:before {
-  display: none;
-}
-
-.ant-row.ant-form-item.username .ant-col.ant-form-item-label {
-  font-size: 13px;
-  font-weight: 600;
-  color: #141414;
-}
-.signin .ant-form-item-control-input button.ant-switch {
-  margin-right: 5px;
-}
-.text-dark {
-  color: #141414;
-}
-.sign-img img {
+/* h2, form 위치*/
+.container .flex-col {
   width: 100%;
-  max-width: 500px;
-  margin: auto;
-  display: block;
 }
-.layout-signin {
-  background: #fff;
-}
-.layout-signin footer.ant-layout-footer svg {
-  width: 18px;
-  height: 18px;
+.align-items-center.col {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
 }
 
-.layout-signin footer.ant-layout-footer ul li:after {
-  display: none;
-}
-.layout-default .ant-layout-footer .copyright {
-  font-size: 16px;
-  color: #8c8c8c;
-}
-
-.row-col .ant-row {
-  margin-left: 0px;
-  margin-right: 0px;
-}
-.layout-default.ant-layout.layout-sign-up .header-col.header-brand h5 {
-  color: #fff;
+/* form css*/
+.align-items-center .form-wrapper {
+  width: 100%;
+  max-width: 28rem;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  border-radius: 1.5rem;
+  margin: 2rem 0;
+  padding: 1rem;
+  transform: translateX(100%);
+  background-color: #ffffff;
 }
 
-.layout-default.ant-layout.layout-sign-up .header-col.header-nav a {
-  color: #fff;
+/* input css */
+.sign-in .input-group {
+  position: relative;
+  width: 100%;
+  margin: 1rem 0;
 }
 
-.layout-default.ant-layout.layout-sign-up
-  .header-col.header-nav
-  svg
-  path.fill-muted {
-  fill: #fff;
+.sign-in .input-group input {
+  width: 100%;
+  padding: 1rem 3rem;
+  font-size: 1rem;
+  background-color: #efefef;
+  border-radius: 0.5rem;
+  border: 0.125rem solid #ffffff;
+  outline: none;
 }
-/* sign in end */
+.sign-in .input-group input:focus {
+  border: 0.125rem solid #0051c6;
+}
+
+/* form 버튼 css*/
+.sign-in.form button {
+  cursor: pointer;
+  width: 100%;
+  padding: 0.6rem 0;
+  border-radius: 0.5rem;
+  border: none;
+  background-color: #0051c6;
+  color: #ffffff;
+  font-size: 1.2rem;
+  outline: none;
+}
+
+.row .flex-col {
+  flex-direction: column;
+}
+
+.pointer {
+  cursor: pointer;
+}
+
+/* h2 css*/
+.container .content-row.row {
+  position: absolute;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  z-index: 6;
+  width: 100%;
+}
+.container .sign-in.text h2 {
+  font-size: 3.5rem;
+  font-weight: 800;
+  margin: 2rem 0;
+  transition: 1s ease-in-out;
+  color: #ffffff;
+  transform: translateX(-200%);
+}
+
+/* BACKGROUND */
+.ant-layout .container::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  height: 100vh;
+  width: 100vw;
+  transform: translate(-45%, 0);
+  background-image: linear-gradient(-45deg, #0051c6 0%, #0051c6 100%);
+  transition: 1s ease-in-out;
+  z-index: 6;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  border-bottom-right-radius: max(50vw, 50vh);
+  border-top-left-radius: max(50vw, 50vh);
+}

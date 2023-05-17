@@ -1,10 +1,10 @@
 .care {
   padding: 30px;
   background-color: white;
-  box-shadow: 0 5px 10px -5px;
+  box-shadow: 0 5px 5px -3px gainsboro;
   margin: 10px;
   border-radius: 10px;
-  height: 820px;
+  height: auto;
 }
 .care h1 {
   font-weight: 400;
@@ -26,10 +26,10 @@
   margin-top: 5px;
 }
 /* 상병 */
-.diseaseSelect{
+.diseaseSelect {
   width: 100%;
 }
-.diseaseOption{
+.diseaseOption {
   width: 100%;
 }
 
@@ -38,8 +38,8 @@
   width: 100%;
   table-layout: fixed;
 }
-.diseaseColumn.ant-table-cell{
-  white-space: normal; 
+.diseaseColumn.ant-table-cell {
+  white-space: normal;
   max-width: 100px; /* 최대 너비 지정 (원하는 글자수에 맞게 조정) */
 }
 
@@ -52,11 +52,11 @@
   text-align: center;
 }
 
-.dcode.ant-table-cell{
+.dcode.ant-table-cell {
   white-space: nowrap;
   width: 30px;
 }
-.dmain.ant-table-cell{
+.dmain.ant-table-cell {
   white-space: nowrap;
   width: 30px;
 }
@@ -87,7 +87,7 @@ button.callPatient {
 }
 
 .patientInfoTreatment {
-  white-space: pre-line
+  white-space: pre-line;
 }
 
 /* 진료 기록 */
