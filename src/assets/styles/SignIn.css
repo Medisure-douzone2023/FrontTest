@@ -16,7 +16,7 @@
   align-items: center;
   justify-content: center;
   text-align: center;
-} 
+}
 
 /* form css*/
 /* .align-items-center .form-wrapper {
@@ -31,33 +31,33 @@
 } */
 
 .align-items-center {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  width: 100%;
 }
 .form-wrapper {
-    width: 100%;
-    max-width: 28rem;
-    border-radius: 1.5rem;
-    transform: translateX(200%);
-    padding: 0rem;
+  width: 100%;
+  max-width: 28rem;
+  border-radius: 1.5rem;
+  transform: translateX(200%);
+  padding: 0rem;
 }
 .form {
-    padding: 1rem;
-    background-color: var(--white);
-    border-radius: 1.5rem;
-    width: 100%;
-    max-width: 28rem;
-    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-    transform: scale(0);
-    transition: .5s ease-in-out;
-    transition-delay: 1s;
+  padding: 1rem;
+  background-color: var(--white);
+  border-radius: 1.5rem;
+  width: 100%;
+  max-width: 28rem;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  transform: scale(0);
+  transition: 0.5s ease-in-out;
+  transition-delay: 1s;
 }
 
-.container.sign-in .form.sign-in{
-    transform: scale(1);
+.container.sign-in .form.sign-in {
+  transform: scale(1);
 }
 
 /* input css */
@@ -66,9 +66,13 @@
   width: 100%;
   margin: 1rem 0;
 }
+.ant-form-item-row {
+  margin: 30px 20px;
+}
 
-.sign-in .input-group input {
+.sign-in.form .input-group input {
   width: 100%;
+  height: 50px;
   padding: 1rem 3rem;
   font-size: 1rem;
   background-color: #efefef;
@@ -84,6 +88,7 @@
 .sign-in.form button {
   cursor: pointer;
   width: 100%;
+  height: 50px;
   padding: 0.6rem 0;
   border-radius: 0.5rem;
   border: none;
@@ -120,87 +125,83 @@
 }
 
 :root {
-    --primary-color: #0051c6;
-    --secondary-color: #0051c6;
-    --black: #000000;
-    --white: #ffffff;
-    --gray: #efefef;
-    --gray-2: #757575;
+  --primary-color: #0051c6;
+  --secondary-color: #0051c6;
+  --black: #000000;
+  --white: #ffffff;
+  --gray: #efefef;
+  --gray-2: #757575;
 
-    --facebook-color: #4267B2;
-    --google-color: #DB4437;
-    --twitter-color: #1DA1F2;
-    --insta-color: #E1306C;
+  --facebook-color: #4267b2;
+  --google-color: #db4437;
+  --twitter-color: #1da1f2;
+  --insta-color: #e1306c;
 }
 
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600&display=swap");
 
-* {
-    font-family: 'Poppins', sans-serif;
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+.container {
+  font-family: "Poppins", sans-serif;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 .col {
-    width: 50%;
+  width: 50%;
 }
 
 .content-row {
-    position: absolute;
-    top: 0;
-    left: 0;
-    pointer-events: none;
-    z-index: 6;
-    width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  z-index: 6;
+  width: 100%;
 }
 
 .container.sign-in .text.sign-in h2,
 .container.sign-in .text.sign-in p,
-.container.sign-in .img.sign-in img,
-.container.sign-up .text.sign-up h2,
-.container.sign-up .text.sign-up p,
-.container.sign-up .img.sign-up img {
-    transform: translateX(0);
+.container.sign-in .img.sign-in img {
+  transform: translateX(0);
 }
 
 /* BACKGROUND */
 
 .container::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    right: 0;
-    height: 100vh;
-    width: 300vw;
-    transform: translate(35%, 0);
-    background-image: linear-gradient(-45deg, var(--primary-color) 0%, var(--secondary-color) 100%);
-    transition: 1s ease-in-out;
-    z-index: 6;
-    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-    border-bottom-right-radius: max(50vw, 50vh);
-    border-top-left-radius: max(50vw, 50vh);
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  height: 100vh;
+  width: 300vw;
+  transform: translate(35%, 0);
+  background-image: linear-gradient(-45deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+  transition: 1s ease-in-out;
+  z-index: 6;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  border-bottom-right-radius: max(50vw, 40vh);
+  border-top-left-radius: max(50vw, 50vh);
 }
 
 .container.sign-in::before {
-    transform: translate(0, 0);
-    right: 50%;
+  transform: translate(0, 0);
+  right: 50%;
 }
 
 /* RESPONSIVE */
 @media only screen and (max-width: 425px) {
+  .container::before,
+  .container.sign-in::before {
+    height: 100vh;
+    border-bottom-right-radius: 0;
+    border-top-left-radius: 0;
+    z-index: 0;
+    transform: none;
+    right: 0;
+  }
 
-    .container::before,
-    .container.sign-in::before{
-        height: 100vh;
-        border-bottom-right-radius: 0;
-        border-top-left-radius: 0;
-        z-index: 0;
-        transform: none;
-        right: 0;
-    }
-
-    .container.sign-in .col.sign-in{
-        transform: translateY(0);
-    }
+  .container.sign-in .col.sign-in {
+    transform: translateY(0);
+  }
 }

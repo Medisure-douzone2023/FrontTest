@@ -2,17 +2,29 @@
   padding: 30px;
   background-color: white;
   box-shadow: 0 5px 5px -3px gainsboro;
-  margin: 10px;
   border-radius: 10px;
+  margin: 10px;
   height: auto;
 }
 .care h1 {
   font-weight: 400;
   font-size: 18px;
 }
+
+.patientList {
+  table-layout: fixed;
+  white-space: pre-line;
+}
+.patientList td.ant-table-selection-column {
+  width: 20px;
+}
+.patientList .ant-table-selection-column .ant-table-cell {
+  width: 20px;
+}
 /* 진료 대기 환자 목록 */
 .patientList .ant-table-thead .ant-table-cell {
-  background-color: #eff5ff;
+  background-color: #5996f8;
+  color: white;
 }
 
 .careDone.ant-btn-background-ghost.ant-btn-primary {
@@ -25,6 +37,7 @@
   height: 40px;
   margin-top: 5px;
 }
+
 /* 상병 */
 .diseaseSelect {
   width: 100%;
@@ -39,28 +52,20 @@
   table-layout: fixed;
 }
 .diseaseColumn.ant-table-cell {
-  white-space: normal;
+  white-space: nowrap;
+  overflow: hidden; /* 넘치는 부분 숨김 */
+  text-overflow: ellipsis; /* 넘칠 경우 "..."으로 표시 */
   max-width: 100px; /* 최대 너비 지정 (원하는 글자수에 맞게 조정) */
 }
 
-.diseaseTable .ant-table-thead {
-  height: 20px;
-}
 .diseaseTable .ant-table-thead .ant-table-cell {
-  background-color: #eff5ff;
-  font-weight: 600;
-  text-align: center;
+  background-color: #5996f8;
+  color: white;
 }
-
-.dcode.ant-table-cell {
-  white-space: nowrap;
+.diseaseTable .ant-table-placeholder,
+.diseaseTable .ant-table-row-level-0.ant-table-row {
   width: 30px;
 }
-.dmain.ant-table-cell {
-  white-space: nowrap;
-  width: 30px;
-}
-
 /* 처방*/
 .treatSelect {
   width: 100%;
@@ -91,6 +96,7 @@ button.callPatient {
 }
 
 /* 진료 기록 */
-.patientCareInfo {
+.patientCareInfo,
+.careNoteText {
   margin-top: 15px;
 }
