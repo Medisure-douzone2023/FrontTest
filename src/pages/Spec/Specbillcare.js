@@ -59,32 +59,37 @@ function Specbillcare(props) {
     {
       title: "no",
       dataIndex: "no",
-      key: "no"
+      key: "no",
+      align: "center",
     },
     {
       title: "처방코드",
       dataIndex: "tcode",
       key: "tcode",
+      align: "center",
     },
   
     {
       title: "처방명",
       key: "tname",
       dataIndex: "tname",
+      align: "center",
     },
     {
       title: "처방금액",
       key: "tprice",
       dataIndex: "tprice",
+      align: "center",
     },
   ];
     return (
         <>
-        <Col span={12}>선택 명세서의 처방 정보
+        <Col span={12} className='spectitle'>선택 명세서의 처방 정보
         <Table
                   columns={billcareColumns}
                   dataSource={props.billcareData}
                   pagination={false}
+                  className='spectable'
                 />
                 
       <Button danger ghost size={'middle'} onClick={updateCancle} className='treatment-btn'>
