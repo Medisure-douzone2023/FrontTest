@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Button, Table, DatePicker, Space, Select, Row, Col } from 'antd';
+import { Button, Table, DatePicker, Space, Select, Row, Col, Card } from 'antd';
 import axios from 'axios'
 
 function Bill(props) {
@@ -167,6 +167,7 @@ function Bill(props) {
   return (
     <div>
       <br />
+      <Card style={{ width: '100%' }}>
       <h4>청구서 검색</h4>
       <br />
       <Row>
@@ -211,6 +212,7 @@ function Bill(props) {
       <Table rowSelection={rowSelection} columns={columns} dataSource={data} />
       <Button type="primary" ghost onClick={send} disabled={checkButtonDisabled('미송신')}> 송신 변환 </Button>
       <Button danger onClick={cancel} disabled={checkButtonDisabled('변환')}>송신 취소</Button>
+      </Card>
     </div>
   );
 }

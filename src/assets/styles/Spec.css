@@ -1,3 +1,6 @@
+body {
+  font-family: 'Noto Sans KR', sans-serif;
+}
 .Col1 {
     padding-left: 3px;
     padding-top: 40px;
@@ -30,28 +33,35 @@
 }
 
 .ant-border-space{
+  font-family: 'Noto Sans KR', sans-serif;
     width: 90%;
     text-align: center;
+    margin-top: 20px;
 }
 .ant-border-spac-billdisease{
+  font-family: 'Noto Sans KR', sans-serif;
     width: 90%;
     text-align: center;
 }
 .ant-border-spac-bill{
+  font-family: 'Noto Sans KR', sans-serif;
     width: 100%;
     text-align: center;
 }
 .description{
+  font-family: 'Noto Sans KR', sans-serif;
     border: 1px solid;
     background-color: white;
     padding: 15px;
     text-align: center;
 }
 .span{
+  
     margin-right: 15px;
 }
 
 .disease-btn{
+  
     margin-right: 30px;
     margin-top: 20px;
     float: right;
@@ -98,4 +108,47 @@
 
   .ant-modal-content{
     width: 1000px;
+  }
+
+  .ant-employed {
+    white-space: nowrap; /* 텍스트 줄바꿈 방지 */
+    overflow: hidden; /* 넘치는 부분 숨김 */
+    text-overflow: ellipsis; /* 넘칠 경우 "..."으로 표시 */
+    max-width: 100px; /* 최대 너비 지정 (원하는 글자수에 맞게 조정) */
+  }
+
+  .ant-employed:hover::after {
+    content: attr(data-content); /* 말풍선 내용 설정 */
+    position: absolute; /* 절대적인 위치 설정 */
+    top: -20px; /* 말풍선 상단 위치 조정 */
+    left: 0; /* 말풍선 좌측 위치 조정 */
+    background-color: #f9f9f9; /* 말풍선 배경색 설정 */
+    padding: 5px; /* 말풍선 여백 설정 */
+    border: 1px solid #ddd; /* 말풍선 테두리 설정 */
+    border-radius: 4px; /* 말풍선 테두리 둥글기 설정 */
+    font-size: 12px; /* 말풍선 텍스트 크기 설정 */
+    white-space: nowrap; /* 텍스트 줄바꿈 방지 */
+    z-index: 9999; /* 말풍선의 쌓임 순서 지정 */
+  }
+
+.custom-descriptions{
+    border-radius: 12px;
+}
+.custom-descriptions .ant-descriptions-title {
+    font-size: 18px;
+    font-weight: bold;
+    color: #333;
+    text-align: center;
+    margin-bottom: 16px;
+  }
+  
+.custom-descriptions .ant-descriptions-item-label {
+    border-radius: 12px;
+    background-color: #f5f5f5;
+    padding: 8px;
+  }
+  
+  .custom-descriptions .ant-descriptions-item-content {
+    border-radius: 12px;
+    padding: 8px;
   }

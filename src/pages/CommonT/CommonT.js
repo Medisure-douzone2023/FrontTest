@@ -1,12 +1,9 @@
-import { Table, Space, Button, Select, Row, Col, Form, Input, Modal, Typography, Popconfirm } from "antd";
+import { Table, Space, Button, Select, Row, Col, Form, Input, Typography, Popconfirm } from "antd";
 import axios from 'axios'
 import { useEffect, useState } from "react";
+import CommonInsert from "./CommonInsert";
 
 function CommonT(props) {
-  const layout = {
-    labelCol: { span: 2 },
-    wrapperCol: { offset: 1, span: 20 },
-  };
 
   useEffect(() => {
     search();
@@ -170,44 +167,12 @@ function CommonT(props) {
         });
     }
   }
+  
   const [isModalOpen, setIsModalOpen] = useState(false);
   const showModal = () => {
     setIsModalOpen(true);
   };
 
-  const [insertKey, setInsertKey] = useState(null);
-  const [insertGcode, setInsertGcode] = useState('');
-  const [insertCodename, setInsertCodename] = useState('');
-  const [insertPrice, setInsertPrice] = useState('');
-
-  const handleOk = () => {
-    setIsModalOpen(false);
-
-    const insertParameters = { gkey: insertKey.value, keyname: insertKey.label, gcode: insertGcode, codename: insertCodename, price: insertPrice }
-    setDataSource([insertParameters, ...dataSource])
-    axios.post("/api/common", insertParameters, {
-      headers: {
-        "Authorization": token,
-      },
-    })
-      .then((response) => {
-        alert("공통코드 생성이 완료되었습니다.")
-        clearInputs()
-      }).catch((e) => {
-        console.log("error", e);
-        alert("올바르지 않은 요청입니다. 다시 시도해 주시기 바랍니다.");
-      });
-  };
-  const handleCancel = () => {
-    setIsModalOpen(false);
-  };
-
-  const clearInputs = () => {
-    setInsertKey(null)
-    setInsertGcode("");
-    setInsertCodename("");
-    setInsertPrice("");
-  }
   const [form] = Form.useForm();
   const [editingKey, setEditingKey] = useState('');
   const isEditing = (record) => record.key === editingKey;
@@ -290,27 +255,7 @@ function CommonT(props) {
             <Input placeholder="코드명을 입력해주세요" onChange={(e) => { setCodename(e.target.value) }} />
             <Button type="primary" ghost onClick={search}>검색</Button>
             <Button type="primary" onClick={showModal}>신규등록</Button>
-            <Modal title="신규등록" visible={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
-              <Form  {...layout}>
-              <Form.Item label="Select" rules={[{ required: true }]}>
-                <Select size={size} placeholder="구분명을 선택하여주세요" onChange={(label, value) => { setInsertKey(value) }}
-                  style={{ width: '100%' }}
-                  options={options.filter(option => option.value !== null)}
-                  value={insertKey}>
-                  <Select.Option value="demo">Demo</Select.Option>
-                </Select>
-              </Form.Item>
-              <Form.Item label="공통코드" rules={[{ required: true }]}>
-                <Input placeholder="공통코드를 입력해주세요" value={insertGcode} onChange={(e) => { setInsertGcode(e.target.value) }} />
-              </Form.Item>
-              <Form.Item label="구분명" rules={[{ required: true }]}>
-                <Input placeholder="구분명을 입력해주세요" value={insertCodename} onChange={(e) => { setInsertCodename(e.target.value) }} />
-              </Form.Item>
-              <Form.Item label="금액" rules={[{ required: true }]}>
-                <Input placeholder="금액을 입력해주세요" value={insertPrice} onChange={(e) => { setInsertPrice(e.target.value) }} />
-              </Form.Item>
-              </Form>
-            </Modal>
+            <CommonInsert token={token} isModalOpen = {isModalOpen} setIsModalOpen = {setIsModalOpen} options = {options}dataSource={dataSource} setDataSource={setDataSource} />
           </Space>
         </Col>
       </Row>
@@ -337,6 +282,7 @@ function CommonT(props) {
           }} bordered rowSelection={rowSelection} rowClassName="editable-row" pagination={{
             onChange: cancel,
           }} columns={mergedColumns} dataSource={dataSource} />
+          
         </Form>
       </div>
       <Button type="primary" ghost onClick={deleteCode} disabled={!hasSelected}>삭제</Button>
