@@ -17,14 +17,7 @@ import TextArea from 'antd/lib/input/TextArea';
 
 
 function PatientSearch(props) {
-
-
-
-
-
-
-
-
+    
     const [pname, setPname] = useState([]);
     const [patientData, setPatientData] = useState([]); // 환자 이름으로 검색한 데이터.
 
@@ -93,20 +86,17 @@ function PatientSearch(props) {
             title: "비고",
             key: "etc",
             dataIndex: "etc",
+            ellipsis: true,
         },
         {
             title: "접수",
             key: "receipt",
             dataIndex: "receipt",
             render: (text, record) => (
-                <Button type="primary" onClick={() => { setConditionModalVisible(true); }}>접 수</Button>
+                <Button type="primary" ghost onClick={() => { setConditionModalVisible(true); }}>접 수</Button>
             ),
         }
     ];
-
-
-
-
     // 초/재진 여부 관련
     const [visitData, setVisitData] = useState({});
 
@@ -259,11 +249,11 @@ function PatientSearch(props) {
             />
             <Space>
                 {/*환자 검색 버튼*/}
-                <Button type="primary" onClick={() => { fetchPatientData(); }}>
+                <Button type="primary" ghost onClick={() => { fetchPatientData(); }}>
                     검 색
                 </Button>
                 {/* 신규환자등록 버튼 */}
-                <Button type="primary" danger onClick={() => { showModalNewPatient(); }}>
+                <Button danger onClick={() => { showModalNewPatient(); }}>
                     신규 환자 등록
                 </Button>
                 <Modal
@@ -307,12 +297,13 @@ function PatientSearch(props) {
                         <Form.Item name="etc" label="비고" >
                             <TextArea rows={3} />
                         </Form.Item>
-                        <Form.Item shouldUpdate>
+                        <Form.Item shouldUpdate> 
                             {() => (
                                 <Button
                                     onClick={newpatientHandleOk}
-                                    type="primary"  
-                                    danger
+                                    shape="circle"
+                                    type="primary" ghost
+                                    
                                     htmlType="submit"
                                     disabled={
                                         !newPatientForm.isFieldsTouched(true) ||
@@ -355,7 +346,9 @@ function PatientSearch(props) {
                         })}
                     >
                     </Table>
-                    {selectedPatientRow && (
+                    
+                </div>
+                {selectedPatientRow && (
                         <Modal
                             visible={patientModalVisible}
                             onCancel={() => setPatientModalVisible(false)}
@@ -371,7 +364,6 @@ function PatientSearch(props) {
                             <p>비고: {selectedPatientRow.etc}</p>
                         </Modal>
                     )}
-                </div>
             </Card>
 
             {/* 환자 증상 모달 */}
@@ -379,8 +371,8 @@ function PatientSearch(props) {
                 visible={conditionModalVisible}
                 onCancel={() => setConditionModalVisible(false)}
                 footer={[
-                    <Button type="primary" danger onClick={fetchVisitData}> 접수 하기 </Button>,
-                    <Button onClick={() => { setConditionModalVisible(false); textAreaRef.current.value = '' }}> 취소 </Button>
+                    <Button type="primary" ghost onClick={fetchVisitData}> 접수 하기 </Button>,
+                    <Button danger onClick={() => { setConditionModalVisible(false); textAreaRef.current.value = '' }}> 취소 </Button>
                 ]}
 
             >

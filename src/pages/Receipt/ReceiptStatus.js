@@ -34,7 +34,8 @@ function ReceiptStatus(props) {
     {
       title: "증상",
       dataIndex: "rcondition",
-      key: "rcondition"
+      key: "rcondition",
+      ellipsis: true,
     },
     {
       title: "초진/재진",
@@ -46,20 +47,12 @@ function ReceiptStatus(props) {
       dataIndex: "pay",
       key: "pay"
     },
-    { // 이부분 이렇게 하는게 의미가 없다. >>> 없는데 나중에 확인. (토글버튼 만들면서 확인.) key값, dataIndex값도 고치기.
-      title: "취소",
-      dataIndex: "cancel",
-      key: "cancel",
-      render: (text, record) => (
-        <Button type="primary" danger onClick={() => { cancelReceipt(record) }}>취소</Button>
-      )
-    },
     {
       title: '상태변경',
       dataIndex: 'statusbox',
       key: 'statusbox',
       render: (text, record) => (
-        <Select defaultValue={record.status} onChange={(value) => {
+        <Select value={record.status} onChange={(value) => {
           handleDropboxStatusChange(value, record);
         }} >
           <Option value="접수">접수</Option>
@@ -68,6 +61,14 @@ function ReceiptStatus(props) {
           <Option value="완료">완료</Option>
         </Select>
       ),
+    },
+    {
+      title: "취소",
+      dataIndex: "cancel",
+      key: "cancel",
+      render: (text, record) => (
+        <Button danger onClick={() => { cancelReceipt(record) }}>취소</Button>
+      )
     },
   ]
 
@@ -92,7 +93,8 @@ function ReceiptStatus(props) {
     {
       title: "증상",
       dataIndex: "rcondition",
-      key: "rcondition"
+      key: "rcondition",
+      ellipsis: true,
     },
     {
       title: "초진/재진",
@@ -109,30 +111,30 @@ function ReceiptStatus(props) {
       dataIndex: 'statusbox',
       key: 'statusbox',
       render: (text, record) => (
-        <Select defaultValue={record.status} onChange={(value) => {
+        <Select autoFocus={true} value={record.status} onChange={(value) => {
           handleDropboxStatusChange(value, record);
         }} >
           <Option value="접수">접수</Option>
           <Option value="진료중">진료중</Option>
-          <Option value="수납대기">수납대기</Option>
+          <Option value="수납대기">수납대기</Option> 
           <Option value="완료">완료</Option>
         </Select>
       ),
     },
   ]
-
+  const [dropRecord, setDropRecord] = useState();
   const onChange = (e) => props.setStatus(e.target.value);
-  const [currentReceiptPage, setCurrentReceiptPage] = useState(1);
+  const [currentReceiptPage, setCurrentReceiptPage] = useState(1); 
   useEffect(() => {
-    props.fetchReceiptData(props.status);
-  }, [props.status, currentReceiptPage]);
-
-
-  // useEffect(() => {
-  //   props.setReceiptData(props.receiptData);
-  // }, [props.receiptData]);
-
-
+    props.fetchReceiptData(props.status);  
+  }, [props.status, currentReceiptPage]);  
+  useEffect(() => {
+    props.setReceiptData(props.receiptData);
+  }, [props.receiptData, currentReceiptPage]);
+ 
+  useEffect(()=>{
+    props.fetchReceiptData();
+  }, [currentReceiptPage])
 
   const cancelReceipt = (record) => {
     axios.delete(`/api/receipt/${record.rno}`, {
@@ -195,9 +197,17 @@ function ReceiptStatus(props) {
       });
   };
 
-// 상태 현황에서 드롭다운으로 바꿀 때, 쓸 모달창 관련 변수 및 함수.
-const [showModal, setShowModal] = useState(false);
+  // 상태 현황에서 드롭다운으로 바꿀 때, 쓸 모달창 관련 변수 및 함수.
+  const [showModal, setShowModal] = useState(false);
 
+
+
+  // 테이블 컬럼 바꿀 때 너무 빨리 바뀌어져서 설정함.
+  const [renderedColumns, setRenderedColumns] = useState([]);   
+  useEffect(() => {
+      const columns = props.status === '접수' ? receiptColumn : allColumn;
+      setRenderedColumns(columns);
+  }, [props.receiptData]);
 
   return (
     <>
@@ -217,11 +227,12 @@ const [showModal, setShowModal] = useState(false);
         }
       >
 
+
         <div>
           <Table
             className="tablecss"
-            columns={props.status === "접수" ? receiptColumn : allColumn}
-
+            columns={renderedColumns}
+            style={{ width: "110%" }}
             dataSource={props.receiptData}
             pagination={{
               pageSize: 5,
@@ -230,6 +241,7 @@ const [showModal, setShowModal] = useState(false);
             }}
           />
         </div>
+
       </Card>
     </>
   )
