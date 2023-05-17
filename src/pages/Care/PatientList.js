@@ -32,9 +32,11 @@ function PatientList(props) {
   };
 
   const onButtonClick = async () => {
-    if (patient.length > 1) {
-      console.log("patient길이: ", patient.length);
+    if (Object.keys(props.patient).length !== 0) {
+      console.log("patient길이: ", props.patient);
       alert("진료 중인 환자가 있습니다. 진료완료/취소 후 환자를 선택해주세요");
+      setSelectedRowKeys();
+      return;
     }
     if (selectedRowKeys && selectedRowKeys.length !== 0) {
       if (selectedRowKeys.length === 1) {
