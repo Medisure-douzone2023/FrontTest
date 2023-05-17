@@ -361,7 +361,7 @@ function Specsearch(props) {
       </Col>
       
       <Col span={17} className='Col2'>
-      <Card style={{ width: '98%', height: '100%' }}>
+      <Card style={{ width: '95%', height: '100%' }}>
         <Specuser 
               userno={userno}
               gender={gender}
