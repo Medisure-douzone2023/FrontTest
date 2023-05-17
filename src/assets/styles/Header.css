@@ -2,10 +2,10 @@
 .layout-dashboard .ant-layout-header {
   padding: 16px;
   margin: 10px;
-  background: white;
+  background: #fafafa;
   height: auto;
-  box-shadow: 0 5px 5px -3px gainsboro;
-  border-radius: 12px;
+  /* box-shadow: 0 5px 5px -3px gainsboro; */
+  /* border-radius: 12px; */
   line-height: inherit; /* 줄높이: 부모의 속성값을 상속*/
   transition: 0.2s;
 }
