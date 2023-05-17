@@ -3,12 +3,17 @@ import { Layout, Button, Row, Col, Typography, Form, Input } from "antd";
 import axios from "axios";
 import jwtDecode from "jwt-decode";
 import { withRouter } from "react-router-dom";
-import signinbg from "../../assets/images/img-signin.jpg";
 import "../../assets/styles/SignIn.css";
-const { Title } = Typography;
 const { Content } = Layout;
 
 class SignIn extends Component {
+  componentDidMount() {
+    const container = document.getElementById('container');
+    
+    setTimeout(() => {
+      container.classList.add('sign-in');
+    }, 200);
+  }
   render(props) {
     const onFinish = async (values) => {
       const data = {
@@ -56,9 +61,9 @@ class SignIn extends Component {
     };
 
     return (
+      <div id="container" className="container">
       <Layout className="layout-default layout-signin">
         <Content>
-          <div id="container" className="container">
             <div className="row">
               <div className="col align-items-center flex-col sign-in">
                 <div className="form-wrapper align-items-center">
@@ -95,7 +100,7 @@ class SignIn extends Component {
                       <Input type="password" placeholder="Password" />
                     </Form.Item>
                     <Form.Item>
-                      <Button type="primary" htmlType="submit">
+                      <Button type="primary" htmlType="submit" style={{display: "flex", justifyContent: "center", alignItems: "center" }}>
                         SIGN IN
                       </Button>
                     </Form.Item>
@@ -119,9 +124,10 @@ class SignIn extends Component {
                 </div>
               </div>
             </div>
-          </div>
+          
         </Content>
       </Layout>
+      </div>
     );
   }
 }
