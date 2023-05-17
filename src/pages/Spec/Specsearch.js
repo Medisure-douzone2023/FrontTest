@@ -26,6 +26,7 @@ function Specsearch(props) {
     const [endDate, setEndDate] = useState('');
 
     const [userno, setUserno] = useState();
+    const [username, setUsername] = useState();
     const [gender, setGender] = useState();
     const [age, setAge] = useState();
     const [birthdate, setBirthdate] = useState();
@@ -255,22 +256,26 @@ function Specsearch(props) {
           title: "이름",
           dataIndex: "name",
           key: "name",
+          align: "center",
         },
       
         {
           title: "보험유형",
           key: "insurance",
           dataIndex: "insurance",
+          align: "center",
         },
         {
           title: "진행상태",
           key: "status",
           dataIndex: "status",
+          align: "center",
         },
         {
           title: "삭제",
           key: "delete",
           dataIndex: "delete",
+          align: "center",
         },
       ];
       
@@ -304,7 +309,8 @@ function Specsearch(props) {
            setBilldiseaseData(diseasecareData1);
            
             const userData1 = diseasecareDatas.data.patient
-            setUserno(userData1.pno)
+            setUsername(userData1.pname);
+            setUserno(userData1.pno);
             // eslint-disable-next-line eqeqeq
             setGender(userData1.gender == "m" ? '남자' : '여자');
             setAge(userData1.age);
@@ -362,7 +368,8 @@ function Specsearch(props) {
       
       <Col span={17} className='Col2'>
       <Card style={{ width: '98%', height: '100%' }}>
-        <Specuser 
+        <Specuser
+              username={username} 
               userno={userno}
               gender={gender}
               age={age}

@@ -58,18 +58,22 @@ function Specbilldisease(props) {
     {
       title: 'no',
       dataIndex: 'no',
+      align: "center",
     },
     {
       title: '주/부',
       dataIndex: 'dmain',
+      align: "center",
     },
     {
       title: '상병코드',
       dataIndex: 'dcode',
+      align: "center",
     },
     {
       title: '상병명',
-      dataIndex: 'disease'
+      dataIndex: 'disease',
+      align: "center",
     }
   ];
   
@@ -86,7 +90,7 @@ function Specbilldisease(props) {
         dataSource={props.billdiseaseData}
         pagination={false}
       /> 
-      <Button danger ghost size={'middle'} onClick={deletebutton}className='disease-btn'>
+      <Button danger ghost size={'middle'} onClick={deletebutton} className='disease-btn'>
             삭제
           </Button>
       <Button type="primary" ghost size={'middle'} onClick={diseaseModal} onCancel={props.diseasehandleCancel} className='disease-btn'>

@@ -1,5 +1,6 @@
 import {React, useState} from 'react';
 import { Input, Table, Modal } from 'antd';
+import '../../assets/styles/Spec.css';
 import axios from 'axios';
 
 function SpecModal(props) {
@@ -120,7 +121,7 @@ function SpecModal(props) {
             key : item.gcode,
             no: <>{i+1}</>,
             dcode: <>{item.gcode}</>,
-            disease: <>{item.codename}</>,
+            disease: <div className="ant-employed billdiseasetable" data-content={item.codename}>{item.codename}</div>,
            }));
            props.setMaincommondata(commondata);
            if(commondata.length === 0){
@@ -140,7 +141,7 @@ function SpecModal(props) {
           key : item.gcode,
           no: <>{i+1}</>,
           dcode: <>{item.gcode}</>,
-          disease: <>{item.codename}</>,
+          disease: <div className="ant-employed billdiseasetable" data-content={item.codename}>{item.codename}</div>,
          }));
          props.setSubcommondata(commondata);
          console.log("commondata: ", commondata);
@@ -159,55 +160,66 @@ function SpecModal(props) {
         {
           title: 'no',
           dataIndex: 'no',
+          align: "center",
         },
         {
           title: '주/부',
           dataIndex: 'dmain',
+          align: "center",
         },
         {
           title: '상병코드',
           dataIndex: 'dcode',
+          align: "center",
         },
         {
           title: '상병명',
-          dataIndex: 'disease'
+          dataIndex: 'disease',
+          align: "center",
         }
       ];
       const diseaseModalColumns = [
         {
           title: 'no',
           dataIndex: 'no',
+          align: "center",
         },
         {
           title: '상병코드',
           dataIndex: 'dcode',
+          align: "center",
         },
         {
           title: '상병명',
-          dataIndex: 'disease'
+          dataIndex: 'disease',
+          align: "center",
         }
       ];
       const billcareColumns = [
         {
           title: "no",
           dataIndex: "no",
-          key: "no"
+          key: "no",
+          align: "center",
         },
         {
           title: "처방코드",
           dataIndex: "tcode",
           key: "tcode",
+          align: "center",
         },
       
         {
           title: "처방명",
           key: "tname",
           dataIndex: "tname",
+          align: "center",
         },
         {
           title: "처방금액",
           key: "tprice",
           dataIndex: "tprice",
+          align: "center",
         },
       ];
     return (
@@ -225,6 +237,7 @@ function SpecModal(props) {
         columns={diseaseColumns}
         dataSource={props.billdiseaseData}
         pagination={false}
+        className='disease-table'
       /> 
       <p className='p'>처방 내역</p>
       <Table

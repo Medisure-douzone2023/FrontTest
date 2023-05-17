@@ -50,11 +50,13 @@ body {
 }
 .description{
   font-family: 'Noto Sans KR', sans-serif;
-    border: 1px solid;
+    border-radius: 13px;
     background-color: white;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
     padding: 15px;
     text-align: center;
 }
+
 .span{
   
     margin-right: 15px;
@@ -86,8 +88,11 @@ body {
 
 .treatment-table{
     margin-bottom: 30px;
+    text-align: center;
 }
-
+.disease-table{
+  text-align: center;
+}
 .psearch .ant-input {
     height : 40px;
 }
@@ -107,17 +112,20 @@ body {
   }
 
   .ant-modal-content{
-    width: 1000px;
+    width: 100%;
   }
+
 
   .ant-employed {
     white-space: nowrap; /* 텍스트 줄바꿈 방지 */
     overflow: hidden; /* 넘치는 부분 숨김 */
     text-overflow: ellipsis; /* 넘칠 경우 "..."으로 표시 */
-    max-width: 100px; /* 최대 너비 지정 (원하는 글자수에 맞게 조정) */
+    max-width: 100px; /*최대 너비 지정 (원하는 글자수에 맞게 조정) */
+    text-align: center;
   }
 
   .ant-employed:hover::after {
+    text-align: center;
     content: attr(data-content); /* 말풍선 내용 설정 */
     position: absolute; /* 절대적인 위치 설정 */
     top: -20px; /* 말풍선 상단 위치 조정 */
@@ -126,29 +134,7 @@ body {
     padding: 5px; /* 말풍선 여백 설정 */
     border: 1px solid #ddd; /* 말풍선 테두리 설정 */
     border-radius: 4px; /* 말풍선 테두리 둥글기 설정 */
-    font-size: 12px; /* 말풍선 텍스트 크기 설정 */
+    font-size: 15px; /* 말풍선 텍스트 크기 설정 */
     white-space: nowrap; /* 텍스트 줄바꿈 방지 */
     z-index: 9999; /* 말풍선의 쌓임 순서 지정 */
-  }
-
-.custom-descriptions{
-    border-radius: 12px;
-}
-.custom-descriptions .ant-descriptions-title {
-    font-size: 18px;
-    font-weight: bold;
-    color: #333;
-    text-align: center;
-    margin-bottom: 16px;
-  }
-  
-.custom-descriptions .ant-descriptions-item-label {
-    border-radius: 12px;
-    background-color: #f5f5f5;
-    padding: 8px;
-  }
-  
-  .custom-descriptions .ant-descriptions-item-content {
-    border-radius: 12px;
-    padding: 8px;
   }

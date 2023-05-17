@@ -4,8 +4,8 @@ import { Descriptions } from 'antd';
 function Specuser(props) {
     
     return (
-        <>
-        <Descriptions title="환자 정보" className='description custom-descriptions'>
+        <> 
+        <Descriptions title={`${props.username === undefined ? "" : props.username+"님 "}환자 정보`} className='description'>
         <Descriptions.Item label="환자등록번호">{props.userno}</Descriptions.Item>
         <Descriptions.Item label="성별">{props.gender}</Descriptions.Item>
         <Descriptions.Item label="나이">{props.age}</Descriptions.Item>
@@ -14,7 +14,7 @@ function Specuser(props) {
         <Descriptions.Item label="보험유형">{props.userinsurance}</Descriptions.Item>
       </Descriptions>
       <br/><br/>
-        </>
+      </>
     );
 }
 
