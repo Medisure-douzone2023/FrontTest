@@ -1,16 +1,20 @@
 import { Table, DatePicker, Space, Button, Select, Row, Col,Card  } from "antd";
 import axios from 'axios'
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import '../../assets/styles/InsertManual.css';
 
 
 function InsertManual(props) {
   let token = props.token;
-  const options = [{ value: '건강보험', labe: '건강보험' }, { value: '의료급여', labe: '의료급여' }];
+  const options = [{ value: null, labe: '미선택' },{ value: '건강보험', labe: '건강보험' }, { value: '의료급여', labe: '의료급여' }];
   const { RangePicker } = DatePicker;
   const [date, setDate] = useState('');
-  const [insurance, setInsurance] = useState('건강보험');
+  const [insurance, setInsurance] = useState();
   const [size, setSize] = useState('middle');
+
+  useEffect(() => {
+    search();
+  }, []);
 
   const columns = [
     {
@@ -72,6 +76,7 @@ function InsertManual(props) {
   };
 
   const search = () => {
+
     const param = { startDate: date[0], endDate: date[1], insurance: insurance };
     axios.get("/api/receipt/insertManual", { headers: { "Authorization": token }, params: param }
     ).then((response) => {
@@ -141,7 +146,7 @@ function InsertManual(props) {
             <RangePicker onChange={selectDate} />
             <Select
               size={size}
-              defaultValue="건강보험"
+              defaultValue="미선택"
               onChange={handleChange}
               style={{ width: 200 }}
               options={options}

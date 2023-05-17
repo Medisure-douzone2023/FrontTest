@@ -3,6 +3,11 @@ import axios from 'axios'
 import { useEffect, useState } from "react";
 
 function CommonT(props) {
+  const layout = {
+    labelCol: { span: 2 },
+    wrapperCol: { offset: 1, span: 20 },
+  };
+
   useEffect(() => {
     search();
   }, []);
@@ -42,7 +47,7 @@ function CommonT(props) {
       </td>
     );
   };
-  const options = [{ value: null, label: '미선택' },{ value: 'RR', label: '접수' }, { value: 'PP', label: '환자' }, { value: 'DD', label: '상병' }, { value: 'TT', label: '처방' }];
+  const options = [{ value: null, label: '미선택' }, { value: 'RR', label: '접수' }, { value: 'PP', label: '환자' }, { value: 'DD', label: '상병' }, { value: 'TT', label: '처방' }];
   const [keyname, setKeyname] = useState();
   const [size, setSize] = useState('middle');
   const [gcode, setGCode] = useState()
@@ -110,9 +115,7 @@ function CommonT(props) {
   const [selectedRows, setSelectedRows] = useState([]);
 
   const search = () => {
-    console.log("search")
     const param = { gkey: keyname, gcode: gcode, codename: codename };
-    console.log(param)
     axios.get("/api/common", { headers: { "Authorization": token }, params: param }
     ).then((response) => {
       const result = response.data.data;
@@ -283,22 +286,30 @@ function CommonT(props) {
               style={{ width: 200 }}
               options={options}
             />
-            <Input placeholder="구분코드를 입력해주세요" onChange={(e) => { setGCode(e.target.value) }} />
+            <Input placeholder="공통코드를 입력해주세요" onChange={(e) => { setGCode(e.target.value) }} />
             <Input placeholder="코드명을 입력해주세요" onChange={(e) => { setCodename(e.target.value) }} />
             <Button type="primary" ghost onClick={search}>검색</Button>
             <Button type="primary" onClick={showModal}>신규등록</Button>
             <Modal title="신규등록" visible={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
-              <Select
-                size={size}
-                placeholder="구분명을 선택하여주세요"
-                onChange={(label, value) => { setInsertKey(value) }}
-                style={{ width: '100%' }}
-                options={options}
-                value={insertKey}
-              />
-              <Input placeholder="구분코드를 입력해주세요" value={insertGcode} onChange={(e) => { setInsertGcode(e.target.value) }} />
-              <Input placeholder="구분명을 입력해주세요" value={insertCodename} onChange={(e) => { setInsertCodename(e.target.value) }} />
-              <Input placeholder="금액을 입력해주세요" value={insertPrice} onChange={(e) => { setInsertPrice(e.target.value) }} />
+              <Form  {...layout}>
+              <Form.Item label="Select" rules={[{ required: true }]}>
+                <Select size={size} placeholder="구분명을 선택하여주세요" onChange={(label, value) => { setInsertKey(value) }}
+                  style={{ width: '100%' }}
+                  options={options.filter(option => option.value !== null)}
+                  value={insertKey}>
+                  <Select.Option value="demo">Demo</Select.Option>
+                </Select>
+              </Form.Item>
+              <Form.Item label="공통코드" rules={[{ required: true }]}>
+                <Input placeholder="공통코드를 입력해주세요" value={insertGcode} onChange={(e) => { setInsertGcode(e.target.value) }} />
+              </Form.Item>
+              <Form.Item label="구분명" rules={[{ required: true }]}>
+                <Input placeholder="구분명을 입력해주세요" value={insertCodename} onChange={(e) => { setInsertCodename(e.target.value) }} />
+              </Form.Item>
+              <Form.Item label="금액" rules={[{ required: true }]}>
+                <Input placeholder="금액을 입력해주세요" value={insertPrice} onChange={(e) => { setInsertPrice(e.target.value) }} />
+              </Form.Item>
+              </Form>
             </Modal>
           </Space>
         </Col>

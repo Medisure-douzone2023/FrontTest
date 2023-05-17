@@ -80,7 +80,6 @@ function Bill(props) {
 
   const search = () => {
     const param = { month: date, insurance: insurance, status: status };
-    console.log("param",param)
     axios.get("/api/bill", { headers: { "Authorization": token }, params: param }).then((e) => {
       const result = e.data.data;
       for (var i = 0; i < result.length; i++) {
