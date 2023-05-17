@@ -32,4 +32,8 @@
     border-radius: 20px;
   }
 
+/* 상태 드롭박스 css */
 
+.status-dropdown .ant-select-dropdown {
+    width: 10px; /* Adjust the width as needed */
+  }

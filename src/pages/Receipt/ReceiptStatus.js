@@ -52,10 +52,13 @@ function ReceiptStatus(props) {
       dataIndex: 'statusbox',
       key: 'statusbox',
       render: (text, record) => (
-        <Select value={record.status} onChange={(value) => {
-          handleDropboxStatusChange(value, record);
-        }} >
-          <Option value="접수">접수</Option>
+        <Select
+          value={record.status} onChange={(value) => {
+            handleDropboxStatusChange(value, record);
+          }}
+          style={{ width: '77px' }}
+        >
+          <Option value="접수">접수  </Option>
           <Option value="진료중">진료중</Option>
           <Option value="수납대기">수납대기</Option>
           <Option value="완료">완료</Option>
@@ -111,28 +114,31 @@ function ReceiptStatus(props) {
       dataIndex: 'statusbox',
       key: 'statusbox',
       render: (text, record) => (
-        <Select autoFocus={true} value={record.status} onChange={(value) => {
-          handleDropboxStatusChange(value, record);
-        }} >
+        <Select
+          style={{ width: '95px' }}
+          autoFocus={true}
+          value={record.status}
+          onChange={(value) => {
+            handleDropboxStatusChange(value, record);
+          }} >
           <Option value="접수">접수</Option>
           <Option value="진료중">진료중</Option>
-          <Option value="수납대기">수납대기</Option> 
+          <Option value="수납대기">수납대기</Option>
           <Option value="완료">완료</Option>
         </Select>
       ),
     },
   ]
-  const [dropRecord, setDropRecord] = useState();
   const onChange = (e) => props.setStatus(e.target.value);
-  const [currentReceiptPage, setCurrentReceiptPage] = useState(1); 
+  const [currentReceiptPage, setCurrentReceiptPage] = useState(1);
   useEffect(() => {
-    props.fetchReceiptData(props.status);  
-  }, [props.status, currentReceiptPage]);  
+    props.fetchReceiptData(props.status);
+  }, [props.status, currentReceiptPage]);
   useEffect(() => {
     props.setReceiptData(props.receiptData);
   }, [props.receiptData, currentReceiptPage]);
- 
-  useEffect(()=>{
+
+  useEffect(() => {
     props.fetchReceiptData();
   }, [currentReceiptPage])
 
@@ -157,7 +163,7 @@ function ReceiptStatus(props) {
       if (record.status === "진료중") {
         changeStatus(value, record);
       } else {
-
+        alert("환자 상태의 한 단계 전/후 로만 가능합니다!");
       }
     }
 
@@ -165,15 +171,17 @@ function ReceiptStatus(props) {
       if (record.status === "접수" || record.status === "수납대기") {
         changeStatus(value, record);
       } else {
-
+        alert("환자 상태의 한 단계 전/후 로만 가능합니다!");
       }
     }
     else if (value === "접수") {
       if (record.status === "진료중") {
         changeStatus(value, record);
       } else {
-
+        alert("환자 상태의 한 단계 전/후 로만 가능합니다!");
       }
+    } else {
+      alert("환자 상태의 한 단계 전/후 로만 가능합니다!");
     }
 
   }
@@ -203,10 +211,10 @@ function ReceiptStatus(props) {
 
 
   // 테이블 컬럼 바꿀 때 너무 빨리 바뀌어져서 설정함.
-  const [renderedColumns, setRenderedColumns] = useState([]);   
+  const [renderedColumns, setRenderedColumns] = useState([]);
   useEffect(() => {
-      const columns = props.status === '접수' ? receiptColumn : allColumn;
-      setRenderedColumns(columns);
+    const columns = props.status === '접수' ? receiptColumn : allColumn;
+    setRenderedColumns(columns);
   }, [props.receiptData]);
 
   return (
