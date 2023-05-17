@@ -2,6 +2,7 @@ import { Input, Select, Space, Button, Radio, Table, Dropdown, Menu } from "antd
 import React, { useState, useRef, useEffect } from "react";
 import axios from "axios";
 import Column from "antd/lib/table/Column";
+import Tooltip from "antd/es/tooltip";
 const { Option } = Select;
 const { TextArea } = Input;
 
@@ -244,6 +245,47 @@ function CareNote(props) {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [props.isVisited]);
+
+  const diseaseColumns = [
+    {
+      fixed: true,
+      className: "dmain",
+      title: "주/부",
+      key: "main",
+      dataIndex: "dmain",
+      render: (text, record) => (
+        <Radio.Group
+          onChange={(e) => handleMainChange(e.target.value, record)}
+          defaultValue={record.dmain}
+          key={record.dcode}
+        >
+          <Radio.Button value={"주"}>주</Radio.Button>
+          <Radio.Button value={"부"}>부</Radio.Button>
+        </Radio.Group>
+      ),
+    },
+    {
+      className: "dcode",
+      title: "코드명",
+      dataIndex: "dcode",
+      key: "dcode",
+      fixed: true,
+    },
+    {
+      title: "상병이름",
+      dataIndex: "dname",
+      key: "dname",
+      className: "diseaseColumn",
+      ellipsis: {
+        showTitle: false,
+      },
+      render: (dname) => (
+        <Tooltip placement="topLeft" title={dname}>
+          {dname}
+        </Tooltip>
+      ),
+    },
+  ];
   return (
     <>
       <h1>상병</h1>
@@ -277,8 +319,16 @@ function CareNote(props) {
             </Option>
           ))}
       </Select>
-      <Table className="diseaseTable" rowKey="rno" pagination={false} dataSource={selectDD}>
-        <Column
+      <Table
+        className="diseaseTable"
+        rowKey="dcode"
+        pagination={false}
+        dataSource={selectDD}
+        tableLayout={true}
+        columns={diseaseColumns}
+      >
+        {/* <Column
+          fixed={true}
           className="dmain"
           title="주/부"
           key="main"
@@ -294,15 +344,15 @@ function CareNote(props) {
             </Radio.Group>
           )}
         />
-        <Column className="dcode" title="코드명" dataIndex="dcode" key="dcode" />
-        <Column title="상병이름" dataIndex="dname" key="dname" className="diseaseColumn" />
+        <Column className="dcode" title="코드명" dataIndex="dcode" key="dcode" fixed={true} />
+        <Column title="상병이름" dataIndex="dname" key="dname" className="diseaseColumn" /> */}
       </Table>
 
-      <h1>처방</h1>
+      <h1 className="careNoteText">처방</h1>
       <Select
         className="treatSelect"
         notFoundContent={null} //옵션 비어있으면 내용 표시 안함
-        mode="multiple"        //multiple: 여러 옵션 표시
+        mode="multiple" //multiple: 여러 옵션 표시
         optionLabelProp="value"
         placeholder="처방 검색" //옵션 렌더링시 option.label을 레이블로 사용
         placement="bottomLeft"
@@ -329,7 +379,7 @@ function CareNote(props) {
             </Option>
           ))}
       </Select>
-      <h1>진료메모</h1>
+      <h1 className="careNoteText">진료메모</h1>
       <TextArea
         className="careNote"
         showCount
