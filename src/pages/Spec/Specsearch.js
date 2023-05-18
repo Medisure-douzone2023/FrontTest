@@ -388,6 +388,7 @@ function Specsearch(props) {
             userinsurance={userinsurance} />
     <Row>
       <Specbilldisease
+              status={status}
               selectionType={selectionType} 
               billdiseaseData={billdiseaseData}
               handleRowClick={handleRowClick}
@@ -397,6 +398,7 @@ function Specsearch(props) {
               diseasehandleCancel={diseasehandleCancel}/>
 
     <Specbillcare
+        status={status}
         bno={bno}
         rno={rno}
         record={record}

@@ -1,15 +1,19 @@
-import { useState } from "react";
-import { Button, Table, DatePicker, Space, Select, Row, Col } from 'antd';
+import { useEffect, useState } from "react";
+import { Button, Table, DatePicker, Space, Select, Row, Col, Card } from 'antd';
 import axios from 'axios'
 
 function Bill(props) {
-  let token = props.token;
-  const statusOptions = [{ value: '미송신', labe: '미송신' }, { value: '변환', labe: '변환' }];
-  const insuranceOptions = [{ value: '건강보험', labe: '건강보험' }, { value: '의료급여', labe: '의료급여' }];
+  useEffect(() => {
+    search();
+  }, []);
 
-  const [date, setDate] = useState('');
-  const [insurance, setInsurance] = useState('건강보험');
-  const [status, setStatus] = useState('미송신');
+  let token = props.token;
+  const statusOptions = [{ value: null, label: '미선택' },{ value: '미송신', labe: '미송신' }, { value: '변환', labe: '변환' }];
+  const insuranceOptions = [{ value: null, label: '미선택' },{ value: '건강보험', labe: '건강보험' }, { value: '의료급여', labe: '의료급여' }];
+
+  const [date, setDate] = useState();
+  const [insurance, setInsurance] = useState();
+  const [status, setStatus] = useState();
   const [size, setSize] = useState('middle');
 
   const columns = [
@@ -112,14 +116,14 @@ function Bill(props) {
       }
       const result = data.filter(d => !selectedRows.some(s => d.key === s.key));
       setData(result)
-      setSelectedRows('');
-      setSelectedRowKeys('');
-
+      setSelectedRowKeys([]);
+      setSelectedRows([]);
       axios.put("/api/bill/make", apiParameters, {
         headers: {
           "Authorization": token,
         },
       }).then((response) => {
+        console.log("response",response);
         alert("sam 파일 생성이 완료되었습니다.")
       }).catch((e) => {
         console.log("error", e);
@@ -136,8 +140,8 @@ function Bill(props) {
 
       const result = data.filter(d => !selectedRows.some(s => d.key === s.key));
       setData(result)
-      setSelectedRows('');
-      setSelectedRowKeys('')
+      setSelectedRowKeys([]);
+      setSelectedRows([]);
 
       axios.put("/api/bill/delete", apiParameters, {
         headers: {
@@ -151,14 +155,19 @@ function Bill(props) {
     }
   }
   const checkButtonDisabled = (status) => {
-    if (selectedRows.length > 0 && selectedRows.every((item) => item.bstatus === status)) {
-      return false;
+    const has미송신 = selectedRows.some((item) => item.bstatus === '미송신');
+    const has변환 = selectedRows.some((item) => item.bstatus === '변환');
+  
+    if (has미송신 && has변환) {
+      return true;
     }
+    return selectedRows.length > 0 && !selectedRows.every((item) => item.bstatus === status);
   };
 
   return (
     <div>
       <br />
+      <Card style={{ width: '100%' }}>
       <h4>청구서 검색</h4>
       <br />
       <Row>
@@ -167,7 +176,7 @@ function Bill(props) {
             <DatePicker picker="month" onChange={selectDate} />
             <Select
               size={size}
-              defaultValue="건강보험"
+              defaultValue="미선택"
               onChange={setInsuranceOption}
               style={{
                 width: 200,
@@ -176,7 +185,7 @@ function Bill(props) {
             />
             <Select
               size={size}
-              defaultValue="미송신"
+              defaultValue="미선택"
               onChange={selectStatus}
               style={{
                 width: 200,
@@ -203,6 +212,7 @@ function Bill(props) {
       <Table rowSelection={rowSelection} columns={columns} dataSource={data} />
       <Button type="primary" ghost onClick={send} disabled={checkButtonDisabled('미송신')}> 송신 변환 </Button>
       <Button danger onClick={cancel} disabled={checkButtonDisabled('변환')}>송신 취소</Button>
+      </Card>
     </div>
   );
 }
