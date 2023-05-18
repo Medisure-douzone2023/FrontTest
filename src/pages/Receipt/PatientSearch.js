@@ -397,6 +397,7 @@ function PatientSearch(props) {
                     </>
                 } 
             >
+                
 
                 {/* <div style={{ marginBottom: 18, fontWeight: 'lighter', fontSize: 20, textAlign: 'center' }}>환자 리스트 </div> */}
                 <div>
