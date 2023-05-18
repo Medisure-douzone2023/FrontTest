@@ -1,16 +1,24 @@
-.care {
-  padding: 30px;
+.care.ant-card-bordered {
+  padding: 20px;
   background-color: white;
   box-shadow: 0 5px 5px -3px gainsboro;
   border-radius: 10px;
   margin: 10px;
   height: auto;
+  overflow: auto; /* 내용이 넘칠 경우 스크롤 표시 */
+  scrollbar-width: none; /* 스크롤바 감추기 */
+}
+.care::-webkit-scrollbar {
+  display: none; /* Chrome, Safari에서 스크롤바 감추기 */
 }
 .care h1 {
   font-weight: 400;
   font-size: 18px;
 }
 
+.patientListText {
+  margin-bottom: 15px;
+}
 .patientList {
   table-layout: fixed;
   white-space: pre-line;
@@ -85,9 +93,18 @@ button.callPatient {
   height: 42px;
 }
 
+.patientModal .ant-modal-content {
+  width: 500px;
+  height: 370px;
+}
+.patientCareList .ant-table-thead .ant-table-cell {
+  background-color: #5996f8;
+  color: white;
+}
 /* 환자 정보 */
-.patientInfo {
+.patientInfo.ant-card-hoverable {
   width: 100%;
+  height: 200px;
   font-size: 10px;
 }
 

@@ -9,16 +9,23 @@ function PatientInfo({ patient }) {
   };
   return (
     <>
-      <Card className="patientInfo" hoverable="true" bordered layout="vertical">
-        <Descriptions title="환자 정보" >
+      <Card className="patientInfo" hoverable="true">
+        <Descriptions title="환자 정보">
           {patient.patientvo ? (
             <>
-            <Descriptions.Item label="이름" span={3}>{patient.patientvo.pname}</Descriptions.Item>
-            <Descriptions.Item label="주민등록번호" span={3}>{patient.patientvo.birthdate} ({patient.patientvo.age}세, {patient.patientvo.gender === "m" ? "남자" : "여자"})</Descriptions.Item>
-            <Descriptions.Item label="보험유형">{patient.patientvo.insurance}</Descriptions.Item>
-            <Descriptions.Item label="비고">{patient.patientvo.etc}</Descriptions.Item>
+              <Descriptions.Item label="이름" span={3}>
+                {patient.patientvo.pname}
+              </Descriptions.Item>
+              <Descriptions.Item label="주민등록번호" span={3}>
+                {patient.patientvo.birthdate} ({patient.patientvo.age}세,{" "}
+                {patient.patientvo.gender === "m" ? "남" : "여"})
+              </Descriptions.Item>
+              <Descriptions.Item label="보험유형">{patient.patientvo.insurance}</Descriptions.Item>
+              <Descriptions.Item label="비고">{patient.patientvo.etc}</Descriptions.Item>
             </>
-            ) : <p>진료 중인 환자가 없습니다.</p>}
+          ) : (
+            <p>진료 중인 환자가 없습니다.</p>
+          )}
         </Descriptions>
       </Card>
       <h1 className="patientCareInfo">진료기록</h1>
@@ -26,8 +33,8 @@ function PatientInfo({ patient }) {
         {patient &&
           patient.carevo &&
           patient.carevo.map((vo, index) => (
-            <Panel header={vo.rdate} key={index}>
-              <Card bordered="false"> 
+            <Panel header={vo.rdate} key={index} collapsible="header">
+              <Card bordered="false">
                 <p>진료 메모: {vo.memo}</p>
                 <p>
                   처방 :
