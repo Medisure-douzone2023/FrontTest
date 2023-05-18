@@ -14,12 +14,20 @@ function CommonInsert({ token, isModalOpen,setIsModalOpen,options,dataSource,set
     const [insertGcode, setInsertGcode] = useState('');
     const [insertCodename, setInsertCodename] = useState('');
     const [insertPrice, setInsertPrice] = useState('');
+    const [isClassificationSelected, setIsClassificationSelected] = useState(false);
     const handleCancel = () => {
+        clearInputs()
         setIsModalOpen(false);
     };
+    const validateClassification = (_, value) => {
+        return value ? Promise.resolve() : Promise.reject('classification');
+      };
     const [insertForm] = Form.useForm();
     const validateMessages = {
-        required: '${label}는 필수 항목 입니다.'
+        required: '${label}는 필수 항목 입니다.',
+        types: {
+            classification: '구분명을 먼저 선택하세요!',
+          }
     };
     const clearInputs = () => {
         setInsertKey(null)
@@ -60,17 +68,18 @@ function CommonInsert({ token, isModalOpen,setIsModalOpen,options,dataSource,set
     //   const onBlurNickname = useCallback(() => {
       const checkDuplicatedCode = () => {
         if (insertForm.getFieldError('공통코드').length === 0 && insertForm.getFieldValue('공통코드')) {
-            const param = { gkey: insertForm.getFieldError('구분명'), gcode: insertForm.getFieldError('공통코드') };
+            const param = { gkey: insertKey.value, gcode: insertForm.getFieldValue('공통코드') };
             axios
             .get("/api/common/check", { headers: { "Authorization": token }, params: param })
             .then((response) => {
+                console.log("response",response)
+                console.log("response.data.data.length",response.data.data.length)
                 if (response.data.data.length > 0) {
                     insertForm.setFields([{
                       name: '공통코드',
                       errors: ['사용중인 공통코드 입니다.'],
                     }]);
                   }
-                  
               return response.data.data.length > 0;
             })
             .catch((error) => {
@@ -79,9 +88,17 @@ function CommonInsert({ token, isModalOpen,setIsModalOpen,options,dataSource,set
             });
         }
       };
-
       const checkDuplicated = (e) =>{
         setInsertGcode(e.target.value)
+        if (!isClassificationSelected) {
+            insertForm.setFields([
+              {
+                name: '구분명',
+                errors: ['구분명 선택은 필수입니다.'],
+              },
+            ]);
+            return;
+          }
         checkDuplicatedCode()
       }
     return (
@@ -89,7 +106,7 @@ function CommonInsert({ token, isModalOpen,setIsModalOpen,options,dataSource,set
             <Modal title="신규등록" visible={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
                 <Form form={insertForm} validateMessages={validateMessages}>
                     <Form.Item label="구분명" name="구분명" rules={[{ required: true }]}>
-                        <Select size={size} placeholder="구분명을 선택하여주세요" onChange={(label, value) => { setInsertKey(value) }}
+                        <Select size={size} placeholder="구분명을 선택하여주세요" onChange={(label, value) => {setInsertKey(value); setIsClassificationSelected(true);}}
                             style={{ width: '100%' }}
                             options={options.filter(option => option.value !== null)}
                             value={insertKey}>

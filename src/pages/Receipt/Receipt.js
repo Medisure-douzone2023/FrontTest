@@ -43,10 +43,10 @@ function Receipt(props) {
     }) 
       .then((response) => {
         setFeeTableData(response.data.data);
-        console.log("feeTableData", response.data.data);
+        // console.log("feeTableData", response.data.data);
       })
       .catch((error) => {
-        console.log("feeTableData is here : ", feeTableData);
+        // console.log("feeTableData is here : ", feeTableData);
         console.log(error);
       });
   }
@@ -55,10 +55,21 @@ function Receipt(props) {
 
   const [receiptData, setReceiptData] = useState([]);
   const [status, setStatus] = useState('전체');
+ 
+ 
+  useEffect(() => {
+    fetchReceiptData();
+  }, [status]);
+ 
+   useEffect(() => {
+     setReceiptData(receiptData);
+   }, [receiptData]);
+ 
+ 
   // 환자 상태에 따른, 접수 테이블 데이터 가져오기 
-  const fetchReceiptData = (status) => {
-
-    axios.get('/api/receipt/status', {
+  const fetchReceiptData = async() => {
+    // setReceiptData([]);
+    await axios.get('/api/receipt/status', {
       headers: {
         "Authorization": props.token
       },
@@ -72,26 +83,21 @@ function Receipt(props) {
           const localDate = date.toLocaleString().split(".")[3].slice(0, date.toLocaleString().split(".")[3].length-3);
           return data.rdate= localDate;
         }) 
-        setReceiptData(response.data.data);
-      console.log("receiptData", receiptData);
+      setReceiptData(response.data.data);
+      // console.log("receiptData", receiptData); 
       })
       .catch((error) => { 
         console.log(error);
       });
-  };    
-
-
-
-
-
+  };
 
 
   return (
     <>
 
       {/* 1행 검색창 및 환자 목록 리스트 */}
-      <Row>
-        <Col xs={14} sm={16} md={18} lg={20} xl={24}>
+      <Row gutter={[28, 12]}>
+        <Col xs={14} sm={16} md={18} lg={21} xl={24}>
           <PatientSearch token={token} 
           status={status}
           receiptData={receiptData} 
@@ -101,17 +107,22 @@ function Receipt(props) {
 
 
       {/* 2행 접수현황 테이블 & 수납 테이블*/}
-      <Row gutter={[40, 0]}> {/* 두 테이블 사이 간격 조절 가능... 나머지 오른쪽 패딩은 나중에.*/}
-        <Col xs={12} sm={12} md={12} lg={12} xl={12} >
+      <Row gutter={[28, 12]}> {/* 두 테이블 사이 간격 조절 가능... 나머지 오른쪽 패딩은 나중에.*/}
+        <Col xs={14} sm={14} md={14} lg={14} xl={14} >
           <ReceiptStatus token={token} 
           status={status}
           setStatus={setStatus}
           receiptData={receiptData}
+          setReceiptData={setReceiptData}
           fetchReceiptData={fetchReceiptData}
+
+          fetchFeeTableData={fetchFeeTableData} 
+          feeTableData={feeTableData}
+
            />
         </Col>
  
-        <Col xs={12} sm={12} md={12} lg={12} xl={12} >
+        <Col xs={10} sm={10} md={10} lg={10} xl={10} >
           <FeeList token={token} 
           fetchFeeTableData={fetchFeeTableData} 
           feeTableData={feeTableData}
