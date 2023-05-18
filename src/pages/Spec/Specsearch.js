@@ -260,6 +260,7 @@ function Specsearch(props) {
       key: "name",
     },
 
+<<<<<<< HEAD
     {
       title: "보험유형",
       key: "insurance",
@@ -276,6 +277,51 @@ function Specsearch(props) {
       dataIndex: "delete",
     },
   ];
+=======
+      const menu = (
+        <Menu onClick={handleMenuClick}>
+          {items.map(item => (
+            <Menu.Item key={item.key}>{item.label}</Menu.Item>
+          ))}
+        </Menu>
+      );
+     
+    return (
+      <>
+        <Col span={6.5} className='Col1' style={{paddingRight: "0px"}}>
+          <Card style={{ width: '100%', height: '100%' }}>
+            <span className='span'>진료기간</span><RangePicker className='picker' picker="week" onChange={handleDateChange}></RangePicker><br/><br/>
+            <div>
+            </div>
+            <span className='span'>보험유형</span><Dropdown.Button overlay={menu}>{insurance}</Dropdown.Button><br/><br/>
+            <span className='span'>등록번호</span><Input placeholder="등록번호" style={{width: '70%'}} onChange={(e) => setPno(e.target.value)} /><br/><br/>
+            <div style={{ display: 'flex', justifyContent: 'center' }}>
+              <Button type="primary" ghost block style={{ width: "100%", margin: '0px 0px' }} onClick={handleSearch}>
+                  조회
+              </Button>
+            </div>
+        <Table    
+                  columns={searchColumns}
+                  dataSource={searchData}
+                  pagination={false}
+                  className="ant-border-space"
+                  onRow={(record) => ({
+                    onClick: () => handleRowClick(record),
+                  })}
+                />
+          </Card>
+      </Col>
+      
+      <Col span={17} className='Col2'>
+      <Card style={{ width: '95%', height: '100%' }}>
+        <Specuser 
+              userno={userno}
+              gender={gender}
+              age={age}
+              birthdate={birthdate}
+              contact={contact}
+              userinsurance={userinsurance} />
+>>>>>>> 85b90d862a0ada192ca02029a3b1c4cae7fb3337
 
   const items = [
     {

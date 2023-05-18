@@ -13,7 +13,7 @@ import '../../assets/styles/Receipt.css';
 function FeeList(props) {
     useEffect(() => {
         props.fetchFeeTableData();
-      }, []);
+    }, []);
 
     // 수납 데이터
     const [feeData, setFeeData] = useState([]);
@@ -43,7 +43,7 @@ function FeeList(props) {
             dataIndex: "pname"
         },
         {
-            title: "생년월일",
+            title: "주민등록번호",
             key: "birthdate",
             dataIndex: "birthdate"
         },
@@ -67,13 +67,13 @@ function FeeList(props) {
                 // submitData2();
                 alert("수납이 완료되었습니다.");
                 setFeeModalVisible(false);
-               // console.log("------ 변경전 fee 데이터 확인 ------", props.feeTableData);
+                // console.log("------ 변경전 fee 데이터 확인 ------", props.feeTableData);
                 props.fetchFeeTableData();
 
                 submitFeeData(); // fee 테이블에 데이터 넣기.
 
                 props.fetchReceiptData(props.status);
-               // console.log("----- fetctfee 호출됨 ------"); 
+                // console.log("----- fetctfee 호출됨 ------"); 
                 //console.log("------ 변경후 fee 데이터 확인 ------", props.feeTableData);
             })
             .catch((error) => {
@@ -82,13 +82,13 @@ function FeeList(props) {
 
     }
     // fee테이블에 데이터 넣기.
-    const submitFeeData = () =>{
+    const submitFeeData = () => {
         axios.post('/api/fee/' + feeData.rno, {
-             fno: null,
-             cno: feeData.treatment[0].cno,
-             fprice: feeData.fprice,
-             totalprice : feeData.totalprice,
-             fdate : null,
+            fno: null,
+            cno: feeData.treatment[0].cno,
+            fprice: feeData.fprice,
+            totalprice: feeData.totalprice,
+            fdate: null,
         }, {
             headers: {
                 "Authorization": props.token
@@ -124,7 +124,7 @@ function FeeList(props) {
             {/* 수납모달 */}
             <Modal
                 visible={feeModalVisible}
-                onCancel={()=> setFeeModalVisible(false)}
+                onCancel={() => setFeeModalVisible(false)}
                 footer={[
                     <Button type="primary" ghost onClick={() => updatePayData(feeData)}> 수납하기 </Button>,
                     <Button danger onClick={() => setFeeModalVisible(false)}> 취소 </Button>
@@ -133,7 +133,7 @@ function FeeList(props) {
                 <p> 접수 번호 : {feeData.rno}</p>
                 <p> 환자 정보 : {feePname}</p>
                 <p> 총 가격 : {feeData.totalprice}</p>
-                <p> 처방내역 : 처방코드 - {feeTreat.tcode }, 처방명 - {feeTreat.tname}</p>
+                <p> 처방내역 : 처방코드 - {feeTreat.tcode}, 처방명 - {feeTreat.tname}</p>
                 <p> 가격 : {feeData.fprice}</p>
 
             </Modal>
@@ -152,9 +152,9 @@ function FeeList(props) {
                             current: currentFeePage,
                             onChange: (page) => setCurrentFeePage(page),
                         }}
-                        // onRow={(record) => ({
-                        //     onDoubleClick: () => { handleFeeRowClick(record) }
-                        // })}
+                    // onRow={(record) => ({
+                    //     onDoubleClick: () => { handleFeeRowClick(record) }
+                    // })}
                     >
                     </Table>
                     {/* {selectedFeeRow && (

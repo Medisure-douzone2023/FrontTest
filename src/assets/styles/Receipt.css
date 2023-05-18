@@ -14,12 +14,14 @@
 
 
 /* 테이블 컬럼 CSS 뒷 배경 색상. (테이블 thead의 table cell 이라는 뜻.)*/
-.tablecss .ant-table-thead .ant-table-cell {
-    /* background-color: #EFF5FF;  */
+/* .tablecss .ant-table-thead .ant-table-cell {
+    background-color: #EFF5FF; 
     font-weight: bolder;
-}
+} */
+
+
 .tablecss .ant-table-thead .ant-table-content {
-    color: rgb(0, 0, 0); /* 칼라 먹이니까 더 진해짐(그래서 먹임.) */
+    /* color: rgb(0, 0, 0); 칼라 먹이니까 더 진해짐(그래서 먹임.) */
     font-size: 15px;
     
     /* text-align: right; 이건 해야하나 말아야하나 위에거랑 같이 조정해보기. */
@@ -32,4 +34,8 @@
     border-radius: 20px;
   }
 
+/* 상태 드롭박스 css */
 
+.status-dropdown .ant-select-dropdown {
+    width: 10px; /* Adjust the width as needed */
+  }
