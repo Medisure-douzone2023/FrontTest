@@ -19,6 +19,7 @@ function CommonInsert({ token, isModalOpen,setIsModalOpen,options,dataSource,set
         clearInputs()
         setIsModalOpen(false);
     };
+    
     const validateClassification = (_, value) => {
         return value ? Promise.resolve() : Promise.reject('classification');
       };
@@ -30,10 +31,11 @@ function CommonInsert({ token, isModalOpen,setIsModalOpen,options,dataSource,set
           }
     };
     const clearInputs = () => {
+        insertForm.resetFields();
         setInsertKey(null)
-        setInsertGcode("");
-        setInsertCodename("");
-        setInsertPrice("");
+        setInsertGcode('');
+        setInsertCodename('');
+        setInsertPrice('');
       }
     const handleOk = (e) => {
         insertForm.validateFields()
@@ -72,8 +74,6 @@ function CommonInsert({ token, isModalOpen,setIsModalOpen,options,dataSource,set
             axios
             .get("/api/common/check", { headers: { "Authorization": token }, params: param })
             .then((response) => {
-                console.log("response",response)
-                console.log("response.data.data.length",response.data.data.length)
                 if (response.data.data.length > 0) {
                     insertForm.setFields([{
                       name: '공통코드',

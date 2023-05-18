@@ -72,7 +72,9 @@ function Specbilldisease(props) {
       dataIndex: 'disease'
     }
   ];
-  
+  const check = () =>{
+  return props.status === "삭제" || props.status === "완료";
+  }
     return (
         <>
         <Col span={12} >선택 명세서의 상병 정보
@@ -86,10 +88,10 @@ function Specbilldisease(props) {
         dataSource={props.billdiseaseData}
         pagination={false}
       /> 
-      <Button danger ghost size={'middle'} onClick={deletebutton}className='disease-btn'>
+      <Button danger ghost size={'middle'} onClick={deletebutton} disabled ={check()}className='disease-btn'>
             삭제
           </Button>
-      <Button type="primary" ghost size={'middle'} onClick={diseaseModal} onCancel={props.diseasehandleCancel} className='disease-btn'>
+      <Button type="primary" ghost size={'middle'} onClick={diseaseModal} disabled = {check()} onCancel={props.diseasehandleCancel} className='disease-btn'>
             추가
           </Button>
       </Col>

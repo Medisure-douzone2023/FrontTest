@@ -72,7 +72,6 @@ function ReceiptStatus(props) {
     },
   ]
 
-
   const allColumn = [
     {
       title: 'no',
@@ -199,8 +198,6 @@ function ReceiptStatus(props) {
 
   // 상태 현황에서 드롭다운으로 바꿀 때, 쓸 모달창 관련 변수 및 함수.
   const [showModal, setShowModal] = useState(false);
-
-
 
   // 테이블 컬럼 바꿀 때 너무 빨리 바뀌어져서 설정함.
   const [renderedColumns, setRenderedColumns] = useState([]);   
