@@ -1,32 +1,20 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios'
 import {
-    Row,    // grid 나누기
-    Col,    // grid 나누기
     Card,   // 여러 테이블을 Card 느낌으로 임포트해서 구성할 것이다.
-    Radio,  // 
     Table,  // 테이블
-    Space,  // 버튼 둥글게(일단은 그 용도로.)
-    Input,  // 입력창
-    InputNumber, // 나이 입력창
     Button, // 버튼
-    Avatar,    // 검색해봐야함.
-    Segmented, // 전체,진료,수납 토글 용도.
-    Typography, // 검색해봐야함.
     Modal,
-    Form,
-    Descriptions// 환자상세, 기타 모달창에 쓰려고.
 } from "antd";
 // 아이콘 임포트 
-import { SearchOutlined, } from "@ant-design/icons";
 import '../../assets/styles/Receipt.css';
-import TextArea from 'antd/lib/input/TextArea';
 
 
 function FeeList(props) {
     useEffect(() => {
         props.fetchFeeTableData();
-      }, []);
+    }, []);
+
     // 수납 데이터
     const [feeData, setFeeData] = useState([]);
 
@@ -55,7 +43,7 @@ function FeeList(props) {
             dataIndex: "pname"
         },
         {
-            title: "생년월일",
+            title: "주민등록번호",
             key: "birthdate",
             dataIndex: "birthdate"
         },
@@ -64,7 +52,7 @@ function FeeList(props) {
             key: "feee",
             dataIndex: "feee",
             render: (text, record) => (
-                <Button type="primary" danger onClick={() => { fetchFeeData(record); setFeeModalVisible(true); }}>수 납</Button>
+                <Button type="primary" ghost onClick={() => { fetchFeeData(record); setFeeModalVisible(true); }}>수 납</Button>
             ),
         }
     ]
@@ -77,15 +65,15 @@ function FeeList(props) {
         })
             .then(() => {
                 // submitData2();
-                alert("수납이 완료되었습니다.");      
+                alert("수납이 완료되었습니다.");
                 setFeeModalVisible(false);
-               // console.log("------ 변경전 fee 데이터 확인 ------", props.feeTableData);
-                props.fetchFeeTableData(); 
-                
+                // console.log("------ 변경전 fee 데이터 확인 ------", props.feeTableData);
+                props.fetchFeeTableData();
+
                 submitFeeData(); // fee 테이블에 데이터 넣기.
 
                 props.fetchReceiptData(props.status);
-               // console.log("----- fetctfee 호출됨 ------");
+                // console.log("----- fetctfee 호출됨 ------"); 
                 //console.log("------ 변경후 fee 데이터 확인 ------", props.feeTableData);
             })
             .catch((error) => {
@@ -94,30 +82,26 @@ function FeeList(props) {
 
     }
     // fee테이블에 데이터 넣기.
-    const submitFeeData = () =>{
-        
+    const submitFeeData = () => {
         axios.post('/api/fee/' + feeData.rno, {
-            
-             fno: null,
-             cno: feeData.treatment[0].cno,
-             fprice: feeData.fprice,
-             totalprice : feeData.totalprice,
-             fdate : null,
-
-            
+            fno: null,
+            cno: feeData.treatment[0].cno,
+            fprice: feeData.fprice,
+            totalprice: feeData.totalprice,
+            fdate: null,
         }, {
             headers: {
                 "Authorization": props.token
             }
         }).then(() => {
-            console.log("submitFeeData", feeData);
+            // console.log("submitFeeData", feeData);
         }).catch((error) => {
             console.log(error);
         })
     }
 
-     // 진짜 수납 데이터 가져오는 함수.
-     const fetchFeeData = (record) => {
+    // 진짜 수납 데이터 가져오는 함수.
+    const fetchFeeData = (record) => {
         axios.get('/api/fee/' + record.rno, {
             headers: {
                 "Authorization": props.token
@@ -125,29 +109,31 @@ function FeeList(props) {
         })
             .then((response) => {
                 setFeeData(response.data.data);
-                
-               // console.log("FeeData", feeData);
+                setFeePname(response.data.data.patient.pname);
+                setFeeTreat(response.data.data.treatment[0]);
+                console.log("FeeData", feeData);
             })
             .catch((error) => {
                 console.log(error);
             });
     }
-
+    const [feeTreat, setFeeTreat] = useState({});
+    const [feePname, setFeePname] = useState();
     return (
         <>
             {/* 수납모달 */}
             <Modal
                 visible={feeModalVisible}
-                onCancel={()=> setFeeModalVisible(false)}
+                onCancel={() => setFeeModalVisible(false)}
                 footer={[
-                    <Button onClick={() => updatePayData(feeData)}> 수납하기 </Button>,
-                    <Button onClick={() => setFeeModalVisible(false)}> 취소 </Button>
+                    <Button type="primary" ghost onClick={() => updatePayData(feeData)}> 수납하기 </Button>,
+                    <Button danger onClick={() => setFeeModalVisible(false)}> 취소 </Button>
                 ]}
             >
                 <p> 접수 번호 : {feeData.rno}</p>
-                <p> 환자 정보 : </p>
+                <p> 환자 정보 : {feePname}</p>
                 <p> 총 가격 : {feeData.totalprice}</p>
-                <p> 처방내역 :</p>
+                <p> 처방내역 : 처방코드 - {feeTreat.tcode}, 처방명 - {feeTreat.tname}</p>
                 <p> 가격 : {feeData.fprice}</p>
 
             </Modal>
@@ -166,9 +152,9 @@ function FeeList(props) {
                             current: currentFeePage,
                             onChange: (page) => setCurrentFeePage(page),
                         }}
-                        // onRow={(record) => ({
-                        //     onDoubleClick: () => { handleFeeRowClick(record) }
-                        // })}
+                    // onRow={(record) => ({
+                    //     onDoubleClick: () => { handleFeeRowClick(record) }
+                    // })}
                     >
                     </Table>
                     {/* {selectedFeeRow && (

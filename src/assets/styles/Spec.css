@@ -58,12 +58,10 @@ body {
 }
 
 .span{
-  
     margin-right: 15px;
 }
 
 .disease-btn{
-  
     margin-right: 30px;
     margin-top: 20px;
     float: right;
@@ -138,3 +136,34 @@ body {
     white-space: nowrap; /* 텍스트 줄바꿈 방지 */
     z-index: 9999; /* 말풍선의 쌓임 순서 지정 */
   }
+  .patientInfo {
+    width: 100%;
+    height: 30%;
+    font-size: 10px;
+  }
+.custom-descriptions{
+    border-radius: 12px;
+}
+.custom-descriptions .ant-descriptions-title {
+    font-size: 18px;
+    font-weight: bold;
+    color: #333;
+    text-align: center;
+  }
+  
+.custom-descriptions .ant-descriptions-item-label {
+    border-radius: 12px;
+    background-color: #f5f5f5;
+    padding: 8px;
+  }
+  
+  .custom-descriptions .ant-descriptions-item-content {
+    border-radius: 12px;
+    padding: 8px;
+  }
+.spectitle {
+  margin-top: 30px;
+  font-weight: bold;
+  font-size: 1rem; /* 원하는 크기로 조정하세요 */
+  margin-bottom: 1rem; /* 필요에 따라 여백을 조정하세요 */
+}
