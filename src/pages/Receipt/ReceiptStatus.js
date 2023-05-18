@@ -7,6 +7,8 @@ import {
   Button,
   Select,
   Modal,  // 이거 해야함.
+  Alert,
+
 } from "antd";
 // 아이콘 임포트  
 import '../../assets/styles/Receipt.css';
@@ -14,6 +16,16 @@ import Q from 'q';
 const { Option } = Select;
 
 function ReceiptStatus(props) {
+  // 에러 창 alert
+  const [showErrorAlert, setShowErrorAlert] = useState(false);
+  // 완료 창 alert
+  const [showSuccessAlert, setShowSuccessAlert] = useState(false);
+
+  // error 문구 state
+  const [errorDescription, setErrorDescription] = useState(``);
+  // success 문구 state
+  const [successDescription, setSuccessDescription] = useState(``);
+
   const receiptColumn = [
     {
       title: 'no',
@@ -74,8 +86,6 @@ function ReceiptStatus(props) {
       )
     },
   ]
-
-
   const allColumn = [
     {
       title: 'no',
@@ -159,11 +169,17 @@ function ReceiptStatus(props) {
   }
 
   const handleDropboxStatusChange = (value, record) => {
+    // 나중에 이거 지워야함.
+    setShowErrorAlert(false);
+    setShowSuccessAlert(false); 
+
+    setErrorDescription(` ${record.status}에서 ${value} 상태로는 변경할 수 없습니다.`);
+    setSuccessDescription(` ${record.status}에서 ${value} 상태로 변경되었습니다!`);
     if (value === "수납대기") {
       if (record.status === "진료중") {
         changeStatus(value, record);
       } else {
-        alert("환자 상태의 한 단계 전/후 로만 가능합니다!");
+        setShowErrorAlert(true);
       }
     }
 
@@ -171,17 +187,18 @@ function ReceiptStatus(props) {
       if (record.status === "접수" || record.status === "수납대기") {
         changeStatus(value, record);
       } else {
-        alert("환자 상태의 한 단계 전/후 로만 가능합니다!");
+        setShowErrorAlert(true);
+
       }
     }
     else if (value === "접수") {
       if (record.status === "진료중") {
         changeStatus(value, record);
       } else {
-        alert("환자 상태의 한 단계 전/후 로만 가능합니다!");
+        setShowErrorAlert(true);
       }
     } else {
-      alert("환자 상태의 한 단계 전/후 로만 가능합니다!");
+      setShowErrorAlert(true);
     }
 
   }
@@ -198,7 +215,8 @@ function ReceiptStatus(props) {
       .then((response) => {
         props.fetchReceiptData(props.status);
         props.fetchFeeTableData();
-        alert("[알림]:" + record.status + "에서 " + value + " 상태로 변경되었습니다.");
+        setSuccessDescription(` ${record.status}에서 ${value} 상태로 변경되었습니다!`);
+        setShowSuccessAlert(true);
       })
       .catch((error) => {
         console.log(error);
@@ -235,6 +253,25 @@ function ReceiptStatus(props) {
         }
       >
 
+        {showErrorAlert && (
+          <Alert
+            message="Error"
+            description={errorDescription}
+            type="error"
+            showIcon
+            closable
+          />)}
+
+        {showSuccessAlert && (
+          <Alert
+            message="Success"
+            description={successDescription}
+            type="success"
+            showIcon
+            closable
+          />)}
+
+
 
         <div>
           <Table
@@ -251,6 +288,8 @@ function ReceiptStatus(props) {
         </div>
 
       </Card>
+
+
     </>
   )
 }

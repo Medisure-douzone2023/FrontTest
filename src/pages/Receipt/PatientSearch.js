@@ -9,6 +9,7 @@ import {
     Modal,
     Form,
     Radio,
+    Alert,
     Select,
 } from "antd";
 import { SearchOutlined, } from "@ant-design/icons";
@@ -394,7 +395,7 @@ function PatientSearch(props) {
                         </Button>
                         </Space>
                     </>
-                }
+                } 
             >
 
                 {/* <div style={{ marginBottom: 18, fontWeight: 'lighter', fontSize: 20, textAlign: 'center' }}>환자 리스트 </div> */}
