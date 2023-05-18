@@ -79,7 +79,8 @@ function Specbilldisease(props) {
   
     return (
         <>
-        <Col span={12} className='spectitle'>선택 명세서의 상병 정보
+        <Col span={12}>
+        <p className='spectitle'>선택 명세서의 상병 정보</p>
       <Table 
         style={{width: "95%"}}
         className='spectable'
@@ -94,7 +95,8 @@ function Specbilldisease(props) {
       <Button danger ghost size={'middle'} onClick={deletebutton} className='disease-btn'>
             삭제
           </Button>
-      <Button type="primary" ghost size={'middle'} onClick={diseaseModal} onCancel={props.diseasehandleCancel} className='disease-btn'>
+      <Button type="primary" ghost size={'middle'} onClick={diseaseModal} onCancel={props.diseasehandleCancel} className='disease-btn' 
+        disabled={props.disablebutton(props.record?.status?.props?.children || "미심사")} >
             추가
           </Button>
       </Col>

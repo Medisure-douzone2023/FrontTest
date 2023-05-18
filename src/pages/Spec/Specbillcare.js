@@ -84,7 +84,8 @@ function Specbillcare(props) {
   ];
     return (
         <>
-        <Col span={12} className='spectitle'>선택 명세서의 처방 정보
+        <Col span={12}>
+          <p className='spectitle'>선택 명세서의 처방 정보</p>
         <Table
                   columns={billcareColumns}
                   dataSource={props.billcareData}

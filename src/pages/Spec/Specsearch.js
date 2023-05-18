@@ -33,6 +33,8 @@ function Specsearch(props) {
   const [contact, setContact]= useState();
   const [userinsurance, setUserinsurance] = useState();
   const [record, setRecord] = useState();
+
+  const [status, setStatus] = useState();
   
   const [mainsearchValue, setMainsearchValue] = useState('');
   const [subsearchValue, setSubsearchValue] = useState('');
@@ -294,6 +296,7 @@ function Specsearch(props) {
     const handleRowClick = async (record) => {
       try{
         setRecord(record);
+        console.log(record.status.props.children)
         const diseasecareDatas = await diseasecareData(record.bno, record.pno, record.rno);
         const diseasecareData1 = diseasecareDatas.data.billdiseaseList.map((item, i) => ({
            key: item.dno,
@@ -327,10 +330,17 @@ function Specsearch(props) {
           tprice: <div >{item.tprice}</div>
          }));
          setBillcareData(diseasecareData2);
+         disablebutton(record.status.props.children);
         } catch(error){
         console.error(error);
       }
     };
+
+    const disablebutton = (record) =>{
+      if (record === "미심사") {
+        return false; // 미심사인 경우 버튼 비활성화
+      } 
+    }
 
     const menu = (
       <Menu onClick={handleMenuClick}>
@@ -366,7 +376,7 @@ function Specsearch(props) {
         </Card>
     </Col>
     
-    <Col span={17} className='Col2'>
+    <Col span={16} className='Col2'>
     <Card style={{ width: '98%', height: '100%' }}>
       <Specuser
             username={username} 
@@ -381,6 +391,7 @@ function Specsearch(props) {
               selectionType={selectionType} 
               billdiseaseData={billdiseaseData}
               handleRowClick={handleRowClick}
+              disablebutton={disablebutton}
               record={record}
               setModalOpen={setModalOpen}
               diseasehandleCancel={diseasehandleCancel}/>
@@ -388,6 +399,7 @@ function Specsearch(props) {
     <Specbillcare
         bno={bno}
         rno={rno}
+        record={record}
         setIsModalOpen={setIsModalOpen}
         billcareData={billcareData}
         handleSearch={handleSearch}
