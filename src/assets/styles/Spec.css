@@ -167,3 +167,8 @@ body {
   font-size: 1rem; /* 원하는 크기로 조정하세요 */
   margin-bottom: 1rem; /* 필요에 따라 여백을 조정하세요 */
 }
+
+.selected-row {
+  background-color: #E9ECEF; /* 선택한 행의 배경색을 변경 */
+  /* 다른 스타일 속성들을 추가적으로 설정할 수 있음 */
+}

@@ -88,6 +88,7 @@ function PatientList(props) {
         });
         setPatient(newPatient);
         console.log("진료 대기 환자: ", response.data.data);
+        props.setCountPatient(response.data.data.length);
       }
     } catch (e) {
       console.log(e);
