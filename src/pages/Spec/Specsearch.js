@@ -33,8 +33,6 @@ function Specsearch(props) {
   const [contact, setContact]= useState();
   const [userinsurance, setUserinsurance] = useState();
   const [record, setRecord] = useState();
-
-  const [status, setStatus] = useState();
   
   const [mainsearchValue, setMainsearchValue] = useState('');
   const [subsearchValue, setSubsearchValue] = useState('');
@@ -49,6 +47,7 @@ function Specsearch(props) {
   const [maincommondata, setMaincommondata] = useState([null]);
   const [subcommondata, setSubcommondata] = useState([null]);
   const { RangePicker } = DatePicker;
+  const [status, setStatus] = useState();
   
   let token = localStorage.getItem("accessToken");
   
@@ -296,7 +295,7 @@ function Specsearch(props) {
     const handleRowClick = async (record) => {
       try{
         setRecord(record);
-        console.log(record.status.props.children)
+        setStatus(record.status.props.children);
         const diseasecareDatas = await diseasecareData(record.bno, record.pno, record.rno);
         const diseasecareData1 = diseasecareDatas.data.billdiseaseList.map((item, i) => ({
            key: item.dno,
@@ -394,7 +393,8 @@ function Specsearch(props) {
               disablebutton={disablebutton}
               record={record}
               setModalOpen={setModalOpen}
-              diseasehandleCancel={diseasehandleCancel}/>
+              diseasehandleCancel={diseasehandleCancel}
+              status={status}/>
 
     <Specbillcare
         bno={bno}
@@ -409,6 +409,7 @@ function Specsearch(props) {
         insurance={insurance}
         pno={pno}
         handleCancel={handleCancel}
+        status={status}
                   />
     </Row>
     </Card>
