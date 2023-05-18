@@ -282,6 +282,13 @@ function Specsearch(props) {
   // 테이블 컬럼
   const searchColumns = [
       {
+        title: "no",
+        dataIndex: "no",
+        key: "no",
+        align: "center",
+        width: 50,
+      },
+      {
         title: "이름",
         dataIndex: "name",
         key: "name",
@@ -360,7 +367,7 @@ function Specsearch(props) {
    
   return (
     <>
-      <Col span={6.5} className='Col1' style={{paddingRight: "0px"}}>
+      <Col span={8} className='Col1' style={{paddingRight: "0px"}}>
         <Card style={{ width: '100%', height: '100%' }}>
           <span className='span'>진료기간</span><RangePicker className='picker' picker="week" onChange={handleDateChange}></RangePicker><br/><br/>
           <div>
