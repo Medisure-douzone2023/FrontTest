@@ -8,6 +8,7 @@ function SpecModal(props) {
     const [subselectDatas, setSubSelectDatas] = useState([]);
     const [mainSelectedRowKeys, setMainSelectedRowKeys] = useState([]);
     const [subSelectedRowKeys, setSubSelectedRowKeys] = useState([]);
+    const [pagination, setPagination] = useState({current: 1, pageSize: 5});
     const { Search } = Input;
     let token = localStorage.getItem("accessToken");
 
@@ -53,6 +54,11 @@ function SpecModal(props) {
         } catch (error) {
           console.error(error);
         }
+        // setPagination({current: 1, pageSize: 5});
+        setPagination(prevPagination => ({
+          ...prevPagination,
+          current: 1,
+        }));
         props.setModalOpen(false);
         props.setMainsearchValue('');
         props.setSubsearchValue('');
@@ -64,17 +70,29 @@ function SpecModal(props) {
 
     // 모달 창 취소 버튼 클릭 시 모달창 안의 내용 초기화
     const diseasehandleCancel = () => {
-        props.setModalOpen(false);
-        props.setMainsearchValue('');
-        props.setSubsearchValue('');
-        props.setMaincommondata([]);
-        props.setSubcommondata([]);
-        setMainSelectedRowKeys([]);
-        setSubSelectedRowKeys([]);
+      props.setModalOpen(false);
+      props.setMainsearchValue('');
+      props.setSubsearchValue('');
+      props.setMaincommondata([]);
+      props.setSubcommondata([]);
+      setPagination(prevPagination => ({
+        ...prevPagination,
+        current: 1,
+      }));
+      setMainSelectedRowKeys([]);
+      setSubSelectedRowKeys([]);
       };
 
     const handleOk = () => {
+      setPagination({pageSize: 5});
       props.setIsModalOpen(false);
+    };
+
+    const handlePageChange = (page, pageSize) => {
+      setPagination(prevPagination => ({
+        ...prevPagination,
+        current: page,
+      }));
     };
 
       //모달창 주상병검색에서 선택 된 데이터 정보
@@ -277,7 +295,8 @@ function SpecModal(props) {
         columns={diseaseModalColumns}
         dataSource={props.maincommondata}
         pagination={{
-          pageSize: 5
+          ...pagination,
+          onChange: handlePageChange,
         }}
         rowKey="key"
       /> 
@@ -303,7 +322,8 @@ function SpecModal(props) {
         columns={diseaseModalColumns}
         dataSource={props.subcommondata}
         pagination={{
-          pageSize: 5
+          ...pagination,
+          onChange: handlePageChange,
         }}
         rowKey="key"
       /> 

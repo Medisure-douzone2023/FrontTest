@@ -52,6 +52,7 @@ function CareNote(props) {
       console.error(responseUpdateRnoStatus.data.message);
     }
     resetForm(); //상태 리셋
+    document.location.href = "/";
   };
   const onButtonClick = async () => {
     //진료 완료 버튼 클릭
@@ -135,6 +136,7 @@ function CareNote(props) {
       });
       console.log(responseUpdateRnoStatus.data.result);
       resetForm(); //상태 초기화
+      document.location.href = "/";
     }
   };
   const onDDKeywordChange = async (e) => {
