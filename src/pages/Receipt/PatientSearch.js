@@ -191,32 +191,43 @@ function PatientSearch(props) {
     // 신규 환자 데이터 insert 하기
     const submitNewPatientData = (values) => {
         console.log("value is ?? :", values);
-        // const birthdate = values.birthdate;
-
-
-        // // 현재년도 (currentYear)
-        // const currentYear = today.getFullYear();
-        // console.log("현재 년도: ", currentYear);
-
-        // const currentYear2 = currentYear - 2000;
-
-
-        //         // 입력받은 주민번호에서 연도 구하기
-        //         const year = parseInt(birthdate.slice(0, 2));
+        const birthdate = values.birthdate;
         
-        //         // 현재 날짜 구하기
-        //         const today = new Date();
         
+        // 현재 날짜 구하기
+        const today = new Date();
+        const currentYear = today.getFullYear();
+        console.log("현재연도", currentYear);
+        const currentYear2 = currentYear - 2000;
+        
+        // 입력받은 연도 구하기
+        let year = parseInt(birthdate.slice(0, 2));
+        
+        if(year > currentYear2 ){
+            year += 1900;
+        }else{
+            year += 2000;
+        }
+        
+        // 입력받은 주민번호에서 성별 구하기
+        const genderNumber = parseInt(birthdate.slice(7, 8));
+        let gender = '';
+        if(genderNumber % 2 === 0){
+            gender = 'f';
+        }else{
+            gender = 'm';
+        }
 
-        // // Create a new Date object with the parsed values
-        // const birthDate = new Date();
-      
-        // // Calculate the age
-        // let age = today.getFullYear() - birthDate.getFullYear();
+        // 만 나이 구하기
+        let age = currentYear - year;
+
+        // Calculate the age
+        
 
         axios.post('/api/patient', {
             pno: null,
-            age: null,
+            age: age,
+            gender: gender, 
             ...values
         }, {
             headers: {
@@ -247,25 +258,7 @@ function PatientSearch(props) {
 
     return (
         <>
-
-            {/* 검색 창 */}
-            <Input
-                className="receipt-search"
-                style={{ width: 200 }}
-                placeholder=" 이름 입력 "
-                value={pname}
-                onChange={(e) => setPname(e.target.value)}
-                prefix={<SearchOutlined />}
-            />
             <Space>
-                {/*환자 검색 버튼*/}
-                <Button type="primary" ghost onClick={() => { fetchPatientData() }}>
-                    검 색
-                </Button>
-                {/* 신규환자등록 버튼 */}
-                <Button danger onClick={() => { showModalNewPatient(); }}>
-                    신규 환자 등록
-                </Button>
                 <Modal
                     visible={isModalOpenNewPatient}
                     onCancel={() => setIsModalOpenNewPatient(false)}
@@ -332,12 +325,12 @@ function PatientSearch(props) {
                         >
                             <Input />
                         </Form.Item>
-                        <Form.Item name="gender" label="성별" rules={[{ required: true, }]}>
+                        {/* <Form.Item name="gender" label="성별" rules={[{ required: true, }]}>
                             <Radio.Group>
                                 <Radio value="m">남자</Radio>
                                 <Radio value="f">여자</Radio>
                             </Radio.Group>
-                        </Form.Item>
+                        </Form.Item> */}
                         <Form.Item name="address" label="주소" rules={[{ required: true, }]}>
                             <Input />
                         </Form.Item>
@@ -353,7 +346,7 @@ function PatientSearch(props) {
                         <Form.Item shouldUpdate>
                             {() => (
                                 <Button
-                                    onClick={ ()=>{ newpatientHandleOk();}}
+                                    onClick={() => { newpatientHandleOk(); }}
                                     type="primary" ghost
                                     htmlType="submit"
                                     disabled={
@@ -378,6 +371,30 @@ function PatientSearch(props) {
                 bordered={true}/*있어보여서(미세하게 테두리) 일단 넣었는데 원래 기본 값 false. 나중에 확인.*/
                 style={{ marginBottom: 40 }}
                 title="환자리스트 "
+                headStyle={{fontSize : 19}}
+                extra={
+                    <>
+                        <Space>
+                        {/* 검색 창 */}
+                        <Input
+                            className="receipt-search"
+                            style={{ width: 200 }}
+                            placeholder=" 이름 입력 "
+                            value={pname}
+                            onChange={(e) => setPname(e.target.value)}
+                            prefix={<SearchOutlined />}
+                        />
+                        {/*환자 검색 버튼*/}
+                        <Button type="primary" ghost onClick={() => { fetchPatientData() }}>
+                            검 색
+                        </Button>
+                        {/* 신규환자등록 버튼 */}
+                        <Button danger onClick={() => { showModalNewPatient(); }}>
+                            신규 환자 등록
+                        </Button>
+                        </Space>
+                    </>
+                }
             >
 
                 {/* <div style={{ marginBottom: 18, fontWeight: 'lighter', fontSize: 20, textAlign: 'center' }}>환자 리스트 </div> */}
@@ -395,15 +412,19 @@ function PatientSearch(props) {
                             onDoubleClick: () => { setPatientModalVisible(true); },
                             onClick: () => { handlePatientRowClick(record) }
                         })}
-                    > 
+                    >
                     </Table>
- 
+
                 </div>
                 {selectedPatientRow && (
                     <Modal
                         visible={patientModalVisible}
+                        footer={[
+                            <Button type="primary" ghost onClick={() => { setPatientModalVisible(false);}} > 확인 </Button>,
+                            
+                        ]}
                         onCancel={() => setPatientModalVisible(false)}
-                        onOk={() => setPatientModalVisible(false)}
+                        
                     >
                         <p>이름: {selectedPatientRow.pname}</p>
                         <p>나이: {selectedPatientRow.age}</p>
