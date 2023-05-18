@@ -59,23 +59,27 @@ function Specbillcare(props) {
     {
       title: "no",
       dataIndex: "no",
-      key: "no"
+      key: "no",
+      align: "center",
     },
     {
       title: "처방코드",
       dataIndex: "tcode",
       key: "tcode",
+      align: "center",
     },
 
     {
       title: "처방명",
       key: "tname",
       dataIndex: "tname",
+      align: "center",
     },
     {
       title: "처방금액",
       key: "tprice",
       dataIndex: "tprice",
+      align: "center",
     },
   ];
 
@@ -90,6 +94,7 @@ function Specbillcare(props) {
           columns={billcareColumns}
           dataSource={props.billcareData}
           pagination={false}
+          className='spectable'
         />
 
         <Button danger ghost size={'middle'} onClick={updateCancle} disabled={check("미심사")} className='treatment-btn'>

@@ -58,18 +58,22 @@ function Specbilldisease(props) {
     {
       title: 'no',
       dataIndex: 'no',
+      align: "center",
     },
     {
       title: '주/부',
       dataIndex: 'dmain',
+      align: "center",
     },
     {
       title: '상병코드',
       dataIndex: 'dcode',
+      align: "center",
     },
     {
       title: '상병명',
-      dataIndex: 'disease'
+      dataIndex: 'disease',
+      align: "center",
     }
   ];
   const check = () =>{
@@ -77,9 +81,11 @@ function Specbilldisease(props) {
   }
     return (
         <>
-        <Col span={12} >선택 명세서의 상병 정보
+        <Col span={12}>
+        <p className='spectitle'>선택 명세서의 상병 정보</p>
       <Table 
         style={{width: "95%"}}
+        className='spectable'
         rowSelection={{
           type: props.selectionType,
            ...rowSelection,

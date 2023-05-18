@@ -387,16 +387,17 @@ function Specsearch(props) {
             userinsurance={userinsurance} />
     <Row>
       <Specbilldisease
+              status={status}
               selectionType={selectionType} 
               billdiseaseData={billdiseaseData}
               handleRowClick={handleRowClick}
               disablebutton={disablebutton}
               record={record}
               setModalOpen={setModalOpen}
-              diseasehandleCancel={diseasehandleCancel}
-              status={status}/>
+              diseasehandleCancel={diseasehandleCancel}/>
 
     <Specbillcare
+        status={status}
         bno={bno}
         rno={rno}
         record={record}
@@ -408,9 +409,7 @@ function Specsearch(props) {
         endDate={endDate}
         insurance={insurance}
         pno={pno}
-        handleCancel={handleCancel}
-        status={status}
-                  />
+        handleCancel={handleCancel}/>
     </Row>
     </Card>
     </Col>
