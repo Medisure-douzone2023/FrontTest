@@ -464,4 +464,3 @@ function PatientSearch(props) {
 }
 
 export default PatientSearch;
-

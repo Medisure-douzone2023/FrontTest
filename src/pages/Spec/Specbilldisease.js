@@ -58,26 +58,34 @@ function Specbilldisease(props) {
     {
       title: 'no',
       dataIndex: 'no',
+      align: "center",
     },
     {
       title: '주/부',
       dataIndex: 'dmain',
+      align: "center",
     },
     {
       title: '상병코드',
       dataIndex: 'dcode',
+      align: "center",
     },
     {
       title: '상병명',
-      dataIndex: 'disease'
+      dataIndex: 'disease',
+      align: "center",
     }
   ];
-  
+  const check = () =>{
+  return props.status === "삭제" || props.status === "완료";
+  }
     return (
         <>
-        <Col span={12} >선택 명세서의 상병 정보
+        <Col span={12}>
+        <p className='spectitle'>선택 명세서의 상병 정보</p>
       <Table 
         style={{width: "95%"}}
+        className='spectable'
         rowSelection={{
           type: props.selectionType,
            ...rowSelection,
@@ -86,10 +94,10 @@ function Specbilldisease(props) {
         dataSource={props.billdiseaseData}
         pagination={false}
       /> 
-      <Button danger ghost size={'middle'} onClick={deletebutton}className='disease-btn'>
+      <Button danger ghost size={'middle'} onClick={deletebutton} disabled ={check()}className='disease-btn'>
             삭제
           </Button>
-      <Button type="primary" ghost size={'middle'} onClick={diseaseModal} onCancel={props.diseasehandleCancel} className='disease-btn'>
+      <Button type="primary" ghost size={'middle'} onClick={diseaseModal} disabled = {check()} onCancel={props.diseasehandleCancel} className='disease-btn'>
             추가
           </Button>
       </Col>
