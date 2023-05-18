@@ -116,14 +116,14 @@ function Bill(props) {
       }
       const result = data.filter(d => !selectedRows.some(s => d.key === s.key));
       setData(result)
-      setSelectedRows('');
-      setSelectedRowKeys('');
-
+      setSelectedRowKeys([]);
+      setSelectedRows([]);
       axios.put("/api/bill/make", apiParameters, {
         headers: {
           "Authorization": token,
         },
       }).then((response) => {
+        console.log("response",response);
         alert("sam 파일 생성이 완료되었습니다.")
       }).catch((e) => {
         console.log("error", e);
@@ -140,8 +140,8 @@ function Bill(props) {
 
       const result = data.filter(d => !selectedRows.some(s => d.key === s.key));
       setData(result)
-      setSelectedRows('');
-      setSelectedRowKeys('')
+      setSelectedRowKeys([]);
+      setSelectedRows([]);
 
       axios.put("/api/bill/delete", apiParameters, {
         headers: {

@@ -5,16 +5,15 @@ import '../../assets/styles/InsertManual.css';
 
 
 function InsertManual(props) {
+  useEffect(() => {
+    search();
+  }, []);
   let token = props.token;
-  const options = [{ value: null, labe: '미선택' },{ value: '건강보험', labe: '건강보험' }, { value: '의료급여', labe: '의료급여' }];
+  const options = [{ value: '미선택', labe: '미선택' },{ value: '건강보험', labe: '건강보험' }, { value: '의료급여', labe: '의료급여' }];
   const { RangePicker } = DatePicker;
   const [date, setDate] = useState('');
   const [insurance, setInsurance] = useState();
   const [size, setSize] = useState('middle');
-
-  useEffect(() => {
-    search();
-  }, []);
 
   const columns = [
     {
@@ -76,7 +75,6 @@ function InsertManual(props) {
   };
 
   const search = () => {
-
     const param = { startDate: date[0], endDate: date[1], insurance: insurance };
     axios.get("/api/receipt/insertManual", { headers: { "Authorization": token }, params: param }
     ).then((response) => {
@@ -120,6 +118,8 @@ function InsertManual(props) {
       for (let i = 0; i < copy.length; i++) {
         apiParameters.push([copy[i].rno, copy[i].pno])
       }
+      console.log("selectedRows",selectedRows)
+      console.log("apiParameters",apiParameters)
       axios.post("/api/bill/manualInsert", apiParameters, {
         headers: {
           "Authorization": token,

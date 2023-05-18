@@ -5,7 +5,7 @@ import axios from 'axios';
 function Specbillcare(props) {
   let token = localStorage.getItem("accessToken");
   // 취소 버튼 시 명세서의 status를 미심사로 변경
-  const updateCancle = async() => {
+  const updateCancle = async () => {
     try {
       await axios.put(`/api/spec/${props.bno}`, {
         rno: props.rno,
@@ -22,7 +22,7 @@ function Specbillcare(props) {
       } else {
         await props.fetchSpecificationData();
       }
-    } catch(error) {
+    } catch (error) {
       console.error(error);
     }
   }
@@ -45,7 +45,7 @@ function Specbillcare(props) {
       } else {
         await props.fetchSpecificationData();
       }
-    } catch(error) {
+    } catch (error) {
       console.error(error);
     }
   }
@@ -66,7 +66,7 @@ function Specbillcare(props) {
       dataIndex: "tcode",
       key: "tcode",
     },
-  
+
     {
       title: "처방명",
       key: "tname",
@@ -78,28 +78,33 @@ function Specbillcare(props) {
       dataIndex: "tprice",
     },
   ];
-    return (
-        <>
-        <Col span={12}>선택 명세서의 처방 정보
+
+  const check = (forStatus) =>{
+    return props.status === "삭제" || props.status === forStatus;
+    }
+
+  return (
+    <>
+      <Col span={12}>선택 명세서의 처방 정보
         <Table
-                  columns={billcareColumns}
-                  dataSource={props.billcareData}
-                  pagination={false}
-                />
-                
-      <Button danger ghost size={'middle'} onClick={updateCancle} className='treatment-btn'>
+          columns={billcareColumns}
+          dataSource={props.billcareData}
+          pagination={false}
+        />
+
+        <Button danger ghost size={'middle'} onClick={updateCancle} disabled={check("미심사")} className='treatment-btn'>
           취소
         </Button>
-      <Button type="primary" ghost size={'middle'} onClick={updateOk} className='treatment-btn'>
-            완료
-          </Button>
-      <Button type="primary" ghost size={'middle'} className='treatment-btn' onClick={showModal} onCancel={props.handleCancel}>
-            처방내역
-          </Button>
-      
+        <Button type="primary" ghost size={'middle'} onClick={updateOk} disabled={check("완료")} className='treatment-btn'>
+          완료
+        </Button>
+        <Button type="primary" ghost size={'middle'} className='treatment-btn' onClick={showModal} onCancel={props.handleCancel}>
+          처방내역
+        </Button>
+
       </Col>
-      </>
-    );
+    </>
+  );
 }
 
 export default Specbillcare;
