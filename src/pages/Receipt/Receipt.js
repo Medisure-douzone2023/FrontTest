@@ -3,29 +3,12 @@ import axios from 'axios'
 import {
   Row,    // grid 나누기
   Col,    // grid 나누기
-  Card,   // 여러 테이블을 Card 느낌으로 임포트해서 구성할 것이다.
-  Radio,  // 
-  Table,  // 테이블 
-  Space,  // 버튼 둥글게(일단은 그 용도로.)
-  Input,  // 입력창
-  InputNumber, // 나이 입력창
-  Button, // 버튼
-  Avatar,    // 검색해봐야함.
-  Segmented, // 전체,진료,수납 토글 용도.
-  Typography, // 검색해봐야함.
-  Modal,
-  Form,
-  Descriptions// 환자상세, 기타 모달창에 쓰려고.
 } from "antd";
-// 아이콘 임포트 
-import { SearchOutlined, } from "@ant-design/icons";
 import '../../assets/styles/Receipt.css';
 import ReceiptStatus from './ReceiptStatus';
 import PatientSearch from './PatientSearch';
 import FeeList from './FeeList';
-// 이건 정확히 먼지 찾아보기 
 
-const { Title } = Typography;
 
 function Receipt(props) {
 

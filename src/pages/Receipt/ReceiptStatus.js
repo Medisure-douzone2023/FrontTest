@@ -6,13 +6,10 @@ import {
   Table,  // 테이블
   Button,
   Select,
-  Modal,  // 이거 해야함.
   Alert,
-
 } from "antd";
 // 아이콘 임포트  
 import '../../assets/styles/Receipt.css';
-import Q from 'q';
 const { Option } = Select;
 
 function ReceiptStatus(props) {
@@ -126,7 +123,6 @@ function ReceiptStatus(props) {
       render: (text, record) => (
         <Select
           style={{ width: '95px' }}
-          autoFocus={true}
           value={record.status}
           onChange={(value) => {
             handleDropboxStatusChange(value, record);
@@ -152,6 +148,9 @@ function ReceiptStatus(props) {
     props.fetchReceiptData();
   }, [currentReceiptPage])
 
+  const [caring, setCaring] = useState([]);
+
+
   const cancelReceipt = (record) => {
     axios.delete(`/api/receipt/${record.rno}`, {
 
@@ -168,8 +167,30 @@ function ReceiptStatus(props) {
       });
   }
 
+  // 진료중인 환자가 있는지 없는지 가져오는 함수
+  
+  const fetchCaringData = async () => {
+    await axios.get('/api/receipt/status', {
+        headers: {
+            "Authorization": props.token
+        },
+        params: {
+          status: "진료중"
+        }
+    })
+        .then((response) => {
+            
+            console.log("진료중환자", response.data.data);
+            return setCaring(response.data.data);
+        })
+        .catch((error) => {
+            console.log(error);
+        });
+}
+
   const handleDropboxStatusChange = (value, record) => {
     // 나중에 이거 지워야함.
+    fetchCaringData();
     setShowErrorAlert(false);
     setShowSuccessAlert(false); 
 
@@ -185,7 +206,12 @@ function ReceiptStatus(props) {
 
     else if (value === "진료중") {
       if (record.status === "접수" || record.status === "수납대기") {
-        changeStatus(value, record);
+        console.log("caring", caring);
+        if(caring == 0 ){ 
+          changeStatus(value, record);
+        }else{
+          setShowErrorAlert(true);  
+        }
       } else {
         setShowErrorAlert(true);
 
@@ -193,18 +219,19 @@ function ReceiptStatus(props) {
     }
     else if (value === "접수") {
       if (record.status === "진료중") {
+        fetchCaringData();
+
         changeStatus(value, record);
       } else {
         setShowErrorAlert(true);
       }
-    } else {
+    } 
+    else {
       setShowErrorAlert(true);
     }
 
   }
-
   const changeStatus = (value, record) => {
-    // setReceiptData([]);
     //console.log("value:", value);
     //console.log("record.status", record.status);
     axios.put(`/api/receipt/${record.rno}/${value}`, {}, {
@@ -242,7 +269,7 @@ function ReceiptStatus(props) {
         bordered={true} // 일단 true 
         title={props.status}
         extra={
-          /* <Segmented options={['전체', '접수', '진료중', '수납대기', '완료']} value={value} onChange={setValue} />*/
+           
           <Radio.Group onClick={props.fetchReceiptData} onChange={onChange} defaultValue="전체">
             <Radio.Button value="전체">전체</Radio.Button>
             <Radio.Button value="접수">접수</Radio.Button>
@@ -250,9 +277,9 @@ function ReceiptStatus(props) {
             <Radio.Button value="수납대기">수납대기</Radio.Button>
             <Radio.Button value="완료">완료</Radio.Button>
           </Radio.Group>
-        }
+        } 
       >
-
+{/* <Segmented options={['전체', '접수', '진료중', '수납대기', '완료']}  /> */}
         {showErrorAlert && (
           <Alert
             message="Error"

@@ -12,7 +12,7 @@ import '../../assets/styles/Receipt.css';
 
 function FeeList(props) {
     useEffect(() => {
-        props.fetchFeeTableData();
+        props.fetchFeeTableData(); 
     }, []);
 
     // 수납 데이터
@@ -46,7 +46,7 @@ function FeeList(props) {
             title: "주민등록번호",
             key: "birthdate",
             dataIndex: "birthdate"
-        },
+        }, 
         {
             title: "수납",
             key: "feee",
@@ -100,7 +100,7 @@ function FeeList(props) {
         })
     }
 
-    // 진짜 수납 데이터 가져오는 함수.
+    // 수납 데이터 가져오는 함수.
     const fetchFeeData = (record) => {
         axios.get('/api/fee/' + record.rno, {
             headers: {
@@ -111,7 +111,7 @@ function FeeList(props) {
                 setFeeData(response.data.data);
                 setFeePname(response.data.data.patient.pname);
                 setFeeTreat(response.data.data.treatment[0]);
-                console.log("FeeData", feeData);
+               // console.log("FeeData", feeData);
             })
             .catch((error) => {
                 console.log(error);
