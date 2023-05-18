@@ -1,10 +1,17 @@
 import { Table, DatePicker, Space, Button, Select, Row, Col,Card  } from "antd";
 import axios from 'axios'
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import '../../assets/styles/InsertManual.css';
 
 
 function InsertManual(props) {
+  const isMountedRef = useRef(true);
+  useEffect(() => {
+    return () => {
+      isMountedRef.current = false;
+    };
+  }, []);
+
   useEffect(() => {
     search();
   }, []);
@@ -74,20 +81,51 @@ function InsertManual(props) {
     setInsurance(value);
   };
 
+  const formatDate = (dateString) => {
+    const date = new Date(dateString);
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0');
+    
+    return `${year}년 ${month}월 ${day}일`;
+  };
+
+  const formatGender = (gender) =>{
+   return gender === 'm'? '남' : gender ==='f' ?'여' :  ''
+  }
+  const formatVisited = (isVisited) =>{
+    return isVisited ==='Y' ? '재진' : isVisited ==='N' ? '초진' : ''
+  }
+  
   const search = () => {
     const param = { startDate: date[0], endDate: date[1], insurance: insurance };
-    axios.get("/api/receipt/insertManual", { headers: { "Authorization": token }, params: param }
-    ).then((response) => {
-      const result = response.data.data;
-      for (let i = 0; i < result.length; i++) {
-        result[i].key = i;
-      }
-      setDataSource(result);
-    }).catch((e) => {
-      console.log("error", e);
-    });
-  }
-
+    axios
+      .get("/api/receipt/insertManual", { headers: { "Authorization": token }, params: param })
+      .then((response) => {
+        if (!isMountedRef.current) {
+          return;
+        }
+        const data = response.data.data;
+        console.log("data",data)
+        if (data.length === 0) {
+          alert("데이터가 존재하지 않습니다.");
+        } else {
+          const result = data.map((item, index) => ({
+            ...item,
+            key: index,
+            rdate: formatDate(item.rdate),
+            gender: formatGender(item.gender),
+            visit: formatVisited(item.visit),
+            fprice: item.fprice.toLocaleString(),
+            totalprice: item.totalprice.toLocaleString(),
+          }));
+          setDataSource(result);
+        }
+      })
+      .catch((error) => {
+        console.log("error", error);
+      });
+  };
   const start = () => {
     setLoading(true);
     setTimeout(() => {
@@ -163,11 +201,11 @@ function InsertManual(props) {
         <div
           style={{ marginBottom: 16 }}>
           <Button type="primary" onClick={start} disabled={!hasSelected} loading={loading}>
-            Reload
+            체크해제
           </Button>
           <span
             style={{ marginLeft: 8 }}>
-            {hasSelected ? `Selected ${selectedRowKeys.length} items` : ''}
+            {hasSelected ? ` ${selectedRowKeys.length} 개의 항목이 선택되었습니다.` : ''}
           </span>
         </div>
         <Table rowSelection={rowSelection} columns={columns} dataSource={dataSource} />

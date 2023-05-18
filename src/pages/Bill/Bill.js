@@ -1,8 +1,15 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Button, Table, DatePicker, Space, Select, Row, Col, Card } from 'antd';
 import axios from 'axios'
 
 function Bill(props) {
+  const isMountedRef = useRef(true);
+  useEffect(() => {
+    return () => {
+      isMountedRef.current = false;
+    };
+  }, []);
+
   useEffect(() => {
     search();
   }, []);
@@ -18,7 +25,7 @@ function Bill(props) {
 
   const columns = [
     {
-      title: '청구번호',
+      title: '청구생성번호',
       dataIndex: 'bno',
       key: 'bno',
     },
@@ -59,8 +66,8 @@ function Bill(props) {
     },
     {
       title: '주차',
-      dataIndex: 'week',
-      key: 'week',
+      dataIndex: 'bweek',
+      key: 'bweek',
     }
   ];
   let [data, setData] = useState([]);

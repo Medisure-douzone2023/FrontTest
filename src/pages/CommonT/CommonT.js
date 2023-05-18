@@ -91,15 +91,15 @@ function CommonT(props) {
                 marginRight: 8,
               }}
             >
-              Save
+              저장
             </Typography.Link>
-            <Popconfirm title="Sure to cancel?" onConfirm={cancel}>
-              <a>Cancel</a>
+            <Popconfirm title="수정을 취소하시겠습니까?" onConfirm={cancel} description="이 작업은 되돌릴 수 없습니다.">
+              <a>취소</a>
             </Popconfirm>
           </span>
         ) : (
           <Typography.Link disabled={editingKey !== ''} onClick={() => edit(record)}>
-            Edit
+            수정
           </Typography.Link>
         );
       },

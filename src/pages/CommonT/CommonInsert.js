@@ -21,11 +21,14 @@ function CommonInsert({ token, isModalOpen,setIsModalOpen,options,dataSource,set
     };
     
     const validateClassification = (_, value) => {
+      if (!value) {
+        return Promise.reject('공통코드는 필수 항목입니다.');
+      }
         return value ? Promise.resolve() : Promise.reject('classification');
       };
     const [insertForm] = Form.useForm();
     const validateMessages = {
-        required: '${label}는 필수 항목 입니다.',
+        required: '${label}은 필수 항목 입니다.',
         types: {
             classification: '구분명을 먼저 선택하세요!',
           }
