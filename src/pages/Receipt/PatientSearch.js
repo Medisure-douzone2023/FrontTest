@@ -8,30 +8,27 @@ import {
     Button, // 버튼
     Modal,
     Form,
-    Radio,
     Select,
 } from "antd";
 import { SearchOutlined, } from "@ant-design/icons";
-import '../../assets/styles/Receipt.css';
+import '../../assets/styles/Receipt.css'; 
 import TextArea from 'antd/lib/input/TextArea';
 import DaumPostcode from 'react-daum-postcode';
-
-
+ 
 function PatientSearch(props) {
 
     const [pname, setPname] = useState([]);
     const [patientData, setPatientData] = useState([]); // 환자 이름으로 검색한 데이터.
-
     const textAreaRef = useRef(null);   // 증상입력 모달창 TextArea 박스 reset 용도
     const [newPatientForm] = Form.useForm(); // 신규환자등록 모달창 input 박스 reset 용도
-
+ 
     // 환자증상 모달 관련   
     const [conditionModalVisible, setConditionModalVisible] = useState(false);
     const [condition, setCondition] = useState();
 
     // 환자 리스트 레코드 선택했을 때 + 환자 상세 모달
     const [patientModalVisible, setPatientModalVisible] = useState(false); // 환자상세모달(보이기,안보이기)
-    const [selectedPatientRow, setSelectedPatientRow] = useState(null);
+    const [selectedPatientRow, setSelectedPatientRow] = useState();
     // 환자 리스트에서 클릭했을 때 state 설정시켜주는 함수
     const handlePatientRowClick = (record) => {
         setSelectedPatientRow(record);
@@ -63,6 +60,9 @@ function PatientSearch(props) {
             title: "주민등록번호",
             key: "birthdate",
             dataIndex: "birthdate",
+            render: (text) => (
+                <span title={text}>{text.length > 8 ? `${text.substring(0, 8)}...` : text}</span>
+              ),
         },
         {
             title: "연락처",
@@ -100,8 +100,6 @@ function PatientSearch(props) {
             ),
         }
     ];
-    // 초/재진 여부 관련
-    const [visitData, setVisitData] = useState({});
 
     const fetchVisitData = () => {
         // console.log("패치방문함수 바로 처음에서, selectedPateintRow.pno: ", selectedPatientRow.pno);
@@ -123,8 +121,8 @@ function PatientSearch(props) {
                 // console.log("visitData", visitData);
             })
             .catch((error) => {
-                console.log(error);
-            });
+                console.log(error); 
+            }); 
     }
     // 상세 검색에서, [접수하기]
     const insertReceiptData = (visitD) => {
@@ -148,12 +146,14 @@ function PatientSearch(props) {
                 alert("접수 되었습니다.")
                 textAreaRef.current.value = '';
                 setConditionModalVisible(false);
-                props.fetchFeeTableData(props.status);
+                props.fetchFeeTableData(props.status); 
             })
             .catch((error) => {
                 console.error("insertReceipt error: ", error);
             });
     }
+
+
     // 신규환자등록 모달창 관련
     const [isModalOpenNewPatient, setIsModalOpenNewPatient] = useState(false);
     const showModalNewPatient = () => {
@@ -170,8 +170,6 @@ function PatientSearch(props) {
         setIsModalOpenNewPatient(false);
     };
 
-    const [, forceUpdate] = useState({});
-
     // To disable submit button at the beginning.
     useEffect(() => {
         fetchPatientData();
@@ -180,31 +178,35 @@ function PatientSearch(props) {
 
     // 환자 이름 입력해서 데이터 가져오기 
     const fetchPatientData = () => {
-        axios.get(`/api/patient/${pname}`, {
+        axios
+          .get(`/api/patient/${pname}`, {
             headers: {
-                "Authorization": props.token
+              "Authorization": props.token
             }
-        })
-            .then((response) => {
-                setPatientData(response.data.data);
-                console.log("patientData", response.data.data);
-            })
-            .catch((error) => {
-                console.log(error);
-            });
-    };
-
+          })
+          .then((response) => {
+            const modifiedData = response.data.data.map((patient) => ({
+              ...patient,
+              gender: patient.gender === "m" ? "남" : "여"
+            }));
+            setPatientData(modifiedData);
+            console.log("patientData", modifiedData);
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+      };
 
     // 신규 환자 데이터 insert 하기
     const submitNewPatientData = (values) => {
-        console.log("value is ?? :", values);
+        // 휴대전화
+        const { contact } = values;
+        const combinedContact = contact['1'] + contact['2'] + contact['3'];
+
         const birthdate = values.birthdate;
-        
-        
         // 현재 날짜 구하기
         const today = new Date();
         const currentYear = today.getFullYear();
-        console.log("현재연도", currentYear);
         const currentYear2 = currentYear - 2000;
         
         // 입력받은 연도 구하기
@@ -229,12 +231,14 @@ function PatientSearch(props) {
         let age = currentYear - year;
 
         // Calculate the age
+        const address = `${inputAddress} ${inputZoneCode} ${inputDetailAddress}`;
         
-
         axios.post('/api/patient', {
             pno: null,
             age: age,
             gender: gender, 
+            address: address,
+            contact: combinedContact,
             ...values
         }, {
             headers: {
@@ -257,7 +261,6 @@ function PatientSearch(props) {
     const [inputAddress, setInputAddress] = useState();
     const [inputZoneCode, setInputZoneCode] = useState();
     const [inputDetailAddress, setInputDetailAddress] = useState();
-
     // 모달 핸들러, 데이터 저장, style
     const handlePostcodeSearch = () => {
         if (isPostcodeOpen) {
@@ -281,8 +284,7 @@ function PatientSearch(props) {
       resetDetailAddress();
       setIsPostcodeOpen(false);
     };
-
-
+ 
     // 신규환자등록 모달안 layout 배열 
     const layout = {
         labelCol: {
@@ -298,19 +300,20 @@ function PatientSearch(props) {
             <Space>
                 <Modal
                     visible={isModalOpenNewPatient}
-                    onCancel={() => setIsModalOpenNewPatient(false)}
+                    onCancel={() => {newPatientForm.resetFields(); setIsModalOpenNewPatient(false)}}
                     footer={[
                         null,
                         null,
                     ]}
                     width={700}
-                >
+                > 
 
                     <Form {...layout} form={newPatientForm} onFinish={submitNewPatientData} >
+                        <h3>신규 환자 등록</h3>
                         <Form.Item name="pname" label="이름" rules={[{ required: true, }]}>
                             <Input />
                         </Form.Item>
-                        <Form.Item
+                        <Form.Item 
                             name="birthdate"
                             label="주민등록번호"
                             rules={[{
@@ -362,12 +365,12 @@ function PatientSearch(props) {
                         >
                             <Input />
                         </Form.Item>
-                        <Form.Item name="address" label="주소" rules={[{ required: true, }]}>
-                            <div style={{ display: 'flex', alignItems: 'center' }}>
-                            <Input id="sample2_postcode" placeholder="우편번호" value={inputZoneCode}/>
+                        <Form.Item name="" label="주소" >
+                        <div style={{ display: 'flex', alignItems: 'center' }}>
+                            <Input id="sample2_postcode" placeholder="우편번호" value={inputZoneCode} disabled/>
                             <Button type="button" onClick={handlePostcodeSearch}>우편번호 찾기</Button>
                             </div>
-                            <Input id="sample2_address" placeholder="주소" value={inputAddress} />
+                            <Input id="sample2_address" placeholder="주소" value={inputAddress} disabled/>
                             <Input id="sample2_detailAddress" placeholder="상세주소" value={inputDetailAddress} onChange={e => setInputDetailAddress(e.target.value)}/>
                             {isPostcodeOpen && (
                             <DaumPostcode
@@ -385,19 +388,13 @@ function PatientSearch(props) {
                         <Form.Item name="etc" label="비고" >
                             <TextArea rows={3} />
                         </Form.Item>
-                        <Form.Item shouldUpdate>
+                        <Form.Item shouldUpdate style={{ display: 'flex', justifyContent: 'center'  }}>
                             {() => (
                                 <Button
                                     onClick={() => { newpatientHandleOk(); }}
                                     type="primary" ghost
                                     htmlType="submit"
-                                    disabled={
-                                        !newPatientForm.isFieldsTouched(true) ||
-                                        !!newPatientForm.getFieldsError().filter(({ errors, name }) => {
-                                            return name !== "etc" && errors.length;
-                                        }).length
-                                    }
-                                >
+                                > 
                                     신규등록
                                 </Button>
                             )}
@@ -436,9 +433,10 @@ function PatientSearch(props) {
                         </Button>
                         </Space>
                     </>
-                } 
+                }  
             >
-
+                
+                {/* 환자 리스트 테이블 */}
                 {/* <div style={{ marginBottom: 18, fontWeight: 'lighter', fontSize: 20, textAlign: 'center' }}>환자 리스트 </div> */}
                 <div>
                     <Table
@@ -458,7 +456,8 @@ function PatientSearch(props) {
                     </Table>
 
                 </div>
-                {selectedPatientRow && (
+            </Card>
+            {selectedPatientRow && (
                     <Modal
                         visible={patientModalVisible}
                         footer={[
@@ -466,8 +465,9 @@ function PatientSearch(props) {
                             
                         ]}
                         onCancel={() => setPatientModalVisible(false)}
-                        
                     >
+                        
+                        <h2>환자 상세 정보</h2>
                         <p>이름: {selectedPatientRow.pname}</p>
                         <p>나이: {selectedPatientRow.age}</p>
                         <p>주민등록번호: {selectedPatientRow.birthdate}</p>
@@ -476,14 +476,16 @@ function PatientSearch(props) {
                         <p>주소: {selectedPatientRow.address}</p>
                         <p>보험유형: {selectedPatientRow.insurance}</p>
                         <p>비고: {selectedPatientRow.etc}</p>
+                        
                     </Modal>
                 )}
-            </Card>
 
             {/* 환자 증상 모달 */}
             <Modal
-                width={100}
-                centered visible={conditionModalVisible}
+                className="modalStyle"
+                width={600} 
+                height={500}
+                centered visible={conditionModalVisible} 
                 // visible={conditionModalVisible}
                 onCancel={() => setConditionModalVisible(false)}
                 footer={[
@@ -494,6 +496,7 @@ function PatientSearch(props) {
                 <h3>증상을 입력하세요</h3>
 
                 <Input.TextArea
+                    rows={10}
                     ref={textAreaRef}
                     onChange={(e) => { setCondition(e.target.value) }}
                     placeholder="환자의 증상을 입력하세요 ..."
