@@ -108,6 +108,7 @@ function InsertManual(props) {
         const data = response.data.data;
         console.log("data",data)
         if (data.length === 0) {
+          setDataSource(data);
           alert("데이터가 존재하지 않습니다.");
         } else {
           const result = data.map((item, index) => ({

@@ -1,4 +1,4 @@
-import { Table, Space, Button, Select, Row, Col, Form, Input, Typography, Popconfirm } from "antd";
+import { Table, Space, Button, Select, Row, Col, Form, Input, Typography, Popconfirm, Card } from "antd";
 import axios from 'axios'
 import { useEffect, useState } from "react";
 import CommonInsert from "./CommonInsert";
@@ -239,6 +239,7 @@ function CommonT(props) {
   });
 
   return (
+    <Card style={{ width: '100%' }}>
     <div>
       <h4> 공통테이블 검색 </h4>
       <Row>
@@ -287,6 +288,7 @@ function CommonT(props) {
       </div>
       <Button type="primary" ghost onClick={deleteCode} disabled={!hasSelected}>삭제</Button>
     </div>
+    </Card>
   );
 }
 export default CommonT;

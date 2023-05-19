@@ -74,6 +74,7 @@ function Bill(props) {
   const [loading, setLoading] = useState(false);
   const [selectedRowKeys, setSelectedRowKeys] = useState([]);
   const [selectedRows, setSelectedRows] = useState([]);
+  const [checkStatus, setCheckStatus] = useState();
 
   const selectDate = (value, dateString) => {
     setDate(dateString);
@@ -85,14 +86,31 @@ function Bill(props) {
     setInsurance(value);
   };
 
+  const formatBnum = (bNum) =>{
+    return bNum === 0 ? '미생성' : bNum;
+  }
+
   const search = () => {
+
     const param = { month: date, insurance: insurance, status: status };
     axios.get("/api/bill", { headers: { "Authorization": token }, params: param }).then((e) => {
-      const result = e.data.data;
-      for (var i = 0; i < result.length; i++) {
-        result[i].key = i;
+      if (!isMountedRef.current) {
+        return;
       }
-      setData(result)
+      const data = e.data.data;
+      if (data.length === 0) {
+        setData(data);
+        alert("데이터가 존재하지 않습니다.");
+      } else {
+        const result = data.map((item, index) => ({
+          ...item,
+          key: index,
+          bnumber: formatBnum(item.bnumber),
+          fprice: item.fprice.toLocaleString(),
+          billprice: item.billprice.toLocaleString(),
+        }));
+        setData(result);
+      }
     }).catch((e) => {
       console.log("error", e);
     })
@@ -116,13 +134,14 @@ function Bill(props) {
   const hasSelected = selectedRowKeys.length > 0;
 
   const send = () => {
+    if(selectedRows.length === 0){
+      alert('선택된 청구서가 없습니다. 송신 및 변환할 청구서를 선택해 주세요!')
+    }
     if (selectedRows.length > 0) {
       let apiParameters = [];
       for (let i = 0; i < selectedRows.length; i++) {
         apiParameters.push(selectedRows[i].bno)
       }
-      const result = data.filter(d => !selectedRows.some(s => d.key === s.key));
-      setData(result)
       setSelectedRowKeys([]);
       setSelectedRows([]);
       axios.put("/api/bill/make", apiParameters, {
@@ -132,6 +151,7 @@ function Bill(props) {
       }).then((response) => {
         console.log("response",response);
         alert("sam 파일 생성이 완료되었습니다.")
+        search()
       }).catch((e) => {
         console.log("error", e);
       });
@@ -139,14 +159,14 @@ function Bill(props) {
   }
 
   const cancel = () => {
+    if(selectedRows.length === 0){
+      alert('선택된 청구서가 없습니다. 송신 취소 할 청구서를 선택해 주세요!')
+    }
     if (selectedRows.length > 0) {
       let apiParameters = [];
       for (let i = 0; i < selectedRows.length; i++) {
         apiParameters.push(selectedRows[i].bno)
       }
-
-      const result = data.filter(d => !selectedRows.some(s => d.key === s.key));
-      setData(result)
       setSelectedRowKeys([]);
       setSelectedRows([]);
 
@@ -156,6 +176,7 @@ function Bill(props) {
         },
       }).then((response) => {
         alert("sam 파일 삭제가 완료되었습니다.")
+        search()
       }).catch((e) => {
         console.log("error", e);
       });
