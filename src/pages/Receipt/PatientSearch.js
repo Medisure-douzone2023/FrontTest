@@ -367,7 +367,7 @@ function PatientSearch(props) {
                             <Input id="sample2_postcode" placeholder="우편번호" value={inputZoneCode}/>
                             <Button type="button" onClick={handlePostcodeSearch}>우편번호 찾기</Button>
                             </div>
-                            <Input id="sample2_address" placeholder="주소" value={inputAddress}/>
+                            <Input id="sample2_address" placeholder="주소" value={inputAddress} />
                             <Input id="sample2_detailAddress" placeholder="상세주소" value={inputDetailAddress} onChange={e => setInputDetailAddress(e.target.value)}/>
                             {isPostcodeOpen && (
                             <DaumPostcode
