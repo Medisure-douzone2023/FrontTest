@@ -342,7 +342,7 @@ function Specsearch(props) {
            no: <div>{i+1}</div>,
            dmain: <div className="author-info">{item.dmain}</div>,
            dcode: <div>{item.dcode}</div>,
-           disease: <div className="ant-employed billdiseasetable" data-content={item.dname}>{item.dname}</div>, 
+           disease: <div className="ant-employed" data-content={item.dname}>{item.dname}</div>, 
          }));
          setBilldiseaseData(diseasecareData1);
             
@@ -356,7 +356,7 @@ function Specsearch(props) {
           key : i,
           no : <div key={item.tno}>{i+1}</div>,
           tcode : <div className="author-info">{item.tcode}</div>,
-          tname : <div className="ant-employed billdiseasetable" data-content={item.tname}>{item.tname}</div>,
+          tname : <div className="ant-employed" data-content={item.tname}>{item.tname}</div>,
           tprice: <div >{item.tprice}</div>
          }));
          setBillcareData(diseasecareData2);
