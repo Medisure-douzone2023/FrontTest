@@ -25,6 +25,8 @@ function Specbillcare(props) {
       props.setBilldiseaseData([]);
       props.setBillcareData([]);
       props.setUserinfo([]);
+      props.setBillDiseaseModalData([]);
+      props.setBillCareModalData([])
     } catch (error) {
       console.error(error);
     }
@@ -51,6 +53,8 @@ function Specbillcare(props) {
       props.setBilldiseaseData([]);
       props.setBillcareData([]);
       props.setUserinfo([]);
+      props.setBillDiseaseModalData([]);
+      props.setBillCareModalData([])
     } catch (error) {
       console.error(error);
     }
