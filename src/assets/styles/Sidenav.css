@@ -1,88 +1,83 @@
 @media (min-width: 0px) {
-    .layout-dashboard .ant-layout-sider.sider-primary {
-        margin: 20px 0 0 20px;
-        padding: 13px 20px;
-        height: calc(100vh - 20px);
-    }
-      .layout-dashboard .ant-layout {
-        width: auto;
-        flex-shrink: 1;
-        margin-left: 270px;
-      }
+  .layout-dashboard .ant-layout-sider.sider-primary {
+    margin: 20px 0 0 20px;
+    padding: 13px 20px;
+    height: calc(100vh - 20px);
+  }
+  .layout-dashboard .ant-layout {
+    width: auto;
+    flex-shrink: 1;
+    margin-left: 270px;
+  }
 }
 
 @media (min-width: 0px) {
-    .layout-dashboard-rtl .ant-layout-sider.sider-primary {
-        margin: 20px 20px 0 0;
-        height: calc(100vh - 20px);
-      }
-    .layout-dashboard-rtl .ant-layout-sider.sider-primary {
-        right: 0;
-        left: auto;
-    }
-    .layout-dashboard-rtl .ant-layout-sider.sider-primary {
-        right: 0;
-        left: auto;
-    }
-    .layout-dashboard-rtl .ant-layout {
-        margin-right: 270px;
-        margin-left: 0;
-    }
+  .layout-dashboard-rtl .ant-layout-sider.sider-primary {
+    margin: 20px 20px 0 0;
+    height: calc(100vh - 20px);
+  }
+  .layout-dashboard-rtl .ant-layout-sider.sider-primary {
+    right: 0;
+    left: auto;
+  }
+  .layout-dashboard-rtl .ant-layout-sider.sider-primary {
+    right: 0;
+    left: auto;
+  }
+  .layout-dashboard-rtl .ant-layout {
+    margin-right: 270px;
+    margin-left: 0;
+  }
 }
 
 .sidemenu {
-    margin-top: 20px;
-    margin-left: 20px;
+  margin-top: 20px;
+  margin-left: 20px;
 }
 .logo img {
-    width: 32px;
-    margin-right: 10px;
+  width: 32px;
+  margin-right: 10px;
 }
 .logo {
-    margin-bottom: 25px;
+  margin-bottom: 25px;
 }
 
 .ant-layout.ant-layout-has-sider {
-    flex-direction: row;
+  flex-direction: row;
 }
 
 .layout-dashboard .ant-layout-sider.sider-primary {
-    width: 250px;
-    position: fixed;
-    left: 0;
-    z-index: 99;
-    height: 100vh;
-    overflow: auto; 
-    margin: 0;
-    padding: 33px 20px;
+  width: 250px;
+  position: fixed;
+  left: 0;
+  z-index: 99;
+  height: 100vh;
+  overflow: auto;
+  margin: 0;
+  padding: 33px 20px;
 }
 
 .layout-dashboard .ant-layout-sider.sider-primary .brand img {
-    height: 60px;
-    vertical-align: middle;
-    margin-left: 3px;
-    margin-bottom: 20px;
-}
-  
-.layout-dashboard .ant-layout-sider.sider-primary .ant-layout-sider-children {
-    width: auto;
-}
-  
-.layout-dashboard .ant-layout-sider.sider-primary .ant-menu-inline {
-    border: none;
-}
-.layout-dashboard .ant-menu {
-    background: transparent;
+  height: 60px;
+  vertical-align: middle;
+  margin-left: 3px;
+  margin-bottom: 20px;
 }
 
-.layout-dashboard
-  .ant-layout-sider.sider-primary
-  .ant-menu-inline
-  .ant-menu-item,
-.layout-dashboard
-  .ant-layout-sider.sider-primary
-  .ant-menu-inline
-  .ant-menu-submenu {
+.layout-dashboard .ant-layout-sider.sider-primary .ant-layout-sider-children {
+  width: auto;
+}
+
+.layout-dashboard .ant-layout-sider.sider-primary .ant-menu-inline {
+  border: none;
+}
+.layout-dashboard .ant-menu {
+  background: transparent;
+  font-size: 17px;
+}
+
+.layout-dashboard .ant-layout-sider.sider-primary .ant-menu-inline .ant-menu-item,
+.layout-dashboard .ant-layout-sider.sider-primary .ant-menu-inline .ant-menu-submenu {
   margin: 0;
   overflow: visible;
 }
@@ -98,18 +93,12 @@
   box-shadow: 0 20px 27px rgb(0 0 0 / 5%);
 }
 
-.layout-dashboard
-  .ant-layout-sider.sider-primary
-  .ant-menu-item.ant-menu-item-selected
-  .active,
+.layout-dashboard .ant-layout-sider.sider-primary .ant-menu-item.ant-menu-item-selected .active,
 .layout-dashboard .ant-layout-sider.sider-primary .ant-menu-item .active,
-.layout-dashboard
-  .ant-layout-sider.sider-primary
-  .ant-menu-submenu.ant-menu-item-selected
-  .active,
+.layout-dashboard .ant-layout-sider.sider-primary .ant-menu-submenu.ant-menu-item-selected .active,
 .layout-dashboard .ant-layout-sider.sider-primary .ant-menu-submenu .active {
   background-color: #fff;
-  font-weight: 600;
+  font-weight: 700;
 }
 
 .layout-dashboard .ant-layout-sider.sider-primary .ant-menu-item a,
@@ -146,19 +135,15 @@
   .ant-menu-submenu.ant-menu-item-selected
   .active
   .icon,
-.layout-dashboard
-  .ant-layout-sider.sider-primary
-  .ant-menu-submenu
-  .active
-  .icon {
+.layout-dashboard .ant-layout-sider.sider-primary .ant-menu-submenu .active .icon {
   background-color: #1890ff;
 }
 
 .layout-dashboard .ant-layout-sider.sider-primary .ant-menu-item .icon,
 .layout-dashboard .ant-layout-sider.sider-primary .ant-menu-submenu .icon {
   display: inline-flex;
-  width: 32px;
-  height: 32px;
+  width: 40px;
+  height: 40px;
   background-color: #fff;
   box-shadow: 0 4px 6px rgb(0 0 0 / 12%);
   border-radius: 6px;
@@ -174,92 +159,53 @@
   .active
   svg
   path,
-.layout-dashboard
-  .ant-layout-sider.sider-primary
-  .ant-menu-item
-  .active
-  svg
-  path,
+.layout-dashboard .ant-layout-sider.sider-primary .ant-menu-item .active svg path,
 .layout-dashboard
   .ant-layout-sider.sider-primary
   .ant-menu-submenu.ant-menu-item-selected
   .active
   svg
   path,
-.layout-dashboard
-  .ant-layout-sider.sider-primary
-  .ant-menu-submenu
-  .active
-  svg
-  path {
+.layout-dashboard .ant-layout-sider.sider-primary .ant-menu-submenu .active svg path {
   fill: #fff;
+  width: 24px;
+  height: 24px;
 }
 
 .layout-dashboard .ant-layout-sider.sider-primary .ant-menu-item svg path,
 .layout-dashboard .ant-layout-sider.sider-primary .ant-menu-submenu svg path {
   fill: #bfbfbf;
+  width: 24px;
+  height: 24px;
 }
 .layout-dashboard .ant-layout-sider.sider-primary .ant-menu-item a:hover,
 .layout-dashboard .ant-layout-sider.sider-primary .ant-menu-submenu a:hover {
   color: #141414;
 }
-.layout-dashboard
-  .ant-layout-sider.sider-primary
-  .ant-menu-inline
-  .ant-menu-item.menu-item-header {
+.layout-dashboard .ant-layout-sider.sider-primary .ant-menu-inline .ant-menu-item.menu-item-header {
   padding: 10px 16px !important;
   color: #8c8c8c;
-  font-weight: 700;
-  font-size: 13px;
+  font-weight: 400;
+  font-size: 18px;
   text-transform: uppercase;
   display: block;
 }
 
-.layout-dashboard
-  .ant-layout-sider.sider-primary
-  .ant-menu-inline
-  .ant-menu-item:after,
-.layout-dashboard
-  .ant-layout-sider.sider-primary
-  .ant-menu-inline
-  .ant-menu-submenu:after {
+.layout-dashboard .ant-layout-sider.sider-primary .ant-menu-inline .ant-menu-item:after,
+.layout-dashboard .ant-layout-sider.sider-primary .ant-menu-inline .ant-menu-submenu:after {
   display: none;
 }
 
-.layout-dashboard
-  .ant-layout-sider.sider-primary
-  .ant-menu-item.ant-menu-item-selected,
-.layout-dashboard
-  .ant-layout-sider.sider-primary
-  .ant-menu-item.ant-menu-item:active,
-.layout-dashboard
-  .ant-layout-sider.sider-primary
-  .ant-menu-item
-  .ant-menu-submenu-selected,
-.layout-dashboard
-  .ant-layout-sider.sider-primary
-  .ant-menu-item.ant-menu-submenu-title:active,
-.layout-dashboard
-  .ant-layout-sider.sider-primary
-  .ant-menu-item
-  .ant-menu-submenu:active,
-.layout-dashboard
-  .ant-layout-sider.sider-primary
-  .ant-menu-submenu.ant-menu-item-selected,
-.layout-dashboard
-  .ant-layout-sider.sider-primary
-  .ant-menu-submenu.ant-menu-item:active,
-.layout-dashboard
-  .ant-layout-sider.sider-primary
-  .ant-menu-submenu
-  .ant-menu-submenu-selected,
-.layout-dashboard
-  .ant-layout-sider.sider-primary
-  .ant-menu-submenu.ant-menu-submenu-title:active,
-.layout-dashboard
-  .ant-layout-sider.sider-primary
-  .ant-menu-submenu
-  .ant-menu-submenu:active {
+.layout-dashboard .ant-layout-sider.sider-primary .ant-menu-item.ant-menu-item-selected,
+.layout-dashboard .ant-layout-sider.sider-primary .ant-menu-item.ant-menu-item:active,
+.layout-dashboard .ant-layout-sider.sider-primary .ant-menu-item .ant-menu-submenu-selected,
+.layout-dashboard .ant-layout-sider.sider-primary .ant-menu-item.ant-menu-submenu-title:active,
+.layout-dashboard .ant-layout-sider.sider-primary .ant-menu-item .ant-menu-submenu:active,
+.layout-dashboard .ant-layout-sider.sider-primary .ant-menu-submenu.ant-menu-item-selected,
+.layout-dashboard .ant-layout-sider.sider-primary .ant-menu-submenu.ant-menu-item:active,
+.layout-dashboard .ant-layout-sider.sider-primary .ant-menu-submenu .ant-menu-submenu-selected,
+.layout-dashboard .ant-layout-sider.sider-primary .ant-menu-submenu.ant-menu-submenu-title:active,
+.layout-dashboard .ant-layout-sider.sider-primary .ant-menu-submenu .ant-menu-submenu:active {
   background-color: transparent;
 }
 .ant-layout.ant-layout-has-sider > .ant-layout,
