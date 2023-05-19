@@ -1,8 +1,15 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Button, Table, DatePicker, Space, Select, Row, Col, Card } from 'antd';
 import axios from 'axios'
 
 function Bill(props) {
+  const isMountedRef = useRef(true);
+  useEffect(() => {
+    return () => {
+      isMountedRef.current = false;
+    };
+  }, []);
+
   useEffect(() => {
     search();
   }, []);
@@ -18,7 +25,7 @@ function Bill(props) {
 
   const columns = [
     {
-      title: '청구번호',
+      title: '청구생성번호',
       dataIndex: 'bno',
       key: 'bno',
     },
@@ -59,8 +66,8 @@ function Bill(props) {
     },
     {
       title: '주차',
-      dataIndex: 'week',
-      key: 'week',
+      dataIndex: 'bweek',
+      key: 'bweek',
     }
   ];
   let [data, setData] = useState([]);
@@ -78,14 +85,31 @@ function Bill(props) {
     setInsurance(value);
   };
 
+  const formatBnum = (bNum) =>{
+    return bNum === 0 ? '미생성' : bNum;
+  }
+
   const search = () => {
+
     const param = { month: date, insurance: insurance, status: status };
     axios.get("/api/bill", { headers: { "Authorization": token }, params: param }).then((e) => {
-      const result = e.data.data;
-      for (var i = 0; i < result.length; i++) {
-        result[i].key = i;
+      if (!isMountedRef.current) {
+        return;
       }
-      setData(result)
+      const data = e.data.data;
+      if (data.length === 0) {
+        setData(data);
+        alert("데이터가 존재하지 않습니다.");
+      } else {
+        const result = data.map((item, index) => ({
+          ...item,
+          key: index,
+          bnumber: formatBnum(item.bnumber),
+          fprice: item.fprice.toLocaleString(),
+          billprice: item.billprice.toLocaleString(),
+        }));
+        setData(result);
+      }
     }).catch((e) => {
       console.log("error", e);
     })
@@ -109,13 +133,19 @@ function Bill(props) {
   const hasSelected = selectedRowKeys.length > 0;
 
   const send = () => {
+    if(selectedRows.length === 0){
+      alert('선택된 청구서가 없습니다. 송신 및 변환할 청구서를 선택해 주세요.')
+      return;
+    }
+    if(selectedRows.some((item) => item.bstatus === '변환')){
+      alert("이미 변환된 청구서가 포함되어 있습니다. 청구서를 확인해 주세요.")
+      return;
+    }
     if (selectedRows.length > 0) {
       let apiParameters = [];
       for (let i = 0; i < selectedRows.length; i++) {
         apiParameters.push(selectedRows[i].bno)
       }
-      const result = data.filter(d => !selectedRows.some(s => d.key === s.key));
-      setData(result)
       setSelectedRowKeys([]);
       setSelectedRows([]);
       axios.put("/api/bill/make", apiParameters, {
@@ -125,6 +155,7 @@ function Bill(props) {
       }).then((response) => {
         console.log("response",response);
         alert("sam 파일 생성이 완료되었습니다.")
+        search()
       }).catch((e) => {
         console.log("error", e);
       });
@@ -132,14 +163,19 @@ function Bill(props) {
   }
 
   const cancel = () => {
+    if(selectedRows.length === 0){
+      alert('선택된 청구서가 없습니다. 송신 취소할 청구서를 선택해 주세요!')
+      return
+    }
+    if(selectedRows.some((item) => item.bstatus === '변환')){
+      alert("미송신된 청구서가 포함되어 있습니다. 청구서를 확인해 주세요.")
+      return;
+    }
     if (selectedRows.length > 0) {
       let apiParameters = [];
       for (let i = 0; i < selectedRows.length; i++) {
         apiParameters.push(selectedRows[i].bno)
       }
-
-      const result = data.filter(d => !selectedRows.some(s => d.key === s.key));
-      setData(result)
       setSelectedRowKeys([]);
       setSelectedRows([]);
 
@@ -149,6 +185,7 @@ function Bill(props) {
         },
       }).then((response) => {
         alert("sam 파일 삭제가 완료되었습니다.")
+        search()
       }).catch((e) => {
         console.log("error", e);
       });
@@ -159,7 +196,7 @@ function Bill(props) {
     const has변환 = selectedRows.some((item) => item.bstatus === '변환');
   
     if (has미송신 && has변환) {
-      return true;
+      return false;
     }
     return selectedRows.length > 0 && !selectedRows.every((item) => item.bstatus === status);
   };

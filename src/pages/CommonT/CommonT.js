@@ -1,4 +1,4 @@
-import { Table, Space, Button, Select, Row, Col, Form, Input, Typography, Popconfirm } from "antd";
+import { Table, Space, Button, Select, Row, Col, Form, Input, Typography, Popconfirm, Card } from "antd";
 import axios from 'axios'
 import { useEffect, useState } from "react";
 import CommonInsert from "./CommonInsert";
@@ -91,15 +91,15 @@ function CommonT(props) {
                 marginRight: 8,
               }}
             >
-              Save
+              저장
             </Typography.Link>
-            <Popconfirm title="Sure to cancel?" onConfirm={cancel}>
-              <a>Cancel</a>
+            <Popconfirm title="수정을 취소하시겠습니까?" onConfirm={cancel} description="이 작업은 되돌릴 수 없습니다.">
+              <a>취소</a>
             </Popconfirm>
           </span>
         ) : (
           <Typography.Link disabled={editingKey !== ''} onClick={() => edit(record)}>
-            Edit
+            수정
           </Typography.Link>
         );
       },
@@ -110,15 +110,21 @@ function CommonT(props) {
   const [loading, setLoading] = useState(false);
   const [selectedRowKeys, setSelectedRowKeys] = useState([]);
   const [selectedRows, setSelectedRows] = useState([]);
+  const formatPrice = (price) =>{
+    return price === 0 ? '없음' : price
+  }
+
 
   const search = () => {
     const param = { gkey: keyname, gcode: gcode, codename: codename };
     axios.get("/api/common", { headers: { "Authorization": token }, params: param }
     ).then((response) => {
-      const result = response.data.data;
-      for (let i = 0; i < result.length; i++) {
-        result[i].key = i;
-      }
+      const data = response.data.data;
+      const result = data.map((item, index) => ({
+        ...item,
+        key: index,
+        gprice: formatPrice(item.gprice),
+      }));
       setDataSource(result);
       setEditingKey('');
     }).catch((e) => {
@@ -145,7 +151,9 @@ function CommonT(props) {
   const hasSelected = selectedRowKeys.length > 0;
 
   const deleteCode = () => {
+    console.log("yes")
     if (selectedRows.length > 0) {
+
       let apiParameters = [];
       let copy = [...selectedRows];
       setSelectedRows('');
@@ -239,6 +247,7 @@ function CommonT(props) {
   });
 
   return (
+    <Card style={{ width: '100%' }}>
     <div>
       <h4> 공통테이블 검색 </h4>
       <Row>
@@ -285,8 +294,16 @@ function CommonT(props) {
           
         </Form>
       </div>
-      <Button type="primary" ghost onClick={deleteCode} disabled={!hasSelected}>삭제</Button>
+      <Popconfirm
+    title="삭제하시겠습니까?"
+    okText="Yes"
+    cancelText="No"
+    onConfirm={deleteCode}
+  >
+     <Button type="primary" ghost disabled={!hasSelected}>삭제</Button>
+  </Popconfirm>
     </div>
+    </Card>
   );
 }
 export default CommonT;
