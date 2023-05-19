@@ -157,10 +157,16 @@ function PatientSearch(props) {
     // 신규환자등록 모달창 관련
     const [isModalOpenNewPatient, setIsModalOpenNewPatient] = useState(false);
     const showModalNewPatient = () => {
+        setInputAddress();
+        setInputZoneCode();
+        resetDetailAddress();
         setIsModalOpenNewPatient(true);
     };
     const newpatientHandleOk = () => {
         alert("신규 등록 되었습니다.");
+        setInputAddress();
+        setInputZoneCode();
+        resetDetailAddress();
         setIsModalOpenNewPatient(false);
     };
 
