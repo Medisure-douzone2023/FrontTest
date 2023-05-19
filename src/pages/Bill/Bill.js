@@ -74,7 +74,6 @@ function Bill(props) {
   const [loading, setLoading] = useState(false);
   const [selectedRowKeys, setSelectedRowKeys] = useState([]);
   const [selectedRows, setSelectedRows] = useState([]);
-  const [checkStatus, setCheckStatus] = useState();
 
   const selectDate = (value, dateString) => {
     setDate(dateString);
@@ -135,7 +134,12 @@ function Bill(props) {
 
   const send = () => {
     if(selectedRows.length === 0){
-      alert('선택된 청구서가 없습니다. 송신 및 변환할 청구서를 선택해 주세요!')
+      alert('선택된 청구서가 없습니다. 송신 및 변환할 청구서를 선택해 주세요.')
+      return;
+    }
+    if(selectedRows.some((item) => item.bstatus === '변환')){
+      alert("이미 변환된 청구서가 포함되어 있습니다. 청구서를 확인해 주세요.")
+      return;
     }
     if (selectedRows.length > 0) {
       let apiParameters = [];
@@ -160,7 +164,12 @@ function Bill(props) {
 
   const cancel = () => {
     if(selectedRows.length === 0){
-      alert('선택된 청구서가 없습니다. 송신 취소 할 청구서를 선택해 주세요!')
+      alert('선택된 청구서가 없습니다. 송신 취소할 청구서를 선택해 주세요!')
+      return
+    }
+    if(selectedRows.some((item) => item.bstatus === '변환')){
+      alert("미송신된 청구서가 포함되어 있습니다. 청구서를 확인해 주세요.")
+      return;
     }
     if (selectedRows.length > 0) {
       let apiParameters = [];
@@ -187,7 +196,7 @@ function Bill(props) {
     const has변환 = selectedRows.some((item) => item.bstatus === '변환');
   
     if (has미송신 && has변환) {
-      return true;
+      return false;
     }
     return selectedRows.length > 0 && !selectedRows.every((item) => item.bstatus === status);
   };
