@@ -139,6 +139,8 @@ function Bill(props) {
     }
     if(selectedRows.some((item) => item.bstatus === '변환')){
       alert("이미 변환된 청구서가 포함되어 있습니다. 청구서를 확인해 주세요.")
+      setSelectedRowKeys([]);
+      setSelectedRows([]);
       return;
     }
     if (selectedRows.length > 0) {
@@ -169,6 +171,8 @@ function Bill(props) {
     }
     if(selectedRows.some((item) => item.bstatus === '변환')){
       alert("미송신된 청구서가 포함되어 있습니다. 청구서를 확인해 주세요.")
+      setSelectedRowKeys([]);
+      setSelectedRows([]);
       return;
     }
     if (selectedRows.length > 0) {
@@ -176,8 +180,6 @@ function Bill(props) {
       for (let i = 0; i < selectedRows.length; i++) {
         apiParameters.push(selectedRows[i].bno)
       }
-      setSelectedRowKeys([]);
-      setSelectedRows([]);
 
       axios.put("/api/bill/delete", apiParameters, {
         headers: {
