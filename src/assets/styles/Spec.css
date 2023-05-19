@@ -34,7 +34,7 @@ body {
 
 .ant-border-space{
   font-family: 'Noto Sans KR', sans-serif;
-    width: 90%;
+    width: 100%;
     text-align: center;
     margin-top: 20px;
 }
@@ -63,14 +63,20 @@ body {
 
 .disease-btn{
     margin-right: 30px;
-    margin-top: 20px;
+    margin-bottom: 10px;
+    /* margin-top: 20px; */
     float: right;
 }
 
 .treatment-btn {
     margin-right: 20px;
-    margin-top: 20px;
+    margin-bottom: 10px;
+    /* margin-top: 20px; */
     float: right;
+}
+.judge-btn{
+  margin-top: 20px;
+  margin-right: 20px;
 }
 
 .tmodal {
@@ -151,7 +157,8 @@ body {
     text-align: center;
   }
   
-.custom-descriptions .ant-descriptions-item-label {
+.custom-descriptions .ant-descriptions-item-label,
+.custom-descriptions .ant-descriptions-item-content {
     border-radius: 12px;
     background-color: #f5f5f5;
     padding: 8px;
@@ -161,6 +168,7 @@ body {
     border-radius: 12px;
     padding: 8px;
   }
+  
 .spectitle {
   margin-top: 30px;
   font-weight: bold;

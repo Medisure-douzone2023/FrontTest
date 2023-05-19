@@ -286,7 +286,6 @@ function Specsearch(props) {
         dataIndex: "no",
         key: "no",
         align: "center",
-        width: 50,
       },
       {
         title: "이름",
