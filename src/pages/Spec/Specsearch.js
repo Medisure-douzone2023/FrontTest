@@ -39,6 +39,7 @@ function Specsearch(props) {
   const [searchData, setSearchData] = useState([null]);
   const [billdiseaseData, setBilldiseaseData] = useState([null]);
   const [billcareData, setBillcareData] = useState([null]);
+
   const [maincommondata, setMaincommondata] = useState([null]);
   const [subcommondata, setSubcommondata] = useState([null]);
   const { RangePicker } = DatePicker;
@@ -286,7 +287,6 @@ function Specsearch(props) {
         dataIndex: "no",
         key: "no",
         align: "center",
-        width: 50,
       },
       {
         title: "이름",
@@ -345,7 +345,7 @@ function Specsearch(props) {
            disease: <div className="ant-employed billdiseasetable" data-content={item.dname}>{item.dname}</div>, 
          }));
          setBilldiseaseData(diseasecareData1);
-         
+            
           const userData1 = diseasecareDatas.data.patient
           // eslint-disable-next-line eqeqeq
           setUserinfo([userData1.pname, userData1.pno, userData1.gender == "m" ? '남자' : '여자', userData1.age, userData1.birthdate, userData1.contact, userData1.insurance])
@@ -443,10 +443,10 @@ function Specsearch(props) {
         isModalOpen={isModalOpen}
         setIsModalOpen={setIsModalOpen}
         handleCancel={handleCancel}
-        billdiseaseData={billdiseaseData}
         billcareData={billcareData}
         ModalOpen={ModalOpen}
         handleRowClick={handleRowClick}
+        billdiseaseData={billdiseaseData}
         diseasehandleCancel={diseasehandleCancel}
         mainsearchValue={mainsearchValue}
         subsearchValue={subsearchValue}

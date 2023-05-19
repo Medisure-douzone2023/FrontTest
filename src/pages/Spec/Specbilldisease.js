@@ -82,7 +82,14 @@ function Specbilldisease(props) {
     return (
         <>
         <Col span={12}>
-        <p className='spectitle'>선택 명세서의 상병 정보</p>
+        <p className='spectitle'>선택 명세서의 상병 정보
+        <Button danger ghost size={'middle'} onClick={deletebutton} disabled ={check()}className='disease-btn'>
+            삭제
+          </Button>
+      <Button type="primary" ghost size={'middle'} onClick={diseaseModal} disabled = {check()} onCancel={props.diseasehandleCancel} className='disease-btn'>
+            추가
+          </Button>
+        </p>
       <Table 
         style={{width: "95%"}}
         className='spectable'
@@ -94,12 +101,7 @@ function Specbilldisease(props) {
         dataSource={props.billdiseaseData}
         pagination={false}
       /> 
-      <Button danger ghost size={'middle'} onClick={deletebutton} disabled ={check()}className='disease-btn'>
-            삭제
-          </Button>
-      <Button type="primary" ghost size={'middle'} onClick={diseaseModal} disabled = {check()} onCancel={props.diseasehandleCancel} className='disease-btn'>
-            추가
-          </Button>
+     
       </Col>
       </>
     );

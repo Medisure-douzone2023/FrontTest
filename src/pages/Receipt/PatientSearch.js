@@ -14,6 +14,7 @@ import {
 import { SearchOutlined, } from "@ant-design/icons";
 import '../../assets/styles/Receipt.css';
 import TextArea from 'antd/lib/input/TextArea';
+import DaumPostcode from 'react-daum-postcode';
 
 
 function PatientSearch(props) {
@@ -156,10 +157,16 @@ function PatientSearch(props) {
     // 신규환자등록 모달창 관련
     const [isModalOpenNewPatient, setIsModalOpenNewPatient] = useState(false);
     const showModalNewPatient = () => {
+        setInputAddress();
+        setInputZoneCode();
+        resetDetailAddress();
         setIsModalOpenNewPatient(true);
     };
     const newpatientHandleOk = () => {
         alert("신규 등록 되었습니다.");
+        setInputAddress();
+        setInputZoneCode();
+        resetDetailAddress();
         setIsModalOpenNewPatient(false);
     };
 
@@ -244,6 +251,36 @@ function PatientSearch(props) {
     const [birthdateError, setBirthdateError] = useState(null);
     const [contactError, setContactError] = useState(null);
 
+    // 주소 창 모아둔 거
+    // 주소창 모달
+    const [isPostcodeOpen, setIsPostcodeOpen] = useState(false);
+    const [inputAddress, setInputAddress] = useState();
+    const [inputZoneCode, setInputZoneCode] = useState();
+    const [inputDetailAddress, setInputDetailAddress] = useState();
+
+    // 모달 핸들러, 데이터 저장, style
+    const handlePostcodeSearch = () => {
+        if (isPostcodeOpen) {
+            setIsPostcodeOpen(false);
+          } else {
+            setIsPostcodeOpen(true);
+          }
+      };
+      
+    const postCodeStyle = {
+        width: '400px',
+        height: '200px',
+        display: 'block',
+      };
+      const resetDetailAddress = () => {
+        setInputDetailAddress('');
+      };
+    const onCompletePost = data => {
+      setInputAddress(data.address);
+      setInputZoneCode(data.zonecode);
+      resetDetailAddress();
+      setIsPostcodeOpen(false);
+    };
 
 
     // 신규환자등록 모달안 layout 배열 
@@ -325,14 +362,19 @@ function PatientSearch(props) {
                         >
                             <Input />
                         </Form.Item>
-                        {/* <Form.Item name="gender" label="성별" rules={[{ required: true, }]}>
-                            <Radio.Group>
-                                <Radio value="m">남자</Radio>
-                                <Radio value="f">여자</Radio>
-                            </Radio.Group>
-                        </Form.Item> */}
                         <Form.Item name="address" label="주소" rules={[{ required: true, }]}>
-                            <Input />
+                            <div style={{ display: 'flex', alignItems: 'center' }}>
+                            <Input id="sample2_postcode" placeholder="우편번호" value={inputZoneCode}/>
+                            <Button type="button" onClick={handlePostcodeSearch}>우편번호 찾기</Button>
+                            </div>
+                            <Input id="sample2_address" placeholder="주소" value={inputAddress} />
+                            <Input id="sample2_detailAddress" placeholder="상세주소" value={inputDetailAddress} onChange={e => setInputDetailAddress(e.target.value)}/>
+                            {isPostcodeOpen && (
+                            <DaumPostcode
+	                            style={postCodeStyle}
+	                            onComplete={onCompletePost}
+                            />
+                            )}
                         </Form.Item>
                         <Form.Item name="insurance" label="보험유형" rules={[{ required: true, }]}>
                             <Select >
