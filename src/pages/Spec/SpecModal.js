@@ -255,7 +255,8 @@ function SpecModal(props) {
           okText="확인"
           className='tmodal'
           centered
-          width={900}>
+          width={900}
+          height={600}>
         <p className='p'>진단 내역</p>
         <Table 
         columns={diseaseColumns}

@@ -152,6 +152,7 @@ function Specsearch(props) {
           bno: item.bno,
           rno: item.rno,
           pno: item.pno,
+          no: <div>{i + 1}</div>, 
           name: <div className="author-info">{item.pname}</div>,
           insurance: <div>{item.insurance}</div>,
           status: <div>{item.sstatus}</div>,

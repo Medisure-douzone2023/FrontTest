@@ -120,7 +120,7 @@ class SignIn extends Component {
             <div className="row content-row">
               <div className="col align-items-center flex-col">
                 <div className="text sign-in">
-                  <h2>Welcome</h2>
+                  <h2>Welcome to Medisure</h2>
                 </div>
               </div>
             </div>
