@@ -157,17 +157,23 @@ body {
     text-align: center;
   }
   
-.custom-descriptions .ant-descriptions-item-label,
+/* .custom-descriptions .ant-descriptions-item-label,
 .custom-descriptions .ant-descriptions-item-content {
     border-radius: 12px;
     background-color: #f5f5f5;
     padding: 8px;
+  } */
+  .ant-descriptions-item-container{
+    border-radius: 12px;
+    background-color: #f5f5f5;
+    padding: 8px;
+    margin-right: 50px;
   }
   
-  .custom-descriptions .ant-descriptions-item-content {
+  /* .custom-descriptions .ant-descriptions-item-content {
     border-radius: 12px;
     padding: 8px;
-  }
+  } */
   
 .spectitle {
   margin-top: 30px;

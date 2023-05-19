@@ -195,7 +195,7 @@ function SpecModal(props) {
         {
           title: '상병명',
           dataIndex: 'disease',
-          align: "center",
+          align: "center", 
         }
       ];
       const diseaseModalColumns = [
@@ -259,14 +259,14 @@ function SpecModal(props) {
         <p className='p'>진단 내역</p>
         <Table 
         columns={diseaseColumns}
-        dataSource={props.billdiseaseData}
+        dataSource={props.billDiseaseModalData}
         pagination={false}
         className='disease-table'
       /> 
       <p className='p'>처방 내역</p>
       <Table
         columns={billcareColumns}
-        dataSource={props.billcareData}
+        dataSource={props.billCareModalData}
         pagination={false}
         className='treatment-table'
         />

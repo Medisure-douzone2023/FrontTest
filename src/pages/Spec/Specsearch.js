@@ -40,6 +40,9 @@ function Specsearch(props) {
   const [billdiseaseData, setBilldiseaseData] = useState([null]);
   const [billcareData, setBillcareData] = useState([null]);
 
+  const [billDiseaseModalData, setBillDiseaseModalData] = useState([null]);
+  const [billCareModalData, setBillCareModalData] = useState([null]);
+
   const [maincommondata, setMaincommondata] = useState([null]);
   const [subcommondata, setSubcommondata] = useState([null]);
   const { RangePicker } = DatePicker;
@@ -344,7 +347,19 @@ function Specsearch(props) {
            dcode: <div>{item.dcode}</div>,
            disease: <div className="ant-employed billdiseasetable" data-content={item.dname}>{item.dname}</div>, 
          }));
+         const diseaseModalData = diseasecareDatas.data.billdiseaseList.map((item, i) => ({
+          key: item.dno,
+          bno: record.bno,
+          pno: record.pno,
+          rno: record.rno,
+          dno: item.dno,
+          no: <div>{i+1}</div>,
+          dmain: <div className="author-info">{item.dmain}</div>,
+          dcode: <div>{item.dcode}</div>,
+          disease: <div data-content={item.dname}>{item.dname}</div>, 
+        }));
          setBilldiseaseData(diseasecareData1);
+         setBillDiseaseModalData(diseaseModalData);
             
           const userData1 = diseasecareDatas.data.patient
           // eslint-disable-next-line eqeqeq
@@ -359,7 +374,16 @@ function Specsearch(props) {
           tname : <div className="ant-employed billdiseasetable" data-content={item.tname}>{item.tname}</div>,
           tprice: <div >{item.tprice}</div>
          }));
+         const diseasecareModalData = diseasecareDatas.data.billCareList.map((item, i) => ({
+          item: item,
+          key : i,
+          no : <div key={item.tno}>{i+1}</div>,
+          tcode : <div className="author-info">{item.tcode}</div>,
+          tname : <div data-content={item.tname}>{item.tname}</div>,
+          tprice: <div >{item.tprice}</div>
+         }));
          setBillcareData(diseasecareData2);
+         setBillCareModalData(diseasecareModalData);
         } catch(error){
         console.error(error);
       }
@@ -427,6 +451,8 @@ function Specsearch(props) {
         setIsModalOpen={setIsModalOpen}
         setBilldiseaseData={setBilldiseaseData}
         setBillcareData={setBillcareData}
+        setBillDiseaseModalData={setBillDiseaseModalData}
+        setBillCareModalData={setBillCareModalData}
         setUserinfo={setUserinfo}
         billcareData={billcareData}
         handleSearch={handleSearch}
@@ -443,10 +469,11 @@ function Specsearch(props) {
         isModalOpen={isModalOpen}
         setIsModalOpen={setIsModalOpen}
         handleCancel={handleCancel}
-        billcareData={billcareData}
+        billDiseaseModalData={billDiseaseModalData}
+        billCareModalData={billCareModalData}
+        billdiseaseData={billdiseaseData}
         ModalOpen={ModalOpen}
         handleRowClick={handleRowClick}
-        billdiseaseData={billdiseaseData}
         diseasehandleCancel={diseasehandleCancel}
         mainsearchValue={mainsearchValue}
         subsearchValue={subsearchValue}
