@@ -13,7 +13,7 @@ import FeeList from './FeeList';
 function Receipt(props) {
 
   let token = props.token;
-  
+
 
   const [feeTableData, setFeeTableData] = useState([]);
   // 수납 테이블 리스트 데이터 가져오는 함수
@@ -23,7 +23,7 @@ function Receipt(props) {
       headers: {
         "Authorization": props.token
       }
-    }) 
+    })
       .then((response) => {
         setFeeTableData(response.data.data);
         // console.log("feeTableData", response.data.data);
@@ -38,19 +38,19 @@ function Receipt(props) {
 
   const [receiptData, setReceiptData] = useState([]);
   const [status, setStatus] = useState('전체');
- 
- 
+
+
   useEffect(() => {
     fetchReceiptData();
   }, [status]);
- 
-   useEffect(() => {
-     setReceiptData(receiptData);
-   }, [receiptData]);
- 
- 
+
+  useEffect(() => {
+    setReceiptData(receiptData);
+  }, [receiptData]);
+
+
   // 환자 상태에 따른, 접수 테이블 데이터 가져오기 
-  const fetchReceiptData = async() => {
+  const fetchReceiptData = async () => {
     // setReceiptData([]);
     await axios.get('/api/receipt/status', {
       headers: {
@@ -63,13 +63,13 @@ function Receipt(props) {
       .then((response) => {
         response.data.data.map((data) => {
           const date = new Date(data.rdate);
-          const localDate = date.toLocaleString().split(".")[3].slice(0, date.toLocaleString().split(".")[3].length-3);
-          return data.rdate= localDate;
-        }) 
-      setReceiptData(response.data.data);
-      // console.log("receiptData", receiptData); 
+          const localDate = date.toLocaleString().split(".")[3].slice(0, date.toLocaleString().split(".")[3].length - 3);
+          return data.rdate = localDate;
+        })
+        setReceiptData(response.data.data);
+        // console.log("receiptData", receiptData); 
       })
-      .catch((error) => { 
+      .catch((error) => {
         console.log(error);
       });
   };
@@ -77,42 +77,44 @@ function Receipt(props) {
 
   return (
     <>
-
-      {/* 1행 검색창 및 환자 목록 리스트 */}
-      <Row gutter={[28, 12]}>
-        <Col xs={14} sm={16} md={18} lg={21} xl={24}>
-          <PatientSearch token={token} 
-          status={status}
-          receiptData={receiptData} 
-          fetchReceiptData={fetchReceiptData} />
-        </Col>
-      </Row>
+   {/* style={{ position: 'fixed',  left: '279px', width: 'calc(100% - 260px)' }} */}
+        {/* 1행 검색창 및 환자 목록 리스트 */}
+        <Row  gutter={[28, 12]}  >
+          <Col xs={14} sm={16} md={18} lg={21} xl={24}>
+            <PatientSearch token={token}
+              status={status}
+              receiptData={receiptData}
+              fetchReceiptData={fetchReceiptData} />
+          </Col>
+        </Row>
 
 
       {/* 2행 접수현황 테이블 & 수납 테이블*/}
-      <Row gutter={[28, 12]}> {/* 두 테이블 사이 간격 조절 가능... 나머지 오른쪽 패딩은 나중에.*/}
+
+      <Row gutter={[28, 12]}  > {/* 두 테이블 사이 간격 조절 가능... 나머지 오른쪽 패딩은 나중에.*/}
         <Col xs={14} sm={14} md={14} lg={14} xl={14} >
-          <ReceiptStatus token={token} 
-          status={status}
-          setStatus={setStatus}
-          receiptData={receiptData}
-          setReceiptData={setReceiptData}
-          fetchReceiptData={fetchReceiptData}
+          <ReceiptStatus token={token}
+            status={status}
+            setStatus={setStatus}
+            receiptData={receiptData}
+            setReceiptData={setReceiptData}
+            fetchReceiptData={fetchReceiptData}
 
-          fetchFeeTableData={fetchFeeTableData} 
-          feeTableData={feeTableData}
+            fetchFeeTableData={fetchFeeTableData}
+            feeTableData={feeTableData}
 
-           />
+          />
         </Col>
- 
+
         <Col xs={10} sm={10} md={10} lg={10} xl={10} >
-          <FeeList token={token} 
-          fetchFeeTableData={fetchFeeTableData} 
-          feeTableData={feeTableData}
-          status={status}
-          fetchReceiptData={fetchReceiptData}/>
+          <FeeList token={token}
+            fetchFeeTableData={fetchFeeTableData}
+            feeTableData={feeTableData}
+            status={status}
+            fetchReceiptData={fetchReceiptData} />
         </Col>
       </Row>
+
     </>
   );
 }

@@ -39,6 +39,10 @@ function Specsearch(props) {
   const [searchData, setSearchData] = useState([null]);
   const [billdiseaseData, setBilldiseaseData] = useState([null]);
   const [billcareData, setBillcareData] = useState([null]);
+
+  const [billDiseaseModalData, setBillDiseaseModalData] = useState([null]);
+  const [billCareModalData, setBillCareModalData] = useState([null]);
+
   const [maincommondata, setMaincommondata] = useState([null]);
   const [subcommondata, setSubcommondata] = useState([null]);
   const { RangePicker } = DatePicker;
@@ -148,6 +152,7 @@ function Specsearch(props) {
           bno: item.bno,
           rno: item.rno,
           pno: item.pno,
+          no: <div>{i + 1}</div>, 
           name: <div className="author-info">{item.pname}</div>,
           insurance: <div>{item.insurance}</div>,
           status: <div>{item.sstatus}</div>,
@@ -286,7 +291,6 @@ function Specsearch(props) {
         dataIndex: "no",
         key: "no",
         align: "center",
-        width: 50,
       },
       {
         title: "이름",
@@ -344,8 +348,20 @@ function Specsearch(props) {
            dcode: <div>{item.dcode}</div>,
            disease: <div className="ant-employed billdiseasetable" data-content={item.dname}>{item.dname}</div>, 
          }));
+         const diseaseModalData = diseasecareDatas.data.billdiseaseList.map((item, i) => ({
+          key: item.dno,
+          bno: record.bno,
+          pno: record.pno,
+          rno: record.rno,
+          dno: item.dno,
+          no: <div>{i+1}</div>,
+          dmain: <div className="author-info">{item.dmain}</div>,
+          dcode: <div>{item.dcode}</div>,
+          disease: <div data-content={item.dname}>{item.dname}</div>, 
+        }));
          setBilldiseaseData(diseasecareData1);
-         
+         setBillDiseaseModalData(diseaseModalData);
+            
           const userData1 = diseasecareDatas.data.patient
           // eslint-disable-next-line eqeqeq
           setUserinfo([userData1.pname, userData1.pno, userData1.gender == "m" ? '남자' : '여자', userData1.age, userData1.birthdate, userData1.contact, userData1.insurance])
@@ -359,7 +375,16 @@ function Specsearch(props) {
           tname : <div className="ant-employed billdiseasetable" data-content={item.tname}>{item.tname}</div>,
           tprice: <div >{item.tprice}</div>
          }));
+         const diseasecareModalData = diseasecareDatas.data.billCareList.map((item, i) => ({
+          item: item,
+          key : i,
+          no : <div key={item.tno}>{i+1}</div>,
+          tcode : <div className="author-info">{item.tcode}</div>,
+          tname : <div data-content={item.tname}>{item.tname}</div>,
+          tprice: <div >{item.tprice}</div>
+         }));
          setBillcareData(diseasecareData2);
+         setBillCareModalData(diseasecareModalData);
         } catch(error){
         console.error(error);
       }
@@ -427,6 +452,8 @@ function Specsearch(props) {
         setIsModalOpen={setIsModalOpen}
         setBilldiseaseData={setBilldiseaseData}
         setBillcareData={setBillcareData}
+        setBillDiseaseModalData={setBillDiseaseModalData}
+        setBillCareModalData={setBillCareModalData}
         setUserinfo={setUserinfo}
         billcareData={billcareData}
         handleSearch={handleSearch}
@@ -443,8 +470,9 @@ function Specsearch(props) {
         isModalOpen={isModalOpen}
         setIsModalOpen={setIsModalOpen}
         handleCancel={handleCancel}
+        billDiseaseModalData={billDiseaseModalData}
+        billCareModalData={billCareModalData}
         billdiseaseData={billdiseaseData}
-        billcareData={billcareData}
         ModalOpen={ModalOpen}
         handleRowClick={handleRowClick}
         diseasehandleCancel={diseasehandleCancel}

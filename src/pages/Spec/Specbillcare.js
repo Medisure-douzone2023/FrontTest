@@ -25,6 +25,8 @@ function Specbillcare(props) {
       props.setBilldiseaseData([]);
       props.setBillcareData([]);
       props.setUserinfo([]);
+      props.setBillDiseaseModalData([]);
+      props.setBillCareModalData([])
     } catch (error) {
       console.error(error);
     }
@@ -51,6 +53,8 @@ function Specbillcare(props) {
       props.setBilldiseaseData([]);
       props.setBillcareData([]);
       props.setUserinfo([]);
+      props.setBillDiseaseModalData([]);
+      props.setBillCareModalData([])
     } catch (error) {
       console.error(error);
     }
@@ -96,24 +100,27 @@ function Specbillcare(props) {
   return (
     <>
       <Col span={12}>
-      <p className='spectitle'>선택 명세서의 처방 정보</p>
+      <p className='spectitle'>선택 명세서의 처방 정보
+      <Button type="primary" ghost size={'middle'} className='treatment-btn' onClick={showModal} onCancel={props.handleCancel}>
+          처방내역
+        </Button>
+      </p>
         <Table
           columns={billcareColumns}
           dataSource={props.billcareData}
           pagination={false}
           className='spectable'
         />
-
-        <Button danger ghost size={'middle'} onClick={updateCancle} disabled={check("미심사")} className='treatment-btn'>
-          취소
+      </Col>
+      <Col span={24}>
+      <div style={{ display: 'flex', justifyContent: 'center' }}>
+      <Button type="primary" ghost size={'middle'} onClick={updateOk} disabled={check("완료")} className='judge-btn'>
+          심사 완료
         </Button>
-        <Button type="primary" ghost size={'middle'} onClick={updateOk} disabled={check("완료")} className='treatment-btn'>
-          완료
+      <Button danger ghost size={'middle'} onClick={updateCancle} disabled={check("미심사")} className='judge-btn'>
+          심사 취소
         </Button>
-        <Button type="primary" ghost size={'middle'} className='treatment-btn' onClick={showModal} onCancel={props.handleCancel}>
-          처방내역
-        </Button>
-
+      </div>
       </Col>
     </>
   );

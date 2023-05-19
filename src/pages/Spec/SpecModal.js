@@ -139,7 +139,7 @@ function SpecModal(props) {
             key : item.gcode,
             no: <>{i+1}</>,
             dcode: <>{item.gcode}</>,
-            disease: <div className="ant-employed billdiseasetable" data-content={item.codename}>{item.codename}</div>,
+            disease: <div className="ant-employed-disease billdiseasetable" data-content={item.codename}>{item.codename}</div>,
            }));
            props.setMaincommondata(commondata);
            if(commondata.length === 0){
@@ -159,10 +159,9 @@ function SpecModal(props) {
           key : item.gcode,
           no: <>{i+1}</>,
           dcode: <>{item.gcode}</>,
-          disease: <div className="ant-employed billdiseasetable" data-content={item.codename}>{item.codename}</div>,
+          disease: <div className="ant-employed-disease billdiseasetable" data-content={item.codename}>{item.codename}</div>,
          }));
          props.setSubcommondata(commondata);
-         console.log("commondata: ", commondata);
          if(commondata.length === 0){
           alert("검색 결과가 없습니다.")
           return;
@@ -179,21 +178,24 @@ function SpecModal(props) {
           title: 'no',
           dataIndex: 'no',
           align: "center",
+          width: 100,
         },
         {
           title: '주/부',
           dataIndex: 'dmain',
           align: "center",
+          width: 150,
         },
         {
           title: '상병코드',
           dataIndex: 'dcode',
           align: "center",
+          width: 200
         },
         {
           title: '상병명',
           dataIndex: 'disease',
-          align: "center",
+          align: "center", 
         }
       ];
       const diseaseModalColumns = [
@@ -201,11 +203,13 @@ function SpecModal(props) {
           title: 'no',
           dataIndex: 'no',
           align: "center",
+          width: 150,
         },
         {
           title: '상병코드',
           dataIndex: 'dcode',
           align: "center",
+          width: 150,
         },
         {
           title: '상병명',
@@ -249,18 +253,21 @@ function SpecModal(props) {
           cancelButtonProps={{ style: { display: 'none' } }} 
           onCancel={props.handleCancel}
           okText="확인"
-          className='tmodal'>
+          className='tmodal'
+          centered
+          width={900}
+          height={600}>
         <p className='p'>진단 내역</p>
         <Table 
         columns={diseaseColumns}
-        dataSource={props.billdiseaseData}
+        dataSource={props.billDiseaseModalData}
         pagination={false}
         className='disease-table'
       /> 
       <p className='p'>처방 내역</p>
       <Table
         columns={billcareColumns}
-        dataSource={props.billcareData}
+        dataSource={props.billCareModalData}
         pagination={false}
         className='treatment-table'
         />
@@ -273,7 +280,9 @@ function SpecModal(props) {
           onCancel={diseasehandleCancel}
           okText="추가"
           cancelText="취소"
-          className='tmodal'>
+          className='tmodal'
+          centered
+          width={800}>
         <p className='psearch'>주상병
         <Search
         placeholder="상병명 or 상병코드"

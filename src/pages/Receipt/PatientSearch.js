@@ -1,6 +1,5 @@
 import { React, useState, useEffect, useRef } from 'react';
 import axios from 'axios'
-import DaumPostcode from 'react-daum-postcode';
 import {
     Card,   // 여러 테이블을 Card 느낌으로 임포트해서 구성할 것이다.
     Table,  // 테이블
@@ -12,16 +11,17 @@ import {
     Select,
 } from "antd";
 import { SearchOutlined, } from "@ant-design/icons";
-import '../../assets/styles/Receipt.css';
+import '../../assets/styles/Receipt.css'; 
 import TextArea from 'antd/lib/input/TextArea';
-
+import DaumPostcode from 'react-daum-postcode';
+ 
 function PatientSearch(props) {
 
     const [pname, setPname] = useState([]);
     const [patientData, setPatientData] = useState([]); // 환자 이름으로 검색한 데이터.
     const textAreaRef = useRef(null);   // 증상입력 모달창 TextArea 박스 reset 용도
     const [newPatientForm] = Form.useForm(); // 신규환자등록 모달창 input 박스 reset 용도
-
+ 
     // 환자증상 모달 관련   
     const [conditionModalVisible, setConditionModalVisible] = useState(false);
     const [condition, setCondition] = useState();
@@ -122,7 +122,7 @@ function PatientSearch(props) {
             })
             .catch((error) => {
                 console.log(error); 
-            });
+            }); 
     }
     // 상세 검색에서, [접수하기]
     const insertReceiptData = (visitD) => {
@@ -157,10 +157,16 @@ function PatientSearch(props) {
     // 신규환자등록 모달창 관련
     const [isModalOpenNewPatient, setIsModalOpenNewPatient] = useState(false);
     const showModalNewPatient = () => {
+        setInputAddress();
+        setInputZoneCode();
+        resetDetailAddress();
         setIsModalOpenNewPatient(true);
     };
     const newpatientHandleOk = () => {
         alert("신규 등록 되었습니다.");
+        setInputAddress();
+        setInputZoneCode();
+        resetDetailAddress();
         setIsModalOpenNewPatient(false);
     };
 
@@ -278,7 +284,7 @@ function PatientSearch(props) {
       resetDetailAddress();
       setIsPostcodeOpen(false);
     };
-
+ 
     // 신규환자등록 모달안 layout 배열 
     const layout = {
         labelCol: {

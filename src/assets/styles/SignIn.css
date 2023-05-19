@@ -118,7 +118,8 @@
 .container .sign-in.text h2 {
   font-size: 3.5rem;
   font-weight: 800;
-  margin: 2rem 0;
+  margin: 2rem;
+  margin-right: 230px; 
   transition: 1s ease-in-out;
   color: #ffffff;
   transform: translateX(-200%);
