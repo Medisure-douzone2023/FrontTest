@@ -55,6 +55,10 @@ function CareNote(props) {
     document.location.href = "/";
   };
   const onButtonClick = async () => {
+    if (!options || !treats) {
+      alert("진료 후 상병, 처방을 추가해주세요");
+      return;
+    }
     //진료 완료 버튼 클릭
     if (props.rno === 0) {
       alert("진료중인 환자가 없습니다. 환자를 호출하세요.");
@@ -328,27 +332,7 @@ function CareNote(props) {
         dataSource={selectDD}
         tableLayout={true}
         columns={diseaseColumns}
-      >
-        {/* <Column
-          fixed={true}
-          className="dmain"
-          title="주/부"
-          key="main"
-          dataIndex="dmain"
-          render={(text, record) => (
-            <Radio.Group
-              onChange={(e) => handleMainChange(e.target.value, record)}
-              defaultValue={record.dmain}
-              key={record.dcode}
-            >
-              <Radio.Button value={"주"}>주</Radio.Button>
-              <Radio.Button value={"부"}>부</Radio.Button>
-            </Radio.Group>
-          )}
-        />
-        <Column className="dcode" title="코드명" dataIndex="dcode" key="dcode" fixed={true} />
-        <Column title="상병이름" dataIndex="dname" key="dname" className="diseaseColumn" /> */}
-      </Table>
+      />
 
       <h1 className="careNoteText">처방</h1>
       <Select

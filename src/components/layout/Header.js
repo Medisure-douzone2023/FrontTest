@@ -60,10 +60,31 @@ const profile = [
     />
   </svg>,
 ];
+const week = ["일", "월", "화", "수", "목", "금", "토"];
 
 function Header(props) {
   const name = localStorage.getItem("name");
-  useEffect(() => window.scrollTo(0, 0));
+  const [time, setTime] = useState();
+
+  const todayTime = () => {
+    let now = new Date();
+    let month = now.getMonth() + 1;
+    let date = now.getDate();
+    let dayOfWeek = week[now.getDay()];
+    let hours = now.getHours();
+    let minutes = now.getMinutes();
+    return month + "월 " + date + "일(" + dayOfWeek + ") " + hours + "시 " + minutes + "분";
+  };
+  // useEffect(() => window.scrollTo(0, 0));
+  useEffect(() => {
+    setTime(todayTime());
+    const interval = setInterval(() => {
+      setTime(todayTime());
+    }, 1000);
+    return () => {
+      clearInterval(interval);
+    };
+  }, []);
   const [username] = useState(name);
 
   const handleLogout = () => {
@@ -76,7 +97,10 @@ function Header(props) {
   return (
     <>
       <Row gutter={[24, 0]}>
-        <Col span={24} className="header-control">
+        <Col span={4} className="header-control todayInfo">
+          <div span={4}>{time}</div>
+        </Col>
+        <Col span={20} className="header-control">
           <Badge size="small" count={4}>
             <Dropdown overlay={menu} trigger={["click"]} className="Dropback">
               <a href="#pablo" className="ant-dropdown-link" onClick={(e) => e.preventDefault()}>
