@@ -37,19 +37,29 @@ body {
 
 .ant-border-space{
   font-family: 'Noto Sans KR', sans-serif;
-    width: 80%;
+    width: 92%;
     text-align: center;
     margin-top: 20px;
 }
-.ant-border-spac-billdisease{
-  font-family: 'Noto Sans KR', sans-serif;
-    width: 90%;
-    text-align: center;
+.ant-border-space .ant-table-thead .ant-table-cell{
+  background-color: #5996F8;
+  color: white;
 }
-.ant-border-spac-bill{
-  font-family: 'Noto Sans KR', sans-serif;
-    width: 100%;
-    text-align: center;
+.spectable .ant-table-thead .ant-table-cell{
+  background-color: #5996F8;
+  color: white;
+}
+.disease-table .ant-table-thead .ant-table-cell{
+  background-color: #5996F8;
+  color: white;
+}
+.treatment-table .ant-table-thead .ant-table-cell{
+  background-color: #5996F8;
+  color: white;
+}
+.dmain-table .ant-table-thead .ant-table-cell{
+  background-color: #5996F8;
+  color: white;
 }
 .description{
   font-family: 'Noto Sans KR', sans-serif;

@@ -302,6 +302,7 @@ function SpecModal(props) {
            ...MaindiseaserowSelection,
          }}
         columns={diseaseModalColumns}
+        className='dmain-table'
         dataSource={props.maincommondata}
         pagination={{
           ...pagination,
@@ -330,6 +331,7 @@ function SpecModal(props) {
          }}
         columns={diseaseModalColumns}
         dataSource={props.subcommondata}
+        className='dmain-table'
         pagination={{
           ...pagination,
           onChange: handlePageChange,

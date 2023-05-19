@@ -422,6 +422,7 @@ function Specsearch(props) {
                 조회
             </Button>
           </div>
+      <div style={{ width: '500px', height: '300px' }}>
       <Table    
                 columns={searchColumns}
                 dataSource={searchData}
@@ -434,6 +435,7 @@ function Specsearch(props) {
                   onClick: () => handleRowClick(record),
                 })}
               />
+        </div>
         </Card>
     </Col>
     
