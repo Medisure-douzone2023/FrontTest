@@ -95,8 +95,9 @@ button.callPatient {
 
 .patientModal .ant-modal-content {
   width: 500px;
-  height: 370px;
+  height: auto;
 }
+
 .patientCareList .ant-table-thead .ant-table-cell {
   background-color: #5996f8;
   color: white;

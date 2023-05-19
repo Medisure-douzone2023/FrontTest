@@ -126,11 +126,12 @@ function Care(props) {
         closable={false}
         footer={[
           <Button
+            className="modalBtn"
             key="ok"
             onClick={handleModalClose}
             type="primary"
             ghost
-            style={{ width: "100%" }}
+            style={{ width: "95%", display: "block", margin: "0 auto" }}
           >
             확인
           </Button>,
