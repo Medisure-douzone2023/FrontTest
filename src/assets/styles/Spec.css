@@ -1,10 +1,13 @@
 body {
   font-family: 'Noto Sans KR', sans-serif;
 }
+.ant-table-tbody > tr > td{
+  padding: 16px 17px !important;
+}
 .Col1 {
     padding-left: 3px;
     padding-top: 5px;
-    padding-right: 5px;
+    padding-right: 0px;
     margin: unset;
 }
 .Col2 {
@@ -34,7 +37,7 @@ body {
 
 .ant-border-space{
   font-family: 'Noto Sans KR', sans-serif;
-    width: 100%;
+    width: 80%;
     text-align: center;
     margin-top: 20px;
 }
@@ -124,7 +127,7 @@ body {
     white-space: nowrap; /* 텍스트 줄바꿈 방지 */
     overflow: hidden; /* 넘치는 부분 숨김 */
     text-overflow: ellipsis; /* 넘칠 경우 "..."으로 표시 */
-    max-width: 105px; /*최대 너비 지정 (원하는 글자수에 맞게 조정) */
+    max-width: 200px; /*최대 너비 지정 (원하는 글자수에 맞게 조정) */
   }
 
   .ant-employed:hover::after {
@@ -174,4 +177,31 @@ body {
 .selected-row {
   background-color: #E9ECEF; /* 선택한 행의 배경색을 변경 */
   /* 다른 스타일 속성들을 추가적으로 설정할 수 있음 */
+}
+
+.ant-tag.ant-tag-green {
+  font-size: 14px; /* 텍스트 크기 조정 */
+  padding: 5px 5px; /* 패딩 조정 */
+  border-radius: 8px; /* 테두리 반지름 조정 */
+  border: green;
+  width: 60px;
+  height: 32px;
+}
+
+.ant-tag.ant-tag-blue {
+  font-size: 14px; /* 텍스트 크기 조정 */
+  padding: 5px 5px; /* 패딩 조정 */
+  border-radius: 8px; /* 테두리 반지름 조정 */
+  border: blue;
+  width: 60px;
+  height: 32px;
+}
+
+.ant-tag.ant-tag-red {
+  font-size: 14px; /* 텍스트 크기 조정 */
+  padding: 5px 5px; /* 패딩 조정 */
+  border-radius: 8px; /* 테두리 반지름 조정 */
+  border: red;
+  width: 60px;
+  height: 32px;
 }

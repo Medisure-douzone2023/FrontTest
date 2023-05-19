@@ -83,11 +83,11 @@ function Specbilldisease(props) {
         <>
         <Col span={12}>
         <p className='spectitle'>선택 명세서의 상병 정보
+        <Button type="primary" ghost size={'middle'} onClick={diseaseModal} disabled = {check()} onCancel={props.diseasehandleCancel} className='disease-btn'>
+            추가
+          </Button>
         <Button danger ghost size={'middle'} onClick={deletebutton} disabled ={check()}className='disease-btn'>
             삭제
-          </Button>
-      <Button type="primary" ghost size={'middle'} onClick={diseaseModal} disabled = {check()} onCancel={props.diseasehandleCancel} className='disease-btn'>
-            추가
           </Button>
         </p>
       <Table 

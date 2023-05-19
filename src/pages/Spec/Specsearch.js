@@ -6,7 +6,8 @@ import { Col,
   Table,
   Row,
   Card,
-  Popconfirm
+  Popconfirm,
+  Tag
 } from 'antd';
 import { useState, React, useEffect} from 'react';
 import axios from 'axios';
@@ -119,7 +120,7 @@ function Specsearch(props) {
           no: <div>{i + 1}</div>,
           name: <div className="author-info">{item.pname}</div>,
           insurance: <div>{item.insurance}</div>,
-          status: <div>{item.sstatus}</div>,
+          status: <div><Tag color={getStatusColor(item.sstatus)} size='large'>{item.sstatus}</Tag></div>,
           delete:
           <Popconfirm 
               title={text}
@@ -155,7 +156,7 @@ function Specsearch(props) {
           no: <div>{i + 1}</div>, 
           name: <div className="author-info">{item.pname}</div>,
           insurance: <div>{item.insurance}</div>,
-          status: <div>{item.sstatus}</div>,
+          status: <div><Tag color={getStatusColor(item.sstatus)} size='large'>{item.sstatus}</Tag></div>,
           delete: 
           <Popconfirm 
               title={text}
@@ -198,7 +199,7 @@ function Specsearch(props) {
             no: <div>{i + 1}</div>,
             name: <div className="author-info">{item.pname}</div>,
             insurance: <div>{item.insurance}</div>,
-            status: <div>{item.sstatus}</div>,
+            status: <div><Tag color={getStatusColor(item.sstatus)} size='large'>{item.sstatus}</Tag></div>,
             delete: (
               <Popconfirm 
               title={text}
@@ -259,7 +260,15 @@ function Specsearch(props) {
       const insurance = e == null ? "건강보험" : e
       setInsurance(insurance);
     };
-
+  const getStatusColor = (status) => {
+    if (status === '삭제') {
+      return 'red';
+    } else if (status === '미심사') {
+      return 'green';
+    } else if (status === '완료') {
+      return 'blue';
+    }
+  };
   // 검색 시 날짜 데이터 포맷
   const handleDateChange = (dates) => {
     if (dates) {
@@ -291,6 +300,7 @@ function Specsearch(props) {
         dataIndex: "no",
         key: "no",
         align: "center",
+        width: 30,
       },
       {
         title: "이름",
@@ -335,7 +345,7 @@ function Specsearch(props) {
       try{
         setRecord(record);
         setSelectedRow(record);
-        setStatus(record.status.props.children);
+        setStatus(record.status.props.children.props.children);
         const diseasecareDatas = await diseasecareData(record.bno, record.pno, record.rno);
         const diseasecareData1 = diseasecareDatas.data.billdiseaseList.map((item, i) => ({
            key: item.dno,
@@ -373,7 +383,7 @@ function Specsearch(props) {
           no : <div key={item.tno}>{i+1}</div>,
           tcode : <div className="author-info">{item.tcode}</div>,
           tname : <div className="ant-employed billdiseasetable" data-content={item.tname}>{item.tname}</div>,
-          tprice: <div >{item.tprice}</div>
+          tprice: <div>{item.tprice.toLocaleString()}원</div>
          }));
          const diseasecareModalData = diseasecareDatas.data.billCareList.map((item, i) => ({
           item: item,
@@ -381,7 +391,7 @@ function Specsearch(props) {
           no : <div key={item.tno}>{i+1}</div>,
           tcode : <div className="author-info">{item.tcode}</div>,
           tname : <div data-content={item.tname}>{item.tname}</div>,
-          tprice: <div >{item.tprice}</div>
+          tprice: <div>{item.tprice.toLocaleString()}원</div>
          }));
          setBillcareData(diseasecareData2);
          setBillCareModalData(diseasecareModalData);
@@ -392,8 +402,8 @@ function Specsearch(props) {
    
   return (
     <>
-      <Col span={8} className='Col1' style={{paddingRight: "0px"}}>
-        <Card style={{ width: '100%', height: '100%' }}>
+      <Col span={8} className='Col1' style={{paddingLeft: "22px"}}>
+        <Card style={{ width: '100%', height: '100%'}}>
           <span className='span'>진료기간</span><RangePicker className='picker' picker="week" onChange={handleDateChange}></RangePicker><br/><br/>
           <div>
           </div>
@@ -427,8 +437,8 @@ function Specsearch(props) {
         </Card>
     </Col>
     
-    <Col span={16} className='Col2'>
-    <Card style={{ width: '98%', height: '100%' }}>
+    <Col span={16} className='Col2' style={{paddingLeft: "16px"}}>
+    <Card style={{ width: '99%', height: '100%' }}>
       <Specuser
             userinfo={userinfo}
             />

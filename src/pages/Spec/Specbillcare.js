@@ -114,11 +114,11 @@ function Specbillcare(props) {
       </Col>
       <Col span={24}>
       <div style={{ display: 'flex', justifyContent: 'center' }}>
-      <Button type="primary" ghost size={'middle'} onClick={updateOk} disabled={check("완료")} className='judge-btn'>
-          심사 완료
-        </Button>
       <Button danger ghost size={'middle'} onClick={updateCancle} disabled={check("미심사")} className='judge-btn'>
           심사 취소
+        </Button>
+      <Button type="primary" ghost size={'middle'} onClick={updateOk} disabled={check("완료")} className='judge-btn'>
+          심사 완료
         </Button>
       </div>
       </Col>
