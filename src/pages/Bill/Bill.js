@@ -169,7 +169,7 @@ function Bill(props) {
       alert('선택된 청구서가 없습니다. 송신 취소할 청구서를 선택해 주세요!')
       return
     }
-    if(selectedRows.some((item) => item.bstatus === '변환')){
+    if(selectedRows.some((item) => item.bstatus === '미송신')){
       alert("미송신된 청구서가 포함되어 있습니다. 청구서를 확인해 주세요.")
       setSelectedRowKeys([]);
       setSelectedRows([]);
