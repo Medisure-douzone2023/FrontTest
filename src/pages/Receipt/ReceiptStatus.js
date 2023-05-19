@@ -23,6 +23,8 @@ function ReceiptStatus(props) {
   // success 문구 state
   const [successDescription, setSuccessDescription] = useState(``);
 
+  const [caring, setCaring] = useState([]);
+
   const receiptColumn = [
     {
       title: 'no',
@@ -120,9 +122,10 @@ function ReceiptStatus(props) {
       title: '상태변경',
       dataIndex: 'statusbox',
       key: 'statusbox',
+      // sorter: (a, b) => a.status.localeCompare(b.status),
       render: (text, record) => (
         <Select
-          style={{ width: '95px' }}
+          // style={{ width: '96px'} }
           value={record.status}
           onChange={(value) => {
             handleDropboxStatusChange(value, record);
@@ -148,7 +151,6 @@ function ReceiptStatus(props) {
     props.fetchReceiptData();
   }, [currentReceiptPage])
 
-  const [caring, setCaring] = useState([]);
 
 
   const cancelReceipt = (record) => {
@@ -169,8 +171,8 @@ function ReceiptStatus(props) {
 
   // 진료중인 환자가 있는지 없는지 가져오는 함수
   
-  const fetchCaringData = async () => {
-    await axios.get('/api/receipt/status', {
+  const fetchCaringData = () => {
+    axios.get('/api/receipt/status', {
         headers: {
             "Authorization": props.token
         },
@@ -179,18 +181,21 @@ function ReceiptStatus(props) {
         }
     })
         .then((response) => {
-            
+            const copy = [...response.data.data];
+            setCaring(copy);
             console.log("진료중환자", response.data.data);
-            return setCaring(response.data.data);
+            
         })
         .catch((error) => {
             console.log(error);
         });
 }
 
+
   const handleDropboxStatusChange = (value, record) => {
     // 나중에 이거 지워야함.
-    fetchCaringData();
+    fetchCaringData(); 
+    
     setShowErrorAlert(false);
     setShowSuccessAlert(false); 
 
@@ -219,8 +224,6 @@ function ReceiptStatus(props) {
     }
     else if (value === "접수") {
       if (record.status === "진료중") {
-        fetchCaringData();
-
         changeStatus(value, record);
       } else {
         setShowErrorAlert(true);
@@ -249,11 +252,6 @@ function ReceiptStatus(props) {
         console.log(error);
       });
   };
-
-  // 상태 현황에서 드롭다운으로 바꿀 때, 쓸 모달창 관련 변수 및 함수.
-  const [showModal, setShowModal] = useState(false);
-
-
 
   // 테이블 컬럼 바꿀 때 너무 빨리 바뀌어져서 설정함.
   const [renderedColumns, setRenderedColumns] = useState([]);

@@ -32,11 +32,11 @@ function FeeList(props) {
             key: 'index',
             render: (text, record, index) => (currentFeePage - 1) * 5 + index + 1,
         },
-        {
-            title: "접수번호",
-            key: "rno",
-            dataIndex: "rno"
-        },
+        // {
+        //     title: "접수번호",
+        //     key: "rno",
+        //     dataIndex: "rno"
+        // },
         {
             title: "이름",
             key: "pname",
@@ -111,7 +111,7 @@ function FeeList(props) {
                 setFeeData(response.data.data);
                 setFeePname(response.data.data.patient.pname);
                 setFeeTreat(response.data.data.treatment[0]);
-               // console.log("FeeData", feeData);
+                console.log("FeeData", feeData);
             })
             .catch((error) => {
                 console.log(error);
