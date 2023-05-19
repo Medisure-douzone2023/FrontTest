@@ -147,7 +147,7 @@ function CommonInsert({ token, isModalOpen, setIsModalOpen, options, dataSource,
           <Form.Item label="코드명" name="코드명" rules={[{ required: true }]}>
             <Input placeholder="코드명을 입력해주세요" value={insertCodename} onChange={(e) => { setInsertCodename(e.target.value) }} />
           </Form.Item>
-          <Form.Item label="금액" name="금액" rules={[{ required: true }]}>
+          <Form.Item label="금액" name="금액">
             <Input placeholder="금액을 입력해주세요" value={insertPrice} onChange={(e) => { setInsertPrice(e.target.value) }} />
           </Form.Item>
         </Form>

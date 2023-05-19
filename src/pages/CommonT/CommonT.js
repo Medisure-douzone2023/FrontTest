@@ -110,15 +110,21 @@ function CommonT(props) {
   const [loading, setLoading] = useState(false);
   const [selectedRowKeys, setSelectedRowKeys] = useState([]);
   const [selectedRows, setSelectedRows] = useState([]);
+  const formatPrice = (price) =>{
+    return price === 0 ? '없음' : price
+  }
+
 
   const search = () => {
     const param = { gkey: keyname, gcode: gcode, codename: codename };
     axios.get("/api/common", { headers: { "Authorization": token }, params: param }
     ).then((response) => {
-      const result = response.data.data;
-      for (let i = 0; i < result.length; i++) {
-        result[i].key = i;
-      }
+      const data = response.data.data;
+      const result = data.map((item, index) => ({
+        ...item,
+        key: index,
+        gprice: formatPrice(item.gprice),
+      }));
       setDataSource(result);
       setEditingKey('');
     }).catch((e) => {
@@ -145,7 +151,9 @@ function CommonT(props) {
   const hasSelected = selectedRowKeys.length > 0;
 
   const deleteCode = () => {
+    console.log("yes")
     if (selectedRows.length > 0) {
+
       let apiParameters = [];
       let copy = [...selectedRows];
       setSelectedRows('');
@@ -286,7 +294,14 @@ function CommonT(props) {
           
         </Form>
       </div>
-      <Button type="primary" ghost onClick={deleteCode} disabled={!hasSelected}>삭제</Button>
+      <Popconfirm
+    title="삭제하시겠습니까?"
+    okText="Yes"
+    cancelText="No"
+    onConfirm={deleteCode}
+  >
+     <Button type="primary" ghost disabled={!hasSelected}>삭제</Button>
+  </Popconfirm>
     </div>
     </Card>
   );
