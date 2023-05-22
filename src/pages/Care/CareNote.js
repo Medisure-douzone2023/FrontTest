@@ -311,7 +311,7 @@ function CareNote(props) {
       dataIndex: "dcode",
       key: "dcode",
       fixed: true,
-      width: 50
+      width: 100,
     },
     {
       title: "상병이름",

@@ -73,7 +73,8 @@
 }
 .layout-dashboard .ant-menu {
   background: transparent;
-  font-size: 17px;
+  font-size: 20px;
+  font-weight: 400;
 }
 
 .layout-dashboard .ant-layout-sider.sider-primary .ant-menu-inline .ant-menu-item,

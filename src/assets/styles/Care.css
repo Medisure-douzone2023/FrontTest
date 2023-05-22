@@ -1,7 +1,7 @@
 .care.ant-card-bordered {
   padding: 10px;
   background-color: white;
-  box-shadow: 0 5px 5px -3px #C6DCFF;
+  box-shadow: 0 5px 5px -3px gainsboro;
   border-radius: 10px;
   margin: 10px 10px 0 10px;
   height: auto;
@@ -14,10 +14,12 @@
 }
 .care h1 {
   font-weight: 400;
-  font-size: 18px;
+  font-size: 22px;
   font-weight: bold;
 }
-
+.care p {
+  font-size: 16px;
+}
 .patientListText {
   margin-bottom: 15px;
 }
@@ -36,6 +38,9 @@
   background-color: #5996f8;
   color: white;
 }
+.patientList .ant-table-tbody {
+  text-align: center;
+}
 
 .careDone.ant-btn-background-ghost.ant-btn-primary {
   width: 100%;
@@ -49,12 +54,16 @@
 }
 
 /* 상병 */
-.diseaseSelect {
+.diseaseSelect.ant-select {
   width: 100%;
+}
+.diseaseSelect.ant-select .ant-select-selector{
+  min-height: 35px;
 }
 /* 상병 글자 크기 */
 .diseaseSelect .ant-tag-cyan.ant-tag {
-  font-size: 14px;
+  font-size: 16px;
+  border-radius: 5px;
 }
 .diseaseOption {
   width: 100%;
@@ -84,9 +93,13 @@
 .treatSelect {
   width: 100%;
 }
+.treatSelect.ant-select .ant-select-selector{
+  min-height: 35px;
+}
 /* 처방 글자 크기 */
 .treatSelect .ant-tag-cyan.ant-tag {
-  font-size: 14px;
+  font-size: 16px;
+  border-radius: 5px;
 }
 .treatOption {
   width: 100%;
@@ -116,10 +129,15 @@ button.callPatient {
 .patientInfo.ant-card-hoverable {
   width: 100%;
   height: 200px;
-  font-size: 10px;
   border-radius: 12px;
 }
-
+.patientInfo .ant-descriptions-title {
+  font-size:20px;
+}
+.patientInfo .ant-descriptions-item-container span{
+  font-size: 16px;
+  line-height: 20px;
+}
 .patientInfo .ant-descriptions-row .ant-descriptions-item{
   margin-right: 10px;
   display: inline-block;
@@ -134,9 +152,15 @@ button.callPatient {
   margin-top: 15px;
 }
 
+.patientInfoTitle {
+  font-weight: bold;
+  font-size: 20px;
+  line-height: 10px;
+}
 .collapseInfo span.ant-collapse-header-text,
 .collapseInfo div.ant-collapse-expand-icon {
   font-weight: bold;
+  font-size: 20px;
 }
 .care div#swal2-html-container{
   font-size: 18px;
