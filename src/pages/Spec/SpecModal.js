@@ -9,6 +9,7 @@ function SpecModal(props) {
     const [mainSelectedRowKeys, setMainSelectedRowKeys] = useState([]);
     const [subSelectedRowKeys, setSubSelectedRowKeys] = useState([]);
     const [pagination, setPagination] = useState({current: 1, pageSize: 5});
+    const [pagination2, setPagination2] = useState({current: 1, pageSize: 5});
     const { Search } = Input;
     let token = localStorage.getItem("accessToken");
 
@@ -59,6 +60,10 @@ function SpecModal(props) {
           ...prevPagination,
           current: 1,
         }));
+        setPagination2(prevPagination => ({
+          ...prevPagination,
+          current: 1,
+        }));
         props.setModalOpen(false);
         props.setMainsearchValue('');
         props.setSubsearchValue('');
@@ -79,17 +84,28 @@ function SpecModal(props) {
         ...prevPagination,
         current: 1,
       }));
+      setPagination2(prevPagination => ({
+        ...prevPagination,
+        current: 1,
+      }));
       setMainSelectedRowKeys([]);
       setSubSelectedRowKeys([]);
       };
 
     const handleOk = () => {
       setPagination({pageSize: 5});
+      setPagination2({pageSize: 5})
       props.setIsModalOpen(false);
     };
 
     const handlePageChange = (page, pageSize) => {
       setPagination(prevPagination => ({
+        ...prevPagination,
+        current: page,
+      }));
+    };
+    const handlePageChange2 = (page, pageSize) => {
+      setPagination2(prevPagination => ({
         ...prevPagination,
         current: page,
       }));
@@ -336,8 +352,8 @@ function SpecModal(props) {
         dataSource={props.subcommondata}
         className='dmain-table'
         pagination={{
-          ...pagination,
-          onChange: handlePageChange,
+          ...pagination2,
+          onChange: handlePageChange2,
         }}
         rowKey="key"
       /> 
