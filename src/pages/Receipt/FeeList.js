@@ -1,56 +1,27 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios'
-import {
-    Card,   // 여러 테이블을 Card 느낌으로 임포트해서 구성할 것이다.
-    Table,  // 테이블
-    Button, // 버튼
-    Modal,
-} from "antd";
-// 아이콘 임포트 
+import { Card, Table, Button, Modal } from "antd";
 import '../../assets/styles/Receipt.css';
-
+import Swal from 'sweetalert2'
 
 function FeeList(props) {
     useEffect(() => {
         props.fetchFeeTableData(); 
     }, []);
-
     // 수납 데이터
     const [feeData, setFeeData] = useState([]);
-
     // 수납 모달 관련
     const [feeModalVisible, setFeeModalVisible] = useState(false);
-
+    // 수납 테이블 페이지네이션
     const [currentFeePage, setCurrentFeePage] = useState(1);
-
     // 수납 테이블 컬럼
     const feeTableColumn = [
-
-        {
-            title: 'no',
-            dataIndex: '',
-            key: 'index',
-            render: (text, record, index) => (currentFeePage - 1) * 5 + index + 1,
+        {title: 'no', dataIndex: '', key: 'index', align: 'center',
+        render: (text, record, index) => (currentFeePage - 1) * 5 + index + 1,
         },
-        // {
-        //     title: "접수번호",
-        //     key: "rno",
-        //     dataIndex: "rno"
-        // },
-        {
-            title: "이름",
-            key: "pname",
-            dataIndex: "pname"
-        },
-        {
-            title: "주민등록번호",
-            key: "birthdate",
-            dataIndex: "birthdate"
-        }, 
-        {
-            title: "수납",
-            key: "feee",
-            dataIndex: "feee",
+        {title: "이름", key: "pname", dataIndex: "pname", align: 'center' },
+        {title: "주민등록번호", key: "birthdate", dataIndex: "birthdate", align: 'center' }, 
+        {title: "수납", key: "feee", dataIndex: "feee", align: 'center',
             render: (text, record) => (
                 <Button type="primary" ghost onClick={() => { fetchFeeData(record); setFeeModalVisible(true); }}>수 납</Button>
             ),
@@ -79,7 +50,6 @@ function FeeList(props) {
             .catch((error) => {
                 console.log(error);
             });
-
     }
     // fee테이블에 데이터 넣기.
     const submitFeeData = () => {
@@ -99,7 +69,6 @@ function FeeList(props) {
             console.log(error);
         })
     }
-
     // 수납 데이터 가져오는 함수.
     const fetchFeeData = (record) => {
         axios.get('/api/fee/' + record.rno, {
@@ -123,6 +92,8 @@ function FeeList(props) {
         <>
             {/* 수납모달 */}
             <Modal
+                className='modalStyle'
+                
                 visible={feeModalVisible}
                 onCancel={() => setFeeModalVisible(false)}
                 footer={[
@@ -130,17 +101,23 @@ function FeeList(props) {
                     <Button danger onClick={() => setFeeModalVisible(false)}> 취소 </Button>
                 ]}
             >
+                <h3>환자 수납</h3>
+                <Card style={{height: '150px'}}  className='card'>
                 <p> 접수 번호 : {feeData.rno}</p>
-                <p> 환자 정보 : {feePname}</p>
-                <p> 총 가격 : {feeData.totalprice}</p>
-                <p> 처방내역 : 처방코드 - {feeTreat.tcode}, 처방명 - {feeTreat.tname}</p>
-                <p> 가격 : {feeData.fprice}</p>
-
+                <p> 환자 이름 : {feePname}</p>
+            </Card>
+            <Card style={{height: '300px'}} className='card'>            
+                <p> 처방내역 : </p> 
+                <p> 처방코드 {feeTreat.tcode} 처방명: {feeTreat.tname} 가격 : {feeData.fprice} </p>
+            </Card>
+            <Card style={{height: '80px'}} className='card'> 
+            <p> 총 가격 : {feeData.totalprice}</p>
+            </Card>
             </Modal>
-
             {/* 수납대상자 목록 테이블*/}
             <Card
-                title="수납"
+                title="수납" 
+                className='card'
             >
                 <div>
                     <Table
@@ -167,10 +144,8 @@ function FeeList(props) {
                         </Modal>
                     )} */}
                 </div>
-            </Card>
-
+            </Card> 
         </>
     )
 }
-
 export default FeeList; 

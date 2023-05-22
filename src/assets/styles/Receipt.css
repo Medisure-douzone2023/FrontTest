@@ -1,48 +1,54 @@
 /* 환자 검색 Input 박스 css  나중에 searchoulined인가 컴포넌트 얘 디자인 넣으면 될듯*/
 .receipt-search {
-    width: 33px;
-    margin: 0px 7px 7px 7px;
+    width: 11px;
+    margin: 1px 0px 0px 2px;
     height: 47px;
 }
-  
-  
+
+.roundShape{
+    border-radius: 7px !important;
+}
 /*이건 아직*/
 .table-responsive {
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
 }
-
-
 /* 테이블 컬럼 CSS 뒷 배경 색상. (테이블 thead의 table cell 이라는 뜻.)*/
-/* .tablecss .ant-table-thead .ant-table-cell {
-    background-color: #EFF5FF; 
-    font-weight: bolder;
-} */
-
-
+ .tablecss .ant-table-thead .ant-table-cell {
+    background-color: #EFF5FF;  
+    margin: auto;
+    text-align: center;
+} 
 .tablecss .ant-table-thead .ant-table-content {
     /* color: rgb(0, 0, 0); 칼라 먹이니까 더 진해짐(그래서 먹임.) */
-    font-size: 15px;
-    
+    font-size: 50px; 
+
+
     /* text-align: right; 이건 해야하나 말아야하나 위에거랑 같이 조정해보기. */
     
 }
-
 /* 테이블 컬럼 마우스 hover 했을 때 배경 색깔 */
-
 .tablecss .hover-row:hover{
     background-color: black;
 }
-
-
 /* 모달 css */
-
 .modalStyle .ant-modal-content {
     border-radius: 10px;
+    margin-left:auto;
+    margin-right:auto;
   }
-
 /* 상태 드롭박스 css */
-
 .status-dropdown .ant-select-dropdown {
-    width: 10px; /* Adjust the width as needed */
+    width: 5px; /* Adjust the width as needed */
+    margin-left:auto;
+    margin-right:auto;
+  }
+/* Card CSS - Card 헤더랑 맞출때 */
+  .card.ant-card-bordered {
+    padding: 20px;
+    background-color: white;
+    box-shadow: 0 5px 5px -3px gainsboro;
+    border-radius: 10px;
+    margin: 10px;
+    height: auto;
   }
