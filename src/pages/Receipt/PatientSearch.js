@@ -250,6 +250,7 @@ function PatientSearch(props) {
                     width={700}
                 >
                     <Form {...layout} 
+                    className="modalStyle"
                         form={newPatientForm} 
                         onFinish={submitNewPatientData} 
                         initialValues={{ insurance: '건강보험' , contact: contact }} >
@@ -439,13 +440,15 @@ function PatientSearch(props) {
                     <>
                         <Space>
                             {/* 검색 창 */}
+                            
                             <Input
+                            
                                 className="receipt-search"
                                 placeholder=" 이름 입력 "
                                 style={{ borderRadius: 7 }}
                                 value={pname}
                                 onChange={(e) => setPname(e.target.value)}
-                                prefix={<SearchOutlined />}
+                                addonBefore={<SearchOutlined style={{margin : 'auto'}} />}
                             />
                             {/*환자 검색 버튼*/}
                             <Button style={{ borderRadius: 5 }} type="primary" ghost onClick={() => { fetchPatientData()}}>
