@@ -33,8 +33,8 @@ function PatientInfo({ patient }) {
         {patient &&
           patient.carevo &&
           patient.carevo.map((vo, index) => (
-            <Panel header={vo.rdate} key={index} collapsible="header">
-              <Card bordered="false">
+            <Panel header={vo.rdate} key={index} collapsible="header" className="collapseInfo">
+              <Card bordered="false" hoverable>
                 <p>진료 메모: {vo.memo}</p>
                 <p>
                   처방 :
