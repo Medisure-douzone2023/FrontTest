@@ -247,24 +247,25 @@ function SpecModal(props) {
     return (
         <>
         <Modal 
-          title="처방 내역" 
+          title={<div style={{ textAlign: 'center', fontWeight: 'bold' }}>처방 내역</div>} 
           visible={props.isModalOpen} 
           onOk={handleOk} 
-          cancelButtonProps={{ style: { display: 'none' } }} 
           onCancel={props.handleCancel}
           okText="확인"
           className='tmodal'
           centered
           width={900}
-          height={600}>
-        <p className='p'>진단 내역</p>
+          height={600}
+          okButtonProps={{ type: 'primary', ghost: true}}
+          cancelButtonProps={{style: {display: 'none'}}}>
+        <p className='ptitle'>진단 내역</p>
         <Table 
         columns={diseaseColumns}
         dataSource={props.billDiseaseModalData}
         pagination={false}
         className='disease-table'
       /> 
-      <p className='p'>처방 내역</p>
+      <p className='ptitle'>처방 내역</p>
       <Table
         columns={billcareColumns}
         dataSource={props.billCareModalData}
@@ -274,7 +275,7 @@ function SpecModal(props) {
       </Modal>
 
       <Modal 
-          title="상병추가" 
+          title={<div style={{ textAlign: 'center', fontWeight: 'bold' }}>상병 추가</div>} 
           visible={props.ModalOpen} 
           onOk={diseasehandleOk}
           onCancel={diseasehandleCancel}
@@ -282,7 +283,9 @@ function SpecModal(props) {
           cancelText="취소"
           className='tmodal'
           centered
-          width={800}>
+          width={800}
+          okButtonProps={{ type: 'primary', ghost: true }}
+          cancelButtonProps={{ type: 'danger', ghost: true}}>
         <p className='psearch'>주상병
         <Search
         placeholder="상병명 or 상병코드"
