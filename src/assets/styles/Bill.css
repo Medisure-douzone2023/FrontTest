@@ -1,7 +1,6 @@
 .Bill.ant-card-bordered {
   padding: 10px;
   background-color: white;
-  box-shadow: 0 5px 5px -3px gainsboro;
   border-radius: 10px;
   margin: 10px 10px 0 10px;
   height: auto;
@@ -11,7 +10,6 @@
  
   div#swal2-html-container{
     font-size: 18px;
-    color: theme('colors.metal');
  }
  .BillTable th.ant-table-selection-column{
     padding-right: 30px;
