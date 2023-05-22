@@ -20,9 +20,9 @@ function Specbillcare(props) {
       });
       Swal.fire({
         icon: 'success',
-        title: '심사가 취소 되었습니다.'
+        title: '심사가 취소 되었습니다.',
+        confirmButtonColor: '#3085d6',
       });
-      //alert("심사가 취소 되었습니다.");
       if (props.startDate && props.endDate && props.insurance && props.pno) {
         await props.handleSearch();
       } else {
@@ -52,9 +52,9 @@ function Specbillcare(props) {
       });
       Swal.fire({
         icon: 'success',
-        title: '심사가 완료 되었습니다.'
+        title: '심사가 완료 되었습니다.',
+        confirmButtonColor: '#3085d6',
       });
-      //alert("심사가 완료 되었습니다.");
       if (props.startDate && props.endDate && props.insurance && props.pno) {
         await props.handleSearch();
       } else {

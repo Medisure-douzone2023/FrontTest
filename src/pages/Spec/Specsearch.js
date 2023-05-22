@@ -6,7 +6,6 @@ import { Col,
   Table,
   Row,
   Card,
-  Popconfirm,
   Tag
 } from 'antd';
 import { useState, React, useEffect} from 'react';
@@ -49,8 +48,6 @@ function Specsearch(props) {
   const [subcommondata, setSubcommondata] = useState([null]);
   const { RangePicker } = DatePicker;
   const [status, setStatus] = useState();
-
-  const text = '명세서를 삭제하시겠습니까?';
 
   let token = localStorage.getItem("accessToken");
   
@@ -123,16 +120,16 @@ function Specsearch(props) {
           insurance: <div>{item.insurance}</div>,
           status: <div><Tag color={getStatusColor(item.sstatus)} size='large'>{item.sstatus}</Tag></div>,
           delete:
-          <Popconfirm 
-              title={text}
-              onConfirm={() => specdeletebutton(item)}
-              okText="삭제"
-              cancelText="취소"
-              > 
-          <Button danger ghost size={'middle'}>
+          // <Popconfirm 
+          //     title={text}
+          //     onConfirm={() => specdeletebutton(item)}
+          //     okText="삭제"
+          //     cancelText="취소"
+          //     > 
+          <Button danger ghost size={'middle'} onClick={() => specdeletebutton(item)}>
             삭제
           </Button>
-          </Popconfirm>
+          // </Popconfirm>
         }));
         setBno(bno);
         setSearchData(specificaiondata);
@@ -146,9 +143,9 @@ function Specsearch(props) {
       if (!startDate || !endDate) {
         Swal.fire({
           icon: 'warning',
-          title: '진료기간을 선택해주세요.'
+          title: '진료기간을 선택해주세요.',
+          confirmButtonColor: '#3085d6'
         });
-        //alert("진료기간을 선택해주세요.");
         return;
       }
       try {
@@ -163,21 +160,15 @@ function Specsearch(props) {
           insurance: <div>{item.insurance}</div>,
           status: <div><Tag color={getStatusColor(item.sstatus)} size='large'>{item.sstatus}</Tag></div>,
           delete: 
-          <Popconfirm 
-              title={text}
-              onConfirm={() => specdeletebutton(item)}
-              okText="삭제"
-              cancelText="취소"
-              > 
-          <Button danger ghost size={'middle'}>
+          <Button danger ghost size={'middle'} onClick={() => specdeletebutton(item)}>
             삭제
           </Button>
-          </Popconfirm>
         }));
           if(searchData.length === 0){
             Swal.fire({
               icon: 'error',
-              title: '검색 결과가 없습니다.'
+              title: '검색 결과가 없습니다.',
+              confirmButtonColor: '#3085d6',
             });
             setBilldiseaseData([]);
             setBillcareData([]);
@@ -192,9 +183,9 @@ function Specsearch(props) {
       } catch (error) {
         Swal.fire({
           icon: 'error',
-          title: '검색 결과가 없습니다.'
+          title: '검색 결과가 없습니다.',
+          confirmButtonColor: '#3085d6'
         });
-        // alert("검색 결과가 없습니다.");
       }
     };
     useEffect(() => {
@@ -213,16 +204,9 @@ function Specsearch(props) {
             insurance: <div>{item.insurance}</div>,
             status: <div><Tag color={getStatusColor(item.sstatus)} size='large'>{item.sstatus}</Tag></div>,
             delete: (
-              <Popconfirm 
-              title={text}
-              onConfirm={() => specdeletebutton(item)}
-              okText="삭제"
-              cancelText="취소"
-              > 
-          <Button danger ghost size={'middle'}>
+          <Button danger ghost size={'middle'} onClick={() => specdeletebutton(item)}>
             삭제
           </Button>
-          </Popconfirm>
             )
           }));
     
@@ -244,31 +228,43 @@ function Specsearch(props) {
     }, []);
 
     const specdeletebutton = async (record) =>{
-      try {
-        await axios.put(`/api/spec/${record.bno}`, {
-        rno: record.rno,
-        status: "삭제"
-    }, {
-      headers: {
-        "Authorization": token,
-        "Content-Type": "application/json"
+    try {
+      Swal.fire({
+        icon: 'question',
+        showCancelButton: true,
+        confirmButtonText: '삭제',
+        cancelButtonText: '취소',
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        title: '명세서를 삭제하시겠습니까?',
+        html: '명세서 삭제 시 실제 데이터가 삭제되지 않고 <br/> 아카이빙 처리 됩니다.'
+      }).then(async (result) => {
+        if (result.isConfirmed) {
+          await axios.put(`/api/spec/${record.bno}`, {
+            rno: record.rno,
+            status: "삭제"
+          }, {
+            headers: {
+              "Authorization": token,
+              "Content-Type": "application/json"
+            }
+          });
+        Swal.fire({
+          icon : 'success',
+          title : "삭제 되었습니다.",
+          confirmButtonColor: '#3085d6'
+        });
+        if (props.startDate && props.endDate && props.insurance && props.pno) {
+          await handleSearch();
+        } else {
+          await fetchSpecificationData();
+        }
+        setBilldiseaseData([]);
+        setBillcareData([]);
+        setUserinfo([]);
       }
     });
-    Swal.fire({
-      icon: 'success',
-      title: '명세서 삭제가 완료되었습니다.',
-      text: '명세서 삭제 시 실제 데이터가 삭제되지 않고 \n 아카이빙 처리 됩니다.'
-    });
-    //alert("명세서 삭제가 완료되었습니다. \n명세서 삭제시 실제 데이터가 삭제되지 않고 아카이빙 처리 됩니다.");
-    if (props.startDate && props.endDate && props.insurance && props.pno) {
-      await handleSearch();
-    } else {
-      await fetchSpecificationData();
-    }
-    setBilldiseaseData([]);
-    setBillcareData([]);
-    setUserinfo([]);
-  } catch(error) {
+  } catch (error) {
     console.error(error);
   }
 }
