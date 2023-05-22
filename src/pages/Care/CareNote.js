@@ -1,11 +1,10 @@
-import { Input, Select, Space, Button, Radio, Table, Dropdown, Menu } from "antd";
-import React, { useState, useRef, useEffect } from "react";
+import { Input, Select, Space, Button, Radio, Table,Tag } from "antd";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
-import Column from "antd/lib/table/Column";
 import Tooltip from "antd/es/tooltip";
 const { Option } = Select;
 const { TextArea } = Input;
-
+const Swal = require('sweetalert2');
 function CareNote(props) {
   let token = props.token;
   const [options, setOptions] = useState([]);
@@ -18,6 +17,12 @@ function CareNote(props) {
     setMemo(e.target.value);
   };
 
+  const Toast = Swal.mixin({
+    confirmButtonText: '확인',
+    cancelButtonText: '취소',
+    confirmButtonColor: '#3085d6',
+    cancelButtonColor: '#d33',
+  })
   const resetForm = () => {
     //진료 완료/취소 시 데이터 초기화
     setOptions([]);
@@ -32,10 +37,24 @@ function CareNote(props) {
   const onClickCancel = async () => {
     //진료 취소 버튼 클릭
     if (props.rno === 0) {
-      alert("진료중인 환자가 없습니다. 환자를 호출하세요");
+      Toast.fire({
+        html: "진료중인 환자가 없습니다. <br/>" +
+        "환자를 호출하세요.",
+        icon: 'warning',
+      });
       return;
     }
-    if (!window.confirm("진료를 취소하시겠습니까?")) {
+    const result = await Toast.fire({
+      title: '진료를 취소하시겠습니까?',
+      icon: 'question',
+      showCancelButton: true,
+      showconfirmButton: true,
+      confirmButtonText: '확인',
+      cancelButtonText: '취소',
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+    });
+    if (result.isDismissed) {//취소
       return;
     }
     const responseUpdateRnoStatus = await axios({
@@ -55,17 +74,29 @@ function CareNote(props) {
     document.location.href = "/";
   };
   const onButtonClick = async () => {
-    if (!options || !treats) {
-      alert("진료 후 상병, 처방을 추가해주세요");
+    if (selectDD.length === 0 || selectTT.length === 0) {
+      Toast.fire({
+        html: '진료하신 상병, 처방을 추가해주세요.',
+        icon: 'warning',
+      });
       return;
     }
     //진료 완료 버튼 클릭
     if (props.rno === 0) {
-      alert("진료중인 환자가 없습니다. 환자를 호출하세요.");
+      Toast.fire({
+        html: '진료중인 환자가 없습니다. 환자를 호출하세요.',
+        icon: 'warning',
+      });
       return;
     }
     if (memo === "") {
-      if (!window.confirm("진료메모 비었음. 진료를 완료하시겠습니까?")) {
+      const result = await Toast.fire({
+        html: '진료메모가 비었습니다. 진료를 완료하시겠습니까?',
+        icon: 'question',
+        showCancelButton: true,
+        showconfirmButton: true,
+      });
+      if (result.isDismissed) {//취소
         return;
       }
     }
@@ -74,7 +105,7 @@ function CareNote(props) {
       //진료 데이터
       rno: Number(props.rno),
       memo: memo,
-      cuserid: "eee",
+      cuserid: localStorage.getItem("userid"),
     };
     const response = await axios({
       //진료 추가
@@ -127,7 +158,10 @@ function CareNote(props) {
     });
     console.log("ttresponse: ", responseTT.data.result);
     if (responseDD.data.result === "success" && responseTT.data.result === "success") {
-      alert("진료 완료");
+      Toast.fire({
+        title: "진료가 완료되었습니다.",
+        icon: "info",
+      })
       //환자 status 변경, 값들 초기화
       const responseUpdateRnoStatus = await axios({
         //접수 상태 업데이트
@@ -259,6 +293,7 @@ function CareNote(props) {
       title: "주/부",
       key: "main",
       dataIndex: "dmain",
+      width: 150,
       render: (text, record) => (
         <Radio.Group
           onChange={(e) => handleMainChange(e.target.value, record)}
@@ -276,6 +311,7 @@ function CareNote(props) {
       dataIndex: "dcode",
       key: "dcode",
       fixed: true,
+      width: 50
     },
     {
       title: "상병이름",
@@ -309,6 +345,14 @@ function CareNote(props) {
         autoClearSearchValue="true"
         value={selectDD.map((option) => option.dcode)}
         allowClear="true"
+        tagRender={(props) => {
+          const { label, closable, onClose } = props;
+          return (
+            <Tag color="cyan" closable={closable} onClose={onClose} style={{ marginRight: 3 }}>
+              {label}
+            </Tag>
+          );
+        }}
       >
         {options !== [] &&
           options.map((option, index) => (
@@ -348,6 +392,15 @@ function CareNote(props) {
         optionFilterProp="value" //옵션 검색 시 어떤 속성 기준으로 필터링 할 지
         autoClearSearchValue="true" //옵션 검색 후 자동으로 검색어 지움
         value={selectTT.map((option) => option.tname)} //현재 선택된 옵션 나타내는 배열, tcode속성 배열로 만들 어 선택된 옵션 표시
+        tagRender={(props) => {
+          const { label, closable, onClose } = props;
+          return (
+            <Tag color="cyan" closable={closable} onClose={onClose} style={{ marginRight: 3 }}>
+              {label}
+            </Tag>
+          );
+        }}
+        allowClear="true"
       >
         {treats !== [] &&
           treats.map((treat, index) => (
