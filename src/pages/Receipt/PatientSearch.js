@@ -52,7 +52,7 @@ function PatientSearch(props) {
         { title: "보험유형", key: "insurance", dataIndex: "insurance", align: 'center', width: '120px' },
         { title: "비고", key: "etc", dataIndex: "etc", ellipsis: true, align: 'center', width: '180px' },
         { title: "접수", key: "receipt", dataIndex: "receipt", align: 'center', width: '120px',
-          render: (text, record) => (<Button type="primary" ghost onClick={() => { setConditionModalVisible(true); }}>접 수</Button>),
+          render: (text, record) => (<Button className="roundShape" type="primary" ghost onClick={() => { setConditionModalVisible(true); }}>접 수</Button>),
         }
     ];
     const fetchVisitData = () => {
@@ -255,7 +255,7 @@ function PatientSearch(props) {
                         initialValues={{ insurance: '건강보험' , contact: contact }} >
                         <h3>신규 환자 등록</h3>
                         <Form.Item name="pname" label="이름" rules={[{ required: true, }]}>
-                            <Input className='roundShape' style={{ height: '32px', width: '25%' }}/>
+                            <Input className='roundShape' style={{height: '32px', width: '25%' }}/>
                         </Form.Item>
                         <Form.Item
                             name=""
@@ -368,6 +368,7 @@ function PatientSearch(props) {
                         </Form.Item>
                         <Form.Item shouldUpdate>
                             <Button
+                                className="roundShape"
                                 type="primary"
                                 ghost
                                 htmlType="submit"

@@ -23,7 +23,7 @@ function FeeList(props) {
         {title: "주민등록번호", key: "birthdate", dataIndex: "birthdate", align: 'center' }, 
         {title: "수납", key: "feee", dataIndex: "feee", align: 'center',
             render: (text, record) => (
-                <Button type="primary" ghost onClick={() => { fetchFeeData(record); setFeeModalVisible(true); }}>수 납</Button>
+                <Button className="roundShape" type="primary" ghost onClick={() => { fetchFeeData(record); setFeeModalVisible(true); }}>수 납</Button>
             ),
         }
     ]
@@ -97,8 +97,8 @@ function FeeList(props) {
                 visible={feeModalVisible}
                 onCancel={() => setFeeModalVisible(false)}
                 footer={[
-                    <Button type="primary" ghost onClick={() => updatePayData(feeData)}> 수납하기 </Button>,
-                    <Button danger onClick={() => setFeeModalVisible(false)}> 취소 </Button>
+                    <Button className="roundShape" type="primary" ghost onClick={() => updatePayData(feeData)}> 수납하기 </Button>,
+                    <Button className="roundShape" danger onClick={() => setFeeModalVisible(false)}> 취소 </Button>
                 ]}
             >
                 <h3>환자 수납</h3>

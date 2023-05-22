@@ -44,7 +44,7 @@ function ReceiptStatus(props) {
       )
     }, 
     {title: "취소", dataIndex: "cancel", key: "cancel", align: 'center',
-      render: (text, record) => ( <Button danger onClick={() => { cancelReceipt(record) }}>취소</Button>)}
+      render: (text, record) => ( <Button className="roundShape" danger onClick={() => { cancelReceipt(record) }}>취소</Button>)}
   ]
   const allColumn = [
     {title: 'no', dataIndex: '', key: 'index', align: 'center', width: '70px',
