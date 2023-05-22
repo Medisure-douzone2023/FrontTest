@@ -1,7 +1,7 @@
-import { Button, Space, Table, Alert } from "antd";
+import { Button, Table } from "antd";
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-
+const Swal = require('sweetalert2');
 const columns = [
   { title: "환자명", dataIndex: "pname", key: "pname" },
   { title: "성별", dataIndex: "gender", key: "gender" },
@@ -31,18 +31,33 @@ function PatientList(props) {
     onChange: onSelectChange,
   };
 
+  const Toast = Swal.mixin({
+    confirmButtonText: '확인',
+    cancelButtonText: '취소',
+    confirmButtonColor: '#3085d6',
+    cancelButtonColor: '#d33',
+  })
   const onButtonClick = async () => {
     if (Object.keys(props.patient).length !== 0) {
       console.log("patient길이: ", props.patient);
-      alert("진료 중인 환자가 있습니다. 진료완료/취소 후 환자를 선택해주세요");
+      Toast.fire({
+        html: "진료 중인 환자가 있습니다. <br/>" +
+        "진료완료/취소 후 환자를 선택해주세요.",
+        icon: 'warning',
+      });
       setSelectedRowKeys();
       return;
     }
     if (selectedRowKeys && selectedRowKeys.length !== 0) {
       if (selectedRowKeys.length === 1) {
         console.log("환자호출 patient:.", patient);
-        if (window.confirm("환자 호출하기")) {
-          alert("환자 호출");
+        const result = await Toast.fire({
+          html: '선택하신 환자를 호출하시겠습니까?',
+          icon: 'question',
+          showCancelButton: true,
+          showconfirmButton: true,
+        });
+        if (result.isConfirmed) {
           const response = await axios({
             method: "PUT",
             url: `/api/receipt/${selectedRowKeys}/진료중`,
@@ -66,13 +81,22 @@ function PatientList(props) {
           console.log("병원 온 적 있?", selectedRow.visit);
           setSelectedRowKeys();
         } else {
-          alert("환자 호출 취소");
+          Toast.fire({
+            html: '환자 호출을 취소합니다.',
+            icon: 'error',
+          });
         }
       } else {
-        alert("환자를 한 명만 선택하세요");
+        Toast.fire({
+          html: '환자를 한 명만 선택해주세요.',
+          icon: 'warning',
+        });
       }
     } else {
-      alert("진료하실 환자를 선택하세요");
+      Toast.fire({
+        html: '진료하실 환자를 선택해주세요.',
+        icon: 'warning',
+      });
     }
   };
   const fetchUsers = async () => {
