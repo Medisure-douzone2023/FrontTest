@@ -2,7 +2,7 @@
 .layout-dashboard .ant-layout-header {
   padding: 24px;
   margin: 15px 10px 10px 10px;
-  /* background: #fafa6fa; */
+  /* background-color: #fafafa; */
   background-color: white;
   height: auto;
   box-shadow: 0 5px 5px -3px gainsboro;
@@ -18,37 +18,36 @@
 }
 /* 헤더 시간 css */
 .todayInfo.header-control {
-  display: flex;
   flex-direction: row;
   font-weight: 500;
 }
 /* 사용자 안녕하세요 */
 .layout-dashboard .header-control .headerUser {
   margin-right: 10px;
-  font-weight: 500;
+  font-weight: 400;
 }
 /* logout */
 .layout-dashboard .header-control .btn-sign-in {
   height: auto;
   padding: 0 7px;
-  color: #8c8c8c;
+  color: #8C8C8C;
   text-align: center;
   display: table;
+  vertical-align: middle;
 }
+
 /* 로그아웃 아이콘 */
 .layout-dashboard .header-control .btn-sign-in svg {
   margin-right: 5px;
 }
 /* 로그아웃 아이콘 색상*/
 .layout-dashboard .header-control .btn-sign-in svg path {
-  fill: #8c8c8c;
+  fill: #8C8C8C;
+  margin-right: 10px;
 }
 /* 로그아웃 span*/
 .layout-dashboard .header-control .btn-sign-in span {
-  margin-right: 10px;
-  font-weight: 500;
   vertical-align: middle;
-  display: table-cell;
 }
 .layout-dashboard .header-control svg path {
   fill: #141414;

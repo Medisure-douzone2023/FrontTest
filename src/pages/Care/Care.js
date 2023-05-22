@@ -6,6 +6,7 @@ import axios from "axios";
 import PatientInfo from "./PatientInfo";
 import "../../assets/styles/Care.css";
 import Modal from "antd/lib/modal/Modal";
+const Swal = require('sweetalert2');
 function Care(props) {
   const [pno, setPno] = useState(0);
   const [rno, setRno] = useState(0);
@@ -24,9 +25,11 @@ function Care(props) {
     { title: "환자번호", dataIndex: "pno", key: "pno", hidden: "true" },
   ].filter((column) => !column.hidden);
   const onSelectChange = (newSelectedRowKeys, newSelectedRows) => {
-    console.log("newSelectedRowKeys changed: ", newSelectedRowKeys);
-    console.log("newSelectedRows changed: ", newSelectedRows);
     setSelectedRowKeys(newSelectedRowKeys);
+    if (newSelectedRowKeys.length === 0) {
+      setSelectedRow();
+      setSelectedRowKeys();
+    }
     if (newSelectedRowKeys.length === 1) {
       console.log("newSelectedRow", newSelectedRows[0]);
       setSelectedRow(newSelectedRows[0]);
@@ -37,21 +40,35 @@ function Care(props) {
     onChange: onSelectChange,
   };
   let token = props.token;
-  const handleModalClose = () => {
+  const Toast = Swal.mixin({
+    confirmButtonText: '확인',
+    cancelButtonText: '취소',
+    confirmButtonColor: '#3085d6',
+    cancelButtonColor: '#d33',
+  })
+  const handleModalClose = async() => {
     if (!selectedRowKeys) {
-      alert("환자를 선택해주세요");
+      Toast.fire({
+        html: "진료하실 환자를 선택해주세요.",
+        icon: 'warning',
+      })
       return;
     }
     if (selectedRowKeys.length > 1) {
-      alert("진료하실 환자를 1명만 선택해주세요");
+      Toast.fire({
+        html: "진료하실 환자를 1명만 선택해주세요.",
+        icon: 'warning',
+      })
       setSelectedRowKeys();
       return;
     }
-    if (
-      window.confirm(
-        selectedRow.pname + "(" + selectedRow.age + "세) 환자의 진료를 시작하시겠습니까?"
-      )
-    ) {
+    const result = await Swal.fire({
+      html: selectedRow.pname + "(" + selectedRow.age + "세) 환자의 진료를 시작하시겠습니까?",
+      icon: 'question',
+      showCancelButton: true,
+      showconfirmButton: true
+    })
+    if (result.isConfirmed) {
       fetchPatientInfo(selectedRow.pno);
       setRno(selectedRow.rno);
       setIsVisited(selectedRow.visit);
@@ -91,12 +108,19 @@ function Care(props) {
       },
     });
     if (response.data.result !== "success") {
-      alert("진료중 환자 가져오는데 오류 발생");
+      Toast.fire({
+        title: "진료중 환자 가져오는데 오류 발생",
+        icon: "error"
+      })
       return;
     }
     console.log("진료중인 환자", response.data.data);
     if (response.data.data.length === 0) {
-      alert("진료중인 환자가 없습니다. 환자를 호출하세요.");
+      Toast.fire({
+        html: "진료중인 환자가 없습니다. <br/>" +
+        "환자를 호출하세요.",
+        icon: 'warning',
+      });
       return;
     }
     if (response.data.data.length > 1) {
@@ -117,67 +141,67 @@ function Care(props) {
   }, [pno]);
 
   return (
-    <Card className="care">
-      <Modal
-        className="patientModal"
-        title="진료중인 환자목록"
-        visible={isModal}
-        onOk={handleModalClose}
-        closable={false}
-        footer={[
-          <Button
-            className="modalBtn"
-            key="ok"
-            onClick={handleModalClose}
-            type="primary"
-            ghost
-            style={{ width: "95%", display: "block", margin: "0 auto" }}
-          >
-            확인
-          </Button>,
-        ]}
-      >
-        <p>진료중인 환자가 여러명입니다. 진료하실 환자를 선택해주세요.</p>
-        <Table
-          className="patientCareList"
-          rowSelection={rowSelection}
-          rowKey="rno"
-          pagination={false}
-          dataSource={patienCareList}
-          columns={patientCare}
-        />
-      </Modal>
-      <Row gutter={[24, 0]}>
-        <Col span={8}>
-          <h1 className="patientListText">진료 대기 환자 목록</h1>
-          {countPatient && countPatient > 0 ? (
-            <p>환자 {countPatient}명 대기중</p>
-          ) : (
-            <p>대기중인 환자 없음</p>
-          )}
-          <PatientList
-            setPno={setPno}
-            setRno={setRno}
-            patient={patient}
-            setIsVisited={setIsVisited}
-            token={token}
-            setCountPatient={setCountPatient}
+      <Card className="care">
+        <Modal
+          className="patientModal"
+          title="진료중인 환자목록"
+          visible={isModal}
+          onOk={handleModalClose}
+          closable={false}
+          footer={[
+            <Button
+              className="modalBtn"
+              key="ok"
+              onClick={handleModalClose}
+              type="primary"
+              ghost
+              style={{ width: "95%", display: "block", margin: "0 auto" }}
+            >
+              확인
+            </Button>,
+          ]}
+        >
+          <p>진료중인 환자가 여러명입니다. 진료하실 환자를 선택해주세요.</p>
+          <Table
+            className="patientCareList"
+            rowSelection={rowSelection}
+            rowKey="rno"
+            pagination={false}
+            dataSource={patienCareList}
+            columns={patientCare}
           />
-        </Col>
-        <Col span={8}>
-          <CareNote
-            rno={rno}
-            setPatient={setPatient}
-            isVisited={isVisited}
-            setIsVisited={setIsVisited}
-            token={token}
-          />
-        </Col>
-        <Col span={8}>
-          <PatientInfo patient={patient} token={token} />
-        </Col>
-      </Row>
-    </Card>
+        </Modal>
+        <Row gutter={[24, 0]}>
+          <Col span={8}>
+            <h1 className="patientListText">접수 환자 목록</h1>
+            {countPatient && countPatient > 0 ? (
+              <p>환자 {countPatient}명 대기중</p>
+            ) : (
+              <p>대기중인 환자 없음</p>
+            )}
+            <PatientList
+              setPno={setPno}
+              setRno={setRno}
+              patient={patient}
+              setIsVisited={setIsVisited}
+              token={token}
+              setCountPatient={setCountPatient}
+            />
+          </Col>
+          <Col span={8}>
+            <CareNote
+              rno={rno}
+              setPatient={setPatient}
+              isVisited={isVisited}
+              setIsVisited={setIsVisited}
+              token={token}
+            />
+          </Col>
+          <Col span={8}>
+            <PatientInfo patient={patient} token={token} />
+          </Col>
+        </Row>
+      </Card>
   );
 }
 
