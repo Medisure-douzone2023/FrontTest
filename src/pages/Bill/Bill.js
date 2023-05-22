@@ -1,7 +1,8 @@
 import { useEffect, useRef, useState } from "react";
 import { Button, Table, DatePicker, Space, Select, Row, Col, Card } from 'antd';
 import axios from 'axios'
-
+import '../../assets/styles/Bill.css';
+import Swal from "sweetalert2";
 function Bill(props) {
   const isMountedRef = useRef(true);
   useEffect(() => {
@@ -24,50 +25,60 @@ function Bill(props) {
   const [size, setSize] = useState('middle');
 
   const columns = [
+    
     {
       title: '청구생성번호',
       dataIndex: 'bno',
       key: 'bno',
+      align: 'center'
     },
     {
       title: '진료년월',
       dataIndex: 'cdate',
       key: 'cdate',
+      align: 'center'
     },
     {
       title: '보험유형',
       dataIndex: 'insurance',
       key: 'insurance',
+      align: 'center'
     },
     {
       title: '청구번호',
       dataIndex: 'bnumber',
       key: 'bnumber',
+      align: 'center'
     },
     {
       title: '청구건수',
       dataIndex: 'count',
       key: 'count',
+      align: 'center'
     },
     {
       title: '본인부담금액',
       dataIndex: 'fprice',
       key: 'fprice',
+      align: 'center'
     },
     {
       title: '청구금액',
       dataIndex: 'billprice',
       key: 'billprice',
+      align: 'center'
     },
     {
       title: '진행상태',
       dataIndex: 'bstatus',
       key: 'bstatus',
+      align: 'center'
     },
     {
       title: '주차',
       dataIndex: 'bweek',
       key: 'bweek',
+      align: 'center'
     }
   ];
   let [data, setData] = useState([]);
@@ -99,7 +110,7 @@ function Bill(props) {
       const data = e.data.data;
       if (data.length === 0) {
         setData(data);
-        alert("데이터가 존재하지 않습니다.");
+        custom.fire( {icon: 'info' ,html: '데이터가 존재하지 않습니다.'});
       } else {
         const result = data.map((item, index) => ({
           ...item,
@@ -134,11 +145,11 @@ function Bill(props) {
 
   const send = () => {
     if(selectedRows.length === 0){
-      alert('선택된 청구서가 없습니다. 송신 및 변환할 청구서를 선택해 주세요.')
+      custom.fire( {icon: 'error' ,html: '선택된 청구서가 없습니다. <br/> 송신 및 변환할 청구서를 선택해 주세요'});
       return;
     }
     if(selectedRows.some((item) => item.bstatus === '변환')){
-      alert("이미 변환된 청구서가 포함되어 있습니다. 청구서를 확인해 주세요.")
+      custom.fire( {icon: 'error' ,html: '이미 변환된 청구서가 포함되어 있습니다. 청구서를 확인해 주세요.'});
       setSelectedRowKeys([]);
       setSelectedRows([]);
       return;
@@ -156,7 +167,7 @@ function Bill(props) {
         },
       }).then((response) => {
         console.log("response",response);
-        alert("sam 파일 생성이 완료되었습니다.")
+        custom.fire( {icon: 'success' ,html: 'sam 파일 생성이 완료되었습니다.'});
         search()
       }).catch((e) => {
         console.log("error", e);
@@ -166,28 +177,32 @@ function Bill(props) {
 
   const cancel = () => {
     if(selectedRows.length === 0){
-      alert('선택된 청구서가 없습니다. 송신 취소할 청구서를 선택해 주세요!')
+      custom.fire( {icon: 'error',html: '선택된 청구서가 없습니다.<br/> 송신 취소할 청구서를 선택해 주세요!'});
       return
     }
     if(selectedRows.some((item) => item.bstatus === '미송신')){
-      alert("미송신된 청구서가 포함되어 있습니다. 청구서를 확인해 주세요.")
+      custom.fire( {icon: 'error',html: '미송신된 청구서가 포함되어 있습니다. 청구서를 확인해 주세요.'});
       setSelectedRowKeys([]);
       setSelectedRows([]);
       return;
     }
+    console.log("ho")
     if (selectedRows.length > 0) {
       let apiParameters = [];
       for (let i = 0; i < selectedRows.length; i++) {
         apiParameters.push(selectedRows[i].bno)
       }
-
+      setSelectedRowKeys([]);
+      setSelectedRows([]);
+      console.log("apiParameters",apiParameters)
       axios.put("/api/bill/delete", apiParameters, {
         headers: {
           "Authorization": token,
         },
       }).then((response) => {
-        alert("sam 파일 삭제가 완료되었습니다.")
+        custom.fire( {icon: 'success',html: 'sam 파일 삭제가 완료되었습니다.'});
         search()
+        
       }).catch((e) => {
         console.log("error", e);
       });
@@ -203,10 +218,14 @@ function Bill(props) {
     return selectedRows.length > 0 && !selectedRows.every((item) => item.bstatus === status);
   };
 
+  const custom = Swal.mixin({
+    confirmButtonText: '확인',
+    confirmButtonColor: '#3085d6',
+  })
+  
   return (
     <div>
-      <br />
-      <Card style={{ width: '100%' }}>
+      <Card className="Bill">
       <h4>청구서 검색</h4>
       <br />
       <Row>
@@ -215,16 +234,16 @@ function Bill(props) {
             <DatePicker picker="month" onChange={selectDate} />
             <Select
               size={size}
-              defaultValue="미선택"
               onChange={setInsuranceOption}
               style={{
                 width: 200,
               }}
+              placeholder="보험 유형을 선택해주세요"
               options={insuranceOptions}
             />
             <Select
               size={size}
-              defaultValue="미선택"
+              placeholder="상태를 선택해주세요"
               onChange={selectStatus}
               style={{
                 width: 200,
@@ -235,9 +254,8 @@ function Bill(props) {
           </Space>
         </Col>
       </Row>
-      <br />
-      <br />
-      <br />
+      </Card>
+      <Card className="Bill">
       <h4>청구서 조회</h4>
       <br />
       <div style={{ marginBottom: 16 }}>
@@ -245,12 +263,14 @@ function Bill(props) {
           Reload
         </Button>
         <span style={{marginLeft: 8}}>
-          {hasSelected ? `Selected ${selectedRowKeys.length} items` : ''}
+          {hasSelected ? ` ${selectedRowKeys.length} 개의 항목이 선택되었습니다.` : ''}
         </span>
       </div>
-      <Table rowSelection={rowSelection} columns={columns} dataSource={data} />
-      <Button type="primary" ghost onClick={send} disabled={checkButtonDisabled('미송신')}> 송신 변환 </Button>
+      <Table rowSelection={rowSelection} columns={columns} dataSource={data} className="BillTable" />
+      <Space direction="horizontal" size={12}>
       <Button danger onClick={cancel} disabled={checkButtonDisabled('변환')}>송신 취소</Button>
+      <Button type="primary" ghost onClick={send} disabled={checkButtonDisabled('미송신')}> 송신 변환 </Button>
+      </Space>
       </Card>
     </div>
   );
