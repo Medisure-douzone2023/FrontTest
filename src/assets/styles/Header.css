@@ -9,7 +9,7 @@
   border-radius: 12px;
   line-height: inherit; /* 줄높이: 부모의 속성값을 상속*/
   transition: 0.2s;
-  font-size: 18px;
+  font-size: 20px;
 }
 .layout-dashboard .header-control {
   display: flex;

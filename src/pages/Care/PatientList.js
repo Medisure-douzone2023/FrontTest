@@ -4,9 +4,9 @@ import axios from "axios";
 const Swal = require('sweetalert2');
 const columns = [
   { title: "환자명", dataIndex: "pname", key: "pname" },
-  { title: "성별", dataIndex: "gender", key: "gender" },
+  { title: "성별", dataIndex: "gender", key: "gender"},
   { title: "나이", dataIndex: "age", key: "age" },
-  { title: "증상", dataIndex: "rcondition", key: "rcondition" },
+  { title: "증상", dataIndex: "rcondition", key: "rcondition"},
   { title: "상태", dataIndex: "status", key: "status", hidden: "true" },
   { title: "환자번호", dataIndex: "pno", key: "pno", hidden: "true" },
   { title: "접수번호", dataIndex: "rno", key: "rno", hidden: "true" },
@@ -108,7 +108,7 @@ function PatientList(props) {
       });
       if (response.data.result === "success") {
         const newPatient = response.data.data.map((p) => {
-          return { ...p, gender: p.gender === "m" ? "남" : "여" };
+          return { ...p, gender: p.gender === "m" ? "남자" : "여자" };
         });
         setPatient(newPatient);
         console.log("진료 대기 환자: ", response.data.data);

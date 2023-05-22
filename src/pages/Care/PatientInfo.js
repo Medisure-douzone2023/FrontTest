@@ -35,37 +35,37 @@ function PatientInfo({ patient }) {
           patient.carevo.map((vo, index) => (
             <Panel header={vo.rdate} key={index} collapsible="header" className="collapseInfo">
               <Card bordered="false" hoverable>
-                <p>진료 메모: {vo.memo}</p>
+                <p >진료 메모: {vo.memo}</p>
+                <p className="patientInfoTitle">처방</p>
                 <p>
-                  처방 :
                   {patient.diseasevo
                     .filter((disease) => vo.rno === disease.rno)
                     .map((disease, index) =>
                       patient.diseasevo.filter((disease) => vo.rno === disease.rno).length - 1 !==
                       index ? (
                         <span key={index}>
-                          {disease.dname}[{disease.dcode}, {disease.dmain}],{" "}
+                          {disease.dname} [{disease.dcode}, {disease.dmain}],{" "} <br/>
                         </span>
                       ) : (
                         <span key={index}>
-                          {disease.dname}[{disease.dcode}, {disease.dmain}]{" "}
+                          {disease.dname} [{disease.dcode}, {disease.dmain}]{" "}
                         </span>
                       )
                     )}
                 </p>
+                <p className="patientInfoTitle">상병</p>
                 <p className="patientInfoTreatment">
-                  상병 :
                   {patient.treatmentvo
                     .filter((treat) => vo.rno === treat.rno)
                     .map((treat, index) =>
                       patient.treatmentvo.filter((treat) => vo.rno === treat.rno).length - 1 !==
                       index ? (
                         <span key={index}>
-                          {treat.tname}[{treat.tcode}],{" "}
+                          {treat.tname} [{treat.tcode}],{" "} <br/>
                         </span>
                       ) : (
                         <span key={index}>
-                          {treat.tname}[{treat.tcode}]
+                          {treat.tname} [{treat.tcode}]
                         </span>
                       )
                     )}
