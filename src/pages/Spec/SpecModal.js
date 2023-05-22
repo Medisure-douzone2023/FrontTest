@@ -9,7 +9,9 @@ function SpecModal(props) {
     const [mainSelectedRowKeys, setMainSelectedRowKeys] = useState([]);
     const [subSelectedRowKeys, setSubSelectedRowKeys] = useState([]);
     const [pagination, setPagination] = useState({current: 1, pageSize: 5});
+    const [pagination2, setPagination2] = useState({current: 1, pageSize: 5});
     const { Search } = Input;
+    const Swal = require('sweetalert2')
     let token = localStorage.getItem("accessToken");
 
     //청구 상병 추가 통신
@@ -54,8 +56,18 @@ function SpecModal(props) {
         } catch (error) {
           console.error(error);
         }
+        Swal.fire({
+          icon: 'success',
+          title: '상병이 추가 되었습니다.',
+          confirmButtonText: '확인',
+          confirmButtonColor: '#3085d6',
+        });
         // setPagination({current: 1, pageSize: 5});
         setPagination(prevPagination => ({
+          ...prevPagination,
+          current: 1,
+        }));
+        setPagination2(prevPagination => ({
           ...prevPagination,
           current: 1,
         }));
@@ -79,17 +91,28 @@ function SpecModal(props) {
         ...prevPagination,
         current: 1,
       }));
+      setPagination2(prevPagination => ({
+        ...prevPagination,
+        current: 1,
+      }));
       setMainSelectedRowKeys([]);
       setSubSelectedRowKeys([]);
       };
 
     const handleOk = () => {
       setPagination({pageSize: 5});
+      setPagination2({pageSize: 5})
       props.setIsModalOpen(false);
     };
 
     const handlePageChange = (page, pageSize) => {
       setPagination(prevPagination => ({
+        ...prevPagination,
+        current: page,
+      }));
+    };
+    const handlePageChange2 = (page, pageSize) => {
+      setPagination2(prevPagination => ({
         ...prevPagination,
         current: page,
       }));
@@ -143,7 +166,12 @@ function SpecModal(props) {
            }));
            props.setMaincommondata(commondata);
            if(commondata.length === 0){
-            alert("검색 결과가 없습니다.")
+            Swal.fire({
+              icon: 'error',
+              title: '검색 결과가 없습니다.',
+              confirmButtonText: '확인',
+              confirmButtonColor: '#3085d6',
+            });
             return;
            }
          } catch(error){
@@ -163,7 +191,12 @@ function SpecModal(props) {
          }));
          props.setSubcommondata(commondata);
          if(commondata.length === 0){
-          alert("검색 결과가 없습니다.")
+          Swal.fire({
+            icon: 'error',
+            title: '검색 결과가 없습니다.',
+            confirmButtonText: '확인',
+            confirmButtonColor: '#3085d6',
+          });
           return;
          }
        } catch(error){
@@ -247,24 +280,25 @@ function SpecModal(props) {
     return (
         <>
         <Modal 
-          title="처방 내역" 
+          title={<div style={{ textAlign: 'center', fontWeight: 'bold' }}>처방 내역</div>} 
           visible={props.isModalOpen} 
           onOk={handleOk} 
-          cancelButtonProps={{ style: { display: 'none' } }} 
           onCancel={props.handleCancel}
           okText="확인"
           className='tmodal'
           centered
           width={900}
-          height={600}>
-        <p className='p'>진단 내역</p>
+          height={600}
+          okButtonProps={{ type: 'primary', ghost: true}}
+          cancelButtonProps={{style: {display: 'none'}}}>
+        <p className='ptitle'>진단 내역</p>
         <Table 
         columns={diseaseColumns}
         dataSource={props.billDiseaseModalData}
         pagination={false}
         className='disease-table'
       /> 
-      <p className='p'>처방 내역</p>
+      <p className='ptitle'>처방 내역</p>
       <Table
         columns={billcareColumns}
         dataSource={props.billCareModalData}
@@ -274,7 +308,7 @@ function SpecModal(props) {
       </Modal>
 
       <Modal 
-          title="상병추가" 
+          title={<div style={{ textAlign: 'center', fontWeight: 'bold' }}>상병 추가</div>} 
           visible={props.ModalOpen} 
           onOk={diseasehandleOk}
           onCancel={diseasehandleCancel}
@@ -282,7 +316,9 @@ function SpecModal(props) {
           cancelText="취소"
           className='tmodal'
           centered
-          width={800}>
+          width={800}
+          okButtonProps={{ type: 'primary', ghost: true }}
+          cancelButtonProps={{ type: 'danger', ghost: true}}>
         <p className='psearch'>주상병
         <Search
         placeholder="상병명 or 상병코드"
@@ -302,6 +338,7 @@ function SpecModal(props) {
            ...MaindiseaserowSelection,
          }}
         columns={diseaseModalColumns}
+        className='dmain-table'
         dataSource={props.maincommondata}
         pagination={{
           ...pagination,
@@ -330,9 +367,10 @@ function SpecModal(props) {
          }}
         columns={diseaseModalColumns}
         dataSource={props.subcommondata}
+        className='dmain-table'
         pagination={{
-          ...pagination,
-          onChange: handlePageChange,
+          ...pagination2,
+          onChange: handlePageChange2,
         }}
         rowKey="key"
       /> 

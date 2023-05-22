@@ -4,6 +4,8 @@ import axios from 'axios';
 
 function Specbillcare(props) {
   let token = localStorage.getItem("accessToken");
+  const Swal = require('sweetalert2')
+
   // 취소 버튼 시 명세서의 status를 미심사로 변경
   const updateCancle = async () => {
     try {
@@ -16,8 +18,13 @@ function Specbillcare(props) {
           "Content-Type": "application/json"
         }
       });
-      alert("심사가 취소 되었습니다.");
-      if (props.startDate && props.endDate && props.insurance && props.pno) {
+      Swal.fire({
+        icon: 'success',
+        title: '심사가 취소 되었습니다.',
+        confirmButtonText: '확인',
+        confirmButtonColor: '#3085d6',
+      });
+      if (props.startDate && props.endDate && props.insurance) {
         await props.handleSearch();
       } else {
         await props.fetchSpecificationData();
@@ -44,8 +51,13 @@ function Specbillcare(props) {
           "Content-Type": "application/json"
         }
       });
-      alert("심사가 완료 되었습니다.");
-      if (props.startDate && props.endDate && props.insurance && props.pno) {
+      Swal.fire({
+        icon: 'success',
+        title: '심사가 완료 되었습니다.',
+        confirmButtonText: '확인',
+        confirmButtonColor: '#3085d6',
+      });
+      if (props.startDate && props.endDate && props.insurance) {
         await props.handleSearch();
       } else {
         await props.fetchSpecificationData();
@@ -114,11 +126,11 @@ function Specbillcare(props) {
       </Col>
       <Col span={24}>
       <div style={{ display: 'flex', justifyContent: 'center' }}>
-      <Button type="primary" ghost size={'middle'} onClick={updateOk} disabled={check("완료")} className='judge-btn'>
-          심사 완료
-        </Button>
       <Button danger ghost size={'middle'} onClick={updateCancle} disabled={check("미심사")} className='judge-btn'>
           심사 취소
+        </Button>
+      <Button type="primary" ghost size={'middle'} onClick={updateOk} disabled={check("완료")} className='judge-btn'>
+          심사 완료
         </Button>
       </div>
       </Col>

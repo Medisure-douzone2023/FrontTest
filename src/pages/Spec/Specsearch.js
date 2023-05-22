@@ -6,7 +6,7 @@ import { Col,
   Table,
   Row,
   Card,
-  Popconfirm
+  Tag
 } from 'antd';
 import { useState, React, useEffect} from 'react';
 import axios from 'axios';
@@ -17,6 +17,7 @@ import Specbilldisease from './Specbilldisease';
 import Specbillcare from './Specbillcare'
 
 function Specsearch(props) {
+  const Swal = require('sweetalert2')
   const [insurance, setInsurance] = useState('건강보험');
   const [pno, setPno] = useState('');
   const [bno, setBno] = useState();
@@ -47,8 +48,6 @@ function Specsearch(props) {
   const [subcommondata, setSubcommondata] = useState([null]);
   const { RangePicker } = DatePicker;
   const [status, setStatus] = useState();
-
-  const text = '명세서를 삭제하시겠습니까?';
 
   let token = localStorage.getItem("accessToken");
   
@@ -119,18 +118,11 @@ function Specsearch(props) {
           no: <div>{i + 1}</div>,
           name: <div className="author-info">{item.pname}</div>,
           insurance: <div>{item.insurance}</div>,
-          status: <div>{item.sstatus}</div>,
+          status: <div><Tag color={getStatusColor(item.sstatus)} size='large'>{item.sstatus}</Tag></div>,
           delete:
-          <Popconfirm 
-              title={text}
-              onConfirm={() => specdeletebutton(item)}
-              okText="삭제"
-              cancelText="취소"
-              > 
-          <Button danger ghost size={'middle'}>
+          <Button danger ghost size={'middle'} onClick={() => specdeletebutton(item)}>
             삭제
           </Button>
-          </Popconfirm>
         }));
         setBno(bno);
         setSearchData(specificaiondata);
@@ -142,7 +134,12 @@ function Specsearch(props) {
     // 검색으로 명세서 데이터 찾아오기
     const handleSearch = async () => {
       if (!startDate || !endDate) {
-        alert("진료기간을 선택해주세요.");
+        Swal.fire({
+          icon: 'warning',
+          title: '진료기간을 선택해주세요.',
+          confirmButtonText: '확인',
+          confirmButtonColor: '#3085d6'
+        });
         return;
       }
       try {
@@ -155,21 +152,19 @@ function Specsearch(props) {
           no: <div>{i + 1}</div>, 
           name: <div className="author-info">{item.pname}</div>,
           insurance: <div>{item.insurance}</div>,
-          status: <div>{item.sstatus}</div>,
+          status: <div><Tag color={getStatusColor(item.sstatus)} size='large'>{item.sstatus}</Tag></div>,
           delete: 
-          <Popconfirm 
-              title={text}
-              onConfirm={() => specdeletebutton(item)}
-              okText="삭제"
-              cancelText="취소"
-              > 
-          <Button danger ghost size={'middle'}>
+          <Button danger ghost size={'middle'} onClick={() => specdeletebutton(item)}>
             삭제
           </Button>
-          </Popconfirm>
         }));
           if(searchData.length === 0){
-            alert("검색 결과가 없습니다.");
+            Swal.fire({
+              icon: 'error',
+              title: '검색 결과가 없습니다.',
+              confirmButtonText: '확인',
+              confirmButtonColor: '#3085d6',
+            });
             setBilldiseaseData([]);
             setBillcareData([]);
             setUserinfo([]);
@@ -181,7 +176,12 @@ function Specsearch(props) {
             setUserinfo([]);
           }
       } catch (error) {
-        alert("검색 결과가 없습니다.");
+        Swal.fire({
+          icon: 'error',
+          title: '검색 결과가 없습니다.',
+          confirmButtonText: '확인',
+          confirmButtonColor: '#3085d6'
+        });
       }
     };
     useEffect(() => {
@@ -198,18 +198,11 @@ function Specsearch(props) {
             no: <div>{i + 1}</div>,
             name: <div className="author-info">{item.pname}</div>,
             insurance: <div>{item.insurance}</div>,
-            status: <div>{item.sstatus}</div>,
+            status: <div><Tag color={getStatusColor(item.sstatus)} size='large'>{item.sstatus}</Tag></div>,
             delete: (
-              <Popconfirm 
-              title={text}
-              onConfirm={() => specdeletebutton(item)}
-              okText="삭제"
-              cancelText="취소"
-              > 
-          <Button danger ghost size={'middle'}>
+          <Button danger ghost size={'middle'} onClick={() => specdeletebutton(item)}>
             삭제
           </Button>
-          </Popconfirm>
             )
           }));
     
@@ -231,26 +224,44 @@ function Specsearch(props) {
     }, []);
 
     const specdeletebutton = async (record) =>{
-      try {
-        await axios.put(`/api/spec/${record.bno}`, {
-        rno: record.rno,
-        status: "삭제"
-    }, {
-      headers: {
-        "Authorization": token,
-        "Content-Type": "application/json"
+    try {
+      Swal.fire({
+        icon: 'question',
+        showCancelButton: true,
+        confirmButtonText: '삭제',
+        cancelButtonText: '취소',
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        title: '명세서를 삭제하시겠습니까?',
+        html: '명세서 삭제 시 실제 데이터가 삭제되지 않고 <br/> 아카이빙 처리 됩니다.'
+      }).then(async (result) => {
+        if (result.isConfirmed) {
+          await axios.put(`/api/spec/${record.bno}`, {
+            rno: record.rno,
+            status: "삭제"
+          }, {
+            headers: {
+              "Authorization": token,
+              "Content-Type": "application/json"
+            }
+          });
+        Swal.fire({
+          icon : 'success',
+          title : "삭제 되었습니다.",
+          confirmButtonText: '확인',
+          confirmButtonColor: '#3085d6'
+        });
+        if (props.startDate && props.endDate && props.insurance) {
+          await handleSearch();
+        } else {
+          await fetchSpecificationData();
+        }
+        setBilldiseaseData([]);
+        setBillcareData([]);
+        setUserinfo([]);
       }
     });
-    alert("명세서 삭제가 완료되었습니다. \n명세서 삭제시 실제 데이터가 삭제되지 않고 아카이빙 처리 됩니다.");
-    if (props.startDate && props.endDate && props.insurance && props.pno) {
-      await handleSearch();
-    } else {
-      await fetchSpecificationData();
-    }
-    setBilldiseaseData([]);
-    setBillcareData([]);
-    setUserinfo([]);
-  } catch(error) {
+  } catch (error) {
     console.error(error);
   }
 }
@@ -259,7 +270,15 @@ function Specsearch(props) {
       const insurance = e == null ? "건강보험" : e
       setInsurance(insurance);
     };
-
+  const getStatusColor = (status) => {
+    if (status === '삭제') {
+      return 'red';
+    } else if (status === '미심사') {
+      return 'green';
+    } else if (status === '완료') {
+      return 'blue';
+    }
+  };
   // 검색 시 날짜 데이터 포맷
   const handleDateChange = (dates) => {
     if (dates) {
@@ -291,6 +310,7 @@ function Specsearch(props) {
         dataIndex: "no",
         key: "no",
         align: "center",
+        width: 30,
       },
       {
         title: "이름",
@@ -335,7 +355,7 @@ function Specsearch(props) {
       try{
         setRecord(record);
         setSelectedRow(record);
-        setStatus(record.status.props.children);
+        setStatus(record.status.props.children.props.children);
         const diseasecareDatas = await diseasecareData(record.bno, record.pno, record.rno);
         const diseasecareData1 = diseasecareDatas.data.billdiseaseList.map((item, i) => ({
            key: item.dno,
@@ -373,7 +393,7 @@ function Specsearch(props) {
           no : <div key={item.tno}>{i+1}</div>,
           tcode : <div className="author-info">{item.tcode}</div>,
           tname : <div className="ant-employed billdiseasetable" data-content={item.tname}>{item.tname}</div>,
-          tprice: <div >{item.tprice}</div>
+          tprice: <div>{item.tprice.toLocaleString()}원</div>
          }));
          const diseasecareModalData = diseasecareDatas.data.billCareList.map((item, i) => ({
           item: item,
@@ -381,7 +401,7 @@ function Specsearch(props) {
           no : <div key={item.tno}>{i+1}</div>,
           tcode : <div className="author-info">{item.tcode}</div>,
           tname : <div data-content={item.tname}>{item.tname}</div>,
-          tprice: <div >{item.tprice}</div>
+          tprice: <div>{item.tprice.toLocaleString()}원</div>
          }));
          setBillcareData(diseasecareData2);
          setBillCareModalData(diseasecareModalData);
@@ -392,8 +412,8 @@ function Specsearch(props) {
    
   return (
     <>
-      <Col span={8} className='Col1' style={{paddingRight: "0px"}}>
-        <Card style={{ width: '100%', height: '100%' }}>
+      <Col span={8} className='Col1' style={{paddingLeft: "22px"}}>
+        <Card style={{ width: '100%', height: '100%'}}>
           <span className='span'>진료기간</span><RangePicker className='picker' picker="week" onChange={handleDateChange}></RangePicker><br/><br/>
           <div>
           </div>
@@ -412,6 +432,7 @@ function Specsearch(props) {
                 조회
             </Button>
           </div>
+      <div>
       <Table    
                 columns={searchColumns}
                 dataSource={searchData}
@@ -424,11 +445,12 @@ function Specsearch(props) {
                   onClick: () => handleRowClick(record),
                 })}
               />
+        </div>
         </Card>
     </Col>
     
-    <Col span={16} className='Col2'>
-    <Card style={{ width: '98%', height: '100%' }}>
+    <Col span={16} className='Col2' style={{paddingLeft: "16px"}}>
+    <Card style={{ width: '99%', height: '100%' }}>
       <Specuser
             userinfo={userinfo}
             />
