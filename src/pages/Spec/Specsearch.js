@@ -120,16 +120,9 @@ function Specsearch(props) {
           insurance: <div>{item.insurance}</div>,
           status: <div><Tag color={getStatusColor(item.sstatus)} size='large'>{item.sstatus}</Tag></div>,
           delete:
-          // <Popconfirm 
-          //     title={text}
-          //     onConfirm={() => specdeletebutton(item)}
-          //     okText="삭제"
-          //     cancelText="취소"
-          //     > 
           <Button danger ghost size={'middle'} onClick={() => specdeletebutton(item)}>
             삭제
           </Button>
-          // </Popconfirm>
         }));
         setBno(bno);
         setSearchData(specificaiondata);
@@ -144,6 +137,7 @@ function Specsearch(props) {
         Swal.fire({
           icon: 'warning',
           title: '진료기간을 선택해주세요.',
+          confirmButtonText: '확인',
           confirmButtonColor: '#3085d6'
         });
         return;
@@ -168,6 +162,7 @@ function Specsearch(props) {
             Swal.fire({
               icon: 'error',
               title: '검색 결과가 없습니다.',
+              confirmButtonText: '확인',
               confirmButtonColor: '#3085d6',
             });
             setBilldiseaseData([]);
@@ -184,6 +179,7 @@ function Specsearch(props) {
         Swal.fire({
           icon: 'error',
           title: '검색 결과가 없습니다.',
+          confirmButtonText: '확인',
           confirmButtonColor: '#3085d6'
         });
       }
@@ -252,6 +248,7 @@ function Specsearch(props) {
         Swal.fire({
           icon : 'success',
           title : "삭제 되었습니다.",
+          confirmButtonText: '확인',
           confirmButtonColor: '#3085d6'
         });
         if (props.startDate && props.endDate && props.insurance) {

@@ -30,6 +30,7 @@ function Specbilldisease(props) {
       Swal.fire({
         icon: 'success',
         title: '선택한 상병이 삭제 되었습니다.',
+        confirmButtonText: '확인',
         confirmButtonColor: '#3085d6',
       });
       await billdiseasedelete(nos);

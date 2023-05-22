@@ -59,6 +59,7 @@ function SpecModal(props) {
         Swal.fire({
           icon: 'success',
           title: '상병이 추가 되었습니다.',
+          confirmButtonText: '확인',
           confirmButtonColor: '#3085d6',
         });
         // setPagination({current: 1, pageSize: 5});
@@ -168,6 +169,7 @@ function SpecModal(props) {
             Swal.fire({
               icon: 'error',
               title: '검색 결과가 없습니다.',
+              confirmButtonText: '확인',
               confirmButtonColor: '#3085d6',
             });
             return;
@@ -192,6 +194,7 @@ function SpecModal(props) {
           Swal.fire({
             icon: 'error',
             title: '검색 결과가 없습니다.',
+            confirmButtonText: '확인',
             confirmButtonColor: '#3085d6',
           });
           return;

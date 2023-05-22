@@ -21,6 +21,7 @@ function Specbillcare(props) {
       Swal.fire({
         icon: 'success',
         title: '심사가 취소 되었습니다.',
+        confirmButtonText: '확인',
         confirmButtonColor: '#3085d6',
       });
       if (props.startDate && props.endDate && props.insurance) {
@@ -53,6 +54,7 @@ function Specbillcare(props) {
       Swal.fire({
         icon: 'success',
         title: '심사가 완료 되었습니다.',
+        confirmButtonText: '확인',
         confirmButtonColor: '#3085d6',
       });
       if (props.startDate && props.endDate && props.insurance) {
