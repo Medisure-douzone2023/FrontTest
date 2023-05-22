@@ -11,6 +11,7 @@ function SpecModal(props) {
     const [pagination, setPagination] = useState({current: 1, pageSize: 5});
     const [pagination2, setPagination2] = useState({current: 1, pageSize: 5});
     const { Search } = Input;
+    const Swal = require('sweetalert2')
     let token = localStorage.getItem("accessToken");
 
     //청구 상병 추가 통신
@@ -55,6 +56,10 @@ function SpecModal(props) {
         } catch (error) {
           console.error(error);
         }
+        Swal.fire({
+          icon: 'success',
+          title: '상병이 추가 되었습니다.'
+        });
         // setPagination({current: 1, pageSize: 5});
         setPagination(prevPagination => ({
           ...prevPagination,
@@ -159,7 +164,10 @@ function SpecModal(props) {
            }));
            props.setMaincommondata(commondata);
            if(commondata.length === 0){
-            alert("검색 결과가 없습니다.")
+            Swal.fire({
+              icon: 'error',
+              title: '검색 결과가 없습니다.'
+            });
             return;
            }
          } catch(error){
@@ -179,7 +187,10 @@ function SpecModal(props) {
          }));
          props.setSubcommondata(commondata);
          if(commondata.length === 0){
-          alert("검색 결과가 없습니다.")
+          Swal.fire({
+            icon: 'error',
+            title: '검색 결과가 없습니다.'
+          });
           return;
          }
        } catch(error){

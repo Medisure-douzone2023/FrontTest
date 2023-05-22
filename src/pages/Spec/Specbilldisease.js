@@ -5,6 +5,7 @@ import axios from 'axios';
 function Specbilldisease(props) {
   const [nos, setNos] = useState([]);
   const [SelectedRowKeys, setSelectedRowKeys] = useState([]);
+  const Swal = require('sweetalert2')
   let token = localStorage.getItem("accessToken");
 
   // 청구 상병 삭제 통신
@@ -26,6 +27,10 @@ function Specbilldisease(props) {
   // 삭제 버튼 처리
   const deletebutton = async () => {
     try{
+      Swal.fire({
+        icon: 'success',
+        title: '선택한 상병이 삭제 되었습니다.'
+      });
       await billdiseasedelete(nos);
       await props.handleRowClick(props.record);
       setSelectedRowKeys([]);
@@ -83,10 +88,10 @@ function Specbilldisease(props) {
         <>
         <Col span={12}>
         <p className='spectitle'>선택 명세서의 상병 정보
-        <Button type="primary" ghost size={'middle'} onClick={diseaseModal} disabled = {check()} onCancel={props.diseasehandleCancel} className='disease-btn'>
+        <Button type="primary" ghost size={'middle'} onClick={diseaseModal} disabled = {check()} onCancel={props.diseasehandleCancel} className='disease-add-btn'>
             추가
           </Button>
-        <Button danger ghost size={'middle'} onClick={deletebutton} disabled ={check()}className='disease-btn'>
+        <Button danger ghost size={'middle'} onClick={deletebutton} disabled ={check()}className='disease-delete-btn'>
             삭제
           </Button>
         </p>

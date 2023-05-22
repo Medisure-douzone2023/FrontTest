@@ -77,17 +77,19 @@ body {
     margin-right: 15px;
 }
 
-.disease-btn{
-    margin-right: 30px;
+.disease-add-btn{
+    margin-right: 25px;
     margin-bottom: 10px;
-    /* margin-top: 20px; */
     float: right;
+}
+.disease-delete-btn{
+  margin-right: 15px;
+  margin-bottom: 10px;
+  float: right;
 }
 
 .treatment-btn {
-    margin-right: 20px;
     margin-bottom: 10px;
-    /* margin-top: 20px; */
     float: right;
 }
 .judge-btn{

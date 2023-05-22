@@ -18,6 +18,7 @@ import Specbilldisease from './Specbilldisease';
 import Specbillcare from './Specbillcare'
 
 function Specsearch(props) {
+  const Swal = require('sweetalert2')
   const [insurance, setInsurance] = useState('건강보험');
   const [pno, setPno] = useState('');
   const [bno, setBno] = useState();
@@ -143,7 +144,11 @@ function Specsearch(props) {
     // 검색으로 명세서 데이터 찾아오기
     const handleSearch = async () => {
       if (!startDate || !endDate) {
-        alert("진료기간을 선택해주세요.");
+        Swal.fire({
+          icon: 'warning',
+          title: '진료기간을 선택해주세요.'
+        });
+        //alert("진료기간을 선택해주세요.");
         return;
       }
       try {
@@ -170,7 +175,10 @@ function Specsearch(props) {
           </Popconfirm>
         }));
           if(searchData.length === 0){
-            alert("검색 결과가 없습니다.");
+            Swal.fire({
+              icon: 'error',
+              title: '검색 결과가 없습니다.'
+            });
             setBilldiseaseData([]);
             setBillcareData([]);
             setUserinfo([]);
@@ -182,7 +190,11 @@ function Specsearch(props) {
             setUserinfo([]);
           }
       } catch (error) {
-        alert("검색 결과가 없습니다.");
+        Swal.fire({
+          icon: 'error',
+          title: '검색 결과가 없습니다.'
+        });
+        // alert("검색 결과가 없습니다.");
       }
     };
     useEffect(() => {
@@ -242,7 +254,12 @@ function Specsearch(props) {
         "Content-Type": "application/json"
       }
     });
-    alert("명세서 삭제가 완료되었습니다. \n명세서 삭제시 실제 데이터가 삭제되지 않고 아카이빙 처리 됩니다.");
+    Swal.fire({
+      icon: 'success',
+      title: '명세서 삭제가 완료되었습니다.',
+      text: '명세서 삭제 시 실제 데이터가 삭제되지 않고 \n 아카이빙 처리 됩니다.'
+    });
+    //alert("명세서 삭제가 완료되었습니다. \n명세서 삭제시 실제 데이터가 삭제되지 않고 아카이빙 처리 됩니다.");
     if (props.startDate && props.endDate && props.insurance && props.pno) {
       await handleSearch();
     } else {

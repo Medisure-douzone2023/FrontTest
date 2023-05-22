@@ -4,6 +4,8 @@ import axios from 'axios';
 
 function Specbillcare(props) {
   let token = localStorage.getItem("accessToken");
+  const Swal = require('sweetalert2')
+
   // 취소 버튼 시 명세서의 status를 미심사로 변경
   const updateCancle = async () => {
     try {
@@ -16,7 +18,11 @@ function Specbillcare(props) {
           "Content-Type": "application/json"
         }
       });
-      alert("심사가 취소 되었습니다.");
+      Swal.fire({
+        icon: 'success',
+        title: '심사가 취소 되었습니다.'
+      });
+      //alert("심사가 취소 되었습니다.");
       if (props.startDate && props.endDate && props.insurance && props.pno) {
         await props.handleSearch();
       } else {
@@ -44,7 +50,11 @@ function Specbillcare(props) {
           "Content-Type": "application/json"
         }
       });
-      alert("심사가 완료 되었습니다.");
+      Swal.fire({
+        icon: 'success',
+        title: '심사가 완료 되었습니다.'
+      });
+      //alert("심사가 완료 되었습니다.");
       if (props.startDate && props.endDate && props.insurance && props.pno) {
         await props.handleSearch();
       } else {
