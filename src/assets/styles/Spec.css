@@ -8,7 +8,7 @@ body {
     padding-left: 3px;
     padding-top: 5px;
     padding-right: 0px;
-    margin: unset;
+    margin-top: -4px;
 }
 .ant-row {
   margin-left: 10px;
@@ -21,6 +21,7 @@ body {
     margin: unset;
     width: 50%;
     height: 50%;
+    margin-top: -4px;
 }
 .ant-picker-suffix{
     margin: auto;
