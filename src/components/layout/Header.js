@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-
+import {LogoutOutlined,BellFilled} from "@ant-design/icons";
 import { Row, Col, Badge, Dropdown, Avatar, Menu, List } from "antd";
 
 import { Link } from "react-router-dom";
@@ -50,16 +50,6 @@ const menu = (props) => (
   </Menu>
 );
 
-const profile = [
-  <svg viewBox="0 -2 18 20" fill="none" xmlns="http://www.w3.org/2000/svg" key={0}>
-    <path
-      fillRule="evenodd"
-      clipRule="evenodd"
-      fill="#111827"
-      d="M18 10C18 14.4183 14.4183 18 10 18C5.58172 18 2 14.4183 2 10C2 5.58172 5.58172 2 10 2C14.4183 2 18 5.58172 18 10ZM12 7C12 8.10457 11.1046 9 10 9C8.89543 9 8 8.10457 8 7C8 5.89543 8.89543 5 10 5C11.1046 5 12 5.89543 12 7ZM9.99993 11C7.98239 11 6.24394 12.195 5.45374 13.9157C6.55403 15.192 8.18265 16 9.99998 16C11.8173 16 13.4459 15.1921 14.5462 13.9158C13.756 12.195 12.0175 11 9.99993 11Z"
-    />
-  </svg>,
-];
 const week = ["일", "월", "화", "수", "목", "금", "토"];
 
 function Header(props) {
@@ -97,21 +87,21 @@ function Header(props) {
   return (
     <>
       <Row gutter={[24, 0]}>
-        <Col span={4} className="header-control todayInfo">
-          <div span={4}>{time}</div>
+        <Col span={6} className="header-control todayInfo">
+          <div>{time}</div>
         </Col>
-        <Col span={20} className="header-control">
+        <Col span={18} className="header-control headerContent">
           <Badge size="small" count={4}>
             <Dropdown overlay={menu} trigger={["click"]} className="Dropback">
               <a href="#pablo" className="ant-dropdown-link" onClick={(e) => e.preventDefault()}>
-                {bell}
+                <BellFilled />
               </a>
             </Dropdown>
           </Badge>
 
           <Link onClick={handleLogout} className="btn-sign-in">
-            {profile}
             <span>Log out</span>
+            <LogoutOutlined />
           </Link>
           <div className="headerUser">{username}님, 안녕하세요</div>
         </Col>
