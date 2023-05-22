@@ -23,7 +23,7 @@ function Specbillcare(props) {
         title: '심사가 취소 되었습니다.',
         confirmButtonColor: '#3085d6',
       });
-      if (props.startDate && props.endDate && props.insurance && props.pno) {
+      if (props.startDate && props.endDate && props.insurance) {
         await props.handleSearch();
       } else {
         await props.fetchSpecificationData();
@@ -55,7 +55,7 @@ function Specbillcare(props) {
         title: '심사가 완료 되었습니다.',
         confirmButtonColor: '#3085d6',
       });
-      if (props.startDate && props.endDate && props.insurance && props.pno) {
+      if (props.startDate && props.endDate && props.insurance) {
         await props.handleSearch();
       } else {
         await props.fetchSpecificationData();

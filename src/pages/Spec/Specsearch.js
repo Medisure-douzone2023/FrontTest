@@ -254,7 +254,7 @@ function Specsearch(props) {
           title : "삭제 되었습니다.",
           confirmButtonColor: '#3085d6'
         });
-        if (props.startDate && props.endDate && props.insurance && props.pno) {
+        if (props.startDate && props.endDate && props.insurance) {
           await handleSearch();
         } else {
           await fetchSpecificationData();
