@@ -412,7 +412,7 @@ function Specsearch(props) {
    
   return (
     <>
-      <Col span={8} className='Col1' style={{paddingLeft: "22px"}}>
+      <Col span={8} className='Col1' style={{paddingLeft: "12px"}}>
         <Card style={{ width: '100%', height: '100%'}}>
           <span className='span'>진료기간</span><RangePicker className='picker' picker="week" onChange={handleDateChange}></RangePicker><br/><br/>
           <div>
@@ -450,7 +450,7 @@ function Specsearch(props) {
     </Col>
     
     <Col span={16} className='Col2' style={{paddingLeft: "16px"}}>
-    <Card style={{ width: '99%', height: '100%' }}>
+    <Card style={{ width: '100%', height: '100%' }}>
       <Specuser
             userinfo={userinfo}
             />
