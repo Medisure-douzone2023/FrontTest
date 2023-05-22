@@ -1,16 +1,13 @@
-body.swal2-shown,
-body.swal2-height-auto {
-  padding-right: 0px !important;
-}
+
 .insertManual.ant-card-bordered {
-    padding: 10px;
-    background-color: white;
-    box-shadow: 0 5px 5px -3px gainsboro;
-    border-radius: 10px;
-    margin: 10px 10px 0 10px;
-    height: auto;
-    overflow: auto; /* 내용이 넘칠 경우 스크롤 표시 */
-    scrollbar-width: none; /* 스크롤바 감추기 */
+  padding: 10px;
+  background-color: white;
+  box-shadow: 0 5px 5px -3px gainsboro;
+  border-radius: 10px;
+  margin: 10px 10px 0 10px;
+  height: auto;
+  overflow: auto; /* 내용이 넘칠 경우 스크롤 표시 */
+  scrollbar-width: none; /* 스크롤바 감추기 */
   }
 .insertManualTable th.ant-table-selection-column{
     padding-right: 30px;
