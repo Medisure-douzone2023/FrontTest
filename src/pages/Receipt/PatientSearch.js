@@ -420,7 +420,7 @@ function PatientSearch(props) {
                 <h3>증상을 입력하세요</h3>
                 <Input.TextArea
                     className='roundShape'
-                    rows={10}
+                    rows={8} 
                     ref={textAreaRef}
                     value={condition}
                     onChange={(e) => {setCondition(e.target.value)}}
@@ -433,7 +433,7 @@ function PatientSearch(props) {
                 style={{ marginBottom: 40 }}
                 className='card'
                 title="환자리스트 "
-                headStyle={{ fontSize: 19 }}
+                headStyle={{ fontWeight: 'bold' , fontSize: 21 }}
                 extra={
                     <>
                         <Space>

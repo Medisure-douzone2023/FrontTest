@@ -27,6 +27,12 @@
     /* text-align: right; 이건 해야하나 말아야하나 위에거랑 같이 조정해보기. */
     
 }
+
+/* 드롭박스 스타일 */
+.dropStyle .ant-select-selector { 
+  border-radius: 10px;
+}
+
 /* 테이블 컬럼 마우스 hover 했을 때 배경 색깔 */
 .tablecss .hover-row:hover{
     background-color: black;

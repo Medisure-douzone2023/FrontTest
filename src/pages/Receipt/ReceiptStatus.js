@@ -6,6 +6,10 @@ import Swal from 'sweetalert2'
 const { Option } = Select;
 
 function ReceiptStatus(props) {
+  // 드롭다운 스타일
+  const dropdownStyle = {
+    borderRadius: '10px',
+  };
   // 에러 창 alert
   const [showErrorAlert, setShowErrorAlert] = useState(false);
   // 완료 창 alert
@@ -27,9 +31,10 @@ function ReceiptStatus(props) {
     {title: "수납여부", dataIndex: "pay", key: "pay", align: 'center'},
     {title: '상태변경', dataIndex: 'statusbox',key: 'statusbox', width: '120px',
       render: (text, record) => (
-        <Select
+        <Select 
+          className="dropStyle" dropdownStyle={dropdownStyle}
           value={record.status} onChange={(value) => { handleDropboxStatusChange(value, record);}}
-          style={{align: 'left', alignItems: 'center' , display: 'flex', width: '77px' }}
+          style={{ align: 'left', alignItems: 'center' , display: 'flex', width: '77px' }}
         >
           <Option value="접수">접수  </Option>
           <Option value="진료중">진료중</Option>
@@ -37,7 +42,7 @@ function ReceiptStatus(props) {
           <Option value="완료">완료</Option>
         </Select>
       )
-    },
+    }, 
     {title: "취소", dataIndex: "cancel", key: "cancel", align: 'center',
       render: (text, record) => ( <Button danger onClick={() => { cancelReceipt(record) }}>취소</Button>)}
   ]
@@ -54,8 +59,10 @@ function ReceiptStatus(props) {
       // sorter: (a, b) => a.status.localeCompare(b.status),
       render: (text, record) => (
         <Select
+          className="dropStyle"
+          dropdownStyle={dropdownStyle}
           value={record.status}
-          style={{width: '95px' }}
+          style={{borderRadius: '10px', width: '95px' }}
           onChange={(value) => { handleDropboxStatusChange(value, record); }} >
           <Option value="접수">접수</Option>
           <Option value="진료중">진료중</Option>
@@ -108,10 +115,10 @@ function ReceiptStatus(props) {
         .then((response) => {
             console.log("response.data.data", response.data.data);
             return response.data.data;
-            const copy = [...response.data.data];
-            console.log("copy", copy);
-            setCaring(copy);
-            console.log("진료중환자", caring);
+            // const copy = [...response.data.data];
+            // console.log("copy", copy);
+            // setCaring(copy);
+            // console.log("진료중환자", caring);
             
         })
         .catch((error) => {
@@ -181,14 +188,14 @@ const statusChangeAlert = (value, record) => {
             changeStatus(value, record);
           }else{
             Swal.fire(
-              '변경 할 수 없습니다.',
-                 // {successDescription},
+              '변경할 수 없습니다.',
+                 // {successDescription}, 
               'error: 진료중인 환자가 있습니다.'
             )  
           }
         } else {
           Swal.fire(
-            '변경 할 수 없습니다.',
+            '변경할 수 없습니다.',
                // {successDescription},
             'error: 두 단계 이전/후로 변경할 수 없습니다.'
           ) 
@@ -199,7 +206,7 @@ const statusChangeAlert = (value, record) => {
           changeStatus(value, record);
         } else {
           Swal.fire(
-            '변경 할 수 없습니다.',
+            '변경할 수 없습니다.',
                // {successDescription},
             '실패'
           ) 
@@ -222,6 +229,7 @@ const statusChangeAlert = (value, record) => {
       <Card
         className='card'
         bordered={true} // 일단 true 
+        headStyle={{ fontWeight: 'bold' , fontSize: 21 }}
         title={props.status}
         extra={
           <Radio.Group  onClick={props.fetchReceiptData} onChange={onChange} defaultValue="전체">

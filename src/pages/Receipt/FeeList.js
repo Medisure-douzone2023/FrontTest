@@ -118,6 +118,7 @@ function FeeList(props) {
             <Card
                 title="수납" 
                 className='card'
+                headStyle={{ fontWeight: 'bold' , fontSize: 21 }}
             >
                 <div>
                     <Table
