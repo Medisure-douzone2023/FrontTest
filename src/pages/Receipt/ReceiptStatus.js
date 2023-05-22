@@ -99,7 +99,7 @@ function ReceiptStatus(props) {
   const fetchCaringData = () => {
     axios.get('/api/receipt/status', {
         headers: {
-            "Authorization": props.token 
+            "Authorization": props.token  
         },
         params: {
           status: "진료중"
@@ -146,8 +146,8 @@ function ReceiptStatus(props) {
         // setShowSuccessAlert(true);
         Swal.fire(
           '변경 완료 되었습니다.',
-             // {successDescription},
-          // ''
+            {successDescription}, 
+          '성공'
         )
       })
       .catch((error) => {
@@ -171,7 +171,8 @@ const statusChangeAlert = (value, record) => {
     showCancelButton: true,
     confirmButtonColor: '#3085d6',
     cancelButtonColor: '#d33',
-    confirmButtonText: '확 인'
+    confirmButtonText: '확인',
+    cancelButtonText: '취소'
   }).then((result) => {
     if (result.isConfirmed) {
       if (value === "진료중") {

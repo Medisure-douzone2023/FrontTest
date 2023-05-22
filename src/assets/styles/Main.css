@@ -10,6 +10,10 @@ body {
   font-weight: 400;
   font-family: "Gothic A1", "Nanum Gothic", "gothic";
 }
+body.swal2-shown,
+body.swal2-height-auto {
+  padding-right: 0px !important;
+}
 .ant-layout.ant-layout-has-sider {
   flex-direction: row;
 }

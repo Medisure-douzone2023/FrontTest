@@ -9,7 +9,7 @@ function FeeList(props) {
         props.fetchFeeTableData(); 
     }, []);
     // 수납 데이터
-    const [feeData, setFeeData] = useState([]);
+    const [feeData, setFeeData] = useState([]); 
     // 수납 모달 관련
     const [feeModalVisible, setFeeModalVisible] = useState(false);
     // 수납 테이블 페이지네이션

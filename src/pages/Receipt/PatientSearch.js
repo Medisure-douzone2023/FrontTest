@@ -3,7 +3,7 @@ import axios from 'axios'
 import { Card, Table, Space, Input, Button, Modal, Form, Select, } from "antd";
 import { SearchOutlined, } from "@ant-design/icons";
 import '../../assets/styles/Receipt.css';
-import TextArea from 'antd/lib/input/TextArea';
+import TextArea from 'antd/lib/input/TextArea'; 
 import DaumPostcode from 'react-daum-postcode';
 import Swal from 'sweetalert2'
 const { Option } = Select;

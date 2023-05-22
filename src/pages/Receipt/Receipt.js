@@ -50,7 +50,7 @@ function Receipt(props) {
           const date = new Date(data.rdate);
           const localDate = date.toLocaleString().split(".")[3].slice(0, date.toLocaleString().split(".")[3].length - 3);
           data.rdate = localDate;
-          
+
           const visit = data.visit === "y" ? "재진" : "초진";
           data.visit = visit;
 
@@ -62,7 +62,7 @@ function Receipt(props) {
         // console.log("receiptData", receiptData); 
       })
       .catch((error) => {
-        console.log(error);
+        console.log(error); 
       });
   };
 
