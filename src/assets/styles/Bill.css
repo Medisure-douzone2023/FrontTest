@@ -1,5 +1,4 @@
-
-.insertManual.ant-card-bordered {
+.Bill.ant-card-bordered {
   padding: 10px;
   background-color: white;
   box-shadow: 0 5px 5px -3px gainsboro;
@@ -9,7 +8,12 @@
   overflow: auto; /* 내용이 넘칠 경우 스크롤 표시 */
   scrollbar-width: none; /* 스크롤바 감추기 */
   }
-.insertManualTable th.ant-table-selection-column{
+ 
+  div#swal2-html-container{
+    font-size: 18px;
+    color: theme('colors.metal');
+ }
+ .BillTable th.ant-table-selection-column{
     padding-right: 30px;
     padding-left: 30px;
     text-align: center;

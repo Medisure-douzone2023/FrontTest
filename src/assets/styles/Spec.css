@@ -8,7 +8,12 @@ body {
     padding-left: 3px;
     padding-top: 5px;
     padding-right: 0px;
-    margin: unset;
+    margin-top: -4px;
+}
+.ant-row {
+  margin-left: 10px;
+  margin-right: -12px;
+  padding: 10px;
 }
 .Col2 {
     padding-top: 5px;
@@ -16,6 +21,7 @@ body {
     margin: unset;
     width: 50%;
     height: 50%;
+    margin-top: -4px;
 }
 .ant-picker-suffix{
     margin: auto;
@@ -161,7 +167,7 @@ body {
     z-index: 9999; /* 말풍선의 쌓임 순서 지정 */
   }
   
-  .patientInfo {
+  .patientInfos {
     width: 100%;
     height: 30%;
     font-size: 10px;

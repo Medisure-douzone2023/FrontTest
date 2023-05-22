@@ -2,7 +2,7 @@ import { Table, DatePicker, Space, Button, Select, Row, Col,Card  } from "antd";
 import axios from 'axios'
 import { useEffect, useRef, useState } from "react";
 import '../../assets/styles/InsertManual.css';
-
+import Swal from "sweetalert2";
 
 function InsertManual(props) {
   const isMountedRef = useRef(true);
@@ -27,45 +27,54 @@ function InsertManual(props) {
       title: '환자명',
       dataIndex: 'pname',
       key: 'pname',
+      align: 'center'
     },
     {
       title: '나이',
       dataIndex: 'age',
       key: 'age',
+      align: 'center'
     },
     {
       title: '성별',
       dataIndex: 'gender',
       key: 'gender',
+      align: 'center'
     },
     {
       title: '보험유형',
       dataIndex: 'insurance',
       key: 'insurance',
+      align: 'center'
     },
     {
       title: '진료기간',
       dataIndex: 'rdate',
       key: 'rdate',
+      align: 'center'
     },
     {
       title: '본인부담금',
       dataIndex: 'fprice',
       key: 'fprice',
+      align: 'center'
     },
     {
       title: '청구금액',
       dataIndex: 'totalprice',
       key: 'totalprice',
+      align: 'center'
     },
     {
       title: '초진여부',
       dataIndex: 'visit',
       key: 'visit',
+      align: 'center'
     }, {
       title: '상태',
       dataIndex: 'status',
       key: 'status',
+      align: 'center'
     }
   ];
 
@@ -109,7 +118,7 @@ function InsertManual(props) {
         console.log("data",data)
         if (data.length === 0) {
           setDataSource(data);
-          alert("데이터가 존재하지 않습니다.");
+          custom.fire( {icon: 'info',html: '데이터가 존재하지 않습니다.'});
         } else {
           const result = data.map((item, index) => ({
             ...item,
@@ -165,18 +174,22 @@ function InsertManual(props) {
         },
       })
         .then((response) => {
-          alert("수동생성이 완료되었습니다.")
+          custom.fire( {icon: 'success' ,html: '수동생성이 완료되었습니다.'});
         }).catch((e) => {
           console.log("error", e);
-          alert("올바르지 않은 요청입니다. 다시 시도해 주시기 바랍니다.");
+          custom.fire( {icon: 'error' ,html: '올바르지 않은 요청입니다. 다시 시도해 주시기 바랍니다.'});
           setDataSource(copy);
         });
     }
   }
-
+  const custom = Swal.mixin({
+    confirmButtonText: '확인',
+    confirmButtonColor: '#3085d6',
+  })
+  
   return (
     <div>
-       <Card style={{ width: '100%' }}>
+       <Card className="insertManual">
       <h4 style={{ marginTop: 16 }}> 진료 검색 </h4>
       <br></br>
       <Row>
@@ -185,17 +198,18 @@ function InsertManual(props) {
             <RangePicker onChange={selectDate} />
             <Select
               size={size}
-              defaultValue="미선택"
               onChange={handleChange}
               style={{ width: 200 }}
               options={options}
+              placeholder="보험 유형을 선택해 주세요"
             />
             <Button type="primary" ghost onClick={search}>검색</Button>
           </Space>
         </Col>
       </Row>
       <br />
-      <br />
+      </Card>
+      <Card className="insertManual">
       <h4> 진료 조회 </h4>
       <br />
       <div style={{ marginBottom: 30 }}>
@@ -209,7 +223,7 @@ function InsertManual(props) {
             {hasSelected ? ` ${selectedRowKeys.length} 개의 항목이 선택되었습니다.` : ''}
           </span>
         </div>
-        <Table rowSelection={rowSelection} columns={columns} dataSource={dataSource} />
+        <Table rowSelection={rowSelection} columns={columns} dataSource={dataSource} className="insertManualTable"/>
       </div>
       <Button type="primary" ghost onClick={apiParam} disabled={!hasSelected}>수동생성</Button>
       </Card>

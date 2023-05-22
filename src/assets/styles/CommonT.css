@@ -1,0 +1,22 @@
+.CommonT.ant-card-bordered {
+  padding: 10px;
+  background-color: white;
+  box-shadow: 0 5px 5px -3px gainsboro;
+  border-radius: 10px;
+  margin: 10px 10px 0 10px;
+  height: auto;
+  overflow: auto; /* 내용이 넘칠 경우 스크롤 표시 */
+  scrollbar-width: none; /* 스크롤바 감추기 */
+  }
+.CommonTInput.ant-input {
+    border-radius: 6px;
+    font-weight: 600;
+    color: #8c8c8c;
+    /* height: 40px; */
+    border: 1px solid #d9d9d9;
+}
+
+/* ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡmodalㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ */
+.inserModal .ant-modal-footer {
+    text-align: center !important;
+  }

@@ -4,7 +4,7 @@ import { Descriptions, Card } from 'antd';
 function Specuser(props) {
     
     return (
-        <Card className="patientInfo" hoverable="true" bordered layout="vertical"> 
+        <Card className="patientInfos" hoverable="true" bordered layout="vertical"> 
         <Descriptions title={`${props.userinfo[0] === undefined ? "" : props.userinfo[0]+"님 "}환자 정보`} className='custom-descriptions'>
         <Descriptions.Item label="환자등록번호">{props.userinfo[1]}</Descriptions.Item>
         <Descriptions.Item label="성별">{props.userinfo[2]}</Descriptions.Item>
