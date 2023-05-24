@@ -6,6 +6,9 @@ import '../../assets/styles/Receipt.css';
 import TextArea from 'antd/lib/input/TextArea'; 
 import DaumPostcode from 'react-daum-postcode';
 import Swal from 'sweetalert2'
+import SockJS from 'sockjs-client';
+import Stomp from 'stompjs';
+
 const { Option } = Select;
 function PatientSearch(props) {
     const [pname, setPname] = useState([]);
@@ -98,7 +101,7 @@ function PatientSearch(props) {
             .then((response) => {
                 //  console.log("insertresponse", response)
                 alert("접수 되었습니다.")
-                // connectWebSocket(selectedPatientRow.pname);
+                connectWebSocket(selectedPatientRow.pname);
                 textAreaRef.current.value = '';
                 setConditionModalVisible(false);
                 props.fetchFeeTableData(props.status);
@@ -238,25 +241,24 @@ function PatientSearch(props) {
             span: 16,
         },
     };
-// 현재 날짜 및 시간
-    // const connectWebSocket = (e) => {
-    //     const socket = new SockJS('/websocket');
-    //     const stompClient = Stomp.over(socket);
-      
-    //     stompClient.connect({}, () => {
-    //       console.log('Connected to WebSocket');
-      
-    //       stompClient.send('/app/sendMessage', {}, e);
-    //       console.log("시간 : ", new Date());
-    //       console.log('Message sent: ' + e);
-      
-    //       stompClient.disconnect();
-    //       console.log('Disconnected from WebSocket');
-    //     });
-    //   };
-      
-  
 
+    const connectWebSocket = (pname) => {
+        const socket = new SockJS('/websocket');
+        const stompClient = Stomp.over(socket);
+      
+        stompClient.connect({}, () => {
+          console.log('Connected to WebSocket');
+      
+          const message = pname; // 보낼 메시지
+          stompClient.send('/app/sendMessage', {}, message);
+          console.log('Message sent: ' + message);
+      
+          stompClient.disconnect();
+          console.log('Disconnected from WebSocket');
+        });
+      };
+      
+      
     return (
         <>
             <Space>

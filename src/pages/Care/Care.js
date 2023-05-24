@@ -157,6 +157,8 @@ const connectWebSocket = () => {
       console.log("greet",result)
       console.log("시간 : ", new Date());
       console.log("greeting.body",result.body)  
+      console.log("fin")
+      alert("result.body")
       // 메시지 처리 로직 추가
     });
   });
