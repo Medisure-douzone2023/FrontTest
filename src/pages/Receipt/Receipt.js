@@ -66,7 +66,24 @@ function Receipt(props) {
       });
   };
 
+//ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+// const connectWebSocket = () => {
+//   const socket = new SockJS('/websocket');
+//   const stompClient = Stomp.over(socket);
 
+//   stompClient.connect({}, () => {
+//     console.log('Connected to WebSocket');
+
+//     const message = '000 환자님 입장합니다'; // 보낼 메시지
+//     stompClient.send('/app/sendMessage', {}, message);
+//     console.log('Message sent: ' + message);
+
+//     stompClient.disconnect();
+//     console.log('Disconnected from WebSocket');
+//   });
+// };
+
+// connectWebSocket();
   return (
     <>
       {/* 1행 - 환자리스트 + 검색창 */}
