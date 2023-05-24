@@ -16,3 +16,7 @@
     padding-left: 30px;
     text-align: center;
 }
+.BillTable .ant-table-thead .ant-table-cell{
+  background-color: #5996F8;
+  color: white;
+}

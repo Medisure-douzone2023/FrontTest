@@ -14,9 +14,16 @@ import ReactDOM from "react-dom";
 import { BrowserRouter } from "react-router-dom";  
 import App from "./App";
 
+import SockJS from 'sockjs-client';
+import Stomp from 'stompjs';
+
+const socket = new SockJS('/websocket');
+const stompClient = Stomp.over(socket);
+
+
 ReactDOM.render(
   <BrowserRouter>
-    <App />
+    <App stompClient={stompClient} />
   </BrowserRouter>,
   document.getElementById("root"),
 );
