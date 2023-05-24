@@ -1,27 +1,35 @@
 /* 환자 검색 Input 박스 css  나중에 searchoulined인가 컴포넌트 얘 디자인 넣으면 될듯*/
 .receipt-search {
-    width: 11px;
-    margin: 0px 0px 0px 0px;
-    height: 37px;
+    width: 25px;
+    margin: 0px;
+    height: 48px;
+    
 }
+.optionWidth {
+  width: 10px;
+}
+
 .roundShape{
     border-radius: 5px !important;
 }
 /*이건 아직*/
-.table-responsive {
+.tablecss .table-responsive {
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
 }
 /* 테이블 컬럼 CSS 뒷 배경 색상. (테이블 thead의 table cell 이라는 뜻.)*/
  .tablecss .ant-table-thead .ant-table-cell {
-    background-color: #EFF5FF;  
+    background-color: #5996F8;
+    color: white;  
     margin: auto;
     text-align: center;
+    padding: auto;
 } 
 .tablecss .ant-table-thead .ant-table-content {
     /* color: rgb(0, 0, 0); 칼라 먹이니까 더 진해짐(그래서 먹임.) */
     font-size: 50px; 
-
+    padding: auto;
+    margin: auto;
 
     /* text-align: right; 이건 해야하나 말아야하나 위에거랑 같이 조정해보기. */
     
@@ -38,12 +46,12 @@
 }
 /* 모달 css */
 .modalStyle .ant-modal-content {
-    border-radius: 10px;
+    border-radius: 20px;
     margin-left:auto;
     margin-right:auto;
   }
-.modalStyle .ant-row .ant-form-item-row {
-    padding: auto;
+.modalStyle .ant-row{
+    padding: 0px;
   }
 /* 상태 드롭박스 css */
 .status-dropdown .ant-select-dropdown {
@@ -51,12 +59,35 @@
     margin-left:auto;
     margin-right:auto;
   }
-/* Card CSS - Card 헤더랑 맞출때 */
+/* 수납테이블, 상태현황 담는 Card CSS - Card 헤더랑 맞출때 */
   .card.ant-card-bordered {
     padding: 20px;
     background-color: white;
-    box-shadow: 0 5px 5px -3px gainsboro;
+    box-shadow: 0 5px 3px -3px gainsboro;
     border-radius: 10px;
-    margin: 10px;
+    
     height: auto;
+  }
+
+  /*환자 리스트 Card CSS */
+  .patientcard.ant-card-bordered {
+    padding: 20px;
+    background-color: white;
+    box-shadow: 0 5px 3px -3px gainsboro;
+    border-radius: 10px;
+    
+    height: auto;
+  }
+
+
+  /* 차트 Card CSS */
+
+  .chartcard.ant-card-bordered{
+        /* padding: 20px; */
+    background-color: white;
+    box-shadow: 0 5px 3px -3px gainsboro;
+    border-radius: 10px;
+    margin-top: 23px;
+    
+    height: 605px;
   }
