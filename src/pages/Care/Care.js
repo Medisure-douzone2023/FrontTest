@@ -145,26 +145,28 @@ function Care(props) {
   
 //ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
 
+useEffect(() => {
+  connectWebSocket(); // Call the WebSocket connection function once when the component mounts
+}, []);
+
 const connectWebSocket = () => {
-  const socket = new SockJS('/websocket');
+  const socket = new SockJS("/websocket");
   const stompClient = Stomp.over(socket);
 
   stompClient.connect({}, () => {
-    console.log('Connected to WebSocket');
+    console.log("Connected to WebSocket");
     console.log("시간 : ", new Date());
 
-    stompClient.subscribe('/topic/greetings', (result) => {
-      console.log("greet",result)
+    stompClient.subscribe("/topic/greetings", (result) => {
+      console.log("greet", result);
       console.log("시간 : ", new Date());
-      console.log("greeting.body",result.body)  
-      console.log("fin")
-      alert("result.body")
-      // 메시지 처리 로직 추가
+      console.log("greeting.body", result.body);
+      console.log("fin");
+      alert(result.body);
+      // Handle message processing logic...
     });
   });
 };
-
-connectWebSocket();
 
     
   return (

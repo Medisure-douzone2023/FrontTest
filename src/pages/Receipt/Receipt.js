@@ -7,6 +7,7 @@ import PatientSearch from './PatientSearch';
 import FeeList from './FeeList';
 
 function Receipt(props) {
+ 
   let token = props.token;
   const [feeTableData, setFeeTableData] = useState([]);
   // 수납 테이블 리스트 데이터 가져오는 함수
