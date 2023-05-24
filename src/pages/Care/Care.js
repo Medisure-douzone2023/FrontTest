@@ -1,4 +1,4 @@
-import { Row, Col, Card, Table, Button } from "antd";
+import { Row, Col, Card, Table, Button,notification   } from "antd";
 import React, { useState, useEffect, useRef, useCallback } from "react";
 import PatientList from "./PatientList";
 import CareNote from "./CareNote";
@@ -149,6 +149,16 @@ useEffect(() => {
   connectWebSocket(); // Call the WebSocket connection function once when the component mounts
 }, []);
 
+const openNotification = (e) => {
+  console.log(e)
+  notification.open({
+    message: '환자 상태 변경 알림',
+    description:e,
+    onClick: () => {
+      console.log('Notification Clicked!');
+    },
+  });
+};
 const connectWebSocket = () => {
   const socket = new SockJS("/websocket");
   const stompClient = Stomp.over(socket);
@@ -162,7 +172,7 @@ const connectWebSocket = () => {
       console.log("시간 : ", new Date());
       console.log("greeting.body", result.body);
       console.log("fin");
-      alert(result.body);
+      openNotification(result.body);
       // Handle message processing logic...
     });
   });

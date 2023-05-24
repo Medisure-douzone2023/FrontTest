@@ -10,7 +10,6 @@ import SockJS from 'sockjs-client';
 import Stomp from 'stompjs';
 
 const { Option } = Select;
-let count =0;
 function PatientSearch(props) {
     const [pname, setPname] = useState([]);
     const [patientData, setPatientData] = useState([]); // 환자 이름으로 검색한 데이터.
@@ -140,8 +139,6 @@ function PatientSearch(props) {
                 setPatientData(modifiedData);
                 console.log("patientData", modifiedData);
                 
-        count++;
-        console.log("요청됨 fee",count)
             })
             .catch((error) => {
                 console.log(error);
