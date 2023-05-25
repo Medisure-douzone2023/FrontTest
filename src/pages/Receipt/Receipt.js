@@ -252,7 +252,7 @@ function Receipt(props) {
   };
 // 데이터가 없을 경우 차트에 안띄우기 위함
   const filteredData = chartdata.filter((entry) => entry.value !== 0 );
-
+console.log("filteredData",filteredData)
   return (
     <>
       <Row gutter={[24, 24]}>
