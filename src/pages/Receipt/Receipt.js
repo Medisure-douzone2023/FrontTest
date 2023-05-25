@@ -1,13 +1,12 @@
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Row, Col, Card } from "antd";
 import '../../assets/styles/Receipt.css';
 import ReceiptStatus from './ReceiptStatus';
 import PatientSearch from './PatientSearch';
 import FeeList from './FeeList';
-import { PieChart, Pie, Sector, Cell, ResponsiveContainer } from 'recharts';
+import { Line, PieChart, Pie, Sector, Cell, ResponsiveContainer, RadialBarChart, RadialBar, Legend } from 'recharts';
 const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042', 'green'];
-
 function Receipt(props) {
   let token = props.token;
 
@@ -16,17 +15,15 @@ function Receipt(props) {
   const [careCount, setCareCount] = useState(0);
   const [feeCount, setFeeCount] = useState(0);
   const [completeCount, setCompleteCount] = useState(0);
-  // charts용 데이터
+  // charts용 데이터 및 디자인
+
   const chartdata = [
-    { name: '전체', value: totalCount} ,
-    { name: '접수', value: receiptCount},
-    { name: '진료중', value: careCount},
-    { name: '수납대기', value: feeCount},
-    { name: '완료', value: completeCount},
+    { name: '전체', value: totalCount, fill: '#0088FE', },
+    { name: '접수', value: receiptCount, fill: '#00C49F', },
+    { name: '진료중', value: careCount, fill: '#FFBB28', },
+    { name: '수납대기', value: feeCount, fill: '#FF8042', },
+    { name: '완료', value: completeCount, fill: 'green', }
   ];
-
-
-
   const [feeTableData, setFeeTableData] = useState([]);
   const fetchFeeTableData = () => {
     axios.get('/api/fee/list', {
@@ -89,7 +86,7 @@ function Receipt(props) {
       },
       params: {
         status: "접수"
-      } 
+      }
     })
       .then((response) => {
         setReceiptCount(response.data.data.length);
@@ -181,34 +178,30 @@ function Receipt(props) {
 
     const sin = Math.sin(-RADIAN * midAngle);
     const cos = Math.cos(-RADIAN * midAngle);
-    const sx = cx + (outerRadius + 10) * cos;
-    const sy = cy + (outerRadius + 10) * sin;
-    const mx = cx + (outerRadius + 30) * cos;
-    const my = cy + (outerRadius + 30) * sin;
+    const sx = cx + (outerRadius + 10) * cos;  // 차트 더듬이 길이
+    const sy = cy + (outerRadius + 10) * sin;  // 차트 더듬이 길이
+    const mx = cx + (outerRadius + 40) * cos;  // 차트 더듬이 길이
+    const my = cy + (outerRadius + 40) * sin;  // 차트 더듬이 길이  
     const ex = mx + (cos >= 0 ? 1 : -1) * 22;
     const ey = my;
     const textAnchor = cos >= 0 ? 'start' : 'end';
+    console.log("본캐 좌표", cx,+" "+ cy);
     return (
       <g>
-
+        
         {/* 차트 중간에 제목 데이터 출력 코드 */}
-        <text x={cx} y={cy} dy={8} textAnchor="middle" fill={fill} fontSize={39} >
-          {payload.name}
+        <text x={cx} y={cy} dy={8} textAnchor="middle" fill={fill} fontSize={24} >
+          {payload.name} ({value}건)
         </text>
-
         <Sector
           cx={cx}
           cy={cy}
-          innerRadius={innerRadius} 
+          innerRadius={innerRadius}
           outerRadius={outerRadius}
           startAngle={startAngle}
           endAngle={endAngle}
           fill={fill}               // sector 색깔임.
         />
-        {/* 이거 두번째코드임 origin 아님.*/}
-        {/* <text x={x} y={y} fill="white" textAnchor={x > cx ? 'start' : 'end'} dominantBaseline="central">
-      {`${(percent * 100).toFixed(0)}%`}
-        </text> */}
 
         {/* Sector: 마우스 오버했을 때 차트 외곽에 선으로 나타내는 거 */}
         <Sector
@@ -216,45 +209,48 @@ function Receipt(props) {
           cy={cy}
           startAngle={startAngle}
           endAngle={endAngle}
-          innerRadius={outerRadius + 7}   
+          innerRadius={outerRadius + 7}
           outerRadius={outerRadius + 12}
           fill={fill}
         />
         <path d={`M${sx},${sy}L${mx},${my}L${ex},${ey}`} stroke={fill} fill="none" />
-        
+
         {/* 작은 구슬 */}
-        <circle cx={ex} cy={ey} r={4} fill={fill} stroke="none" /> 
-        
+        <circle cx={ex} cy={ey} r={6} fill={fill} stroke="none" />
+
         {/* 위에 짝대기 해서 뜨는 글자 (마우스 오버했을때) */}
-        <text x={ex + (cos >= 0 ? 1 : -1) * 12} y={ey} textAnchor={textAnchor} fill="#333">{`${value}건`}</text>
-        {/* 회색 작은 퍼센트 글자 */} 
-        <text x={ex + (cos >= 0 ? 1 : -1) * 12} y={ey} dy={20} textAnchor={textAnchor} fill="#999"> 
-          {`(Rate ${(percent * 100).toFixed(0)}%)`}
+        <text x={ex + (cos >= 0 ? 1 : -1) * 12} y={ey} fontWeight="bolder" fontSize={24} textAnchor={textAnchor} fill="#333">{`${value}건`}</text>
+        {/* 회색 작은 퍼센트 글자 */}
+        <text x={ex + (cos >= 0 ? 1 : -1) * 12} y={ey} dx={-20} dy={17} fontSize={14} textAnchor={textAnchor} fill="#999">
+          {`(비율: ${(percent * 100).toFixed(1)}%)`}
         </text>
       </g>
     );
   };
   // label 용 함수 (defaul로 다 데이터 띄우려고 함)
-  const renderCustomizedLabel = ({ cx, cy, midAngle, innerRadius, outerRadius, percent, index }) => {
-    const RADIAN = Math.PI / 180;
 
-    const radius = innerRadius + (outerRadius - innerRadius) * 0.39;
-      const x = cx + radius * Math.cos(-midAngle * RADIAN);
-      const y = cy + radius * Math.sin(-midAngle * RADIAN);
+  const renderCustomizedLabel = ({ cx, cy, startAngle, endAngle, innerRadius, outerRadius, percent, index }) => {
+    const RADIAN = Math.PI / 180;
+    console.log("label:", cx,+" "+ cy);
+    const midAngle = (startAngle + endAngle) / 2;
+
+    const radius = innerRadius + (outerRadius - innerRadius) * 0.5;        // 숫자 안으로 모이게 할 수 있음 원을 중심으로.
+    const x = cx + radius * Math.cos(-midAngle * RADIAN);
+    const y = cy + radius * Math.sin(-midAngle * RADIAN);
     return (
       // 여기가 5개의 데이터 숫자 다 띄워주는 text, 출력시키고 싶은 데이터 바인딩하면 됨.
-      <text x={x} y={y} fill="white" textAnchor={x > cx ? 'start' : 'end'} fontSize={22} dominantBaseline="central">
+      <text x={x} y={y} fill="white" fontWeight="bolder" textAnchor="middle"fontSize={22} dominantBaseline="central">
         {`${(percent * 100).toFixed(0)}%`}
       </text>
     );
   };
-
   const [activeIndex, setActiveIndex] = useState(0);
   const onPieEnter = (_, index) => {
     setActiveIndex(index);
   };
-
-
+// 데이터가 없을 경우 차트에 안띄우기 위함
+  const filteredData = chartdata.filter((entry) => entry.value !== 0);
+  console.log("filteredData", filteredData);
   return (
     <>
       <Row gutter={[24, 24]}>
@@ -268,16 +264,16 @@ function Receipt(props) {
           />
         </Col>
         <Col xs={8} sm={8} md={6} lg={4} xl={8}>
-          <Card className='chartcard'>
-            <PieChart width={675} height={650}>
+          <Card className='chartcard' title="현황" headStyle={{ fontWeight: 'bold', fontSize: 21, }}>
+            <PieChart width={550} height={570}>          // 차트 위치 이동
               <Pie
                 activeIndex={activeIndex}
                 activeShape={renderActiveShape}
-                data={chartdata}
+                data={filteredData}// 보여주고 싶은 데이터 넣기
                 cx="40%"           // 화면상 x 좌표
                 cy="40%"           // 화면상 y 좌표
-                innerRadius={120}  // 크기 조정 안쪽원
-                outerRadius={200}  // 크기 조정 바깥원
+                innerRadius={70}  // 크기 조정 안쪽원
+                outerRadius={150}  // 크기 조정 바깥원
                 fill="#5996F8"     // 색상
                 dataKey="value"
                 onMouseEnter={onPieEnter} // 마우스 올렸을 때 responsive
@@ -290,9 +286,11 @@ function Receipt(props) {
                   <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
                 ))}
               </Pie>
-            </PieChart>
+              <Legend iconSize={20} verticalAlign="middle" layout="vertical" align="left" />            
+            </PieChart> 
+ 
           </Card>
-        </Col>
+        </Col>            
       </Row>
 
       <Row gutter={[16, 0]}>
@@ -313,6 +311,7 @@ function Receipt(props) {
             feeCount={feeCount}
             completeCount={completeCount}
           />
+          
         </Col>
         <Col xs={10} sm={10} md={10} lg={10} xl={10}>
           <FeeList

@@ -38,17 +38,17 @@ function PatientSearch(props) {
     /* 환자 테이블 컬럼 */
     const patientcolumn = [
         {
-            title: 'no', dataIndex: '', key: 'index', align: 'center', width: '60px',
+            title: 'no', dataIndex: '', key: 'index', align: 'center', width: '50px',
             render: (text, record, index) => (currentPatientPage - 1) * 5 + index + 1
         },
-        { title: "환자명", dataIndex: "pname", key: "pname", align: 'center', width: '90px' },
-        { title: "나이", key: "age", dataIndex: "age", align: 'center', width: '60px' },
+        { title: "환자명", dataIndex: "pname", key: "pname", align: 'center', width: '80px' },
+        { title: "나이", key: "age", dataIndex: "age", align: 'center', width: '59px' },
         {
-            title: "주민등록번호", key: "birthdate", dataIndex: "birthdate", align: 'center', width: '140px',
+            title: "주민등록번호", key: "birthdate", dataIndex: "birthdate", align: 'center', width: '139px',
             render: (text) => (<span title={text}>{text.length > 8 ? `${text.substring(0, 8)}******` : text}</span>)
         },
         {
-            title: "연락처", key: "contact", dataIndex: "contact", align: 'center', width: '140px',
+            title: "연락처", key: "contact", dataIndex: "contact", align: 'center', width: '139px',
             render: (text) => {
                 const visibleDigits = text.substring(0, 4);
                 const hiddenDigits = text.substring(4, 8).replace(/\d/g, '*');
@@ -56,12 +56,12 @@ function PatientSearch(props) {
                 return <span title={text}>{`${visibleDigits}${hiddenDigits}${lastDigits}`}</span>;
             }
         },
-        { title: "성별", key: "gender", dataIndex: "gender", align: 'center', width: '70px' },
-        { title: "주소", key: "address", dataIndex: "address", ellipsis: true, align: 'center', width: '240px' },
-        { title: "보험유형", key: "insurance", dataIndex: "insurance", align: 'center', width: '90px' },
-        { title: "비고", key: "etc", dataIndex: "etc", ellipsis: true, align: 'center', width: '140px' },
+        { title: "성별", key: "gender", dataIndex: "gender", align: 'center', width: '61px' },
+        { title: "주소", key: "address", dataIndex: "address", ellipsis: true, align: 'center', width: 'auto' },
+        { title: "보험유형", key: "insurance", dataIndex: "insurance", align: 'center', width: 'auto' },
+        { title: "비고", key: "etc", dataIndex: "etc", ellipsis: true, align: 'center', width: 'auto' },
         {
-            title: "접수", key: "receipt", dataIndex: "receipt", align: 'center', width: '90px',
+            title: "접수", key: "receipt", dataIndex: "receipt", align: 'center', width: 'auto',
             render: (text, record) => (<Button className="roundShape" type="primary" ghost onClick={() => { setConditionModalVisible(true); }}>접 수</Button>),
         }
     ];

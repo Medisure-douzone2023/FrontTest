@@ -29,12 +29,9 @@
     /* color: rgb(0, 0, 0); 칼라 먹이니까 더 진해짐(그래서 먹임.) */
     font-size: 50px; 
     padding: auto;
-    margin: auto;
-
+    margin: auto; 
     /* text-align: right; 이건 해야하나 말아야하나 위에거랑 같이 조정해보기. */
-    
 }
-
 /* 드롭박스 스타일 */
 .dropStyle .ant-select-selector { 
   border-radius: 10px;
@@ -75,7 +72,7 @@
     background-color: white;
     box-shadow: 0 5px 3px -3px gainsboro;
     border-radius: 10px;
-    
+    width: auto;
     height: auto;
   }
 
@@ -83,7 +80,7 @@
   /* 차트 Card CSS */
 
   .chartcard.ant-card-bordered{
-        /* padding: 20px; */
+    padding: 20px;
     background-color: white;
     box-shadow: 0 5px 3px -3px gainsboro;
     border-radius: 10px;
