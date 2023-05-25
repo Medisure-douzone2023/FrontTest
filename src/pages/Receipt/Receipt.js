@@ -31,7 +31,11 @@ function Receipt(props) {
       }
     })
       .then((response) => {
-        setFeeTableData(response.data.data);
+        const modifiedData = response.data.data.map((feeTableData, i) => ({
+          ...feeTableData,
+          index : i+1,
+      }));  
+        setFeeTableData(modifiedData);
       })
       .catch((error) => {
         console.log(error);
@@ -251,7 +255,7 @@ function Receipt(props) {
     setActiveIndex(index);
   };
 // 데이터가 없을 경우 차트에 안띄우기 위함
-  const filteredData = chartdata.filter((entry) => entry.value !== 0 );
+  const filteredData = chartdata.filter((entry) => console.log("entry", entry));
 
   return (
     <>

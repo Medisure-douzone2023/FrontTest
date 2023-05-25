@@ -129,7 +129,7 @@ function PatientSearch(props) {
                 setCondition();
                 textAreaRef.current.value = '';
                 setConditionModalVisible(false);
-                props.fetchFeeTableData(props.status);
+                // props.fetchFeeTableData(props.status);
             })
             .catch((error) => {
                 console.error("insertReceipt error: ", error);

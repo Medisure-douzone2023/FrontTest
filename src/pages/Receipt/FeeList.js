@@ -17,8 +17,8 @@ function FeeList(props) {
     // 수납 테이블 컬럼
     const feeTableColumn = [
         {
-            title: 'no', dataIndex: '', key: 'index', align: 'center',
-            render: (text, record, index) => (currentFeePage - 1) * 5 + index + 1,
+            title: 'no', dataIndex: 'index', key: 'index', align: 'center',
+            // render: (text, record, index) => (currentFeePage - 1) * 5 + index + 1,
         },
         { title: "이름", key: "pname", dataIndex: "pname", align: 'center' },
         {
@@ -56,8 +56,6 @@ function FeeList(props) {
                             icon: 'warning',
                             message: '성공'
                         })
-                        
-
                         setFeeModalVisible(false);
                         // console.log("------ 변경전 fee 데이터 확인 ------", props.feeTableData);
                         props.fetchFeeTableData();

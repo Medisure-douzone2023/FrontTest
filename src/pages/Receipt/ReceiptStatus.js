@@ -159,7 +159,10 @@ function ReceiptStatus(props) {
         props.fetchReceiptData(props.status);
         
         if(value === "수납대기"){
+          
         props.fetchFeeTableData();
+        }else{
+          console.log("ddd");
         }
         setSuccessDescription(`${record.status}에서 ${value} 상태로 변경되었습니다!`);
         props.resetAllCount();
