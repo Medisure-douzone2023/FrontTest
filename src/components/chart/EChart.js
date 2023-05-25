@@ -13,7 +13,7 @@
 import ReactApexChart from "react-apexcharts";
 import { Row, Col, Typography } from "antd";
 import eChart from "./configs/eChart";
-
+ 
 function EChart() {
   const { Title, Paragraph } = Typography;
 
@@ -45,7 +45,7 @@ function EChart() {
           series={eChart.series}
           type="bar"
           height={220}
-        />
+        /> 
       </div>
       <div className="chart-vistior">
         <Title level={5}>Active Users</Title>

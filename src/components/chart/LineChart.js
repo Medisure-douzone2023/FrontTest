@@ -7,7 +7,7 @@ function LineChart() {
   const { Title, Paragraph } = Typography;
 
   return (
-    <>
+    <> 
       <div className="linechart">
         <div>
           <Title level={5}>Active Users</Title>

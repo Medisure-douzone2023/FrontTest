@@ -60,13 +60,15 @@ function Bill(props) {
       title: '본인부담금액',
       dataIndex: 'fprice',
       key: 'fprice',
-      align: 'center'
+      align: 'center',
+      render: (text) => `${text} 원`
     },
     {
       title: '청구금액',
       dataIndex: 'billprice',
       key: 'billprice',
-      align: 'center'
+      align: 'center',
+      render: (text) => `${text} 원`
     },
     {
       title: '진행상태',
