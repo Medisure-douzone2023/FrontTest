@@ -21,8 +21,8 @@ function ReceiptStatus(props) {
   const [currentReceiptPage, setCurrentReceiptPage] = useState(1);
   const receiptColumn = [
     {
-      title: 'no', dataIndex: '', key: 'index', align: 'center', width: '70px',
-      render: (text, record, index) => (currentReceiptPage - 1) * 5 + index + 1
+      title: 'no', dataIndex: 'index', key: 'index', align: 'center', width: '70px',
+      // render: (text, record, index) => (currentReceiptPage - 1) * 5 + index + 1
     },
     { title: "환자명", dataIndex: "pname", key: "pname", align: 'center' },
     { title: "접수시간", dataIndex: "rdate", key: "rdate", align: 'center' },
@@ -50,8 +50,8 @@ function ReceiptStatus(props) {
     }
   ]
   const allColumn = [
-    { title: 'no', dataIndex: '', key: 'index', align: 'center', width: '70px',
-      render: (text, record, index) => (currentReceiptPage - 1) * 5 + index + 1
+    { title: 'no', dataIndex: 'index', key: 'index', align: 'center', width: '70px',
+      // render: (text, record, index) => (currentReceiptPage - 1) * 5 + index + 1
     },
     { title: "환자명", dataIndex: "pname", key: "pname", align: 'center' },
     { title: "접수시간", dataIndex: "rdate", key: "rdate", align: 'center' },
@@ -77,18 +77,27 @@ function ReceiptStatus(props) {
   ]
   const [changeStatusQuestion, setChangeStatusQuesetion] = useState();
   const onChange = (e) => props.setStatus(e.target.value);
-  useEffect(() => {
-    props.fetchReceiptData(props.status);
-  }, [props.status, currentReceiptPage]);
-  useEffect(() => {
-    props.setReceiptData(props.receiptData);
-  }, [props.receiptData, currentReceiptPage]);
-  useEffect(() => {
-    props.fetchReceiptData();
-  }, [currentReceiptPage])
+  // useEffect(() => {
+  //   props.fetchReceiptData(props.status);
+  // }, [props.status, currentReceiptPage]);
+
+
+  // 넣을 이유가 없음
+  // useEffect(() => {
+  //   props.setReceiptData(props.receiptData);
+  // }, [props.receiptData, currentReceiptPage]);
+  
+
+  // // 페이지 변할 때 마다, fetch >> 이것도 필요없음
+  // useEffect(() => {
+  //   props.fetchReceiptData();
+  // }, [currentReceiptPage])
+
+// 페이지네이션 초기화
   useEffect(() => {
     setCurrentReceiptPage(1);
   }, [props.status])
+
 
   const cancelReceipt = (record) => {
     axios.delete(`/api/receipt/${record.rno}`, {
@@ -190,7 +199,6 @@ function ReceiptStatus(props) {
                 if (dataLength === 0) {
                   changeStatus(value, record);
                 } else {
-                  console.log("왜", dataLength);
                   Swal.fire(
                     '변경할 수 없습니다.',
                     // {successDescription}, 

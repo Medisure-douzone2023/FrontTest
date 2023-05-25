@@ -41,8 +41,8 @@ function PatientSearch(props) {
     /* 환자 테이블 컬럼 */
     const patientcolumn = [
         {
-            title: 'no', dataIndex: '', key: 'index', align: 'center', width: '50px',
-            render: (text, record, index) => (currentPatientPage - 1) * 5 + index + 1
+            title: 'no', dataIndex: 'index', key: 'index', align: 'center', width: '50px',
+            // render: (text, record, index) => (currentPatientPage - 1) * 5 + index + 1
         },
         { title: "환자명", dataIndex: "pname", key: "pname", align: 'center', width: '80px' },
         { title: "나이", key: "age", dataIndex: "age", align: 'center', width: '59px' },
@@ -161,8 +161,9 @@ function PatientSearch(props) {
                 }
             })
             .then((response) => {
-                const modifiedData = response.data.data.map((patient) => ({
+                const modifiedData = response.data.data.map((patient, i) => ({
                     ...patient,
+                    index : i+1,
                     key: patient.pno,
                     gender: patient.gender === "m" ? "남자" : "여자",
                     visit: patient.visit === "y" ? "재진" : "초진"

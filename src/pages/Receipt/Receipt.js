@@ -17,13 +17,11 @@ function Receipt(props) {
   const [feeCount, setFeeCount] = useState(0);
   const [completeCount, setCompleteCount] = useState(0);
   // charts용 데이터 및 디자인
-
   const chartdata = [
-    // { name: '전체', value: totalCount, fill: '#0088FE', },
     { name: '접수', value: receiptCount, fill: '#00C49F', },
     { name: '진료중', value: careCount, fill: '#FFBB28', },
     { name: '수납대기', value: feeCount, fill: '#FF8042', },
-    { name: '완료', value: completeCount, fill: 'green', }
+    { name: '완료', value: completeCount, fill: 'green', },
   ]; 
   const [feeTableData, setFeeTableData] = useState([]);
   const fetchFeeTableData = () => {
@@ -46,14 +44,15 @@ function Receipt(props) {
   useEffect(() => {
     fetchReceiptData();
   }, [status]);
+  
 
   useEffect(() => {
     resetAllCount();
   }, []);
 
-  useEffect(() => {
-    setReceiptData(receiptData);
-  }, [receiptData]);
+  // useEffect(() => {
+  //   setReceiptData(receiptData);
+  // }, [receiptData]);
 
   const resetAllCount = () => {
     fetchTotalCount();
@@ -154,8 +153,11 @@ function Receipt(props) {
       }
     })
       .then((response) => {
-        response.data.data.map((data) => { 
+        response.data.data.map((data, i) => { 
           const date = new Date(data.rdate);
+ 
+           
+          data.index = i+1;
           const localDate = date.toLocaleString().split(".")[3].slice(0, date.toLocaleString().split(".")[3].length - 3);
           data.rdate = localDate;
 
@@ -249,7 +251,8 @@ function Receipt(props) {
     setActiveIndex(index);
   };
 // 데이터가 없을 경우 차트에 안띄우기 위함
-  const filteredData = chartdata.filter((entry) => entry.value !== 0);
+  const filteredData = chartdata.filter((entry) => entry.value !== 0 );
+
   return (
     <>
       <Row gutter={[24, 24]}>
