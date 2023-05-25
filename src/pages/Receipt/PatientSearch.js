@@ -163,6 +163,7 @@ function PatientSearch(props) {
             .then((response) => {
                 const modifiedData = response.data.data.map((patient) => ({
                     ...patient,
+                    key: patient.pno,
                     gender: patient.gender === "m" ? "남자" : "여자",
                     visit: patient.visit === "y" ? "재진" : "초진"
                 }));

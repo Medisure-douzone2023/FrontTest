@@ -146,9 +146,9 @@ function FeeList(props) {
                     <span>처방 가격</span>
                     {feeTreat.map((a, i) => (
                         <>
-                            <Descriptions.Item>{a.tcode}</Descriptions.Item>
-                            <Descriptions.Item>{a.tname}</Descriptions.Item>
-                            <Descriptions.Item>{a.tprice}</Descriptions.Item>
+                            <Descriptions.Item key={i} >{a.tcode}</Descriptions.Item>
+                            <Descriptions.Item key={i} >{a.tname}</Descriptions.Item>
+                            <Descriptions.Item key={i} >{a.tprice.toLocaleString()}</Descriptions.Item>
                         </>
                     ))}
                 </Descriptions>
