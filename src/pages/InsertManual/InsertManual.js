@@ -130,7 +130,7 @@ function InsertManual(props) {
             visit: formatVisited(item.visit),
             fprice: item.fprice.toLocaleString(),
             totalprice: item.totalprice.toLocaleString(),
-          }));
+          })); 
           setDataSource(result);
         }
       })
