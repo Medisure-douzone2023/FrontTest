@@ -57,13 +57,15 @@ function InsertManual(props) {
       title: '본인부담금',
       dataIndex: 'fprice',
       key: 'fprice',
-      align: 'center'
+      align: 'center',
+      render: (text) => `${text} 원`
     },
     {
       title: '청구금액',
       dataIndex: 'totalprice',
       key: 'totalprice',
-      align: 'center'
+      align: 'center',
+      render: (text) => `${text} 원`
     },
     {
       title: '초진여부',

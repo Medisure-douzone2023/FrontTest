@@ -8,6 +8,7 @@ import FeeList from './FeeList';
 import { PieChart, Pie, Sector, Cell, Legend } from 'recharts';
 const COLORS = ['#00C49F', '#FFBB28', '#FF8042', 'green'];
 function Receipt(props) {
+ 
   let token = props.token;
 
   const [totalCount, setTotalCount] = useState(0);
@@ -170,6 +171,7 @@ function Receipt(props) {
         console.log(error);
       });
   };
+
 
   const renderActiveShape = (props) => {
     const RADIAN = Math.PI / 180;

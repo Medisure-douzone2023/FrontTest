@@ -14,3 +14,7 @@
     padding-left: 30px;
     text-align: center;
 }
+.insertManualTable .ant-table-thead .ant-table-cell{
+  background-color: #5996F8;
+  color: white;
+}

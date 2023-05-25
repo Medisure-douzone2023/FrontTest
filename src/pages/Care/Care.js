@@ -1,11 +1,14 @@
-import { Row, Col, Card, Table, Button } from "antd";
-import React, { useState, useEffect } from "react";
+import { Row, Col, Card, Table, Button,notification   } from "antd";
+import React, { useState, useEffect, useRef, useCallback } from "react";
 import PatientList from "./PatientList";
 import CareNote from "./CareNote";
 import axios from "axios";
 import PatientInfo from "./PatientInfo";
 import "../../assets/styles/Care.css";
 import Modal from "antd/lib/modal/Modal";
+import SockJS from 'sockjs-client';
+import Stomp from 'stompjs';
+
 const Swal = require('sweetalert2');
 function Care(props) {
   const [pno, setPno] = useState(0);
@@ -139,7 +142,43 @@ function Care(props) {
     fetchPatientInfo(pno);
     fetchCarePatient();
   }, [pno]);
+  
+//ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
 
+useEffect(() => {
+  connectWebSocket(); // Call the WebSocket connection function once when the component mounts
+}, []);
+
+const openNotification = (e) => {
+  console.log(e)
+  notification.open({
+    message: '환자 상태 변경 알림',
+    description:e,
+    onClick: () => {
+      console.log('Notification Clicked!');
+    },
+  });
+};
+const connectWebSocket = () => {
+  const socket = new SockJS("/websocket");
+  const stompClient = Stomp.over(socket);
+
+  stompClient.connect({}, () => {
+    console.log("Connected to WebSocket");
+    console.log("시간 : ", new Date());
+
+    stompClient.subscribe("/topic/greetings", (result) => {
+      console.log("greet", result);
+      console.log("시간 : ", new Date());
+      console.log("greeting.body", result.body);
+      console.log("fin");
+      openNotification(result.body);
+      // Handle message processing logic...
+    });
+  });
+};
+
+    
   return (
       <Card className="care">
         <Modal
@@ -201,6 +240,9 @@ function Care(props) {
             <PatientInfo patient={patient} token={token} />
           </Col>
         </Row>
+        {/* <p> {notifications.map((notification, index) => (
+          <li key={index}>{notification}</li>
+        ))}</p> */}
       </Card>
   );
 }

@@ -5,6 +5,9 @@ import '../../assets/styles/Receipt.css';
 import TextArea from 'antd/lib/input/TextArea';
 import DaumPostcode from 'react-daum-postcode';
 import Swal from 'sweetalert2'
+import SockJS from 'sockjs-client';
+import Stomp from 'stompjs';
+
 const { Option } = Select;
 function PatientSearch(props) {
     const [pname, setPname] = useState([]);
@@ -121,6 +124,7 @@ function PatientSearch(props) {
         })
             .then((response) => {
                 //  console.log("insertresponse", response)
+
                 Swal.fire({
                     title: '접수 완료 되었습니다.',
                     icon: 'warning',
@@ -312,6 +316,23 @@ function PatientSearch(props) {
         },
     };
 
+    const connectWebSocket = (pname) => {
+        const socket = new SockJS('/websocket');
+        const stompClient = Stomp.over(socket);
+      
+        stompClient.connect({}, () => {
+          console.log('Connected to WebSocket');
+      
+          const message = pname; // 보낼 메시지
+          stompClient.send('/app/sendMessage', {}, message);
+          console.log('Message sent: ' + message);
+      
+         // stompClient.disconnect();
+          console.log('Disconnected from WebSocket');
+        });
+      };
+      
+      
     return (
         <>
             <Space>
