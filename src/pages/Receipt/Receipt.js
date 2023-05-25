@@ -250,6 +250,7 @@ function Receipt(props) {
   };
 // 데이터가 없을 경우 차트에 안띄우기 위함
   const filteredData = chartdata.filter((entry) => entry.value !== 0);
+  console.log("filteredData",filteredData)
   return (
     <>
       <Row gutter={[24, 24]}>
@@ -264,7 +265,7 @@ function Receipt(props) {
         </Col>
         <Col xs={8} sm={8} md={6} lg={4} xl={8}>
           <Card className='chartcard' title="현황" headStyle={{ fontWeight: 'bold', fontSize: 21, }}>
-            <PieChart width={550} height={570}>          // 차트 위치 이동
+            <PieChart width={550} height={570}>          
               <Pie
                 activeIndex={activeIndex}
                 activeShape={renderActiveShape}
