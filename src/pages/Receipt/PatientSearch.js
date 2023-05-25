@@ -40,24 +40,21 @@ function PatientSearch(props) {
     const [currentPatientPage, setCurrentPatientPage] = useState(1);
     /* 환자 테이블 컬럼 */
     const patientcolumn = [
-        {
-            title: 'no', dataIndex: 'index', key: 'index', align: 'center', width: '50px',
-            // render: (text, record, index) => (currentPatientPage - 1) * 5 + index + 1
+        { title: 'no', dataIndex: 'index', key: 'index', align: 'center', width: '50px',
+        // render: (text, record, index) => (currentPatientPage - 1) * 5 + index + 1
         },
         { title: "환자명", dataIndex: "pname", key: "pname", align: 'center', width: '80px' },
         { title: "나이", key: "age", dataIndex: "age", align: 'center', width: '59px' },
-        {
-            title: "주민등록번호", key: "birthdate", dataIndex: "birthdate", align: 'center', width: '139px',
-            render: (text) => (<span title={text}>{text.length > 8 ? `${text.substring(0, 8)}******` : text}</span>)
+        { title: "주민등록번호", key: "birthdate", dataIndex: "birthdate", align: 'center', width: '139px',
+          render: (text) => (<span title={text}>{text.length > 8 ? `${text.substring(0, 8)}******` : text}</span>)
         },
-        {
-            title: "연락처", key: "contact", dataIndex: "contact", align: 'center', width: '139px',
-            render: (text) => {
+        { title: "연락처", key: "contact", dataIndex: "contact", align: 'center', width: '139px',
+          render: (text) => {
                 const visibleDigits = text.substring(0, 4);
                 const hiddenDigits = text.substring(4, 8).replace(/\d/g, '*');
                 const lastDigits = text.substring(8);
                 return <span title={text}>{`${visibleDigits}${hiddenDigits}${lastDigits}`}</span>;
-            }
+          }
         },
         { title: "성별", key: "gender", dataIndex: "gender", align: 'center', width: '61px' },
         { title: "주소", key: "address", dataIndex: "address", ellipsis: true, align: 'center', width: 'auto' },
@@ -70,7 +67,6 @@ function PatientSearch(props) {
     ];
     const fetchVisitData = () => {
         // console.log("패치방문함수 바로 처음에서, selectedPateintRow.pno: ", selectedPatientRow.pno);
-
         return Swal.fire({
             title: '접수하시겠습니까?',         // `${changeStatusQuestion}`,
             text: " ",
@@ -124,7 +120,6 @@ function PatientSearch(props) {
         })
             .then((response) => {
                 //  console.log("insertresponse", response)
-
                 Swal.fire({
                     title: '접수 완료 되었습니다.',
                     icon: 'warning',
@@ -136,7 +131,6 @@ function PatientSearch(props) {
                 setConditionModalVisible(false);
                 props.fetchFeeTableData(props.status);
             })
-
             .catch((error) => {
                 console.error("insertReceipt error: ", error);
             });
