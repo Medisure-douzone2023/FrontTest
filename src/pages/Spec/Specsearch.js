@@ -110,6 +110,8 @@ function Specsearch(props) {
     const fetchSpecificationData = async () => {
       try {
         const data = await specificationData();
+        console.log("ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ")
+        console.log("data",data)
         const specificaiondata = data.data.map((item, i) => ({
           key: i,
           bno: item.bno,
@@ -190,6 +192,7 @@ function Specsearch(props) {
       const fetchSpecificationData = async () => {
         try {
           const data = await specificationData();
+          console.log("data",data)
           const specificaiondata = data.data.map((item, i) => ({
             key: i,
             bno: item.bno,

@@ -314,23 +314,6 @@ function PatientSearch(props) {
             span: 16,
         },
     };
-
-    // const connectWebSocket = (pname) => {
-    //     const socket = new SockJS('/websocket');
-    //     const stompClient = Stomp.over(socket);
-      
-    //     stompClient.connect({}, () => {
-    //       console.log('Connected to WebSocket');
-      
-    //       const message = pname; // 보낼 메시지
-    //       stompClient.send('/app/sendMessage', {}, message);
-    //       console.log('Message sent: ' + message);
-      
-    //      // stompClient.disconnect();
-    //       console.log('Disconnected from WebSocket');
-    //     });
-    //   };
-      
       
     return (
         <>
