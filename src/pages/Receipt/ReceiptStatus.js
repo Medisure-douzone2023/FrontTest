@@ -6,10 +6,6 @@ import Swal from 'sweetalert2'
 const { Option } = Select;
 
 function ReceiptStatus(props) {
-  
-
-
-
   // 드롭다운 스타일
   const dropdownStyle = {
     borderRadius: '10px',
@@ -22,7 +18,6 @@ function ReceiptStatus(props) {
   const [errorDescription, setErrorDescription] = useState();
   // success 문구 state
   const [successDescription, setSuccessDescription] = useState();
-  const [caring, setCaring] = useState();
   const [currentReceiptPage, setCurrentReceiptPage] = useState(1);
   const receiptColumn = [
     {
@@ -182,7 +177,7 @@ function ReceiptStatus(props) {
       text: " ",
       icon: 'warning',
       showCancelButton: true,
-      confirmButtonColor: '#3085d6',
+      confirmButtonColor: '#3085d6', 
       cancelButtonColor: '#d33',
       confirmButtonText: '확인',
       cancelButtonText: '취소'

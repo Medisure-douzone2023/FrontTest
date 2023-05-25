@@ -5,8 +5,8 @@ import '../../assets/styles/Receipt.css';
 import ReceiptStatus from './ReceiptStatus';
 import PatientSearch from './PatientSearch';
 import FeeList from './FeeList';
-import { Line, PieChart, Pie, Sector, Cell, ResponsiveContainer, RadialBarChart, RadialBar, Legend } from 'recharts';
-const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042', 'green'];
+import { PieChart, Pie, Sector, Cell, Legend } from 'recharts';
+const COLORS = ['#00C49F', '#FFBB28', '#FF8042', 'green'];
 function Receipt(props) {
   let token = props.token;
 
@@ -18,12 +18,12 @@ function Receipt(props) {
   // charts용 데이터 및 디자인
 
   const chartdata = [
-    { name: '전체', value: totalCount, fill: '#0088FE', },
+    // { name: '전체', value: totalCount, fill: '#0088FE', },
     { name: '접수', value: receiptCount, fill: '#00C49F', },
     { name: '진료중', value: careCount, fill: '#FFBB28', },
     { name: '수납대기', value: feeCount, fill: '#FF8042', },
     { name: '완료', value: completeCount, fill: 'green', }
-  ];
+  ]; 
   const [feeTableData, setFeeTableData] = useState([]);
   const fetchFeeTableData = () => {
     axios.get('/api/fee/list', {
@@ -153,7 +153,7 @@ function Receipt(props) {
       }
     })
       .then((response) => {
-        response.data.data.map((data) => {
+        response.data.data.map((data) => { 
           const date = new Date(data.rdate);
           const localDate = date.toLocaleString().split(".")[3].slice(0, date.toLocaleString().split(".")[3].length - 3);
           data.rdate = localDate;
@@ -180,18 +180,17 @@ function Receipt(props) {
     const cos = Math.cos(-RADIAN * midAngle);
     const sx = cx + (outerRadius + 10) * cos;  // 차트 더듬이 길이
     const sy = cy + (outerRadius + 10) * sin;  // 차트 더듬이 길이
-    const mx = cx + (outerRadius + 40) * cos;  // 차트 더듬이 길이
-    const my = cy + (outerRadius + 40) * sin;  // 차트 더듬이 길이  
+    const mx = cx + (outerRadius + 21) * cos;  // 차트 더듬이 길이
+    const my = cy + (outerRadius + 21) * sin;  // 차트 더듬이 길이  
     const ex = mx + (cos >= 0 ? 1 : -1) * 22;
     const ey = my;
     const textAnchor = cos >= 0 ? 'start' : 'end';
-    console.log("본캐 좌표", cx,+" "+ cy);
     return (
       <g>
         
         {/* 차트 중간에 제목 데이터 출력 코드 */}
-        <text x={cx} y={cy} dy={8} textAnchor="middle" fill={fill} fontSize={24} >
-          {payload.name} ({value}건)
+        <text x={cx} y={cy} dy={8} textAnchor="middle"  fontSize={24} >
+          전체 ({totalCount}건)
         </text>
         <Sector
           cx={cx}
@@ -216,12 +215,12 @@ function Receipt(props) {
         <path d={`M${sx},${sy}L${mx},${my}L${ex},${ey}`} stroke={fill} fill="none" />
 
         {/* 작은 구슬 */}
-        <circle cx={ex} cy={ey} r={6} fill={fill} stroke="none" />
+        <circle cx={ex} cy={ey} r={6} fill={fill} stroke="none" /> 
 
         {/* 위에 짝대기 해서 뜨는 글자 (마우스 오버했을때) */}
         <text x={ex + (cos >= 0 ? 1 : -1) * 12} y={ey} fontWeight="bolder" fontSize={24} textAnchor={textAnchor} fill="#333">{`${value}건`}</text>
         {/* 회색 작은 퍼센트 글자 */}
-        <text x={ex + (cos >= 0 ? 1 : -1) * 12} y={ey} dx={-20} dy={17} fontSize={14} textAnchor={textAnchor} fill="#999">
+        <text x={ex + (cos >= 0 ? 1 : -1) * 12} y={ey} dx={30} dy={22} fontSize={14} textAnchor={textAnchor} fill="#999">
           {`(비율: ${(percent * 100).toFixed(1)}%)`}
         </text>
       </g>
@@ -231,7 +230,6 @@ function Receipt(props) {
 
   const renderCustomizedLabel = ({ cx, cy, startAngle, endAngle, innerRadius, outerRadius, percent, index }) => {
     const RADIAN = Math.PI / 180;
-    console.log("label:", cx,+" "+ cy);
     const midAngle = (startAngle + endAngle) / 2;
 
     const radius = innerRadius + (outerRadius - innerRadius) * 0.5;        // 숫자 안으로 모이게 할 수 있음 원을 중심으로.
@@ -250,7 +248,6 @@ function Receipt(props) {
   };
 // 데이터가 없을 경우 차트에 안띄우기 위함
   const filteredData = chartdata.filter((entry) => entry.value !== 0);
-  console.log("filteredData", filteredData);
   return (
     <>
       <Row gutter={[24, 24]}>
@@ -272,8 +269,8 @@ function Receipt(props) {
                 data={filteredData}// 보여주고 싶은 데이터 넣기
                 cx="40%"           // 화면상 x 좌표
                 cy="40%"           // 화면상 y 좌표
-                innerRadius={70}  // 크기 조정 안쪽원
-                outerRadius={150}  // 크기 조정 바깥원
+                innerRadius={60}  // 크기 조정 안쪽원
+                outerRadius={130}  // 크기 조정 바깥원
                 fill="#5996F8"     // 색상
                 dataKey="value"
                 onMouseEnter={onPieEnter} // 마우스 올렸을 때 responsive
